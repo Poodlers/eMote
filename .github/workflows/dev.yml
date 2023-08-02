@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: parlamento-dev
+  IMAGE_NAME: emote-dev
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
 jobs:
