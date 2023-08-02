@@ -1,0 +1,24 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0.305-alpine3.18
+
+ENV PATH="${PATH}:/root/.dotnet/tools"
+
+WORKDIR /usr/src/app
+
+RUN dotnet --info
+
+RUN dotnet tool install --global dotnet-ef
+
+# Copy csproj and restore as distinct layers
+COPY src/backend.csproj src/backend.csproj
+
+RUN dotnet restore src
+
+RUN dotnet dev-certs https --trust
+
+COPY src src
+
+WORKDIR /usr/src/app/src
+
+RUN touch db.sqlite
+
+CMD [ "dotnet", "ef", "database", "update","--runtime", "linux-x64"]

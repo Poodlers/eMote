@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0.305-alpine3.18
+
+WORKDIR /usr/src/app
+
+RUN dotnet --info
+
+COPY backend.sln .
+
+# Copy csproj and restore as distinct layers
+COPY test/test.csproj ./test/test.csproj
+COPY integration-tests/integration-tests.csproj ./integration-tests/integration-tests.csproj
+COPY src/backend.csproj ./src/backend.csproj
+
+RUN dotnet restore
+
+COPY src src
+COPY test test
+COPY integration-tests integration-tests
+
+CMD [ "dotnet", "test", "--no-restore", "--verbosity", "normal" ]

@@ -1,0 +1,158 @@
+# flyctl launch added from src\.gitignore
+###################
+# compiled source #
+###################
+src\**\*.com
+src\**\*.class
+src\**\*.dll
+src\**\*.exe
+src\**\*.pdb
+src\**\*.dll.config
+src\**\*.cache
+src\**\*.suo
+# Include dlls if they’re in the NuGet packages directory
+!src\packages\*\lib\*.dll
+!src\packages\*\lib\*\*.dll
+# Include dlls if they're in the CommonReferences directory
+!src\**\*CommonReferences\*.dll
+####################
+# VS Upgrade stuff #
+####################
+src\**\UpgradeLog.XML
+src\**\_UpgradeReport_Files
+###############
+# Directories #
+###############
+src\**\bin
+src\**\obj
+src\**\TestResults
+###################
+# Web publish log #
+###################
+src\**\*.Publish.xml
+#############
+# Resharper #
+#############
+src\_ReSharper.*
+src\**\*.ReSharper.*
+############
+# Packages #
+############
+# it’s better to unpack these files and commit the raw source
+# git has its own built in compression methods
+src\**\*.7z
+src\**\*.dmg
+src\**\*.gz
+src\**\*.iso
+src\**\*.jar
+src\**\*.rar
+src\**\*.tar
+src\**\*.zip
+######################
+# Logs and databases #
+######################
+src\**\*.log
+src\**\*.sqlite*
+# OS generated files #
+######################
+src\**\.DS_Store?
+src\**\ehthumbs.db
+src\**\Icon?
+src\**\Thumbs.db
+src\**\[Bb]in
+src\**\[Oo]bj
+src\**\[Tt]est[Rr]esults
+src\**\*.suo
+src\**\*.user
+src\**\*.[Cc]ache
+src\**\*[Rr]esharper*
+src\**\packages
+src\**\NuGet.exe
+src\**\_[Ss]cripts
+src\**\*.exe
+src\**\*.dll
+src\**\*.nupkg
+src\**\*.ncrunchsolution
+src\**\*.dot[Cc]over
+######################
+# App local settings #
+######################
+src\**\appsettings.local.json
+
+# flyctl launch added from test\.gitignore
+###################
+# compiled source #
+###################
+test\**\*.com
+test\**\*.class
+test\**\*.dll
+test\**\*.exe
+test\**\*.pdb
+test\**\*.dll.config
+test\**\*.cache
+test\**\*.suo
+# Include dlls if they’re in the NuGet packages directory
+!test\packages\*\lib\*.dll
+!test\packages\*\lib\*\*.dll
+# Include dlls if they're in the CommonReferences directory
+!test\**\*CommonReferences\*.dll
+####################
+# VS Upgrade stuff #
+####################
+test\**\UpgradeLog.XML
+test\**\_UpgradeReport_Files
+###############
+# Directories #
+###############
+test\**\bin
+test\**\obj
+test\**\TestResults
+###################
+# Web publish log #
+###################
+test\**\*.Publish.xml
+#############
+# Resharper #
+#############
+test\_ReSharper.*
+test\**\*.ReSharper.*
+############
+# Packages #
+############
+# it’s better to unpack these files and commit the raw source
+# git has its own built in compression methods
+test\**\*.7z
+test\**\*.dmg
+test\**\*.gz
+test\**\*.iso
+test\**\*.jar
+test\**\*.rar
+test\**\*.tar
+test\**\*.zip
+######################
+# Logs and databases #
+######################
+test\**\*.log
+test\**\*.sqlite
+# OS generated files #
+######################
+test\**\.DS_Store?
+test\**\ehthumbs.db
+test\**\Icon?
+test\**\Thumbs.db
+test\**\[Bb]in
+test\**\[Oo]bj
+test\**\[Tt]est[Rr]esults
+test\**\*.suo
+test\**\*.user
+test\**\*.[Cc]ache
+test\**\*[Rr]esharper*
+test\**\packages
+test\**\NuGet.exe
+test\**\_[Ss]cripts
+test\**\*.exe
+test\**\*.dll
+test\**\*.nupkg
+test\**\*.ncrunchsolution
+test\**\*.dot[Cc]over
+fly.toml
