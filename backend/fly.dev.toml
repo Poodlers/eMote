@@ -22,9 +22,8 @@ processes = []
     type = "connections"
 
   [[services.ports]]
-    force_https = false
-    handlers = ["http"]
-    port = 80
+    port = 443
+    handlers = ["http","tls"]
 
   [[services.tcp_checks]]
     grace_period = "10s"

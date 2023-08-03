@@ -48,7 +48,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(x => { x.SwaggerEndpoint("/swagger/v1/swagger.yaml", "Swagger API"); });
 }
 
-// app.UseHttpsRedirection();
 
 app.UseCors(builder =>
       {
@@ -61,7 +60,6 @@ app.UseCors(builder =>
       }
 );
 
-app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
