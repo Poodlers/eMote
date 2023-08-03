@@ -10,7 +10,7 @@ kill_timeout = "5s"
 
 [env]
   ASPNETCORE_ENVIRONMENT = "Development"
-  ASPNETCORE_Kestrel__Certificates__Default__Path = "./https/backend.pfx"
+  ASPNETCORE_Kestrel__Certificates__Default__Path = "backend.pfx"
   ASPNETCORE_Kestrel__Certificates__Default__Password = "crypticpassword"
 
 [experimental]
@@ -24,8 +24,8 @@ kill_timeout = "5s"
   processes = ["app"]
 
   [[services.ports]]
-    port = 80
-    handlers = ["http"]
+    port = 443
+    handlers = ["http","tls"]
   [services.concurrency]
     type = "connections"
     hard_limit = 25
