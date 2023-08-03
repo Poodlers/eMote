@@ -11,6 +11,14 @@ builder.Services.AddDbContext<DatabaseContext>();
 // Add services to the container.
 builder.Services.AddControllers();
 
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ConfigureEndpointDefaults(listenOptions =>
+    {
+        listenOptions.UseHttps("../https/backend.pfx", "crypticpassword");
+    });
+});
+
 // Add FluentValidation
 // Scans the Assembly, find all the abstract validators and add them for us
 builder.Services.AddValidatorsFromAssemblyContaining<IAssemblyMarker>();
