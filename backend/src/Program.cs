@@ -15,7 +15,7 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.ConfigureEndpointDefaults(listenOptions =>
     {
-        listenOptions.UseHttps("../https/backend.pfx", "crypticpassword");
+        listenOptions.UseHttps();
     });
 });
 
