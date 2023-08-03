@@ -8,6 +8,11 @@ primary_region = "mad"
 kill_signal = "SIGINT"
 kill_timeout = "5s"
 
+[env]
+  ASPNETCORE_ENVIRONMENT = "Development"
+  ASPNETCORE_Kestrel__Certificates__Default__Path = "./https/backend.pfx"
+  ASPNETCORE_Kestrel__Certificates__Default__Password = "crypticpassword"
+
 [experimental]
   auto_rollback = true
 

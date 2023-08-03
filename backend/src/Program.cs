@@ -53,6 +53,7 @@ app.UseCors(builder =>
       }
 );
 
+app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
 app.UseEndpoints(endpoints =>
