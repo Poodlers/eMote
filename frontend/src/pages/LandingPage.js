@@ -1,8 +1,9 @@
 import React from 'react';
 import Modules from '../widgets/Modules.js';
 import { Box, Typography } from '@mui/material';
-import { LogoAppBar } from '../AppBar.js';
+import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import Diaries from '../widgets/Diaries.js';
+import { NavBar } from '../NavBar.js';
 
 function LandingPage() {
   return (
@@ -15,6 +16,7 @@ function LandingPage() {
             <Diaries/>
           </Box>
         </Box>
+        <NavBar/>
       </div>
   );
 }

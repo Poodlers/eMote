@@ -17,6 +17,7 @@ const colorCards = {
 
 export default function ModuleCard(props) {
   return (
+    <Button disableRipple={true} sx = {{textTransform:'none', textAlign:'start'}}>
     <Card sx={{ height:120, minWidth: 150, bgcolor: colorCards[props.index][0] }}>
       <CardContent>
         <Typography sx={{ fontSize: 11 }} color={colorCards[props.index][1]} >
@@ -33,5 +34,6 @@ export default function ModuleCard(props) {
       <CardActions>
       </CardActions>
     </Card>
+    </Button>
   );
 }

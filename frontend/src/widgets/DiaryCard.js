@@ -20,9 +20,9 @@ export default function DiaryCard(props) {
     var thisColor = props.name == 'Emoções' ? colorCards[1] : colorCards[2]
   return (
     <Box sx ={{p:2}}>
-        <Grid container sx={{ p: 0.5 }} direction="row" justifyContent="center">
+        <Button disableRipple={true}>
             <img src={props.name == 'Emoções' ? Emocoes : Refeicoes} height={120}/>
-        </Grid>
+        </Button>
         <Typography sx={{ pt:1, textAlign: 'center', fontSize: 13, fontWeight: 'bold' }} variant='body1' color={thisColor}>
             Diário das {props.name}
         </Typography>
