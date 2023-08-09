@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Box } from '@mui/material'
+import { Grid, Box, Link } from '@mui/material'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -20,9 +20,11 @@ export default function DiaryCard(props) {
     var thisColor = props.name == 'Emoções' ? colorCards[1] : colorCards[2]
   return (
     <Box sx ={{p:2}}>
-        <Button disableRipple={true}>
-            <img src={props.name == 'Emoções' ? Emocoes : Refeicoes} height={120}/>
-        </Button>
+        <Link href="#">
+            <Grid container sx={{ p: 0.5 }} direction="row" justifyContent="center">
+                <img src={props.name == 'Emoções' ? Emocoes : Refeicoes} height={120}/>
+            </Grid>
+        </Link>
         <Typography sx={{ pt:1, textAlign: 'center', fontSize: 13, fontWeight: 'bold' }} variant='body1' color={thisColor}>
             Diário das {props.name}
         </Typography>

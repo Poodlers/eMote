@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, colors } from '@mui/material'
+import { Grid, Link, colors } from '@mui/material'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -17,7 +17,7 @@ const colorCards = {
 
 export default function ModuleCard(props) {
   return (
-    <Button disableRipple={true} sx = {{textTransform:'none', textAlign:'start'}}>
+    <Link href="#" underline="none">
     <Card sx={{ height:120, minWidth: 150, bgcolor: colorCards[props.index][0] }}>
       <CardContent>
         <Typography sx={{ fontSize: 11 }} color={colorCards[props.index][1]} >
@@ -34,6 +34,6 @@ export default function ModuleCard(props) {
       <CardActions>
       </CardActions>
     </Card>
-    </Button>
+    </Link>
   );
 }

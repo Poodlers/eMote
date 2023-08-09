@@ -5,15 +5,13 @@ import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import Diaries from '../widgets/Diaries.js';
 import { NavBar } from '../widgets/NavBar.js';
 
-function LandingPage() {
+function FavoritesPage() {
   return (
         <>
         <LogoAppBar/>
         <Box sx={{mt:'60px'}}>
           <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5 }} variant="h4" align='center' color="text.primary">Bem-vinda à eMOTE!</Typography>
           <Box sx={{p:2}}>
-            <Modules/>
-            <Diaries/>
           </Box>
         </Box>
         <NavBar/>
@@ -21,4 +19,4 @@ function LandingPage() {
   );
 }
 
-export default LandingPage;
+export default FavoritesPage;
