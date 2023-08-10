@@ -7,6 +7,7 @@ import LandingPage from './view/pages/LandingPage.js';
 import FavoritesPage from './view/pages/FavoritesPage.js';
 import ProgressPage from './view/pages/ProgressPage.js';
 import ProfilePage from './view/pages/ProfilePage.js';
+import SocialMediaPage from './view/pages/SocialMediaPage.js';
 
 const theme = myTheme;
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/favorites' element={< FavoritesPage/>} />
         <Route path='/progress' element={< ProgressPage/>} />
         <Route path='/profile' element={< ProfilePage/>} />
+        <Route path='/socialmedia' element={< SocialMediaPage/>} />
       </Routes>
     </ThemeProvider>
   );

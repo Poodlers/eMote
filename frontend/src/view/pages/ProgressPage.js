@@ -15,7 +15,7 @@ function ProgressPage() {
         <>
         <LogoAppBar/>
         <Box sx={{mt:'60px', mb:'70px'}}>
-            <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5, mt:'70px' }} variant="h4" align='center' color="text.secondary">
+            <Typography sx={{ fontWeight: 'bold', fontSize: 28, pt:2, mt:'70px' }} variant="h4" align='center' color="text.secondary">
               O Meu Progresso
             </Typography>
             <EpisodesChart/>

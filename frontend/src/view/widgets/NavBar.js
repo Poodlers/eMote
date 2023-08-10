@@ -13,10 +13,6 @@ const [value, setValue] = React.useState(0);
 
   return (
     <BottomNavigation
-        value={value}
-        onChange={(event, newValue) => {
-            setValue(newValue);
-        }}
         sx={{ left: 0, bottom:0, position: 'fixed', width: '100%', bgcolor: "#077088" }}
     >
         <Toolbar>

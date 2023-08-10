@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Link, Typography, makeStyles } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   root: {
@@ -36,7 +37,7 @@ function ProfilePage() {
                 Consultas de Psicologia
               </Typography>
             </Link>
-            <Link href="#" underline="none">
+            <Link href="/socialmedia" underline="none">
               <Typography className={classes.root} color="text.secondary" >
                 Siga-nos nas redes sociais
               </Typography>
