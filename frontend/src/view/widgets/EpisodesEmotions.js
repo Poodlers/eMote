@@ -66,11 +66,11 @@ function EpisodesEmotions() {
                 Sentimentos associados aos episódios de ingestão alimentar compulsiva
             </Typography>
             <ImageList
-            sx={{
-                gridAutoFlow: "column",
-                gridTemplateColumns: "repeat(auto-fill,minmax(90px,1fr)) !important",
-                gridAutoColumns: "minmax(90px, 1fr)"
-            }}
+                sx={{
+                    gridAutoFlow: "column",
+                    gridTemplateColumns: "repeat(auto-fill,minmax(90px,1fr)) !important",
+                    gridAutoColumns: "minmax(90px, 1fr)"
+                }}
             >
                 {mockList.map(function(data) {
                     return (

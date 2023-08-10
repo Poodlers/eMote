@@ -7,13 +7,9 @@ import Emocoes from '../../assets/images/diario_icon.png';
 import Refeicoes from '../../assets/images/refeicoes_icon.png';
 
 
-const colorCards = {
-    1: '#d8accc',
-    2: '#349cb6',
-}
+const colorCards = ['#349cb6', '#d8accc']
 
 export default function DiaryCard(props) {
-    var thisColor = props.name == 'Emoções' ? colorCards[1] : colorCards[2]
   return (
     <Box sx ={{p:2}}>
         <Link href="#">
@@ -21,11 +17,11 @@ export default function DiaryCard(props) {
                 <img src={props.name == 'Emoções' ? Emocoes : Refeicoes} height={120}/>
             </Grid>
         </Link>
-        <Typography sx={{ pt:1, textAlign: 'center', fontSize: 13, fontWeight: 'bold' }} variant='body1' color={thisColor}>
+        <Typography sx={{ pt:1, textAlign: 'center', fontSize: 13, fontWeight: 'bold' }} variant='body1' color={colorCards[props.index]}>
             Diário das {props.name}
         </Typography>
         <Grid container sx={{ p: 0.5 }} direction="row" justifyContent="center">
-            {props.blocked ? <Lock htmlColor = {thisColor}/> : <LockOpen htmlColor = {thisColor}/>}
+            {props.blocked ? <Lock htmlColor = {colorCards[props.index]}/> : <LockOpen htmlColor = {colorCards[props.index]}/>}
         </Grid>
     </Box>
   );

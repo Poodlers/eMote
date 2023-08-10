@@ -7,12 +7,12 @@ import Typography from '@mui/material/Typography';
 import Lock from '@mui/icons-material/Lock';
 import LockOpen from '@mui/icons-material/LockOpen';
 
-const colorCards = {
-    1: [colors.deepOrange[100], colors.deepOrange[500]],
-    2: [colors.indigo[100], colors.indigo[500]],
-    3: [colors.deepPurple[100], colors.deepPurple[500]],
-    4: [colors.cyan[100], colors.cyan[500]],
-}
+const colorCards = [
+    [colors.deepOrange[100], colors.deepOrange[500]],
+    [colors.indigo[100], colors.indigo[500]],
+    [colors.deepPurple[100], colors.deepPurple[500]],
+    [colors.cyan[100], colors.cyan[500]],
+]
 
 export default function ModuleCard(props) {
   return (
