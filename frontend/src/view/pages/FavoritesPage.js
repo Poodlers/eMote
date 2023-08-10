@@ -1,16 +1,14 @@
 import React from 'react';
-import Modules from '../widgets/Modules.js';
 import { Box, Grid, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
-import Diaries from '../widgets/Diaries.js';
 import { NavBar } from '../widgets/NavBar.js';
 
-import Titulo from '../images/titulo_favoritos.png';
+import Titulo from '../../assets/images/titulo_favoritos.png';
 
 
 function FavoritesPage() {
 
-    var mockList = [
+    const mockList = [
         "Tolerancia a estados emocionais dolorosos",
         "Tolerancia a estados emocionais dolorosos",
         "Tolerancia a estados emocionais dolorosos"
@@ -19,18 +17,18 @@ function FavoritesPage() {
   return (
         <>
         <LogoAppBar/>
-        <Box sx={{mt:'60px'}}>
-            <Grid container sx={{ p: 6 }} direction="row" justifyContent="center">
+        <Box sx={{mt:'60px', mb:'70px'}}>
+            <Grid container sx={{ pt:5, pb:4 }} direction="row" justifyContent="center">
                 <img src={Titulo} height={32}/>
             </Grid>
-        </Box>
-        {mockList.map(function(data) {
+            {mockList.map(function(data) {
             return (
-                <Typography color="primary" sx = {{fontWeight: "bold", p:1}} >
+                <Typography color="primary" sx = {{fontWeight: "bold", p:0.5, ml: '10px'}} >
                     {data}
                 </Typography>
             )
-        })}
+            })}
+        </Box>
         <NavBar/>
         </>
   );

@@ -2,15 +2,15 @@ import { createTheme, colors } from '@mui/material'
 
 const myTheme = createTheme({
     palette: {
-        common: {
-            white: '#fff'
-        },
         primary: {
             main: '#077088',
         },
+        secondary: {
+            main: '#f28db2',
+        },
         text: {
             primary: '#077088',
-            secondary: '#83e0e4',
+            secondary: '#75c1d7',
         }
     }
 })

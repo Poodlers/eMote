@@ -9,8 +9,8 @@ function LandingPage() {
   return (
         <>
         <LogoAppBar/>
-        <Box sx={{mt:'60px'}}>
-          <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5 }} variant="h4" align='center' color="text.primary">Bem-vinda à eMOTE!</Typography>
+        <Box sx={{mt:'60px', mb:'70px'}}>
+          <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5, mt:'70px' }} variant="h4" align='center' color="text.primary">Bem-vinda à eMOTE!</Typography>
           <Box sx={{p:2}}>
             <Modules/>
             <Diaries/>

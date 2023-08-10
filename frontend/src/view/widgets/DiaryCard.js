@@ -1,14 +1,10 @@
 import * as React from 'react';
 import { Grid, Box, Link } from '@mui/material'
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Lock from '@mui/icons-material/Lock';
 import LockOpen from '@mui/icons-material/LockOpen';
-import Emocoes from '../images/diario_icon.png';
-import Refeicoes from '../images/refeicoes_icon.png';
+import Emocoes from '../../assets/images/diario_icon.png';
+import Refeicoes from '../../assets/images/refeicoes_icon.png';
 
 
 const colorCards = {
