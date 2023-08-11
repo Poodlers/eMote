@@ -26,12 +26,12 @@ function ProfilePage() {
                 Editar Lembretes
               </Typography>
             </Link>
-            <Link href="#" underline="none">
+            <Link href="/contact" underline="none">
               <Typography className={classes.root} sx={{ p:1 }} color="text.secondary" >
-                Entre em contato connosco
+                Entre em contacto connosco
               </Typography>
             </Link>
-            <Link href="#" underline="none">
+            <Link href="/appts" underline="none">
               <Typography className={classes.root} sx={{ p:1 }} color="text.secondary" >
                 Consultas de Psicologia
               </Typography>
