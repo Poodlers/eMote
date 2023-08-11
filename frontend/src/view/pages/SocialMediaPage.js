@@ -1,8 +1,10 @@
 import React from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
 import { makeStyles } from '@mui/styles';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -21,7 +23,10 @@ function SocialMediaPage() {
         <>
         <LogoAppBar/>
         <Box sx={{mt:'60px', mb:'70px'}}>
-          <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5, mt:'70px' }} variant="h4" align='center' color="text.secondary">
+        <IconButton component={Link} to="/profile" aria-label="back" size="large">
+            <ArrowBackIosIcon color= "primary" fontSize="inherit" />
+        </IconButton>
+          <Typography sx={{ fontWeight: 'bold', fontSize: 28, pb:2.5 }} variant="h4" align='center' color="text.secondary">
             Siga-nos
           </Typography>
           <Grid container sx={{ p: 0.5 }} direction="row" align="center">
