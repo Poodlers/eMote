@@ -7,22 +7,18 @@ function ModuleProgression() {
 
     const mockList = [
         {
-            index: 0,
             module: 'Psicoeducação',
             progression: 100
         },
         {
-            index: 1,
             module: 'Mindfulness',
             progression: 50
         },
         {
-            index: 2,
             module: 'Regulação Emocional',
             progression: 0
         },
         {
-            index: 3,
             module: 'Tolerância a estados emocionais dolorosos',
             progression: 0
         }
@@ -43,16 +39,16 @@ function ModuleProgression() {
             <Typography sx={{ fontWeight: 'bold', fontSize: 12, p:1, }} variant="h6" color="text.primary">
                 Progressão nos Módulos
             </Typography>
-            {mockList.map(function(data) {
+            {mockList.map(function(data, index) {
                 return (
-                    <>
-                    <Typography sx={{ fontWeight: 'bold', fontSize: 13, pt:1, pl:1 }} color={colorModules[data.index][1]} variant="h6" >{data.module}</Typography>
+                    <div key= {index}>
+                    <Typography sx={{ fontWeight: 'bold', fontSize: 13, pt:1, pl:1 }} color={colorModules[index][1]} variant="h6" >{data.module}</Typography>
                     <LinearProgress sx={{
-                        backgroundColor: colorModules[data.index][0],
+                        backgroundColor: colorModules[index][0],
                         '& .MuiLinearProgress-bar': {
-                          backgroundColor: colorModules[data.index][1],
+                          backgroundColor: colorModules[index][1],
                         }, height:12, width:'95%', m: '0 auto' }} variant="determinate" value={data.progression} />
-                    </>
+                    </div>
                 )
             })}
         </>

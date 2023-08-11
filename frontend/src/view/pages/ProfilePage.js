@@ -6,10 +6,9 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   root: {
+    fontWeight:'bold !important',
     fontSize: 16,
     textAlign:'center', 
-    fontWeight:'bold', 
-    p:1
   }
 })
 
@@ -23,22 +22,22 @@ function ProfilePage() {
               Perfil
             </Typography>
             <Link href="#" underline="none">
-              <Typography className={classes.root} color="text.secondary" >
+              <Typography className={classes.root} sx={{ p:1 }} color="text.secondary" >
                 Editar Lembretes
               </Typography>
             </Link>
             <Link href="#" underline="none">
-              <Typography className={classes.root} color="text.secondary" >
+              <Typography className={classes.root} sx={{ p:1 }} color="text.secondary" >
                 Entre em contato connosco
               </Typography>
             </Link>
             <Link href="#" underline="none">
-              <Typography className={classes.root} color="text.secondary" >
+              <Typography className={classes.root} sx={{ p:1 }} color="text.secondary" >
                 Consultas de Psicologia
               </Typography>
             </Link>
             <Link href="/socialmedia" underline="none">
-              <Typography className={classes.root} color="text.secondary" >
+              <Typography className={classes.root} sx={{ p:1 }} color="text.secondary" >
                 Siga-nos nas redes sociais
               </Typography>
             </Link>

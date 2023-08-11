@@ -21,12 +21,14 @@ function FavoritesPage() {
             <Grid container sx={{ pt:5, pb:4 }} direction="row" justifyContent="center">
                 <img src={Titulo} height={32}/>
             </Grid>
-            {mockList.map(function(data) {
-            return (
-                <Typography color="primary" sx = {{fontWeight: "bold", p:0.5, ml: '10px'}} >
-                    {data}
-                </Typography>
-            )
+            {mockList.map(function(data, index) {
+                return (
+                    <div key= {index}>
+                        <Typography color="primary" sx = {{fontWeight: "bold", p:0.5, ml: '10px'}} >
+                            {data}
+                        </Typography>
+                    </div>
+                )
             })}
         </Box>
         <NavBar/>

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Toolbar from '@mui/material/Toolbar';
 import { Link } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction } from '@mui/material';
 
@@ -9,18 +8,16 @@ import Progresso from '../../assets/images/progresso_1.png';
 import Perfil from '../../assets/images/perfil.png';
 
 export function NavBar() {
-const [value, setValue] = React.useState(0);
 
   return (
     <BottomNavigation
-        sx={{ left: 0, bottom:0, position: 'fixed', width: '100%', bgcolor: "#077088" }}
+        sx={{ left: 0, bottom:0, position: 'fixed', width: '100%', bgcolor: "#077088", alignItems: 'center' }}
     >
-        <Toolbar>
-            <BottomNavigationAction component={Link} to="/" label="Home" icon={<img src={Home} height={25}/>}/>
-            <BottomNavigationAction component={Link} to="/favorites" label="Favoritos" icon={<img src={Favoritos} height={25}/>}/>
-            <BottomNavigationAction component={Link} to="/progress" label="Progresso" icon={<img src={Progresso} height={25}/>}/>
-            <BottomNavigationAction component={Link} to="/profile" label="Perfil" icon={<img src={Perfil} height={25}/>}/>
-        </Toolbar>
+      <BottomNavigationAction component={Link} to="/" label="Home" icon={<img src={Home} height={25}/>}/>
+      <BottomNavigationAction component={Link} to="/favorites" label="Favoritos" icon={<img src={Favoritos} height={25}/>}/>
+      <BottomNavigationAction component={Link} to="/progress" label="Progresso" icon={<img src={Progresso} height={25}/>}/>
+      <BottomNavigationAction component={Link} to="/profile" label="Perfil" icon={<img src={Perfil} height={25}/>}/>
+
     </BottomNavigation>
   );
 }

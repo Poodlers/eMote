@@ -1,7 +1,7 @@
 import ModuleCard from './ModuleCard'
 import { Grid } from '@mui/material'
 
-const Modules = (props) => {
+function Modules() {
 
 const modulesList = [
     {
@@ -25,16 +25,15 @@ const modulesList = [
         <>
         <Grid container spacing={2}>
             {modulesList.map(function(data, index) {
-                    return (
-                        <Grid item xs={6}>
+                return (
+                    <Grid item xs={6} key= {index}>
                         <ModuleCard
                             name = {data.module}
                             blocked = {data.blocked}
                             index = {index}
                         />
                     </Grid>
-                    )
-                    
+                )
             })}
         </Grid>
         </>

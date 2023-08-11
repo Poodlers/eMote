@@ -75,7 +75,7 @@ function EpisodesEmotions() {
                 {mockList.map(function(data) {
                     return (
                         <ImageListItem key={data.feeling} sx={{ pl:1}} >
-                            <img src={feelingsImg[data.feeling]} height={50}/>
+                            <img alt={data.feeling} src={feelingsImg[data.feeling]} height={50}/>
                             <ImageListItemBar sx={{ color: '#ed6fa6', textAlign:'center'}} position='below' title={data.quantity}/>
                         </ImageListItem>
                     )
