@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Grid, Box, Link, ImageListItem, ImageListItemBar, ImageList } from '@mui/material'
+import { Box, Link, ImageListItem, ImageListItemBar, ImageList } from '@mui/material'
 import Typography from '@mui/material/Typography';
 
 import Mindfulness from '../../assets/images/mindfulness.png'

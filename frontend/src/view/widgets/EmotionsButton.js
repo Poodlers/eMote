@@ -7,7 +7,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 export default function EmotionsButton(props) {
   return (
     <Box sx ={{p:1 }}>
-        <Link href="#" underline='none'>
+        <Link href="/emotions" underline='none'>
             <Box sx ={{p:1, bgcolor: '#ec6fa7'}}>
                 <Grid container sx={{ p: 0.5 }} direction="row" justifyContent="center">
                     <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
