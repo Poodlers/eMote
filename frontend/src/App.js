@@ -10,6 +10,12 @@ import ProfilePage from './view/pages/ProfilePage.js';
 import SocialMediaPage from './view/pages/SocialMediaPage.js';
 import PsychApptPage from './view/pages/PsychApptPage.js';
 import ContactPage from './view/pages/ContactPage.js';
+import EmotionDiaryPage from './view/pages/EmotionDiaryPage.js';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 const theme = myTheme;
 
@@ -25,6 +31,8 @@ function App() {
         <Route path='/socialmedia' element={< SocialMediaPage/>} />
         <Route path='/appts' element={< PsychApptPage/>} />
         <Route path='/contact' element={< ContactPage/>} />
+
+        <Route path='/emotiondiary' element={< EmotionDiaryPage/>} />
       </Routes>
       </StyledEngineProvider>
     </ThemeProvider>

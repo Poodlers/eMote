@@ -62,7 +62,7 @@ function EpisodesEmotions() {
 
   return (
         <>
-            <Typography sx={{ fontWeight: 'bold', fontSize: 12, m: '0 auto', width:'70%', mt:'10px' }} variant="h6" align='center' color="text.primary">
+            <Typography sx={{ fontWeight: 'bold', fontSize: 12, m: '0 auto', width:'70%', mt:'10px' }} variant="h6" align='center' color="primary">
                 Sentimentos associados aos episódios de ingestão alimentar compulsiva
             </Typography>
             <ImageList
@@ -75,7 +75,7 @@ function EpisodesEmotions() {
                 {mockList.map(function(data) {
                     return (
                         <ImageListItem key={data.feeling} sx={{ pl:1}} >
-                            <img alt={data.feeling} src={feelingsImg[data.feeling]} height={50}/>
+                            <img alt={data.feeling} src={feelingsImg[data.feeling]}/>
                             <ImageListItemBar sx={{ color: '#ed6fa6', textAlign:'center'}} position='below' title={data.quantity}/>
                         </ImageListItem>
                     )

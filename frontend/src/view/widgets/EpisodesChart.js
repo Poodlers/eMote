@@ -47,7 +47,7 @@ function EpisodesChart() {
     })
     return(
         <>  
-            <Typography sx={{ fontWeight: 'bold', fontSize: 12, m: '0 auto', width:'70%', mt:'10px' }} variant="h6" align='center' color="text.primary">
+            <Typography sx={{ fontWeight: 'bold', fontSize: 12, m: '0 auto', width:'70%', mt:'10px' }} variant="h6" align='center' color="primary">
                 Número de episódios de ingestão alimentar compulsiva nos últimos 7 dias
             </Typography>
             <Bar data={userData} options={{

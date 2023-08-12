@@ -36,7 +36,7 @@ function ModuleProgression() {
 
   return (
         <>
-            <Typography sx={{ fontWeight: 'bold', fontSize: 12, p:1, }} variant="h6" color="text.primary">
+            <Typography sx={{ fontWeight: 'bold', fontSize: 12, p:1, }} variant="h6" color="primary">
                 Progressão nos Módulos
             </Typography>
             {mockList.map(function(data, index) {
