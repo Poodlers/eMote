@@ -31,6 +31,21 @@ public class UserController : ControllerBase
         };
     }
 
+    [HttpPost(Name = "CreateUser")]
+    public async Task<ActionResult<User>> CreateUser([FromBody] UserDTO user)
+    {
+        var newUser = new User
+        {
+            Code = user.Code,
+            Password = user.Password,
+            Role = user.Role
+        };
+
+        _dbUserSet.Add(newUser);
+      
+        await _context.SaveChangesAsync();
+        return Ok(newUser);
+    }
 
 
 

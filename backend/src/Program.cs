@@ -11,14 +11,16 @@ builder.Services.AddDbContext<DatabaseContext>();
 // Add services to the container.
 builder.Services.AddControllers();
 
+/*
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.ConfigureEndpointDefaults(listenOptions =>
     {
-        listenOptions.UseHttps("backend.pfx", "crypticpassword");
+        listenOptions.UseHttps();
     });
 });
 
+*/
 // Add FluentValidation
 // Scans the Assembly, find all the abstract validators and add them for us
 builder.Services.AddValidatorsFromAssemblyContaining<IAssemblyMarker>();
@@ -67,8 +69,6 @@ app.UseEndpoints(endpoints =>
     app.MapControllers();
     endpoints.MapControllers();
 });
-
-
 
 
 app.MapHealthChecks("/healthz");
