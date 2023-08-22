@@ -27,7 +27,6 @@ WORKDIR /usr/src/app
 
 COPY --from=build /usr/src/app/build .
 COPY --from=build /usr/src/app/src/db.sqlite .
-COPY --from=build /usr/src/app/src/backend.pfx .
 
 EXPOSE 8080
 EXPOSE 443
