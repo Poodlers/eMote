@@ -6,19 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2"/>
-    <PackageReference Include="Macross.Json.Extensions" Version="3.0.0"/>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.9"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8"/>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+    <PackageReference Include="Macross.Json.Extensions" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.8">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
-    <PackageReference Include="prometheus-net" Version="7.0.0"/>
-    <PackageReference Include="prometheus-net.AspNetCore" Version="7.0.0"/>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="prometheus-net" Version="7.0.0" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations"/>
+    <Folder Include="Migrations" />
   </ItemGroup>
 </Project>

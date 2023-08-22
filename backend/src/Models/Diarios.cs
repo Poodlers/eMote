@@ -2,9 +2,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace backend.Models;
 
-[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Sentimento
 {
     Ansiosa,
@@ -22,7 +23,6 @@ public enum Sentimento
     Tranquila,
     Triste
 }
-
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Refeicao
 {
@@ -35,7 +35,6 @@ public enum Refeicao
    Outra
 }
 
-[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum CompensatoryBehavior
 {
    Vomitar,
@@ -53,16 +52,17 @@ public class EmotionDiaryEntry {
     public int Id { get; set; }
 
     [Required]
-    public String? Date;
+    public String? Date { get; set; }
 
     [Required]
-    public String? Hour;
+    public String? Hour { get; set; }
 
     [Required]
-    public List<Sentimento> Sentimentos { get; set; } = new List<Sentimento>();
+    public ICollection<Sentimento> Sentimentos { get; set; }
 
     [Required]
-    public List<String> Exercicios { get; set; } = new List<String>();
+    [ForeignKey("SubModule")]
+    public List<SubModule> Exercicios { get; set; } = new List<SubModule>();
 
     public String? Reflexao;
 }
@@ -71,32 +71,32 @@ public class MealDiaryEntry{
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
+    [Required]
+    public String? Date { get; set; }
+    [Required]
+    public String? Hour { get; set; }
+    [Required]
+    public Refeicao? TipoRefeicao { get; set; }
 
-    public String? Date;
+    public bool SkippedMeal {get; set;} //yes or no question - perg1
 
-    public String? Hour;
+    public String? TimeOfMeal { get; set; } // perg2
 
-    public Refeicao? TipoRefeicao;
+    public ICollection<Sentimento> FeelingsAroundMeal { get; set; } //perg3
 
-    public bool SkippedMeal; //yes or no question - perg1
+    public String? ContentsOfMeal { get; set; } //perg4
 
-    public String? TimeOfMeal; // perg2
+    public bool? PlainAttention { get; set; } //perg5
 
-    public List<Sentimento> FeelingsAroundMeal { get; set; } = new List<Sentimento>(); //perg3
+    public bool? RestrainedConsumption { get; set; } //perg6
 
-    public String? ContentsOfMeal; //perg4
+    public bool? HadAnEpisode { get; set; } //perg7
 
-    public bool? PlainAttention; //perg5
+    public bool? HadCompensatoryBehaviour { get; set; } //perg8
 
-    public bool? RestrainedConsumption; //perg6
+    public ICollection<CompensatoryBehavior> CompensatoryBehaviors { get; set; } //perg8_options
 
-    public bool? HadAnEpisode; //perg7
-
-    public bool? HadCompensatoryBehaviour ; //perg8
-
-    public List<CompensatoryBehavior>? CompensatoryBehaviors; //perg8_options
-
-    public String? Reflexao; //perg_9
+    public String? Reflexao { get; set; } //perg_9
 
 }
 
@@ -106,13 +106,13 @@ public class SubModule{
     public int Id { get; set; }
 
     [Required]
-    public int ModuleNumber { get; set; }
+    public int SubModuleNumberOrder { get; set; }
 
-    public String? Title;
+    public String? Title { get; set; }
 
-    public String? DataInicio;
+    public String? DataInicio { get; set; }
 
-    public String? DataFim;
+    public String? DataFim { get; set; }
 
 }
 
@@ -123,19 +123,21 @@ public class Modulo {
     public int Id { get; set; }
 
     [Required]
-    public int ModuleNumber { get; set; }
+    public int ModuleNumberOrder { get; set; }
 
-    public String? DataInicio;
+    public String? DataInicio { get; set; }
 
-    public String? DataFim;
+    public String? DataFim { get; set; }
 
+    [ForeignKey("SubModule")]
     public List<SubModule> SubModules { get; set; } = new List<SubModule>();
 
-    public List<int>? FavoriteSubModules;
+    [ForeignKey("SubModuleFavorites")]
+    public List<SubModule> FavoriteSubModules { get; set; } = new List<SubModule>();
 
-    public String? Recompensa;
+    public String? Recompensa { get; set; }
 
-    public int? Utilidade;
+    public int? Utilidade { get; set; }
 
-    public int? Satisfacao;
+    public int? Satisfacao { get; set; }
 }

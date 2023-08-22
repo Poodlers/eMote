@@ -50,9 +50,9 @@ public class Access {
     public int Id { get; set; }
 
     [Required]
-    public String? DataInicio;
+    public String? DataInicio { get; set; }
 
     [Required]
-    public String? DataFim;
+    public String? DataFim { get; set; }
 }
 
