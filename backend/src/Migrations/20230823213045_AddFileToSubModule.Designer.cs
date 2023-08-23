@@ -11,8 +11,8 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230822171921_BaseStructure")]
-    partial class BaseStructure
+    [Migration("20230823213045_AddFileToSubModule")]
+    partial class AddFileToSubModule
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,12 +34,12 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserAccesses")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserAccesses");
 
                     b.ToTable("Access");
                 });
@@ -62,14 +62,48 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserId")
+                    b.Property<string>("UserEmotionDiaries")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserEmotionDiaries");
+
+                    b.ToTable("EmotionDiaryEntry");
+                });
+
+            modelBuilder.Entity("backend.Models.Exercicio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EmotionDiaryEntryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ExercicioFile")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ExercicioName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ExerciseFav")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("SubModuleExercicios")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("EmotionDiaryEntryId");
 
-                    b.ToTable("EmotionDiaryEntry");
+                    b.HasIndex("ExerciseFav");
+
+                    b.HasIndex("SubModuleExercicios");
+
+                    b.ToTable("Exercicio");
                 });
 
             modelBuilder.Entity("backend.Models.MealDiaryEntry", b =>
@@ -121,17 +155,32 @@ namespace backend.Migrations
                     b.Property<int>("TipoRefeicao")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserFoodDiaries")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserFoodDiaries");
 
                     b.ToTable("MealDiaryEntry");
                 });
 
-            modelBuilder.Entity("backend.Models.Modulo", b =>
+            modelBuilder.Entity("backend.Models.ModuloContent", b =>
+                {
+                    b.Property<int>("ModuleNumberOrder")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ModuleNumberOrder");
+
+                    b.ToTable("ModuloContent");
+                });
+
+            modelBuilder.Entity("backend.Models.ModuloUserProgress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -143,7 +192,7 @@ namespace backend.Migrations
                     b.Property<string>("DataInicio")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ModuleNumberOrder")
+                    b.Property<int>("ModuloContentModuleNumberOrder")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Recompensa")
@@ -152,20 +201,56 @@ namespace backend.Migrations
                     b.Property<int?>("Satisfacao")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserModulos")
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("Utilidade")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ModuloContentModuleNumberOrder");
 
-                    b.ToTable("Modulo");
+                    b.HasIndex("UserModulos");
+
+                    b.ToTable("ModuloUserProgress");
                 });
 
             modelBuilder.Entity("backend.Models.SubModule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ImageFile")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OtherFile")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("SubModuleContent")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SubModuleNumberOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VideoFile")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SubModuleContent");
+
+                    b.ToTable("SubModule");
+                });
+
+            modelBuilder.Entity("backend.Models.SubModuleUserProgress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -177,35 +262,24 @@ namespace backend.Migrations
                     b.Property<string>("DataInicio")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("SubModule")
+                    b.Property<int?>("ModuloUserProgressId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("SubModuleFavorites")
+                    b.Property<int>("SubModuleId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<int>("SubModuleNumberOrder")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SubModule");
+                    b.HasIndex("ModuloUserProgressId");
 
-                    b.HasIndex("SubModuleFavorites");
+                    b.HasIndex("SubModuleId");
 
-                    b.ToTable("SubModule");
+                    b.ToTable("SubModuleUserProgress");
                 });
 
             modelBuilder.Entity("backend.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
@@ -215,7 +289,7 @@ namespace backend.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("Code");
 
                     b.ToTable("User");
                 });
@@ -224,43 +298,73 @@ namespace backend.Migrations
                 {
                     b.HasOne("backend.Models.User", null)
                         .WithMany("Accesses")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserAccesses");
                 });
 
             modelBuilder.Entity("backend.Models.EmotionDiaryEntry", b =>
                 {
                     b.HasOne("backend.Models.User", null)
                         .WithMany("EmotionDiaryEntries")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserEmotionDiaries");
+                });
+
+            modelBuilder.Entity("backend.Models.Exercicio", b =>
+                {
+                    b.HasOne("backend.Models.EmotionDiaryEntry", null)
+                        .WithMany("Exercicios")
+                        .HasForeignKey("EmotionDiaryEntryId");
+
+                    b.HasOne("backend.Models.User", null)
+                        .WithMany("FavoriteExercises")
+                        .HasForeignKey("ExerciseFav");
+
+                    b.HasOne("backend.Models.SubModule", null)
+                        .WithMany("Exercicios")
+                        .HasForeignKey("SubModuleExercicios");
                 });
 
             modelBuilder.Entity("backend.Models.MealDiaryEntry", b =>
                 {
                     b.HasOne("backend.Models.User", null)
                         .WithMany("FoodDiaryEntries")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserFoodDiaries");
                 });
 
-            modelBuilder.Entity("backend.Models.Modulo", b =>
+            modelBuilder.Entity("backend.Models.ModuloUserProgress", b =>
                 {
+                    b.HasOne("backend.Models.ModuloContent", "ModuloContent")
+                        .WithMany()
+                        .HasForeignKey("ModuloContentModuleNumberOrder")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("backend.Models.User", null)
-                        .WithMany("Modulos")
-                        .HasForeignKey("UserId");
+                        .WithMany("ModulosProgress")
+                        .HasForeignKey("UserModulos");
+
+                    b.Navigation("ModuloContent");
                 });
 
             modelBuilder.Entity("backend.Models.SubModule", b =>
                 {
-                    b.HasOne("backend.Models.EmotionDiaryEntry", null)
-                        .WithMany("Exercicios")
-                        .HasForeignKey("SubModule");
-
-                    b.HasOne("backend.Models.Modulo", null)
+                    b.HasOne("backend.Models.ModuloContent", null)
                         .WithMany("SubModules")
-                        .HasForeignKey("SubModule");
+                        .HasForeignKey("SubModuleContent");
+                });
 
-                    b.HasOne("backend.Models.Modulo", null)
-                        .WithMany("FavoriteSubModules")
-                        .HasForeignKey("SubModuleFavorites");
+            modelBuilder.Entity("backend.Models.SubModuleUserProgress", b =>
+                {
+                    b.HasOne("backend.Models.ModuloUserProgress", null)
+                        .WithMany("SubModuleUserProgresses")
+                        .HasForeignKey("ModuloUserProgressId");
+
+                    b.HasOne("backend.Models.SubModule", "SubModule")
+                        .WithMany()
+                        .HasForeignKey("SubModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SubModule");
                 });
 
             modelBuilder.Entity("backend.Models.EmotionDiaryEntry", b =>
@@ -268,11 +372,19 @@ namespace backend.Migrations
                     b.Navigation("Exercicios");
                 });
 
-            modelBuilder.Entity("backend.Models.Modulo", b =>
+            modelBuilder.Entity("backend.Models.ModuloContent", b =>
                 {
-                    b.Navigation("FavoriteSubModules");
-
                     b.Navigation("SubModules");
+                });
+
+            modelBuilder.Entity("backend.Models.ModuloUserProgress", b =>
+                {
+                    b.Navigation("SubModuleUserProgresses");
+                });
+
+            modelBuilder.Entity("backend.Models.SubModule", b =>
+                {
+                    b.Navigation("Exercicios");
                 });
 
             modelBuilder.Entity("backend.Models.User", b =>
@@ -281,9 +393,11 @@ namespace backend.Migrations
 
                     b.Navigation("EmotionDiaryEntries");
 
+                    b.Navigation("FavoriteExercises");
+
                     b.Navigation("FoodDiaryEntries");
 
-                    b.Navigation("Modulos");
+                    b.Navigation("ModulosProgress");
                 });
 #pragma warning restore 612, 618
         }

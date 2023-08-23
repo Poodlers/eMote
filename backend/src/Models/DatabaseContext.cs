@@ -50,11 +50,31 @@ public class DatabaseContext : DbContext
         .HasConversion(SentimentoConverter!)
         .Metadata.SetValueComparer(SentimentoComparer);
 
+        
+        modelBuilder.Entity<ModuloContent>(
+            x => 
+            x.HasMany<SubModule>("SubModules")
+            .WithOne()
+    
+            ); 
+
+        modelBuilder.Entity<SubModule>(
+            x => 
+            x.HasMany<SubModulePage>("SubModulePages")
+            .WithOne()
+            );
+
 
     }
 
 
     public DbSet<User>? User { get; set; }
+
+    public DbSet<SubModule>? SubModule { get; set; }
+
+    public DbSet<Exercicio>? Exercicio { get; set; }
+
+    public DbSet<ModuloContent>? ModuloContent { get; set; }
 
 
 }

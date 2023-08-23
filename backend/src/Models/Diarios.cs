@@ -45,6 +45,25 @@ public enum CompensatoryBehavior
    Outro
 }
 
+public class EmotionDiaryEntryDTO{
+    [Required]
+    public String? UserCode { get; set; }
+
+    [Required]
+    public String? Date { get; set; }
+
+    [Required]
+    public String? Hour { get; set; }
+
+    [Required]
+    public ICollection<Sentimento> Sentimentos { get; set; } = new List<Sentimento>();
+
+    [Required]
+    public List<Exercicio> Exercicios { get; set; } = new List<Exercicio>();
+
+    public String? Reflexao;
+}
+
 
 public class EmotionDiaryEntry {
     [Key]
@@ -58,15 +77,48 @@ public class EmotionDiaryEntry {
     public String? Hour { get; set; }
 
     [Required]
-    public ICollection<Sentimento> Sentimentos { get; set; }
+    public ICollection<Sentimento> Sentimentos { get; set; } = new List<Sentimento>();
 
     [Required]
-    [ForeignKey("SubModule")]
-    public List<SubModule> Exercicios { get; set; } = new List<SubModule>();
+    public List<Exercicio> Exercicios { get; set; } = new List<Exercicio>();
 
     public String? Reflexao;
 }
 
+
+public class MealDiaryEntryDTO{
+    [Required]
+    public String? UserCode { get; set; }
+
+    [Required]
+    public String? Date { get; set; }
+
+    [Required]
+    public String? Hour { get; set; }
+
+    [Required]
+    public Refeicao? TipoRefeicao { get; set; }
+
+    public bool SkippedMeal {get; set;} //yes or no question - perg1
+
+    public String? TimeOfMeal { get; set; } // perg2
+
+    public ICollection<Sentimento> FeelingsAroundMeal { get; set; } = new List<Sentimento>(); //perg3
+
+    public String? ContentsOfMeal { get; set; } //perg4
+
+    public bool? PlainAttention { get; set; } //perg5
+
+    public bool? RestrainedConsumption { get; set; } //perg6
+
+    public bool? HadAnEpisode { get; set; } //perg7
+
+    public bool? HadCompensatoryBehaviour { get; set; } //perg8
+
+    public ICollection<CompensatoryBehavior> CompensatoryBehaviors { get; set; } = new List<CompensatoryBehavior>(); //perg8_options
+
+    public String? Reflexao { get; set; } //perg_9
+}
 public class MealDiaryEntry{
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -82,7 +134,7 @@ public class MealDiaryEntry{
 
     public String? TimeOfMeal { get; set; } // perg2
 
-    public ICollection<Sentimento> FeelingsAroundMeal { get; set; } //perg3
+    public ICollection<Sentimento> FeelingsAroundMeal { get; set; } = new List<Sentimento>(); //perg3
 
     public String? ContentsOfMeal { get; set; } //perg4
 
@@ -94,10 +146,38 @@ public class MealDiaryEntry{
 
     public bool? HadCompensatoryBehaviour { get; set; } //perg8
 
-    public ICollection<CompensatoryBehavior> CompensatoryBehaviors { get; set; } //perg8_options
+    public ICollection<CompensatoryBehavior> CompensatoryBehaviors { get; set; } = new List<CompensatoryBehavior>(); //perg8_options
 
     public String? Reflexao { get; set; } //perg_9
 
+}
+
+public class Exercicio{
+
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+
+    [Required]
+    public String? ExercicioName { get; set; }
+
+    [Required]
+    public String? ExercicioFile { get; set; }
+
+
+}
+
+public class SubModulePage{
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+    public String? Text { get; set; }
+    public String? VideoFile { get; set; }
+    public String? ImageFile { get; set; }
+    public String? OtherFile { get; set; }
+
+    [ForeignKey("SubModuleExercicios")]
+    public List<Exercicio> Exercicios { get; set; } = new List<Exercicio>();
 }
 
 public class SubModule{
@@ -110,34 +190,85 @@ public class SubModule{
 
     public String? Title { get; set; }
 
+
+    public List<SubModulePage> SubModulePages { get; set; } = new List<SubModulePage>();
+
+
+}
+
+public class SubModuleUserProgress{
+    
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+
+    [Required]
+    public SubModule? SubModule { get; set; }
+
     public String? DataInicio { get; set; }
 
     public String? DataFim { get; set; }
 
 }
 
-public class Modulo {
+public class ModuloContent {
+
+    [Key]
+    public int ModuleNumberOrder { get; set; }
+
+    [Required]
+    public String? Title { get; set; }
+
+  
+    [ForeignKey("SubModuleContent")]
+    public List<SubModule> SubModules { get; set; } = new List<SubModule>();
+
+}
+
+
+public class ModuloUserProgress{
 
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
     [Required]
-    public int ModuleNumberOrder { get; set; }
+    public ModuloContent? ModuloContent { get; set; }
+
+    [Required]
+    public List<SubModuleUserProgress> SubModuleUserProgresses { get; set; } = new List<SubModuleUserProgress>();
 
     public String? DataInicio { get; set; }
 
     public String? DataFim { get; set; }
-
-    [ForeignKey("SubModule")]
-    public List<SubModule> SubModules { get; set; } = new List<SubModule>();
-
-    [ForeignKey("SubModuleFavorites")]
-    public List<SubModule> FavoriteSubModules { get; set; } = new List<SubModule>();
 
     public String? Recompensa { get; set; }
 
     public int? Utilidade { get; set; }
 
     public int? Satisfacao { get; set; }
+
+    public ModuloUserProgress(){
+
+    }
+    //create a constructor for this class
+    public ModuloUserProgress(ModuloContent modulo){
+        this.ModuloContent = modulo;
+        this.DataInicio = "";
+        this.DataFim = "";
+        this.Recompensa = "";
+        this.Utilidade = 0;
+        this.Satisfacao = 0;
+
+        foreach (SubModule subModule in modulo.SubModules)
+        {
+            this.SubModuleUserProgresses.Add(new SubModuleUserProgress{
+                SubModule = subModule,
+                DataInicio = "",
+                DataFim = ""
+            });
+        }
+        
+    }
+
 }

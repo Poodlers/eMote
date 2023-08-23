@@ -12,7 +12,7 @@ namespace EntityCollectionSerializerExample.Converters
             v => JsonConvert
                 .SerializeObject(v.Select(e => e.ToString()).ToList()),
             v => JsonConvert
-                .DeserializeObject<ICollection<string>>(v)
+                .DeserializeObject<ICollection<string>>(v)!
                 .Select(e => (T) Enum.Parse(typeof(T), e)).ToList())
         {
         }

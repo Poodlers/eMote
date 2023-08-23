@@ -14,15 +14,13 @@ namespace backend.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<string>(type: "TEXT", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: false),
                     Role = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Code);
                 });
 
             migrationBuilder.CreateTable(
@@ -33,16 +31,16 @@ namespace backend.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     DataInicio = table.Column<string>(type: "TEXT", nullable: false),
                     DataFim = table.Column<string>(type: "TEXT", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    UserAccesses = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Access", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Access_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Access_User_UserAccesses",
+                        column: x => x.UserAccesses,
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "Code");
                 });
 
             migrationBuilder.CreateTable(
@@ -54,16 +52,16 @@ namespace backend.Migrations
                     Date = table.Column<string>(type: "TEXT", nullable: false),
                     Hour = table.Column<string>(type: "TEXT", nullable: false),
                     Sentimentos = table.Column<string>(type: "TEXT", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    UserEmotionDiaries = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EmotionDiaryEntry", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmotionDiaryEntry_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_EmotionDiaryEntry_User_UserEmotionDiaries",
+                        column: x => x.UserEmotionDiaries,
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "Code");
                 });
 
             migrationBuilder.CreateTable(
@@ -85,16 +83,16 @@ namespace backend.Migrations
                     HadCompensatoryBehaviour = table.Column<bool>(type: "INTEGER", nullable: true),
                     CompensatoryBehaviors = table.Column<string>(type: "TEXT", nullable: false),
                     Reflexao = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    UserFoodDiaries = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MealDiaryEntry", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MealDiaryEntry_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_MealDiaryEntry_User_UserFoodDiaries",
+                        column: x => x.UserFoodDiaries,
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "Code");
                 });
 
             migrationBuilder.CreateTable(
@@ -109,16 +107,16 @@ namespace backend.Migrations
                     Recompensa = table.Column<string>(type: "TEXT", nullable: true),
                     Utilidade = table.Column<int>(type: "INTEGER", nullable: true),
                     Satisfacao = table.Column<int>(type: "INTEGER", nullable: true),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    UserModulos = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Modulo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Modulo_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Modulo_User_UserModulos",
+                        column: x => x.UserModulos,
                         principalTable: "User",
-                        principalColumn: "Id");
+                        principalColumn: "Code");
                 });
 
             migrationBuilder.CreateTable(
@@ -155,24 +153,24 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Access_UserId",
+                name: "IX_Access_UserAccesses",
                 table: "Access",
-                column: "UserId");
+                column: "UserAccesses");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmotionDiaryEntry_UserId",
+                name: "IX_EmotionDiaryEntry_UserEmotionDiaries",
                 table: "EmotionDiaryEntry",
-                column: "UserId");
+                column: "UserEmotionDiaries");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MealDiaryEntry_UserId",
+                name: "IX_MealDiaryEntry_UserFoodDiaries",
                 table: "MealDiaryEntry",
-                column: "UserId");
+                column: "UserFoodDiaries");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Modulo_UserId",
+                name: "IX_Modulo_UserModulos",
                 table: "Modulo",
-                column: "UserId");
+                column: "UserModulos");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubModule_SubModule",
