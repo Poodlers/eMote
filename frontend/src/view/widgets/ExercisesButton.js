@@ -33,15 +33,18 @@ export default function ExercisesButton(props) {
                 <ImageList
                     sx={{
                         gridAutoFlow: "column",
-                        gridTemplateColumns: "repeat(auto-fill,minmax(90px,1fr)) !important",
-                        backgroundSize: 'contain', backgroundRepeat: 'no-repeat'
+                        gridTemplateColumns: "repeat(3,minmax(50px,160px)) !important",
                     }}
                     >                        
                     {modules.map(function(data, index) {
                         return (
-                            <ImageListItem width = {10} key={index} sx={{ pl:1 }} >
-                                <img alt={data.module} src={data.image} />
-                                <ImageListItemBar sx={{ color: 'text.primary', textAlign:'center', fontSize: 2}} position='below' title={data.module}/>
+                            <ImageListItem key={index} sx={{ pl:1 }} >
+                                <img style={{objectFit:'contain'}} alt={data.module} src={data.image} />
+                                <ImageListItemBar sx={{ 
+                                    color: 'text.primary', 
+                                    textAlign:'center',
+                                    "& .MuiImageListItemBar-subtitle": { whiteSpace: 'pre-line', overflow: 'visible' }
+                                    }} position='below' subtitle={data.module}/>
                             </ImageListItem>
                         )
                     })}
