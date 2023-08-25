@@ -20,7 +20,7 @@ export default function ModuleCard(props) {
     <Card sx={{ height:120, minWidth: 150, bgcolor: colorCards[props.index][0] }}>
       <CardContent>
         <Typography sx={{ fontSize: 11 }} color={colorCards[props.index][1]} >
-          Módulo {props.index}
+          Módulo {props.index+1}
         </Typography>
         <hr color={colorCards[props.index][1]}/>
         <Typography sx={{ fontSize: 11, fontWeight: 'bold' }} color={colorCards[props.index][1]} variant="h5" component="div">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import DiaryLogo from '../../assets/images/diario_emocoes.png'
 import EmotionsButton from '../widgets/EmotionsButton';
 import ExercisesButton from '../widgets/ExercisesButton';
@@ -14,9 +14,12 @@ function EmotionDiaryPage() {
         <IconButton component={Link} to="/" aria-label="back" size="large">
             <ArrowBackIosIcon color= "secondary" fontSize="inherit" />
         </IconButton>
-            <div style={{ padding: 20, display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
-                <img alt="logo" style={{ alignSelf: 'center' }} src={DiaryLogo} height='70%'/>
+            <div style={{ paddingBottom: 10, display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                <img alt="logo" style={{ alignSelf: 'center' }} src={DiaryLogo} width='30%'/>
             </div>
+            <Typography gutterBottom sx={{ pb:1, textAlign: 'center', fontSize: 17, fontWeight: 500, color: "#e7007f" }} variant='body1'>
+                Diário das Emoções
+            </Typography>
           <Box sx={{p:2}}>
             <EmotionsButton/>
             <ExercisesButton/>
