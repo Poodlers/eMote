@@ -10,7 +10,8 @@ import imgLancheTarde from '../../assets/images/lanche.png'
 import imgJantar from '../../assets/images/jantar.png'
 import imgCeia from '../../assets/images/ceia.png'
 import imgOutraRef from '../../assets/images/outra_refeicao.png'
-import SkipMeal from '../widgets/SkipMeal';
+import SkipMeal from '../widgets/MealDiary/SkipMeal';
+import TimeMeal from '../widgets/MealDiary/TimeMeal';
 
 
 const imageList = [
@@ -74,6 +75,7 @@ function MealTemplatePage(props) {
 
           <Box sx={{p:2}}>
             <SkipMeal/>
+            <TimeMeal/>
           </Box>
         </Box>
         </div>

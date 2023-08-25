@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, IconButton, Typography } from '@mui/material';
 import DiaryLogo from '../../assets/images/diario_emocoes.png'
-import EmotionsButton from '../widgets/EmotionsButton';
-import ExercisesButton from '../widgets/ExercisesButton';
+import EmotionsButton from '../widgets/EmotionsDiary/EmotionsButton';
+import ExercisesButton from '../widgets/EmotionsDiary/ExercisesButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link } from 'react-router-dom';
-import ReflexionForm from '../widgets/ReflexionForm';
+import ReflexionForm from '../widgets/EmotionsDiary/ReflexionForm';
 
 function EmotionDiaryPage() {
   return (

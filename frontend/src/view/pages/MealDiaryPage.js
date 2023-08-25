@@ -3,7 +3,7 @@ import { Box, IconButton, Typography } from '@mui/material';
 import DiaryLogo from '../../assets/images/refeicoes_icon.png'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link } from 'react-router-dom';
-import MealButton from '../widgets/MealButton';
+import MealButton from '../widgets/MealDiary/MealButton';
 
 function MealDiaryPage() {
     

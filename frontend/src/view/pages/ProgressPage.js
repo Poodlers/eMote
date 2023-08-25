@@ -3,10 +3,9 @@ import { Box, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
 
-import EpisodesEmotions from '../widgets/EpisodesEmotions.js';
-import ModuleProgression from '../widgets/ModuleProgression.js';
-import '../widgets/EpisodesChart.js';
-import EpisodesChart from '../widgets/EpisodesChart.js';
+import EpisodesEmotions from '../widgets/ProgressPage/EpisodesEmotions.js';
+import ModuleProgression from '../widgets/ProgressPage/ModuleProgression.js';
+import EpisodesChart from '../widgets/ProgressPage/EpisodesChart.js';
 
 
 function ProgressPage() {

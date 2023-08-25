@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Box, Link, ImageListItem, ImageListItemBar, ImageList } from '@mui/material'
 import Typography from '@mui/material/Typography';
 
-import Mindfulness from '../../assets/images/mindfulness.png'
-import Regulacao from '../../assets/images/regulacao.png'
-import Tolerancia from '../../assets/images/tolerancia.png'
+import Mindfulness from '../../../assets/images/mindfulness.png'
+import Regulacao from '../../../assets/images/regulacao.png'
+import Tolerancia from '../../../assets/images/tolerancia.png'
 
 const modules = [
     {

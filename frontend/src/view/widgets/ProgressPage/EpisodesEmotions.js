@@ -1,20 +1,20 @@
 import React from 'react';
 import { ImageList, ImageListItem, ImageListItemBar, Typography } from '@mui/material';
 
-import imgAborrecida from '../../assets/images/aborrecida.png';
-import imgAnsiosa from '../../assets/images/ansiosa.png';
-import imgCulpada from '../../assets/images/culpada.png';
-import imgEnvergonhada from '../../assets/images/envergonhada.png';
-import imgEntusiasmada from '../../assets/images/entusiasmada.png';
-import imgFeliz from '../../assets/images/feliz.png';
-import imgFrustrada from '../../assets/images/frustrada.png';
-import imgFuriosa from '../../assets/images/furiosa.png';
-import imgIrritada from '../../assets/images/irritada.png';
-import imgMotivada from '../../assets/images/motivada.png';
-import imgOrgulhosa from '../../assets/images/orgulhosa.png';
-import imgSozinha from '../../assets/images/sozinha.png';
-import imgTranquila from '../../assets/images/tranquila.png';
-import imgTriste from '../../assets/images/triste.png';
+import imgAborrecida from '../../../assets/images/aborrecida.png';
+import imgAnsiosa from '../../../assets/images/ansiosa.png';
+import imgCulpada from '../../../assets/images/culpada.png';
+import imgEnvergonhada from '../../../assets/images/envergonhada.png';
+import imgEntusiasmada from '../../../assets/images/entusiasmada.png';
+import imgFeliz from '../../../assets/images/feliz.png';
+import imgFrustrada from '../../../assets/images/frustrada.png';
+import imgFuriosa from '../../../assets/images/furiosa.png';
+import imgIrritada from '../../../assets/images/irritada.png';
+import imgMotivada from '../../../assets/images/motivada.png';
+import imgOrgulhosa from '../../../assets/images/orgulhosa.png';
+import imgSozinha from '../../../assets/images/sozinha.png';
+import imgTranquila from '../../../assets/images/tranquila.png';
+import imgTriste from '../../../assets/images/triste.png';
 
 
 function EpisodesEmotions() {

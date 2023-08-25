@@ -1,8 +1,6 @@
 import React from 'react';
 import { LinearProgress, Typography, colors } from '@mui/material';
 
-
-
 function ModuleProgression() {
 
     const mockList = [
