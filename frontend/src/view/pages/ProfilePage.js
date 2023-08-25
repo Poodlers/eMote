@@ -2,18 +2,9 @@ import React from 'react';
 import { Box, Link, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
-import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles({
-  root: {
-    fontWeight:'bold !important',
-    fontSize: 16,
-    textAlign:'center', 
-  }
-})
 
 function ProfilePage() {
-  const classes = useStyles();
   return (
         <>
         <LogoAppBar/>
@@ -22,22 +13,22 @@ function ProfilePage() {
               Perfil
             </Typography>
             <Link href="#" underline="none">
-              <Typography className={classes.root} sx={{ p:1 }} color="text.secondary" >
+              <Typography sx={{ p:1, fontWeight:'bold !important', fontSize: 16, textAlign:'center' }} color="text.secondary" >
                 Editar Lembretes
               </Typography>
             </Link>
             <Link href="/contact" underline="none">
-              <Typography className={classes.root} sx={{ p:1 }} color="text.secondary" >
+              <Typography sx={{ p:1, fontWeight:'bold !important', fontSize: 16, textAlign:'center' }} color="text.secondary" >
                 Entre em contacto connosco
               </Typography>
             </Link>
             <Link href="/appts" underline="none">
-              <Typography className={classes.root} sx={{ p:1 }} color="text.secondary" >
+              <Typography sx={{ p:1, fontWeight:'bold !important', fontSize: 16, textAlign:'center' }} color="text.secondary" >
                 Consultas de Psicologia
               </Typography>
             </Link>
             <Link href="/socialmedia" underline="none">
-              <Typography className={classes.root} sx={{ p:1 }} color="text.secondary" >
+              <Typography sx={{ p:1, fontWeight:'bold !important', fontSize: 16, textAlign:'center' }} color="text.secondary" >
                 Siga-nos nas redes sociais
               </Typography>
             </Link>

@@ -94,12 +94,12 @@ function EmotionsPage() {
           <Box sx={{p:2}}>
           <Grid container spacing={2}>
             <Grid item xs={4} key="diarylogo">
-                <img style={{ opacity: '25%'}} src={DiaryLogo}/>
+                <img alt='logo' style={{ opacity: '25%'}} src={DiaryLogo}/>
             </Grid>
             {imageList.map(function(data) {
                 return (
                     <Grid item xs={4} key= {data.feeling}>
-                        <img src={data.image}/>
+                        <img alt='feeling' src={data.image}/>
                     </Grid>
                 )
             })}

@@ -2,23 +2,12 @@ import React from 'react';
 import { Box, Grid, IconButton, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
-import { makeStyles } from '@mui/styles';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link } from 'react-router-dom';
-
-const useStyles = makeStyles({
-  root: {
-    fontSize: 16,
-    textAlign:'center',
-    textDecoration: 'none',
-    p:1
-  }
-})
 
 
 function SocialMediaPage() {
 
-  const classes = useStyles();
   return (
         <>
         <LogoAppBar/>
@@ -32,22 +21,21 @@ function SocialMediaPage() {
           <Grid container sx={{ p: 0.5 }} direction="row" align="center">
             <Grid item xs={6} sx={{ p: 2 }}>
               <a style= {{ textDecoration: 'none'}} href="https://facebook.com/">
-                <img src='https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/512px-Facebook_f_logo_%282021%29.svg.png?20210818083032' width='35%'/>
-                <Typography className={classes.root} color="text.secondary" >
+                <img alt='fb' src='https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/512px-Facebook_f_logo_%282021%29.svg.png?20210818083032' width='35%'/>
+                <Typography color="text.secondary" >
                   @
                 </Typography>
               </a>
             </Grid>
             <Grid item xs={6} sx={{ p: 2 }}>
               <a style= {{ textDecoration: 'none'}} href="https://instagram.com/emote.binge.eating">
-                <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/132px-Instagram_logo_2016.svg.png?20210403190622' width='35%'/>
-                <Typography className={classes.root} color="text.secondary" >
+                <img alt='insta' src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/132px-Instagram_logo_2016.svg.png?20210403190622' width='35%'/>
+                <Typography color="text.secondary" >
                   @emote.binge.eating
                 </Typography>
               </a>
             </Grid>
           </Grid>
-
         </Box>
         <NavBar/>
         </>

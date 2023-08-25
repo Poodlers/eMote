@@ -10,6 +10,7 @@ import imgLancheTarde from '../../assets/images/lanche.png'
 import imgJantar from '../../assets/images/jantar.png'
 import imgCeia from '../../assets/images/ceia.png'
 import imgOutraRef from '../../assets/images/outra_refeicao.png'
+import SkipMeal from '../widgets/SkipMeal';
 
 
 const imageList = [
@@ -72,7 +73,7 @@ function MealTemplatePage(props) {
             </div>
 
           <Box sx={{p:2}}>
-            
+            <SkipMeal/>
           </Box>
         </Box>
         </div>

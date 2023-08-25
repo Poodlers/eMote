@@ -19,7 +19,7 @@ function FavoritesPage() {
         <LogoAppBar/>
         <Box sx={{mt:'60px', mb:'70px'}}>
             <Grid container sx={{ pt:5, pb:4 }} direction="row" justifyContent="center">
-                <img src={Titulo} height={32}/>
+                <img alt='title' src={Titulo} height={32}/>
             </Grid>
             {mockList.map(function(data, index) {
                 return (
