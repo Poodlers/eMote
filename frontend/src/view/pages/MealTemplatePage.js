@@ -12,6 +12,7 @@ import imgCeia from '../../assets/images/ceia.png'
 import imgOutraRef from '../../assets/images/outra_refeicao.png'
 import SkipMeal from '../widgets/MealDiary/SkipMeal';
 import TimeMeal from '../widgets/MealDiary/TimeMeal';
+import FeelingMeal from '../widgets/MealDiary/FeelingMeal';
 
 
 const imageList = [
@@ -76,6 +77,7 @@ function MealTemplatePage(props) {
           <Box sx={{p:2}}>
             <SkipMeal/>
             <TimeMeal/>
+            <FeelingMeal/>
           </Box>
         </Box>
         </div>
