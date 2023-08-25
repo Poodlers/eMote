@@ -18,6 +18,7 @@ import '@fontsource/roboto/700.css';
 import EmotionsPage from './view/pages/EmotionsPage.js';
 import ExercisesPage from './view/pages/ExercisesPage.js';
 import MealDiaryPage from './view/pages/MealDiaryPage.js';
+import MealTemplatePage from './view/pages/MealTemplatePage.js';
 
 
 const theme = myTheme;
@@ -40,6 +41,13 @@ function App() {
         <Route path='/exercises' element={< ExercisesPage/>} />
         
         <Route path='/mealdiary' element= {<MealDiaryPage/>} />
+        <Route path='/pqnoalmoco' element= {<MealTemplatePage meal='Pequeno Almoço'/>} />
+        <Route path='/lanchemanha' element= {<MealTemplatePage meal='Lanche da Manhã'/>} />
+        <Route path='/almoco' element= {<MealTemplatePage meal='Almoço'/>} />
+        <Route path='/lanche' element= {<MealTemplatePage meal='Lanche da Tarde'/>} />
+        <Route path='/jantar' element= {<MealTemplatePage meal='Jantar'/>} />
+        <Route path='/ceia' element= {<MealTemplatePage meal='Ceia'/>} />
+        <Route path='/outraref' element= {<MealTemplatePage meal='Outra Refeição'/>} />
       </Routes>
       </StyledEngineProvider>
     </ThemeProvider>

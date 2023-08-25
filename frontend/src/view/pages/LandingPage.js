@@ -7,6 +7,7 @@ import { NavBar } from '../widgets/NavBar.js';
 
 function LandingPage() {
   return (
+    document.body.style = 'background: #fffefe',
         <>
         <LogoAppBar/>
         <Box sx={{mt:'60px', mb:'70px'}}>

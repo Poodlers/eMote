@@ -61,53 +61,54 @@ const modules = [
 
 function ExercisesPage() {
   return (
-        <Box sx={{mt:'10px', mb:'10px' }}>
-            <IconButton component={Link} to="/emotiondiary" aria-label="back" size="large">
-                <ArrowBackIosIcon color= "secondary" fontSize="inherit" />
-            </IconButton>
-            <Box sx ={{p:1, bgcolor: '#ec6fa7', alignSelf: 'center', width: '80%', m: '0 auto'}}>
-                <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
-                Quais os exercícios que mais me ajudaram hoje?
-                </Typography>
-            </Box>
-            <Box sx ={{ p:1 }}></Box>
+    document.body.style = 'background: #e6d4e0',
+      <Box sx={{mt:'10px', mb:'10px' }}>
+          <IconButton component={Link} to="/emotiondiary" aria-label="back" size="large">
+              <ArrowBackIosIcon color= "secondary" fontSize="inherit" />
+          </IconButton>
           <Box sx ={{p:1, bgcolor: '#ec6fa7', alignSelf: 'center', width: '80%', m: '0 auto'}}>
-                     
-              {modules.map(function(data, index) {
-                  return (
-                    <Grid
-                    sx={{placeItems:"center", justifyContent: 'center', alignItems: 'center'}}>
-                          <img style={{ width: '30%', display: 'block', marginLeft: 'auto', marginRight: 'auto'}} alt={data.module} src={data.image} />
-                          <Typography color='text.primary' sx={{ textAlign: 'center' }}>{data.module} </Typography>
-                      <Autocomplete
-                      sx={{ m: 1 }}
-                      multiple
-                      options={data.exercises}
-                      getOptionLabel={(option) => option}
-                      disableCloseOnSelect
-                      ChipProps={{color:"success"}}
-                      renderInput={(params) => (
-                          <TextField
-                          {...params}
-                          />
-                      )}
-                      renderOption={(props, option, { selected }) => (
-                          <MenuItem
-                          {...props}
-                          key={option}
-                          value={option}
-                          sx={{ color:"#ec6fa7" }}
-                          >
-                          {option}
-                          {selected ? <CheckIcon /> : null}
-                          </MenuItem>
-                      )}
-                      />
-                      </Grid>
-                  )
-              })}
-              </Box>
-        </Box>
+              <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
+              Quais os exercícios que mais me ajudaram hoje?
+              </Typography>
+          </Box>
+          <Box sx ={{ p:1 }}></Box>
+        <Box sx ={{p:1, bgcolor: '#ec6fa7', alignSelf: 'center', width: '80%', m: '0 auto'}}>
+                    
+            {modules.map(function(data, index) {
+                return (
+                  <Grid
+                  sx={{placeItems:"center", justifyContent: 'center', alignItems: 'center'}}>
+                        <img style={{ width: '30%', display: 'block', marginLeft: 'auto', marginRight: 'auto'}} alt={data.module} src={data.image} />
+                        <Typography color='text.primary' sx={{ textAlign: 'center' }}>{data.module} </Typography>
+                    <Autocomplete
+                    sx={{ m: 1 }}
+                    multiple
+                    options={data.exercises}
+                    getOptionLabel={(option) => option}
+                    disableCloseOnSelect
+                    ChipProps={{color:"success"}}
+                    renderInput={(params) => (
+                        <TextField
+                        {...params}
+                        />
+                    )}
+                    renderOption={(props, option, { selected }) => (
+                        <MenuItem
+                        {...props}
+                        key={option}
+                        value={option}
+                        sx={{ color:"#ec6fa7" }}
+                        >
+                        {option}
+                        {selected ? <CheckIcon /> : null}
+                        </MenuItem>
+                    )}
+                    />
+                    </Grid>
+                )
+            })}
+            </Box>
+      </Box>
   );
 }
 

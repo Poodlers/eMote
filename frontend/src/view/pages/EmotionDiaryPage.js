@@ -9,6 +9,7 @@ import ReflexionForm from '../widgets/ReflexionForm';
 
 function EmotionDiaryPage() {
   return (
+    document.body.style = 'background: #e6d4e0',
         <div>
         <Box sx={{mt:'10px', mb:'10px' }}>
         <IconButton component={Link} to="/" aria-label="back" size="large">
