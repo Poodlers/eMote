@@ -24,7 +24,7 @@ const modules = [
 export default function ExercisesButton(props) {
   return (
     <Box sx ={{p:1 }}>
-        <Link href="#" underline='none'>
+        <Link href="exercises" underline='none'>
             <Box sx ={{p:1, bgcolor: '#ec6fa7'}}>
                 <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
                     Quais os exercícios que mais me ajudaram hoje?
@@ -32,6 +32,7 @@ export default function ExercisesButton(props) {
 
                 <ImageList
                     sx={{
+                        justifyContent: 'center',
                         gridAutoFlow: "column",
                         gridTemplateColumns: "repeat(3,minmax(50px,160px)) !important",
                     }}

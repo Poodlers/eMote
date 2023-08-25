@@ -16,6 +16,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import EmotionsPage from './view/pages/EmotionsPage.js';
+import ExercisesPage from './view/pages/ExercisesPage.js';
 
 
 const theme = myTheme;
@@ -35,6 +36,8 @@ function App() {
 
         <Route path='/emotiondiary' element={< EmotionDiaryPage/>} />
         <Route path='/emotions' element={< EmotionsPage/>} />
+        <Route path='/exercises' element={< ExercisesPage/>} />
+        
       </Routes>
       </StyledEngineProvider>
     </ThemeProvider>
