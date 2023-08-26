@@ -6,7 +6,7 @@ import button from '../../../assets/images/botao_comosenti.png'
 
 export default function FeelingMeal(props) {
   return (
-    <Box sx ={{p:1 }}>
+    <Box sx ={{p: 0.5 }}>
         <Grid container sx={{ p: 0.5, placeItems:"center" }} direction="row" >
             <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
                 Como me senti

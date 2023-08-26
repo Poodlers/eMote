@@ -13,6 +13,12 @@ import imgOutraRef from '../../assets/images/outra_refeicao.png'
 import SkipMeal from '../widgets/MealDiary/SkipMeal';
 import TimeMeal from '../widgets/MealDiary/TimeMeal';
 import FeelingMeal from '../widgets/MealDiary/FeelingMeal';
+import DescriptionMeal from '../widgets/MealDiary/DescriptionMeal';
+import AttentionMeal from '../widgets/MealDiary/AttentionMeal';
+import RestrictMeal from '../widgets/MealDiary/RestrictMeal';
+import CompulsiveEpisodeMeal from '../widgets/MealDiary/CompulsiveEpisodeMeal';
+import CompensationMeal from '../widgets/MealDiary/CompensationMeal';
+import CommentsMeal from '../widgets/MealDiary/CommentsMeal';
 
 
 const imageList = [
@@ -78,6 +84,12 @@ function MealTemplatePage(props) {
             <SkipMeal/>
             <TimeMeal/>
             <FeelingMeal/>
+            <DescriptionMeal/>
+            <AttentionMeal/>
+            <RestrictMeal/>
+            <CompulsiveEpisodeMeal/>
+            <CompensationMeal/>
+            <CommentsMeal/>
           </Box>
         </Box>
         </div>
