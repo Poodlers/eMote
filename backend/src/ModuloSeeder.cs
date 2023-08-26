@@ -658,7 +658,7 @@ Preparada?"
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 4,
-                                    ExercicioName = "Exercício 4 - Aceitrr a dorde uma situação atual",
+                                    ExercicioName = "Exercício 4 - Aceitar a dor de uma situação atual",
                                     ExercicioFile = "submod4.4_ativ1.mp3"
                                 }
                             }

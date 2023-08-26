@@ -76,7 +76,7 @@ public class UserModuloProgress : ControllerBase
                 "User, Modulo or SubModulo not found"
             );
         }
-        string[] format = {"dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy"};
+        string[] format = {"dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss"};
         if (DateTime.TryParseExact(progressDTO.TimeStampInicio,format, null,
                                System.Globalization.DateTimeStyles.AllowWhiteSpaces |
                                System.Globalization.DateTimeStyles.AdjustToUniversal,  out DateTime dataInicio)){
@@ -124,7 +124,7 @@ public class UserModuloProgress : ControllerBase
                 "User or Modulo not found"
             );
         }
-         string[] format = {"dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy"};
+         string[] format = {"dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy" , "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss"};
          if (DateTime.TryParseExact(progressDTO.TimeStampInicio,format, null,
                                System.Globalization.DateTimeStyles.AllowWhiteSpaces |
                                System.Globalization.DateTimeStyles.AdjustToUniversal,  out DateTime dataInicio)){

@@ -48,7 +48,7 @@ public class EmotionDiaryEntryController : ControllerBase
             return StatusCode(401, "User not found");
         }
 
-        string[] formatDate = {"dd/MM/yyyy"};
+        string[] formatDate = {"dd/MM/yyyy", "dd-MM-yyyy"};
         string[] formatHours = {"HH:mm:ss", "HH:mm"};
         DateOnly data;
         TimeOnly hora;

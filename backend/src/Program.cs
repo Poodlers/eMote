@@ -36,6 +36,12 @@ builder.Services.AddCors(options =>
                           .AllowAnyMethod()
                           .AllowAnyHeader()));
 
+
+builder.Services.AddScoped<UserAccessService>();
+builder.Services.AddSingleton<PeriodicHostedService>();
+builder.Services.AddHostedService(
+    provider => provider.GetRequiredService<PeriodicHostedService>());
+
 var app = builder.Build();
 
 
@@ -69,6 +75,21 @@ app.UseEndpoints(endpoints =>
     app.MapControllers();
     endpoints.MapControllers();
 });
+
+app.MapGet("/background", (
+    PeriodicHostedService service) =>
+{
+    return new PeriodicHostedServiceState(service.IsEnabled);
+});
+
+app.MapMethods("/background", new[] { "PATCH" }, (
+    PeriodicHostedServiceState state, 
+    PeriodicHostedService service) =>
+{
+    service.IsEnabled = state.IsEnabled;
+});
+
+
 
 
 //seed database

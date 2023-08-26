@@ -154,10 +154,32 @@ public class MealDiaryEntry{
 
 public class ExercicioDTO{
     [Required]
-    public String? ExercicioName { get; set; }
-
-    [Required]
     public String? ExercicioFile { get; set; }
+}
+
+public class PersonalPageInfo{
+    public List<EpisodesInfo> EpisodesInfo { get; set; } = new List<EpisodesInfo>();
+    public List<SentimentosInfo> SentimentosInfo { get; set; } = new List<SentimentosInfo>();
+
+    public List<ProgressInfo> ProgressInfo { get; set; } = new List<ProgressInfo>();
+
+
+}
+public class EpisodesInfo {
+    public DateOnly? Date { get; set; }
+    public int? Episodes { get; set; }
+}
+
+public class ProgressInfo{
+    public int ModuloNumberOrder { get; set; }
+
+    public float UserProgress { get; set; }
+}
+
+public class SentimentosInfo{
+    public Sentimento? Sentimento { get; set; }
+
+    public int? Count { get; set; } 
 }
 
 public class Exercicio{

@@ -48,22 +48,18 @@ public class MealDiaryEntryController : ControllerBase
             return StatusCode(401, "User not found");
         }
 
-        string[] formatDate = {"dd/MM/yyyy"};
+        string[] formatDate = {"M/d/yyyy", "M-d-yyyy"};
         string[] formatHours = {"HH:mm:ss", "HH:mm"};
         DateOnly data;
         TimeOnly hora;
-        if (DateOnly.TryParseExact(dto.Date,formatDate, null,
-                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
-                               System.Globalization.DateTimeStyles.AdjustToUniversal,  out DateOnly dataOut)){
+        if (DateOnly.TryParse(dto.Date,  out DateOnly dataOut)){
             data = dataOut;
         }
         else{
             return StatusCode(401, "Invalid date");
         }
 
-        if (TimeOnly.TryParseExact(dto.Date,formatHours, null,
-                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
-                               System.Globalization.DateTimeStyles.AdjustToUniversal,  out TimeOnly timeOut)){
+        if (TimeOnly.TryParse(dto.Hour, out TimeOnly timeOut)){
             hora = timeOut;
         }
         else{
