@@ -47,11 +47,28 @@ public class AccessController : ControllerBase
         {
             return StatusCode(401, "User not found");
         }
-        var newAccess = new Access
-        {
-            DataInicio = dto.DataInicio,
-            DataFim = dto.DataFim
-        };
+        string[] format = {"dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy"};
+      
+
+        var newAccess = new Access();
+        if (DateTime.TryParseExact(dto.DataInicio,format, null,
+                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
+                               System.Globalization.DateTimeStyles.AdjustToUniversal,  out DateTime dataInicio)){
+            newAccess.DataInicio = dataInicio;
+        }
+        else{
+            return StatusCode(401, "Invalid date");
+        }
+        if (DateTime.TryParseExact(dto.DataFim,format, null,
+                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
+                               System.Globalization.DateTimeStyles.AdjustToUniversal,  out DateTime dataFim)){
+            newAccess.DataFim = dataFim;
+        }
+        else{
+            return StatusCode(401, "Invalid date");
+        }
+        
+        
         user.Accesses!.Add(newAccess);
         await _context.SaveChangesAsync();
         return Ok(newAccess);

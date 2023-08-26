@@ -71,10 +71,10 @@ public class EmotionDiaryEntry {
     public int Id { get; set; }
 
     [Required]
-    public String? Date { get; set; }
+    public DateOnly? Date { get; set; }
 
     [Required]
-    public String? Hour { get; set; }
+    public TimeOnly? Hour { get; set; }
 
     [Required]
     public ICollection<Sentimento> Sentimentos { get; set; } = new List<Sentimento>();
@@ -124,9 +124,9 @@ public class MealDiaryEntry{
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     [Required]
-    public String? Date { get; set; }
+    public DateOnly? Date { get; set; }
     [Required]
-    public String? Hour { get; set; }
+    public TimeOnly? Hour { get; set; }
     [Required]
     public Refeicao? TipoRefeicao { get; set; }
 
@@ -152,11 +152,22 @@ public class MealDiaryEntry{
 
 }
 
+public class ExercicioDTO{
+    [Required]
+    public String? ExercicioName { get; set; }
+
+    [Required]
+    public String? ExercicioFile { get; set; }
+}
+
 public class Exercicio{
 
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
+
+    [Required]
+    public int ModuloNumberOrder { get; set; }
 
     [Required]
     public String? ExercicioName { get; set; }
@@ -205,10 +216,22 @@ public class SubModuleUserProgress{
     [Required]
     public SubModule? SubModule { get; set; }
 
-    public String? DataInicio { get; set; }
+    public DateTime? DataInicio { get; set; }
 
-    public String? DataFim { get; set; }
+    public DateTime? DataFim { get; set; }
 
+}
+
+public class ProgressDTO{
+    public String? TimeStampInicio { get; set; }
+
+    public String? TimeStampFim { get; set; }
+}
+
+public class RatingDTO{
+    public int? Utilidade { get; set; }
+
+    public int? Satisfacao { get; set; }
 }
 
 public class ModuloContent {
@@ -238,9 +261,12 @@ public class ModuloUserProgress{
     [Required]
     public List<SubModuleUserProgress> SubModuleUserProgresses { get; set; } = new List<SubModuleUserProgress>();
 
-    public String? DataInicio { get; set; }
+    [Required]
+    public float UserProgress { get; set; } = 0;
 
-    public String? DataFim { get; set; }
+    public DateTime? DataInicio { get; set; }
+
+    public DateTime? DataFim { get; set; }
 
     public String? Recompensa { get; set; }
 
@@ -254,8 +280,8 @@ public class ModuloUserProgress{
     //create a constructor for this class
     public ModuloUserProgress(ModuloContent modulo){
         this.ModuloContent = modulo;
-        this.DataInicio = "";
-        this.DataFim = "";
+        this.DataInicio = null;
+        this.DataFim = null;
         this.Recompensa = "";
         this.Utilidade = 0;
         this.Satisfacao = 0;
@@ -264,8 +290,8 @@ public class ModuloUserProgress{
         {
             this.SubModuleUserProgresses.Add(new SubModuleUserProgress{
                 SubModule = subModule,
-                DataInicio = "",
-                DataFim = ""
+                DataInicio = null,
+                DataFim = null
             });
         }
         

@@ -34,7 +34,12 @@ public class User
     public String? Password { get; set; }
 
     [Required]
+    public DateTime? CreatedAt { get; set; } = DateTime.Now;
+    [Required]
     public int Role { get; set; }
+
+    [Required]
+    public bool HasAccessToApp { get; set; } = false;
 
     [Required]
     [ForeignKey("UserAccesses")]
@@ -63,10 +68,10 @@ public class Access {
     public int Id { get; set; }
 
     [Required]
-    public String? DataInicio { get; set; }
+    public DateTime? DataInicio { get; set; }
 
     [Required]
-    public String? DataFim { get; set; }
+    public DateTime? DataFim { get; set; }
 }
 
 public class AccessDTO{

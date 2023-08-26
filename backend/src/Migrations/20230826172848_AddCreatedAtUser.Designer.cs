@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Models;
 
@@ -10,9 +11,11 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230826172848_AddCreatedAtUser")]
+    partial class AddCreatedAtUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.8");
@@ -23,11 +26,11 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("DataFim")
+                    b.Property<string>("DataFim")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DataInicio")
+                    b.Property<string>("DataInicio")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -47,11 +50,11 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly?>("Date")
+                    b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeOnly?>("Hour")
+                    b.Property<string>("Hour")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -119,7 +122,7 @@ namespace backend.Migrations
                     b.Property<string>("ContentsOfMeal")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly?>("Date")
+                    b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -133,7 +136,7 @@ namespace backend.Migrations
                     b.Property<bool?>("HadCompensatoryBehaviour")
                         .HasColumnType("INTEGER");
 
-                    b.Property<TimeOnly?>("Hour")
+                    b.Property<string>("Hour")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -186,10 +189,10 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("DataFim")
+                    b.Property<string>("DataFim")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DataInicio")
+                    b.Property<string>("DataInicio")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ModuloContentModuleNumberOrder")
@@ -275,10 +278,10 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("DataFim")
+                    b.Property<string>("DataFim")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DataInicio")
+                    b.Property<string>("DataInicio")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("ModuloUserProgressId")

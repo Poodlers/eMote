@@ -19,8 +19,8 @@ public class ModuloController : ControllerBase
         this._dbModuloContentSet = _context.Set<ModuloContent>();
     }
 
-    [HttpGet("{id}",Name = "GetModulo")]
-    public async Task<ActionResult<ModuloContent>> Get(int id)
+    [HttpGet("{id}", Name = "GetModulo")]
+    public ActionResult<ModuloContent> Get(int id)
     {
         var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules)
         .ThenInclude(submodulo => submodulo.SubModulePages)
@@ -32,15 +32,15 @@ public class ModuloController : ControllerBase
             return StatusCode(
                 404,
                 "Modulo not found"
-                
+
             );
         }
 
         return Ok(modulo);
     }
 
-    [HttpGet("{id}/{submodule_id}",Name = "GetSubModule")]
-    public async Task<ActionResult<SubModule>> Get(int id,  int submodule_id)
+    [HttpGet("{id}/{submodule_id}", Name = "GetSubModule")]
+    public ActionResult<SubModule> Get(int id, int submodule_id)
     {
         var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules.Where(s => s.SubModuleNumberOrder == submodule_id))
         .ThenInclude(submodulo => submodulo.SubModulePages)
@@ -52,13 +52,13 @@ public class ModuloController : ControllerBase
             return StatusCode(
                 404,
                 "SubModule not found"
-                
+
             );
         }
 
         return Ok(modulo);
     }
-    
+
 
 
 
