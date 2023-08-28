@@ -83,7 +83,7 @@ app.MapGet("/background", (
 });
 
 app.MapMethods("/background", new[] { "PATCH" }, (
-    PeriodicHostedServiceState state, 
+    PeriodicHostedServiceState state,
     PeriodicHostedService service) =>
 {
     service.IsEnabled = state.IsEnabled;

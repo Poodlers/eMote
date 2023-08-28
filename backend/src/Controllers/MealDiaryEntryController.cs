@@ -28,16 +28,16 @@ public class MealDiaryEntryController : ControllerBase
         var mealDiaryEntries = new List<MealDiaryEntry>();
         if (user != null)
         {
-           mealDiaryEntries = user.FoodDiaryEntries;
+            mealDiaryEntries = user.FoodDiaryEntries;
         }
 
-         return new Dictionary<string, List<MealDiaryEntry>>
+        return new Dictionary<string, List<MealDiaryEntry>>
         {
 
             ["accesses"] = mealDiaryEntries!
         };
     }
-    
+
 
     [HttpPost(Name = "LogDiaryEntry")]
     public async Task<ActionResult<MealDiaryEntry>> LogAccess([FromBody] MealDiaryEntryDTO dto)
@@ -48,22 +48,36 @@ public class MealDiaryEntryController : ControllerBase
             return StatusCode(401, "User not found");
         }
 
-        string[] formatDate = {"M/d/yyyy", "M-d-yyyy"};
-        string[] formatHours = {"HH:mm:ss", "HH:mm"};
+        string[] formatDate = { "M/d/yyyy", "M-d-yyyy" };
+        string[] formatHours = { "HH:mm:ss", "HH:mm" };
         DateOnly data;
         TimeOnly hora;
-        if (DateOnly.TryParse(dto.Date,  out DateOnly dataOut)){
+        TimeOnly hora_refeicao;
+        if (DateOnly.TryParse(dto.Date, out DateOnly dataOut))
+        {
             data = dataOut;
         }
-        else{
+        else
+        {
             return StatusCode(401, "Invalid date");
         }
 
-        if (TimeOnly.TryParse(dto.Hour, out TimeOnly timeOut)){
+        if (TimeOnly.TryParse(dto.Hour, out TimeOnly timeOut))
+        {
             hora = timeOut;
         }
-        else{
+        else
+        {
             return StatusCode(401, "Invalid hora");
+        }
+
+        if (TimeOnly.TryParse(dto.TimeOfMeal, out TimeOnly timeOfMealOut))
+        {
+            hora_refeicao = timeOfMealOut;
+        }
+        else
+        {
+            return StatusCode(401, "Invalid hora_refeicao");
         }
 
         var newEntry = new MealDiaryEntry
@@ -72,7 +86,7 @@ public class MealDiaryEntryController : ControllerBase
             Hour = hora,
             TipoRefeicao = dto.TipoRefeicao,
             SkippedMeal = dto.SkippedMeal,
-            TimeOfMeal = dto.TimeOfMeal,
+            TimeOfMeal = hora_refeicao,
             FeelingsAroundMeal = dto.FeelingsAroundMeal,
             ContentsOfMeal = dto.ContentsOfMeal,
             PlainAttention = dto.PlainAttention,
@@ -83,7 +97,7 @@ public class MealDiaryEntryController : ControllerBase
             Reflexao = dto.Reflexao
 
         };
-        
+
         user.FoodDiaryEntries!.Add(newEntry);
         await _context.SaveChangesAsync();
         return Ok(newEntry);

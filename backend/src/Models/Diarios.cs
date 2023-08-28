@@ -26,26 +26,27 @@ public enum Sentimento
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Refeicao
 {
-   PequenoAlmoco,
-   LancheDaManha,
-   Almoco,
-   LancheDaTarde,
-   Jantar,
-   Ceia,
-   Outra
+    PequenoAlmoco,
+    LancheDaManha,
+    Almoco,
+    LancheDaTarde,
+    Jantar,
+    Ceia,
+    Outra
 }
 
 public enum CompensatoryBehavior
 {
-   Vomitar,
-   AtividadeFisicaExcessiva,
-   RestricaoAlimentarExcessiva,
-   TomarLaxantes,
-   TomarMedicacaoParaEmagrecer,
-   Outro
+    Vomitar,
+    AtividadeFisicaExcessiva,
+    RestricaoAlimentarExcessiva,
+    TomarLaxantes,
+    TomarMedicacaoParaEmagrecer,
+    Outro
 }
 
-public class EmotionDiaryEntryDTO{
+public class EmotionDiaryEntryDTO
+{
     [Required]
     public String? UserCode { get; set; }
 
@@ -65,7 +66,8 @@ public class EmotionDiaryEntryDTO{
 }
 
 
-public class EmotionDiaryEntry {
+public class EmotionDiaryEntry
+{
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
@@ -86,7 +88,8 @@ public class EmotionDiaryEntry {
 }
 
 
-public class MealDiaryEntryDTO{
+public class MealDiaryEntryDTO
+{
     [Required]
     public String? UserCode { get; set; }
 
@@ -99,7 +102,7 @@ public class MealDiaryEntryDTO{
     [Required]
     public Refeicao? TipoRefeicao { get; set; }
 
-    public bool SkippedMeal {get; set;} //yes or no question - perg1
+    public bool SkippedMeal { get; set; } //yes or no question - perg1
 
     public String? TimeOfMeal { get; set; } // perg2
 
@@ -119,7 +122,8 @@ public class MealDiaryEntryDTO{
 
     public String? Reflexao { get; set; } //perg_9
 }
-public class MealDiaryEntry{
+public class MealDiaryEntry
+{
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
@@ -130,9 +134,9 @@ public class MealDiaryEntry{
     [Required]
     public Refeicao? TipoRefeicao { get; set; }
 
-    public bool SkippedMeal {get; set;} //yes or no question - perg1
+    public bool SkippedMeal { get; set; } //yes or no question - perg1
 
-    public String? TimeOfMeal { get; set; } // perg2
+    public TimeOnly? TimeOfMeal { get; set; } // perg2
 
     public ICollection<Sentimento> FeelingsAroundMeal { get; set; } = new List<Sentimento>(); //perg3
 
@@ -152,12 +156,14 @@ public class MealDiaryEntry{
 
 }
 
-public class ExercicioDTO{
+public class ExercicioDTO
+{
     [Required]
     public String? ExercicioFile { get; set; }
 }
 
-public class PersonalPageInfo{
+public class PersonalPageInfo
+{
     public List<EpisodesInfo> EpisodesInfo { get; set; } = new List<EpisodesInfo>();
     public List<SentimentosInfo> SentimentosInfo { get; set; } = new List<SentimentosInfo>();
 
@@ -165,24 +171,28 @@ public class PersonalPageInfo{
 
 
 }
-public class EpisodesInfo {
+public class EpisodesInfo
+{
     public DateOnly? Date { get; set; }
     public int? Episodes { get; set; }
 }
 
-public class ProgressInfo{
+public class ProgressInfo
+{
     public int ModuloNumberOrder { get; set; }
 
     public float UserProgress { get; set; }
 }
 
-public class SentimentosInfo{
+public class SentimentosInfo
+{
     public Sentimento? Sentimento { get; set; }
 
-    public int? Count { get; set; } 
+    public int? Count { get; set; }
 }
 
-public class Exercicio{
+public class Exercicio
+{
 
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -200,7 +210,8 @@ public class Exercicio{
 
 }
 
-public class SubModulePage{
+public class SubModulePage
+{
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
@@ -213,7 +224,8 @@ public class SubModulePage{
     public List<Exercicio> Exercicios { get; set; } = new List<Exercicio>();
 }
 
-public class SubModule{
+public class SubModule
+{
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
@@ -229,8 +241,9 @@ public class SubModule{
 
 }
 
-public class SubModuleUserProgress{
-    
+public class SubModuleUserProgress
+{
+
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
@@ -244,19 +257,22 @@ public class SubModuleUserProgress{
 
 }
 
-public class ProgressDTO{
+public class ProgressDTO
+{
     public String? TimeStampInicio { get; set; }
 
     public String? TimeStampFim { get; set; }
 }
 
-public class RatingDTO{
+public class RatingDTO
+{
     public int? Utilidade { get; set; }
 
     public int? Satisfacao { get; set; }
 }
 
-public class ModuloContent {
+public class ModuloContent
+{
 
     [Key]
     public int ModuleNumberOrder { get; set; }
@@ -264,14 +280,15 @@ public class ModuloContent {
     [Required]
     public String? Title { get; set; }
 
-  
+
     [ForeignKey("SubModuleContent")]
     public List<SubModule> SubModules { get; set; } = new List<SubModule>();
 
 }
 
 
-public class ModuloUserProgress{
+public class ModuloUserProgress
+{
 
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -295,28 +312,5 @@ public class ModuloUserProgress{
     public int? Utilidade { get; set; }
 
     public int? Satisfacao { get; set; }
-
-    public ModuloUserProgress(){
-
-    }
-    //create a constructor for this class
-    public ModuloUserProgress(ModuloContent modulo){
-        this.ModuloContent = modulo;
-        this.DataInicio = null;
-        this.DataFim = null;
-        this.Recompensa = "";
-        this.Utilidade = 0;
-        this.Satisfacao = 0;
-
-        foreach (SubModule subModule in modulo.SubModules)
-        {
-            this.SubModuleUserProgresses.Add(new SubModuleUserProgress{
-                SubModule = subModule,
-                DataInicio = null,
-                DataFim = null
-            });
-        }
-        
-    }
 
 }

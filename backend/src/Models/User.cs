@@ -3,7 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models;
 
-public class  LoginDTO{
+public class LoginDTO
+{
     [Required]
     public String? Code { get; set; }
 
@@ -25,7 +26,7 @@ public class UserDTO
 
 public class User
 {
-   
+
     [Key]
     [Required]
     public String? Code { get; set; }
@@ -62,7 +63,8 @@ public class User
 
 }
 
-public class Access {
+public class Access
+{
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
@@ -74,7 +76,8 @@ public class Access {
     public DateTime? DataFim { get; set; }
 }
 
-public class AccessDTO{
+public class AccessDTO
+{
     [Required]
     public String? UserCode { get; set; }
 
