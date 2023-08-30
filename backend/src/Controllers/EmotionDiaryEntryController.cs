@@ -12,32 +12,37 @@ public class EmotionDiaryEntryController : ControllerBase
     private readonly DbSet<User> _dbUserSet;
     private readonly DatabaseContext _context;
 
+    private readonly DbSet<Exercicio> _dbExercicioSet;
 
     public EmotionDiaryEntryController(DatabaseContext context)
     {
         this._context = context;
         this._dbUserSet = _context.Set<User>();
+        this._dbExercicioSet = _context.Set<Exercicio>();
 
 
     }
 
-    [HttpGet(Name = "GetEmotionEntries")]
-    public Dictionary<string, List<EmotionDiaryEntry>> Get(string code)
+    [HttpGet("{user_code}", Name = "GetEmotionEntries")]
+    public Dictionary<string, List<EmotionDiaryEntry>> Get(string user_code)
     {
-        var user = _dbUserSet.Include("EmotionDiaryEntries").Where(u => u.Code == code).FirstOrDefault();
+        var user = _dbUserSet.
+        Include(emotionDiary => emotionDiary.EmotionDiaryEntries)
+        .ThenInclude(emotionDiaryEntry => emotionDiaryEntry.Exercicios).
+        Where(u => u.Code == user_code).FirstOrDefault();
         var emotionDiaryEntries = new List<EmotionDiaryEntry>();
         if (user != null)
         {
-           emotionDiaryEntries = user.EmotionDiaryEntries;
+            emotionDiaryEntries = user.EmotionDiaryEntries;
         }
 
-         return new Dictionary<string, List<EmotionDiaryEntry>>
+        return new Dictionary<string, List<EmotionDiaryEntry>>
         {
 
-            ["accesses"] = emotionDiaryEntries!
+            ["emotionDiaries"] = emotionDiaryEntries!
         };
     }
-    
+
 
     [HttpPost(Name = "LogEmotionDiaryEntry")]
     public async Task<ActionResult<EmotionDiaryEntry>> LogAccess([FromBody] EmotionDiaryEntryDTO dto)
@@ -48,38 +53,46 @@ public class EmotionDiaryEntryController : ControllerBase
             return StatusCode(401, "User not found");
         }
 
-        string[] formatDate = {"dd/MM/yyyy", "dd-MM-yyyy"};
-        string[] formatHours = {"HH:mm:ss", "HH:mm"};
+        string[] formatDate = { "dd/MM/yyyy", "dd-MM-yyyy" };
+        string[] formatHours = { "HH:mm:ss", "HH:mm" };
         DateOnly data;
         TimeOnly hora;
-        if (DateOnly.TryParseExact(dto.Date,formatDate, null,
-                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
-                               System.Globalization.DateTimeStyles.AdjustToUniversal,  out DateOnly dataOut)){
+        if (DateOnly.TryParse(dto.Date, out DateOnly dataOut))
+        {
             data = dataOut;
         }
-        else{
+        else
+        {
             return StatusCode(401, "Invalid date");
         }
 
-        if (TimeOnly.TryParseExact(dto.Date,formatHours, null,
-                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
-                               System.Globalization.DateTimeStyles.AdjustToUniversal,  out TimeOnly timeOut)){
+        if (TimeOnly.TryParse(dto.Hour, out TimeOnly timeOut))
+        {
             hora = timeOut;
         }
-        else{
+        else
+        {
             return StatusCode(401, "Invalid hora");
         }
+        //get all exercises with the same fileNames present in the dto.Exercicios list
 
+
+
+
+        var exercicios = _dbExercicioSet.ToList().Where(e =>
+         dto.Exercicios.Find(exercicioDTO => exercicioDTO.ExercicioFile == e.ExercicioFile)
+            != null
+         ).ToList();
 
         var newEntry = new EmotionDiaryEntry
         {
             Date = data,
             Hour = hora,
             Sentimentos = dto.Sentimentos,
-            Exercicios = dto.Exercicios,
+            Exercicios = exercicios,
             Reflexao = dto.Reflexao
         };
-        
+
         user.EmotionDiaryEntries!.Add(newEntry);
         await _context.SaveChangesAsync();
         return Ok(newEntry);

@@ -60,8 +60,8 @@ public class EmotionDiaryEntryDTO
     public ICollection<Sentimento> Sentimentos { get; set; } = new List<Sentimento>();
 
     [Required]
-    public List<Exercicio> Exercicios { get; set; } = new List<Exercicio>();
-
+    public List<ExercicioDTO> Exercicios { get; set; } = new List<ExercicioDTO>();
+    [Required]
     public String? Reflexao;
 }
 
@@ -84,6 +84,7 @@ public class EmotionDiaryEntry
     [Required]
     public List<Exercicio> Exercicios { get; set; } = new List<Exercicio>();
 
+    [Required]
     public String? Reflexao;
 }
 
@@ -102,8 +103,10 @@ public class MealDiaryEntryDTO
     [Required]
     public Refeicao? TipoRefeicao { get; set; }
 
+    [Required]
     public bool SkippedMeal { get; set; } //yes or no question - perg1
 
+    [Required]
     public String? TimeOfMeal { get; set; } // perg2
 
     public ICollection<Sentimento> FeelingsAroundMeal { get; set; } = new List<Sentimento>(); //perg3
@@ -120,6 +123,7 @@ public class MealDiaryEntryDTO
 
     public ICollection<CompensatoryBehavior> CompensatoryBehaviors { get; set; } = new List<CompensatoryBehavior>(); //perg8_options
 
+    [Required]
     public String? Reflexao { get; set; } //perg_9
 }
 public class MealDiaryEntry
@@ -207,6 +211,11 @@ public class Exercicio
     [Required]
     public String? ExercicioFile { get; set; }
 
+    //override toString
+    public override string ToString()
+    {
+        return ExercicioName!;
+    }
 
 }
 

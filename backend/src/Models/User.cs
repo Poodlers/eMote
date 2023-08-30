@@ -21,6 +21,9 @@ public class UserDTO
     public String? Password { get; set; }
 
     [Required]
+    public String? CreatedAt { get; set; }
+
+    [Required]
     public int Role { get; set; }
 }
 
@@ -36,11 +39,12 @@ public class User
 
     [Required]
     public DateTime? CreatedAt { get; set; } = DateTime.Now;
+
     [Required]
     public int Role { get; set; }
 
     [Required]
-    public bool HasAccessToApp { get; set; } = false;
+    public bool HasAccessToApp { get; set; } = true;
 
     [Required]
     [ForeignKey("UserAccesses")]

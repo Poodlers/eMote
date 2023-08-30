@@ -29,14 +29,24 @@ public class ExcelExportController : ControllerBase
     }
 
     [HttpGet(Name = "ExcelExport")]
-    public async Task<FileResult> ExportDbExcel()
+    public async Task<ActionResult> ExportDbExcel()
     {
         var users = await _dbUserSet.ToListAsync();
         var filename = "database_emotE.xlsx";
-        return GenerateExcel(filename, users);
+        try
+        {
+            GenerateExcel(filename, users);
+            return Ok("File successfuly stored in Google Drive");
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return StatusCode(500, "Error generating excel file");
+        }
+
     }
 
-    private FileResult GenerateExcel(string filename, IEnumerable<User> users)
+    private void GenerateExcel(string filename, IEnumerable<User> users)
     {
         DataTable dataTableUser = new DataTable("Users");
 
@@ -60,8 +70,8 @@ public class ExcelExportController : ControllerBase
             new DataColumn("cod_user", typeof(string)),
             new DataColumn("data", typeof(DateOnly)),
             new DataColumn("hora_sistema", typeof(TimeOnly)),
-            new DataColumn("sentimento", typeof(Sentimento)),
-            new DataColumn("exercicios", typeof(List<Exercicio>)),
+            new DataColumn("sentimento", typeof(string)),
+            new DataColumn("exercicios", typeof(string)),
             new DataColumn("reflexao", typeof(string)),
 
         });
@@ -73,16 +83,16 @@ public class ExcelExportController : ControllerBase
             new DataColumn("data", typeof(DateOnly)),
             new DataColumn("hora_sistema", typeof(TimeOnly)),
             new DataColumn("hora_refeicao", typeof(TimeOnly)),
-            new DataColumn("tipo_refeicao", typeof(Refeicao)),
+            new DataColumn("tipo_refeicao", typeof(string)),
             new DataColumn("perg1", typeof(bool)),
             new DataColumn("perg2", typeof(TimeOnly)),
-            new DataColumn("perg3", typeof(Sentimento)),
+            new DataColumn("perg3", typeof(string)),
             new DataColumn("perg4", typeof(string)),
             new DataColumn("perg5", typeof(bool)),
             new DataColumn("perg6", typeof(bool)),
             new DataColumn("perg7", typeof(bool)),
             new DataColumn("perg8", typeof(bool)),
-            new DataColumn("perg8_opcoes", typeof(CompensatoryBehavior)),
+            new DataColumn("perg8_opcoes", typeof(string)),
             new DataColumn("perg9", typeof(string)),
 
         });
@@ -107,7 +117,7 @@ public class ExcelExportController : ControllerBase
             new DataColumn("sub_mod6_fim", typeof(DateTime)),
             new DataColumn("sub_mod7_inicio", typeof(DateTime)),
             new DataColumn("sub_mod7_fim", typeof(DateTime)),
-            new DataColumn("favorito", typeof(string[])),
+            new DataColumn("favorito", typeof(string)),
             new DataColumn("recompensa", typeof(string)),
             new DataColumn("class_utilidade", typeof(int)),
             new DataColumn("class_satisfacao", typeof(int)),
@@ -138,7 +148,7 @@ public class ExcelExportController : ControllerBase
             new DataColumn("sub_mod8_fim", typeof(DateTime)),
             new DataColumn("sub_mod9_inicio", typeof(DateTime)),
             new DataColumn("sub_mod9_fim", typeof(DateTime)),
-            new DataColumn("favorito", typeof(string[])),
+            new DataColumn("favorito", typeof(string)),
             new DataColumn("recompensa", typeof(string)),
             new DataColumn("class_utilidade", typeof(int)),
             new DataColumn("class_satisfacao", typeof(int)),
@@ -161,7 +171,7 @@ public class ExcelExportController : ControllerBase
             new DataColumn("sub_mod4_fim", typeof(DateTime)),
             new DataColumn("sub_mod5_inicio", typeof(DateTime)),
             new DataColumn("sub_mod5_fim", typeof(DateTime)),
-            new DataColumn("favorito", typeof(string[])),
+            new DataColumn("favorito", typeof(string)),
             new DataColumn("recompensa", typeof(string)),
             new DataColumn("class_utilidade", typeof(int)),
             new DataColumn("class_satisfacao", typeof(int)),
@@ -185,7 +195,7 @@ public class ExcelExportController : ControllerBase
             new DataColumn("sub_mod5_fim", typeof(DateTime)),
             new DataColumn("sub_mod6_inicio", typeof(DateTime)),
             new DataColumn("sub_mod6_fim", typeof(DateTime)),
-            new DataColumn("favorito", typeof(string[])),
+            new DataColumn("favorito", typeof(string)),
             new DataColumn("recompensa", typeof(string)),
             new DataColumn("class_utilidade", typeof(int)),
             new DataColumn("class_satisfacao", typeof(int)),
@@ -195,6 +205,7 @@ public class ExcelExportController : ControllerBase
         var userEnum = _dbUserSet
         .Include(user => user.FoodDiaryEntries)
         .Include(user => user.EmotionDiaryEntries)
+        .ThenInclude(emotionDiary => emotionDiary.Exercicios)
         .Include(user => user.ModulosProgress)
         .ThenInclude(modulo => modulo.SubModuleUserProgresses)
         .Include(user => user.ModulosProgress)
@@ -215,26 +226,50 @@ public class ExcelExportController : ControllerBase
 
             foreach (var emotionDiary in user.EmotionDiaryEntries!)
             {
+
+                var sentimentosString = "";
+                foreach (var sentimento in emotionDiary.Sentimentos)
+                {
+                    sentimentosString = sentimentosString + sentimento.ToString() + ", \n "; ;
+                }
+                var exerciciosString = "";
+                foreach (var exercicio in emotionDiary.Exercicios)
+                {
+                    exerciciosString = exerciciosString + exercicio.ExercicioName! + ", \n "; ;
+                }
+
                 dataTableEmotionDiary.Rows.Add(
                     user.Code, emotionDiary.Date,
-                    emotionDiary.Hour, emotionDiary.Sentimentos, emotionDiary.Exercicios, emotionDiary.Reflexao);
+                    emotionDiary.Hour, sentimentosString, exerciciosString, emotionDiary.Reflexao);
             }
 
             foreach (var mealDiary in user.FoodDiaryEntries!)
             {
+                var feelingsAroundMealString = "";
+                foreach (var feeling in mealDiary.FeelingsAroundMeal)
+                {
+                    feelingsAroundMealString = feelingsAroundMealString + feeling.ToString() + ", \n ";
+                }
+
+                var compensatoryBehaviorsString = "";
+                foreach (var behavior in mealDiary.CompensatoryBehaviors)
+                {
+                    compensatoryBehaviorsString = compensatoryBehaviorsString + behavior.ToString() + ", \n ";
+                }
+
                 dataTableMealDiary.Rows.Add(
                     user.Code, mealDiary.Date, mealDiary.Hour,
                     mealDiary.TimeOfMeal,
-                    mealDiary.TipoRefeicao,
+                    mealDiary.TipoRefeicao.ToString(),
                     mealDiary.SkippedMeal,
                     mealDiary.TimeOfMeal,
-                    mealDiary.FeelingsAroundMeal,
+                    feelingsAroundMealString,
                     mealDiary.ContentsOfMeal,
                     mealDiary.PlainAttention,
                     mealDiary.RestrainedConsumption,
                     mealDiary.HadAnEpisode,
                     mealDiary.HadCompensatoryBehaviour,
-                    mealDiary.CompensatoryBehaviors,
+                    compensatoryBehaviorsString,
                     mealDiary.Reflexao);
 
             }
@@ -279,12 +314,18 @@ public class ExcelExportController : ControllerBase
             foreach (IXLWorksheet worksheet in workbook.Worksheets)
             {
                 worksheet.Columns().AdjustToContents();
+                worksheet.Rows().AdjustToContents();
             }
 
             using (MemoryStream stream = new MemoryStream())
             {
                 workbook.SaveAs(stream);
-                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename);
+                var file = File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename);
+                //upload to google drive
+                var GoogleDriveService = new GoogleDriveService();
+                var folderId = "17i0XpUI-3hCnfC73O29RXy6T495VfHeq";
+                GoogleDriveService.UploadFile(stream, filename, "", folderId, "Database backup");
+
             }
         }
 
@@ -306,10 +347,10 @@ public class ExcelExportController : ControllerBase
             content.Add(subModuleUserProgress.DataFim);
         }
 
-        string[] fav_exercises = new string[exercicios.Count];
+        string fav_exercises = "";
         for (int i = 0; i < exercicios.Count; i++)
         {
-            fav_exercises[i] = exercicios[i].ExercicioName!;
+            fav_exercises = fav_exercises + exercicios[i].ExercicioName! + ", \n";
         }
         content.Add(fav_exercises);
         content.Add(moduloProgress.Recompensa);

@@ -317,6 +317,18 @@ public class UserController : ControllerBase
             Role = user.Role
         };
 
+        string[] format = { "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss" };
+        if (DateTime.TryParseExact(user.CreatedAt, format, null,
+                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
+                               System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataCriado))
+        {
+            newUser.CreatedAt = dataCriado;
+        }
+        else
+        {
+            return StatusCode(401, "Invalid dateOfCreation");
+        }
+
         var modulo1Content = _dbModuloContentSet
         .Include(m => m.SubModules)
             .Where(m => m.ModuleNumberOrder == 1).FirstOrDefault()!;

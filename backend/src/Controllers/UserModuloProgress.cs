@@ -67,8 +67,8 @@ public class UserModuloProgress : ControllerBase
         .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses
         .Where(s => s.SubModule!.SubModuleNumberOrder == submodulo_id))
         .FirstOrDefault();
-        if (userProgressModulo == null || userProgressModulo.ModulosProgress.Count == 0 
-        
+        if (userProgressModulo == null || userProgressModulo.ModulosProgress.Count == 0
+
         || userProgressModulo.ModulosProgress[0].SubModuleUserProgresses.Count == 0)
         {
             return StatusCode(
@@ -76,28 +76,34 @@ public class UserModuloProgress : ControllerBase
                 "User, Modulo or SubModulo not found"
             );
         }
-        string[] format = {"dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss"};
-        if (DateTime.TryParseExact(progressDTO.TimeStampInicio,format, null,
+        string[] format = { "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss" };
+        if (DateTime.TryParseExact(progressDTO.TimeStampInicio, format, null,
                                System.Globalization.DateTimeStyles.AllowWhiteSpaces |
-                               System.Globalization.DateTimeStyles.AdjustToUniversal,  out DateTime dataInicio)){
+                               System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataInicio))
+        {
             userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].DataInicio = dataInicio;
         }
-        else{
+        else
+        {
             return StatusCode(401, "Invalid dataInicio");
         }
-         if (DateTime.TryParseExact(progressDTO.TimeStampFim,format, null,
-                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
-                               System.Globalization.DateTimeStyles.AdjustToUniversal,  out DateTime dataFim)){
+        if (DateTime.TryParseExact(progressDTO.TimeStampFim, format, null,
+                              System.Globalization.DateTimeStyles.AllowWhiteSpaces |
+                              System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataFim))
+        {
             userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].DataFim = dataFim;
         }
-        else{
+        else
+        {
             return StatusCode(401, "Invalid dataFim");
         }
 
-        
+
         var userProgress = 0;
-        foreach(SubModuleUserProgress subModuleUserProgress in userProgressModulo.ModulosProgress[0].SubModuleUserProgresses){
-            if(subModuleUserProgress.DataInicio == null){
+        foreach (SubModuleUserProgress subModuleUserProgress in userProgressModulo.ModulosProgress[0].SubModuleUserProgresses)
+        {
+            if (subModuleUserProgress.DataInicio == null)
+            {
                 break;
             }
             userProgress += 1;
@@ -124,25 +130,29 @@ public class UserModuloProgress : ControllerBase
                 "User or Modulo not found"
             );
         }
-         string[] format = {"dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy" , "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss"};
-         if (DateTime.TryParseExact(progressDTO.TimeStampInicio,format, null,
-                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
-                               System.Globalization.DateTimeStyles.AdjustToUniversal,  out DateTime dataInicio)){
+        string[] format = { "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss" };
+        if (DateTime.TryParseExact(progressDTO.TimeStampInicio, format, null,
+                              System.Globalization.DateTimeStyles.AllowWhiteSpaces |
+                              System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataInicio))
+        {
             userProgressModulo.ModulosProgress[0].DataInicio = dataInicio;
         }
-        else{
+        else
+        {
             return StatusCode(401, "Invalid dataInicio");
         }
-         if (DateTime.TryParseExact(progressDTO.TimeStampFim,format, null,
-                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
-                               System.Globalization.DateTimeStyles.AdjustToUniversal,  out DateTime dataFim)){
+        if (DateTime.TryParseExact(progressDTO.TimeStampFim, format, null,
+                              System.Globalization.DateTimeStyles.AllowWhiteSpaces |
+                              System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataFim))
+        {
             userProgressModulo.ModulosProgress[0].DataFim = dataFim;
         }
-        else{
+        else
+        {
             return StatusCode(401, "Invalid dataFim");
         }
 
-     
+
         await _context.SaveChangesAsync();
 
 

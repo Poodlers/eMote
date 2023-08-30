@@ -1,9 +1,11 @@
 using backend.Common;
 using backend.Models;
 
-public class ModuloSeeder{
+public class ModuloSeeder
+{
 
-    public static List<ModuloContent> SeedModulo(){
+    public static List<ModuloContent> SeedModulo()
+    {
         var modulos = new List<ModuloContent>();
 
         var modulo1 = new ModuloContent
@@ -16,7 +18,7 @@ public class ModuloSeeder{
                 {
                     SubModuleNumberOrder = 0,
                     Title = "Introdução",
-                    SubModulePages = 
+                    SubModulePages =
                     new List<SubModulePage>
                     {
                         new SubModulePage
@@ -27,12 +29,12 @@ public class ModuloSeeder{
                         }
                     }
                 },
-            
-            new SubModule 
+
+            new SubModule
             {
                 SubModuleNumberOrder = 1,
                 Title = "O que é a ingestão alimentar compulsiva?",
-                SubModulePages = 
+                SubModulePages =
                     new List<SubModulePage>
                     {
                         new SubModulePage
@@ -45,7 +47,7 @@ public class ModuloSeeder{
             {
                 SubModuleNumberOrder = 2,
                 Title = "O que são comportamentos compensatórios inapropriados?",
-                SubModulePages = 
+                SubModulePages =
                     new List<SubModulePage>
                     {
                         new SubModulePage
@@ -53,14 +55,14 @@ public class ModuloSeeder{
                             VideoFile = "submod2_ativ1.mp4",
                         }
                     }
-                
+
             },
             new SubModule
             {
                 SubModuleNumberOrder = 3,
                 Title = "Regulação emocional e ingestão alimentar compulsiva",
-                
-                SubModulePages = 
+
+                SubModulePages =
                     new List<SubModulePage>
                     {
                         new SubModulePage
@@ -73,7 +75,7 @@ public class ModuloSeeder{
             {
                 SubModuleNumberOrder = 4,
                 Title = "A história da Ângela",
-                SubModulePages = 
+                SubModulePages =
                     new List<SubModulePage>
                     {
                         new SubModulePage
@@ -83,7 +85,7 @@ public class ModuloSeeder{
                         new SubModulePage
                         {
                             Text = @"Aqui pode ver o modelo de regulação emocional para o episódio de ingestão alimentar compulsiva da Ângela.",
-                        
+
                             ImageFile = "submod4_ativ2.png",
                         },
                         new SubModulePage
@@ -103,7 +105,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
             {
                 SubModuleNumberOrder = 5,
                 Title = "A teoria biossocial para a regulação emocional",
-                SubModulePages = 
+                SubModulePages =
                     new List<SubModulePage>
                     {
                         new SubModulePage
@@ -117,7 +119,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
             {
                 SubModuleNumberOrder = 6,
                 Title = "O diário das refeições e o diário das emoções",
-                SubModulePages = 
+                SubModulePages =
                     new List<SubModulePage>
                     {
                         new SubModulePage
@@ -131,7 +133,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
             {
                 SubModuleNumberOrder = 7,
                 Title = "Recapitulando...",
-                SubModulePages = 
+                SubModulePages =
                     new List<SubModulePage>
                     {
                         new SubModulePage
@@ -148,13 +150,13 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
         {
             ModuleNumberOrder = 2,
             Title = "Mindfulness",
-            SubModules =  new List<SubModule>
+            SubModules = new List<SubModule>
             {
                 new SubModule
                 {
                     SubModuleNumberOrder = 0,
                     Title = "Introdução",
-                    SubModulePages = 
+                    SubModulePages =
                     new List<SubModulePage>
                     {
                         new SubModulePage
@@ -190,7 +192,7 @@ Preparada?"
                                 }
                             }
                         }
-                    
+
                     }
                 },
                 new SubModule
@@ -405,17 +407,17 @@ Preparada?"
             }
         },
 
-        
-            
-            
+
+
+
     }
-    };
-    
-    var modulo3 =  new ModuloContent
+        };
+
+        var modulo3 = new ModuloContent
         {
             ModuleNumberOrder = 3,
             Title = "Regulação Emocional",
-            SubModules =  new List<SubModule>
+            SubModules = new List<SubModule>
             {
                 new SubModule{
                     SubModuleNumberOrder = 0,
@@ -554,11 +556,11 @@ Preparada?"
 
         }
         };
-        var modulo4 =  new ModuloContent
+        var modulo4 = new ModuloContent
         {
             ModuleNumberOrder = 4,
             Title = "Tolerância a estados emocionais dolorosos",
-            SubModules =  new List<SubModule>
+            SubModules = new List<SubModule>
             {
                 new SubModule{
                     SubModuleNumberOrder = 0,
@@ -602,7 +604,7 @@ Preparada?"
                         new SubModulePage{
                             Text = @"Este exercício ajuda-nos a desenvolver
                              uma atitude de aceitação interna. Quando os músculos faciais estão tensos é muito difícil aceitarmos algo, mas quando assumimos um sorriso calmo, aumentamos a nossa disponibilidade para aceitar o que sentimos. 
-Preparada?" 
+Preparada?"
                         },
                         new SubModulePage{
                             Exercicios = new List<Exercicio>
@@ -675,7 +677,7 @@ Preparada?"
                         new SubModulePage{
                             Text = @"Estas atividades podem ser muito úteis em momentos dolorosos sobre os quais nada podemos fazer ou nada podemos fazer naquele momento.
 Sugerimos que ouça com atenção as atividades que propomos.
-Preparada?" 
+Preparada?"
                          },
 
                         new SubModulePage{
@@ -701,7 +703,7 @@ Preparada?"
                                 }
 
                             }
-                        }  
+                        }
                     }
             },
 
@@ -718,14 +720,14 @@ regulação emocional e de tolerância a estados emocionais negativos, o objetiv
                 }
             }
         }
-    };
+        };
 
-    modulos.Add(modulo1);
-    modulos.Add(modulo2);
-    modulos.Add(modulo3);
-    modulos.Add(modulo4);
+        modulos.Add(modulo1);
+        modulos.Add(modulo2);
+        modulos.Add(modulo3);
+        modulos.Add(modulo4);
 
-    return modulos;
+        return modulos;
 
 
 

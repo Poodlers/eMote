@@ -21,10 +21,10 @@ public class MealDiaryEntryController : ControllerBase
 
     }
 
-    [HttpGet(Name = "GetEntries")]
-    public Dictionary<string, List<MealDiaryEntry>> Get(string code)
+    [HttpGet("{user_code}", Name = "GetEntries")]
+    public Dictionary<string, List<MealDiaryEntry>> Get(string user_code)
     {
-        var user = _dbUserSet.Include("FoodDiaryEntries").Where(u => u.Code == code).FirstOrDefault();
+        var user = _dbUserSet.Include("FoodDiaryEntries").Where(u => u.Code == user_code).FirstOrDefault();
         var mealDiaryEntries = new List<MealDiaryEntry>();
         if (user != null)
         {
@@ -34,7 +34,7 @@ public class MealDiaryEntryController : ControllerBase
         return new Dictionary<string, List<MealDiaryEntry>>
         {
 
-            ["accesses"] = mealDiaryEntries!
+            ["mealDiaries"] = mealDiaryEntries!
         };
     }
 
