@@ -1,0 +1,16 @@
+export enum Sentimento {
+    Ansiosa = 0,
+    Aborrecida,
+    Culpada ,
+    Entusiasmada,
+    Envergonhada,
+    Feliz,
+    Frustrada,
+    Furiosa,
+    Irritada,
+    Motivada ,
+    Orgulhosa,
+    Sozinha ,
+    Tranquila ,
+    Triste ,
+}
