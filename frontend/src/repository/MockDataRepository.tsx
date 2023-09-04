@@ -1,7 +1,11 @@
 import { Exercise } from "../models/Exercise";
+import { PersonalPageInfo } from "../models/PersonalPageInfo";
 import { IDataRepository } from "./IDataRepository";
 
-class MockDataRepository implements IDataRepository {
+export class MockDataRepository implements IDataRepository {
+    fetchPersonalPageInfo(): Promise<PersonalPageInfo> {
+        throw new Error("Method not implemented.");
+    }
     fetchFavoriteExercises(): Promise<Exercise[]> {
         return new Promise((resolve, reject) => {
 

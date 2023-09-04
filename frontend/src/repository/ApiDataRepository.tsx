@@ -1,8 +1,10 @@
 import { AxiosResponse } from "axios";
+
 import { Exercise } from "../models/Exercise";
 import { HttpClient } from "./HttpClient";
 import { IDataRepository } from "./IDataRepository";
 import { BASE_URL, user } from "../constants/constants";
+import { PersonalPageInfo } from "../models/PersonalPageInfo";
 
 
 
@@ -14,22 +16,45 @@ export class ApiResponse<T> {
 
 
 const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
+  
     return new Promise((resolve, reject) => {
       const result: ApiResponse<any> = {
-        data: response.data,
+        data: response,
         succeeded: response.status === 200,
-        errors: response.data.errors,
+        errors: response,
       };
       resolve(result);
     });
   };
 
 
-class ApiDataRepository extends HttpClient implements IDataRepository  {
+export class ApiDataRepository extends HttpClient implements IDataRepository  {
+    async fetchPersonalPageInfo(): Promise<PersonalPageInfo> {
+      const instance = this.createInstance();
+        try{
+          const result = await instance.get(`${BASE_URL}/user/${user.code}/personal-page`).then(transform);
+          console.log(result.data);
+          return result.data;
+        }
+        catch(error){
+          console.log(error);
+          throw error;
+        }
+    }
     async fetchFavoriteExercises(): Promise<Exercise[]> {
         const instance = this.createInstance();
-        const result = await instance.get(`${BASE_URL}/user-favorites/${user.code}`).then(transform);
-        return result.data;
+        try{
+          const result = await instance.get(`${BASE_URL}/user/${user.code}/favorites`).then(transform);
+          user.favoriteExercises.push(...result.data);
+          console.log(result.data);
+          return result.data;
+        }
+        catch(error){
+          console.log(error);
+          throw error;
+        }
+        
     }
+ 
    
 } 

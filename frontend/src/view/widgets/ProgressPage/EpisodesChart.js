@@ -1,53 +1,26 @@
 import React, { useState } from 'react';
-  import { Bar } from 'react-chartjs-2';
-  import {Chart as ChartJS} from 'chart.js/auto';
+import { Bar } from 'react-chartjs-2';
 import { Typography } from '@mui/material';
+// eslint-disable-next-line no-unused-vars
+import { Chart as ChartJS } from 'chart.js/auto'
 
-  const mockData = [
-    {
-        day: 'Dom.',
-        episodes: 3
-    },
-    {
-        day: 'Seg.',
-        episodes: 0
-    },
-    {
-        day: 'Ter.',
-        episodes: 2
-    },
-    {
-        day: 'Qua.',
-        episodes: 0
-    },
-    {
-        day: 'Qui.',
-        episodes: 0
-    },
-    {
-        day: 'Sex.',
-        episodes: 1
-    },
-    {
-        day: 'Sáb.',
-        episodes: 0
-    }
 
-];
+function EpisodesChart(props) {
+    const episodesData = props.episodesData;
 
-function EpisodesChart() {
-
-    const [userData, setUserData] = useState({
-        labels: mockData.map((data) => data.day),
+    const [userData,  ] = useState({
+        labels: episodesData.map((data) => data.date),
         datasets: [{
             label:"Número de episódios",
-            data: mockData.map((data) => data.episodes),
+            data: episodesData.map((data) => data.episodes),
             backgroundColor: 'rgba(7,112,136,255)'
         }]
-    })
+    });
+
     return(
         <>  
-            <Typography sx={{ fontWeight: 'bold', fontSize: 12, m: '0 auto', width:'70%', mt:'10px' }} variant="h6" align='center' color="primary">
+            <Typography sx={{ fontWeight: 'bold', fontSize: 12, m: '0 auto', width:'70%', mt:'10px' }} 
+            variant="h6" align='center' color="primary">
                 Número de episódios de ingestão alimentar compulsiva nos últimos 7 dias
             </Typography>
             <Bar data={userData} options={{
