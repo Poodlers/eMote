@@ -56,7 +56,6 @@ const imageList = [
 function MealTemplatePage(props) {
     var mealImage = null;
     for (const obj of imageList) {
-        console.log(obj.meal);
         if (obj.meal === props.meal) mealImage = obj.image;
     }
   return (
