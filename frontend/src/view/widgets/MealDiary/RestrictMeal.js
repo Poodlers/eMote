@@ -13,7 +13,7 @@ export default function RestrictMeal() {
             </Typography>
             </Grid>
             <Grid item xs={2}>
-                <Checkbox color='info'></Checkbox>
+                <Checkbox id='restrict' color='info'></Checkbox>
             </Grid>
         </Grid>
     </Box>

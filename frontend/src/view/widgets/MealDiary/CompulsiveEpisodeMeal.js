@@ -13,7 +13,7 @@ export default function CompulsiveEpisodeMeal() {
                 </Typography>
             </Grid>
             <Grid item xs={2}>
-                <Checkbox color='info'></Checkbox>
+                <Checkbox id='compulsive' color='info'></Checkbox>
             </Grid>
         </Grid>
     </Box>

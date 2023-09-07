@@ -6,6 +6,7 @@ import ExercisesButton from '../widgets/EmotionsDiary/ExercisesButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link } from 'react-router-dom';
 import ReflexionForm from '../widgets/EmotionsDiary/ReflexionForm';
+import ConfirmButton from '../widgets/EmotionsDiary/ConfirmButton';
 
 function EmotionDiaryPage() {
   return (
@@ -25,6 +26,7 @@ function EmotionDiaryPage() {
             <EmotionsButton/>
             <ExercisesButton/>
             <ReflexionForm/>
+            <ConfirmButton/>
           </Box>
         </Box>
         </div>

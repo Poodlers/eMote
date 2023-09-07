@@ -19,6 +19,7 @@ import RestrictMeal from '../widgets/MealDiary/RestrictMeal';
 import CompulsiveEpisodeMeal from '../widgets/MealDiary/CompulsiveEpisodeMeal';
 import CompensationMeal from '../widgets/MealDiary/CompensationMeal';
 import CommentsMeal from '../widgets/MealDiary/CommentsMeal';
+import ConfirmButton from '../widgets/MealDiary/ConfirmButton';
 
 
 const imageList = [
@@ -90,6 +91,7 @@ function MealTemplatePage(props) {
             <CompulsiveEpisodeMeal/>
             <CompensationMeal/>
             <CommentsMeal/>
+            <ConfirmButton/>
           </Box>
         </Box>
         </div>

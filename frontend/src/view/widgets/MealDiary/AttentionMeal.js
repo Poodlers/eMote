@@ -13,7 +13,7 @@ export default function AttentionMeal() {
                 </Typography>
             </Grid>
             <Grid item xs={2}>
-                <Checkbox color='info'></Checkbox>
+                <Checkbox id='attention' color='info'></Checkbox>
             </Grid>
         </Grid>
     </Box>

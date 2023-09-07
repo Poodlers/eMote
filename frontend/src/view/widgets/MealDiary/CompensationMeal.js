@@ -6,65 +6,52 @@ import Typography from '@mui/material/Typography';
 export default function CompensationMeal() {
 
     const [checked, setChecked] = React.useState(false);
-    const handleChange = (event) => {
-        setChecked(event.target.value);
+    const handleChange = () => {
+        setChecked(!checked);
       };
 
     const [behav1, setBehav1] = React.useState(false);
-    const handleChange1 = (event) => {
-        setBehav1(event.target.value);
-      };
+
     const [behav2, setBehav2] = React.useState(false);
-    const handleChange2 = (event) => {
-        setBehav2(event.target.value);
-      };
+
     const [behav3, setBehav3] = React.useState(false);
-    const handleChange3 = (event) => {
-        setBehav3(event.target.value);
-      };
+
     const [behav4, setBehav4] = React.useState(false);
-    const handleChange4 = (event) => {
-        setBehav4(event.target.value);
-      };
+
     const [behav5, setBehav5] = React.useState(false);
-    const handleChange5 = (event) => {
-        setBehav5(event.target.value);
-      };
+
     const [behav6, setBehav6] = React.useState(false);
-    const handleChange6 = (event) => {
-        setBehav6(event.target.value);
-      };
 
     const compensationBehaviors = [
         {
             behavior: 'Vomitar',
             controller: behav1,
-            function: handleChange1
+            function: setBehav1
         },
         {
             behavior: 'Fazer exercício físico excessivo',
             controller: behav2,
-            function: handleChange2
+            function: setBehav2
         },
         {
             behavior: 'Restrição alimentar excessiva',
             controller: behav3,
-            function: handleChange3
+            function: setBehav3
         },
         {
             behavior: 'Tomar laxantes e/ou diuréticos',
             controller: behav4,
-            function: handleChange4
+            function: setBehav4
         },
         {
             behavior: 'Tomar medicação para emagrecer',
             controller: behav5,
-            function: handleChange5
+            function: setBehav5
         },
         {
             behavior: 'Outro',
             controller: behav6,
-            function: handleChange6
+            function: setBehav6
         },
     ]
 
@@ -77,7 +64,7 @@ export default function CompensationMeal() {
                 </Typography>
             </Grid>
             <Grid item xs={2}>
-                <Checkbox color='info'
+                <Checkbox id='compensation' color='info'
                 checked={checked}
                 onChange={handleChange}></Checkbox>
             </Grid>
@@ -94,8 +81,9 @@ export default function CompensationMeal() {
                         </Grid>
                         <Grid item xs={2}>
                             <Checkbox
+                            id={data.behavior}
                             checked={data.controller}
-                            onChange={data.function}
+                            onChange={() => {data.function(!data.controller); console.log(data.controller)}}
                             color='info'></Checkbox>
                         </Grid>
                     </Grid>
