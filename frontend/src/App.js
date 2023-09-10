@@ -19,6 +19,7 @@ import EmotionsPage from './view/pages/EmotionsPage.js';
 import ExercisesPage from './view/pages/ExercisesPage.js';
 import MealDiaryPage from './view/pages/MealDiaryPage.js';
 import MealTemplatePage from './view/pages/MealTemplatePage.js';
+import LoginPage from './view/pages/LoginPage.js';
 
 
 const theme = myTheme;
@@ -29,6 +30,7 @@ function App() {
       <StyledEngineProvider injectFirst>
       <Routes>
         <Route path='/' element={<LandingPage />} />
+        <Route path='/login' element={<LoginPage />} />
         <Route path='/favorites' element={< FavoritesPage/>} />
         <Route path='/progress' element={< ProgressPage/>} />
         <Route path='/profile' element={< ProfilePage/>} />

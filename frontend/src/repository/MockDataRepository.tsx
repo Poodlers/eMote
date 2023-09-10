@@ -1,8 +1,12 @@
 import { Exercise } from "../models/Exercise";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
+import { User } from "../models/User";
 import { IDataRepository } from "./IDataRepository";
 
 export class MockDataRepository implements IDataRepository {
+    loginUser(code: string, password: string): Promise<User> {
+        throw new Error("Method not implemented.");
+    }
     fetchPersonalPageInfo(): Promise<PersonalPageInfo> {
         throw new Error("Method not implemented.");
     }
