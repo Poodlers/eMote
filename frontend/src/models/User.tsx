@@ -8,9 +8,9 @@ export interface User {
     code : string,
     hasAccessToApp : boolean,
     role: Number,
-    emotionDiaryEntries: Array<EmotionDiaryEntry>,
-    foodDiaryEntries: Array<FoodDiaryEntry>,
-    modulosProgress : Array<ModuloProgress>,
-    favoriteExercises : Array<Exercise>,
+    emotionDiaryEntries?: Array<EmotionDiaryEntry>,
+    foodDiaryEntries?: Array<FoodDiaryEntry>,
+    modulosProgress? : Array<ModuloProgress>,
+    favoriteExercises? : Array<Exercise>,
 
 }
