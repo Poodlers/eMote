@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, IconButton, Typography } from '@mui/material';
+import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link } from 'react-router-dom';
 
@@ -19,7 +19,6 @@ import RestrictMeal from '../widgets/MealDiary/RestrictMeal';
 import CompulsiveEpisodeMeal from '../widgets/MealDiary/CompulsiveEpisodeMeal';
 import CompensationMeal from '../widgets/MealDiary/CompensationMeal';
 import CommentsMeal from '../widgets/MealDiary/CommentsMeal';
-import ConfirmButton from '../widgets/MealDiary/ConfirmButton';
 
 
 const imageList = [
@@ -90,7 +89,14 @@ function MealTemplatePage(props) {
             <CompulsiveEpisodeMeal/>
             <CompensationMeal/>
             <CommentsMeal/>
-            <ConfirmButton/>
+            
+            <Box sx ={{ p:3 }} textAlign='center'>
+                <Button sx ={{ p:1, bgcolor: '#349db7' }}>
+                    <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
+                        Confirmar
+                    </Typography>
+                </Button>
+            </Box>
           </Box>
         </Box>
         </div>

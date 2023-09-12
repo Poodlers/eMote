@@ -1,12 +1,11 @@
 import React from 'react';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, Button, IconButton, Typography } from '@mui/material';
 import DiaryLogo from '../../assets/images/diario_emocoes.png'
 import EmotionsButton from '../widgets/EmotionsDiary/EmotionsButton';
 import ExercisesButton from '../widgets/EmotionsDiary/ExercisesButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link } from 'react-router-dom';
 import ReflexionForm from '../widgets/EmotionsDiary/ReflexionForm';
-import ConfirmButton from '../widgets/EmotionsDiary/ConfirmButton';
 
 function EmotionDiaryPage() {
   return (
@@ -26,7 +25,15 @@ function EmotionDiaryPage() {
             <EmotionsButton/>
             <ExercisesButton/>
             <ReflexionForm/>
-            <ConfirmButton/>
+
+            <Box sx ={{ p:3 }} textAlign='center'>
+              <Button sx ={{ p:1, bgcolor: '#ec6fa7' }}>
+                  <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
+                      Confirmar
+                  </Typography>
+              </Button>
+            </Box>
+
           </Box>
         </Box>
         </div>
