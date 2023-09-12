@@ -10,24 +10,28 @@ const themes = [
     {
         name: "Psicoeducação",
         theme: "orange",
+        link: '/module1',
         color1: "#f48d0d",
         color2: "#f3b890",
     },
     {
         name: "Mindfulness",
         theme: "green",
+        link: '/module2',
         color1: "#519a96",
         color2: "#9bcdbb",
     },
     {
         name: "Regulação emocional",
         theme: "purple",
+        link: '/module3',
         color1: "#a87e95",
         color2: "#f5c3e8",
     },
     {
         name: "Tolerância a estados emocionais dolorosos",
         theme: "blue",
+        link: '/module4',
         color1: "#52b9c4",
         color2: "#d7fcfa",
     },
@@ -53,18 +57,19 @@ function ModuleIntroductionPage(props) {
                 {props.name}
             </Typography>
           </Box>
-          <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, fontSize: 20 }} variant='body1'>
+          <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
                 {lorem}
             </Typography>
-        </Box>
-
-        <Box sx ={{ p:3 }} textAlign='center'>
-            <Button sx ={{ p:1, bgcolor: module.color1 }}>
+          <Box sx ={{ p:3}} textAlign='center'>
+            <Button component={Link} to={module.link} sx ={{ p:1, bgcolor: module.color1 }}>
                 <Typography gutterBottom color={"white"} sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' >
                     Vamos começar?
                 </Typography>
             </Button>
+          </Box>
         </Box>
+
+
 
         <NavBar color={module.theme}/>
         </>

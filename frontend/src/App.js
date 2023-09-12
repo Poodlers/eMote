@@ -20,6 +20,7 @@ import ExercisesPage from './view/pages/ExercisesPage.js';
 import MealDiaryPage from './view/pages/MealDiaryPage.js';
 import MealTemplatePage from './view/pages/MealTemplatePage.js';
 import ModuleIntroductionPage from './view/pages/ModuleIntroductionPage.js';
+import SubmoduleListPage from './view/pages/SubmoduleListPage.js';
 
 
 const theme = myTheme;
@@ -55,6 +56,12 @@ function App() {
         <Route path='/regulacao' element= {<ModuleIntroductionPage name='Regulação emocional'/>} />
         <Route path='/tolerancia' element= {<ModuleIntroductionPage name='Tolerância a estados emocionais dolorosos'/>} />
       
+        <Route path='/module1' element= {<SubmoduleListPage name='Psicoeducação'/>} />
+        <Route path='/module2' element= {<SubmoduleListPage name='Mindfulness'/>} />
+        <Route path='/module3' element= {<SubmoduleListPage name='Regulação emocional'/>} />
+        <Route path='/module4' element= {<SubmoduleListPage name='Tolerância a estados emocionais dolorosos'/>} />
+
+
       </Routes>
       </StyledEngineProvider>
     </ThemeProvider>
