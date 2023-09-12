@@ -5,27 +5,31 @@ import { BottomNavigation, BottomNavigationAction } from '@mui/material';
 import Home from '../../assets/images/home.png';
 import HomeGreen from '../../assets/images/home_verde.png';
 import HomePurple from '../../assets/images/home_rosa.png';
+import HomeOrange from '../../assets/images/home_laranja.png';
 
 import Favoritos from '../../assets/images/favoritos.png';
 import FavoritosGreen from '../../assets/images/favoritos_verde.png';
 import FavoritosPurple from '../../assets/images/favoritos_rosa.png';
+import FavoritosOrange from '../../assets/images/favoritos_laranja.png';
 
 import Progresso from '../../assets/images/progresso.png';
 import ProgressoGreen from '../../assets/images/progresso_verde.png';
 import ProgressoPurple from '../../assets/images/progresso_rosa.png';
+import ProgressoOrange from '../../assets/images/progresso_laranja.png';
 
 import Perfil from '../../assets/images/perfil.png';
 import PerfilGreen from '../../assets/images/perfil_verde.png';
 import PerfilPurple from '../../assets/images/perfil_rosa.png';
+import PerfilOrange from '../../assets/images/perfil_laranja.png';
 
 const themes = [
   {
       name: "orange",
       color: "#f48d0d",
-      home: HomeGreen,
-      favorites: FavoritosGreen,
-      progress: ProgressoGreen,
-      profile: PerfilGreen
+      home: HomeOrange,
+      favorites: FavoritosOrange,
+      progress: ProgressoOrange,
+      profile: PerfilOrange
   },
   {
       name: "green",
