@@ -25,7 +25,34 @@ const myTheme = createTheme({
             primary: '#fff',
             secondary: '#75c1d7',
         }
-    }
-})
+    },
+    components: {
+        MuiDateCalendar: {
+            styleOverrides: {
+                root: {
+                 
+                    color: '#fff',
+                    backgroundColor: '#067089'
+
+                }
+            }
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    color: '#fff',
+                    backgroundColor: '#fff',
+                    borderColor: '#067089',
+                    ":hover": {
+                        borderColor: '#067089',
+                        
+                    },
+                
+            }
+        },
+
+    
+}}  
+});
 
 export default myTheme;

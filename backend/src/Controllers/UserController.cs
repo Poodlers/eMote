@@ -4,6 +4,7 @@ using backend.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace backend.Controllers;
 
@@ -37,12 +38,41 @@ public class UserController : ControllerBase
     [HttpGet(Name = "GetUsers")]
     public Dictionary<string, List<User>> Get()
     {
+        var users = _dbUserSet.ToList();
+        foreach (var user in users)
+        {
+            var timeSpan = TimeSpan.FromDays(60) - DateTime.Now.Subtract((DateTime)user.CreatedAt!);
+            user.TimeLeftInApp = user.HasAccessToApp && timeSpan > TimeSpan.Zero ? timeSpan.ToString("%d") + " days " + timeSpan.ToString("%h") + " hours" : "";
+
+        }
+
         return new Dictionary<string, List<User>>
         {
 
             ["users"] = _dbUserSet.ToList()
         };
     }
+
+    [HttpGet("{user_code}/accessToDiaries", Name = "GetUserAccessesToDiaries")]
+    public ActionResult<bool> GetUserAccessesToDiaries(String user_code)
+    {
+        var user = _dbUserSet.Where(user => user.Code == user_code).Include(
+            user => user.ModulosProgress
+        )
+        .FirstOrDefault();
+
+        if (user == null)
+        {
+            return StatusCode(
+                404,
+                "User not found"
+            );
+        }
+
+        return Ok(user.ModulosProgress[0].IsCompleted);
+    }
+
+
 
     [HttpGet("{user_code}", Name = "GetUser")]
     public ActionResult<User> Get(String user_code)
@@ -59,8 +89,46 @@ public class UserController : ControllerBase
                 "User not found"
             );
         }
+        var timeSpan = TimeSpan.FromDays(60) - DateTime.Now.Subtract((DateTime)user.CreatedAt!);
+        user.TimeLeftInApp = user.HasAccessToApp && timeSpan > TimeSpan.Zero ? timeSpan.ToString("%d") + " days " + timeSpan.ToString("%h") + " hours" : "";
 
         return Ok(user);
+    }
+
+    [HttpPut("{user_code}", Name = "UpdateUser")]
+    public async Task<ActionResult<User>> Update(String user_code, [FromBody] UserDTO user)
+    {
+        var userToUpdate = _dbUserSet.Where(user => user.Code == user_code)
+        .FirstOrDefault();
+
+        if (userToUpdate == null)
+        {
+            return StatusCode(
+                404,
+                "User not found"
+            );
+        }
+
+        userToUpdate.Code = user.Code;
+        userToUpdate.Password = user.Password;
+        userToUpdate.Role = user.Role;
+        userToUpdate.HasAccessToApp = user.HasAccessToApp;
+
+        string[] format = { "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "yyyy-mm-dd", "yyyy/mm/dd", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss" };
+        if (DateTime.TryParseExact(user.CreatedAt, format, null,
+                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
+                               System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataCriado))
+        {
+            userToUpdate.CreatedAt = dataCriado;
+        }
+        else
+        {
+            return StatusCode(401, "Invalid dateOfCreation");
+        }
+
+        await _context.SaveChangesAsync();
+
+        return Ok(userToUpdate);
     }
 
     [HttpDelete("{user_code}", Name = "DeleteUser")]
@@ -112,6 +180,7 @@ public class UserController : ControllerBase
         {
             foreach (var submodulo_progress in modulo_progress.SubModuleUserProgresses)
             {
+                _logger.LogInformation("Deleting submodulo progress with id {id}", submodulo_progress.Id);
                 _context.Remove(submodulo_progress);
             }
             _context.Remove(modulo_progress);
@@ -303,7 +372,6 @@ public class UserController : ControllerBase
     {
 
         var findUser = _dbUserSet
-
         .Where(u => u.Code == user.Code).FirstOrDefault();
         if (findUser != null)
         {
@@ -314,7 +382,8 @@ public class UserController : ControllerBase
         {
             Code = user.Code,
             Password = user.Password,
-            Role = user.Role
+            Role = user.Role,
+            HasAccessToApp = user.HasAccessToApp
         };
 
         string[] format = { "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss" };

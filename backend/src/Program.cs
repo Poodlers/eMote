@@ -108,6 +108,21 @@ using (var scope = app.Services.CreateScope())
         context.SaveChanges();
     }
 
+    var userContent = context.Set<User>();
+
+    if (!userContent.Where(u => u.Role == 3).Any())
+    {
+        var user = new User
+        {
+            Code = "admin",
+            Password = "admin",
+            Role = 3,
+            TimeLeftInApp = "Forever"
+        };
+        userContent.Add(user);
+        context.SaveChanges();
+    }
+
 
 }
 

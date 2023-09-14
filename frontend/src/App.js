@@ -20,6 +20,7 @@ import ExercisesPage from './view/pages/ExercisesPage.js';
 import MealDiaryPage from './view/pages/MealDiaryPage.js';
 import MealTemplatePage from './view/pages/MealTemplatePage.js';
 import LoginPage from './view/pages/LoginPage.js';
+import AdminPage from './view/pages/AdminPage.js';
 
 
 const theme = myTheme;
@@ -30,6 +31,7 @@ function App() {
       <StyledEngineProvider injectFirst>
       <Routes>
         <Route path='/' element={<LandingPage />} />
+        <Route path='/admin' element={<AdminPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/favorites' element={< FavoritesPage/>} />
         <Route path='/progress' element={< ProgressPage/>} />

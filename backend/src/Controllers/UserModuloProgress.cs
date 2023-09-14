@@ -98,6 +98,11 @@ public class UserModuloProgress : ControllerBase
             return StatusCode(401, "Invalid dataFim");
         }
 
+        if (progressDTO.TimeStampFim != null)
+        {
+            userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].IsCompleted = true;
+        }
+
 
         var userProgress = 0;
         foreach (SubModuleUserProgress subModuleUserProgress in userProgressModulo.ModulosProgress[0].SubModuleUserProgresses)
@@ -151,6 +156,11 @@ public class UserModuloProgress : ControllerBase
         {
             return StatusCode(401, "Invalid dataFim");
         }
+        if (progressDTO.TimeStampFim != null)
+        {
+            userProgressModulo.ModulosProgress[0].IsCompleted = true;
+        }
+
 
 
         await _context.SaveChangesAsync();

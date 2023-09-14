@@ -1,8 +1,7 @@
 import { Button, TextField, Grid, Box, Typography} from '@mui/material';
 import { RepositoryInjector } from '../../repository/RepositoryInjector';
 import Logo from '../../assets/images/emote_logo.png';
-import React from 'react';
-import { user } from '../../constants/constants';
+import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field} from 'formik';
 
@@ -15,6 +14,22 @@ function LoginPage() {
     password: ''
   }
 
+  useEffect(() => {
+    const loggedUser = JSON.parse(localStorage.getItem('user'));
+    if(loggedUser === null) return;
+    /*
+    
+    if(loggedUser.role === 3){
+      navigate('/admin', { replace: true });
+    }else if(loggedUser.hasAccessToApp){
+      navigate('/', { replace: true });
+    }
+    
+    */
+    
+    // eslint-disable-next-line
+  }, []);
+
   const onSubmit = (values, props) => {
     
     const {code, password} = values;
@@ -22,10 +37,16 @@ function LoginPage() {
       props.resetForm();
       repository.loginUser(code, password).then((response) => {
         console.log(response);  
-        user.code = response.code;
-        user.role = response.role;
-        user.hasAccessToApp = response.hasAccessToApp;
-        if(response.hasAccessToApp){
+        const loggedUser = {
+          code: response.code,
+          role: response.role,
+          hasAccessToApp: response.hasAccessToApp
+        }
+        localStorage.setItem('user', JSON.stringify(loggedUser));
+
+        if(response.role === 3){
+          navigate('/admin', { replace: true });
+        }else if(response.hasAccessToApp){
           navigate('/', { replace: true });
         }else{ 
           alert('O seu periodo de acesso à emotE terminou, esperamos que tenha gostado da experiência!');

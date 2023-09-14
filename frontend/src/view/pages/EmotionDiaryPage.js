@@ -18,6 +18,7 @@ function EmotionDiaryPage() {
             <div style={{ paddingBottom: 10, display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
                 <img alt="logo" style={{ alignSelf: 'center' }} src={DiaryLogo} width='30%'/>
             </div>
+
             <Typography gutterBottom sx={{ pb:1, textAlign: 'center', fontSize: 17, fontWeight: 500, color: "#e7007f" }} variant='body1'>
                 Diário das Emoções
             </Typography>

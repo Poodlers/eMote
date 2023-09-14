@@ -29,24 +29,23 @@ public class ExcelExportController : ControllerBase
     }
 
     [HttpGet(Name = "ExcelExport")]
-    public async Task<ActionResult> ExportDbExcel()
+    public async Task<FileResult?> ExportDbExcel()
     {
         var users = await _dbUserSet.ToListAsync();
         var filename = "database_emotE.xlsx";
         try
         {
-            GenerateExcel(filename, users);
-            return Ok("File successfuly stored in Google Drive");
+            return GenerateExcel(filename, users);
         }
         catch (Exception e)
         {
             _logger.LogError(e.Message);
-            return StatusCode(500, "Error generating excel file");
+            return null;
         }
 
     }
 
-    private void GenerateExcel(string filename, IEnumerable<User> users)
+    private FileResult GenerateExcel(string filename, IEnumerable<User> users)
     {
         DataTable dataTableUser = new DataTable("Users");
 
@@ -215,6 +214,7 @@ public class ExcelExportController : ControllerBase
 
         foreach (var user in userEnum)
         {
+            if (user.ModulosProgress.Count < 1) continue;
             _logger.LogInformation($"Adding user {user.Code} to excel file");
             _logger.LogInformation($"Adding user with modulosProgress {user.ModulosProgress[0].SubModuleUserProgresses.Count} to excel file");
             dataTableUser.Rows.Add(user.Code, user.Password, user.Role);
@@ -321,10 +321,21 @@ public class ExcelExportController : ControllerBase
             {
                 workbook.SaveAs(stream);
                 var file = File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename);
-                //upload to google drive
-                var GoogleDriveService = new GoogleDriveService();
-                var folderId = "17i0XpUI-3hCnfC73O29RXy6T495VfHeq";
-                GoogleDriveService.UploadFile(stream, filename, "", folderId, "Database backup");
+                //upload to google 
+                try
+                {
+                    var GoogleDriveService = new GoogleDriveService();
+                    var folderId = "17i0XpUI-3hCnfC73O29RXy6T495VfHeq";
+                    GoogleDriveService.UploadFile(stream, filename, "", folderId, "Database backup");
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e.Message);
+                }
+
+                return file;
+
+
 
             }
         }
