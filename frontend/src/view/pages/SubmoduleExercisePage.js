@@ -5,7 +5,7 @@ import { NavBar } from '../widgets/NavBar';
 
 import Lock from '@mui/icons-material/Lock';
 import LockOpen from '@mui/icons-material/LockOpen';
-import { modulesThemes } from '../../constants/themes.js'
+import { modulesThemes } from '../../constants/themes.js';
 
 
  const submodulesContent = [
@@ -37,7 +37,7 @@ const submodules = [
     }   
 ]
 
-function SubmoduleListPage(props) {
+function SubmoduleExercisePage(props) {
     var module = null;
     var content = null;
 
@@ -57,31 +57,14 @@ function SubmoduleListPage(props) {
                 break;
             }
         }
-        console.log(obj)
+        console.log(content)
 
-        list.push(
-            <Box key={obj.id} sx ={{p:5, pt:2, pb:2, bgcolor: obj.id%2===0? module.color3 : module.color1 , alignContent: 'center', width: '80%', m:'0 auto'}}>
-                <Link underline="none" href={content.text ? module.introlink : module.exerciselink} >
-                    <Grid direction='row' container spacing={2}>
-                        <Grid item xs={1}>
-                            {obj.blocked ? <Lock htmlColor={'white'}/> : <LockOpen htmlColor={'white'}/>}
-                        </Grid>
-                        <Grid item xs={11} sx={{ display:'flex', alignItems:'center', }}>
-                            <Typography sx={{ fontSize: 18, }} variant='body1' color={"white"}>
-                                {obj.name}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                </Link>
-
-            </Box>
-        )
     }
     
   return (
     document.body.style = 'background:' + module.color2,
     <>
-    <LogoAppBar color={module.theme}/>
+    <LogoAppBar color={module.theme} goBack={true}/>
 
     <Box sx={{mt:'60px', mb:'70px'}}>
       <Box sx ={{p:5, pt:2, pb:2, bgcolor: module.color1, alignContent: 'center', width: '80%', m:'0 auto'}}>
@@ -91,7 +74,7 @@ function SubmoduleListPage(props) {
       </Box>
 
       <Box sx= {{pt:1}} textAlign='center'>
-        {list}
+
       </Box>
     </Box>
 
@@ -103,4 +86,4 @@ function SubmoduleListPage(props) {
   );
 }
 
-export default SubmoduleListPage;
+export default SubmoduleExercisePage;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 import Logo from '../../assets/images/icon.png';
 import LogoBlue from '../../assets/images/icon_azul.png';
@@ -9,24 +10,35 @@ import LogoOrange from '../../assets/images/icon_laranja.png';
 import LogoGreen from '../../assets/images/icon_verde.png';
 import LogoPurple from '../../assets/images/icon_rosa.png';
 
-import { Link } from '@mui/material';
+import { IconButton, Link as MUILink } from '@mui/material';
+import { Link } from 'react-router-dom';
+
 
 const themes = [
   {
       name: "orange",
-      logo: LogoOrange
+      logo: LogoOrange,
+      color: "#f48d0d",
+      link: "/module1"
   },
   {
       name: "green",
-      logo: LogoGreen
+      logo: LogoGreen,
+      color: "#519a96",
+      link: "/module2"
   },
+  
   {
       name: "purple",
-      logo: LogoPurple
+      logo: LogoPurple,
+      color: "#a87e95",
+      link: "/module3"
   },
   {
       name: "blue",
-      logo: LogoBlue
+      logo: LogoBlue,
+      color: "#52b9c4",
+      link: "/module4"
   },
 ]
 
@@ -43,10 +55,16 @@ export function LogoAppBar(props) {
   return (
       <AppBar sx ={{boxShadow: 'none', top:0, height: 60, backgroundColor: modified? "#ffffff" : null }} >
         <Toolbar>
+          {props.goBack? 
+            <IconButton component={Link} to={theme.link} aria-label="back" size="large">
+              <ArrowBackIosIcon htmlColor={theme.color} fontSize="inherit" />
+            </IconButton>
+            : null
+          }
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}/>
-          <Link href="/" sx ={{p:2}}>
+          <MUILink href="/" sx ={{p:2}}>
             <img alt="logo" src={modified? theme.logo : Logo} height={35}/>
-          </Link>
+          </MUILink>
           
         </Toolbar>
       </AppBar>

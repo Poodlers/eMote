@@ -21,6 +21,8 @@ import MealDiaryPage from './view/pages/MealDiaryPage.js';
 import MealTemplatePage from './view/pages/MealTemplatePage.js';
 import ModuleIntroductionPage from './view/pages/ModuleIntroductionPage.js';
 import SubmoduleListPage from './view/pages/SubmoduleListPage.js';
+import SubmoduleIntroPage from './view/pages/SubmoduleIntroPage.js';
+import SubmoduleExercisePage from './view/pages/SubmoduleExercisePage.js';
 
 
 const theme = myTheme;
@@ -60,6 +62,15 @@ function App() {
         <Route path='/module2' element= {<SubmoduleListPage name='Mindfulness'/>} />
         <Route path='/module3' element= {<SubmoduleListPage name='Regulação emocional'/>} />
         <Route path='/module4' element= {<SubmoduleListPage name='Tolerância a estados emocionais dolorosos'/>} />
+       
+        <Route path='/submoduleintro1' element= {<SubmoduleIntroPage name='Psicoeducação'/>} />
+        <Route path='/submoduleexercise1' element= {<SubmoduleExercisePage name='Psicoeducação'/>} />
+        <Route path='/submoduleintro2' element= {<SubmoduleIntroPage name='Mindfulness'/>} />
+        <Route path='/submoduleexercise2' element= {<SubmoduleExercisePage name='Mindfulness'/>} />
+        <Route path='/submoduleintro3' element= {<SubmoduleIntroPage name='Regulação emocional'/>} />
+        <Route path='/submoduleexercise3' element= {<SubmoduleExercisePage name='Regulação emocional'/>} />
+        <Route path='/submoduleintro4' element= {<SubmoduleIntroPage name='Tolerância a estados emocionais dolorosos'/>} />
+        <Route path='/submoduleexercise4' element= {<SubmoduleExercisePage name='Tolerância a estados emocionais dolorosos'/>} />
 
 
       </Routes>
