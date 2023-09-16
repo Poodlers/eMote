@@ -14,11 +14,9 @@ import SkipMeal from '../widgets/MealDiary/SkipMeal';
 import TimeMeal from '../widgets/MealDiary/TimeMeal';
 import FeelingMeal from '../widgets/MealDiary/FeelingMeal';
 import DescriptionMeal from '../widgets/MealDiary/DescriptionMeal';
-import AttentionMeal from '../widgets/MealDiary/AttentionMeal';
-import RestrictMeal from '../widgets/MealDiary/RestrictMeal';
-import CompulsiveEpisodeMeal from '../widgets/MealDiary/CompulsiveEpisodeMeal';
 import CompensationMeal from '../widgets/MealDiary/CompensationMeal';
 import CommentsMeal from '../widgets/MealDiary/CommentsMeal';
+import CheckboxTemplate from '../widgets/MealDiary/CheckboxTemplate';
 
 
 const imageList = [
@@ -84,9 +82,9 @@ function MealTemplatePage(props) {
             <TimeMeal/>
             <FeelingMeal/>
             <DescriptionMeal/>
-            <AttentionMeal/>
-            <RestrictMeal/>
-            <CompulsiveEpisodeMeal/>
+            <CheckboxTemplate text="Comi com atenção plena" id='attention'/>
+            <CheckboxTemplate text="Restringi propositadamente a quantidade de alimentos" id='restriction'/>
+            <CheckboxTemplate text="Tive um episódio de ingestão compulsiva" id='episode'/>
             <CompensationMeal/>
             <CommentsMeal/>
             
