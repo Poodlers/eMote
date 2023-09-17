@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
@@ -9,23 +8,23 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { Box, Grid } from '@mui/material';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
-import button from '../../../assets/images/botao_comosenti.png'
-import DiaryLogo from '../../../assets/images/diario_emocoes_icon.png'
-import imgAborrecida from '../../../assets/images/aborrecida.png';
-import imgAnsiosa from '../../../assets/images/ansiosa.png';
-import imgCulpada from '../../../assets/images/culpada.png';
-import imgEnvergonhada from '../../../assets/images/envergonhada.png';
-import imgEntusiasmada from '../../../assets/images/entusiasmada.png';
-import imgFeliz from '../../../assets/images/feliz.png';
-import imgFrustrada from '../../../assets/images/frustrada.png';
-import imgFuriosa from '../../../assets/images/furiosa.png';
-import imgIrritada from '../../../assets/images/irritada.png';
-import imgMotivada from '../../../assets/images/motivada.png';
-import imgOrgulhosa from '../../../assets/images/orgulhosa.png';
-import imgSozinha from '../../../assets/images/sozinha.png';
-import imgTranquila from '../../../assets/images/tranquila.png';
-import imgTriste from '../../../assets/images/triste.png';
+import DiaryLogo from '../../assets/images/diario_emocoes_icon.png'
+import imgAborrecida from '../../assets/images/aborrecida.png';
+import imgAnsiosa from '../../assets/images/ansiosa.png';
+import imgCulpada from '../../assets/images/culpada.png';
+import imgEnvergonhada from '../../assets/images/envergonhada.png';
+import imgEntusiasmada from '../../assets/images/entusiasmada.png';
+import imgFeliz from '../../assets/images/feliz.png';
+import imgFrustrada from '../../assets/images/frustrada.png';
+import imgFuriosa from '../../assets/images/furiosa.png';
+import imgIrritada from '../../assets/images/irritada.png';
+import imgMotivada from '../../assets/images/motivada.png';
+import imgOrgulhosa from '../../assets/images/orgulhosa.png';
+import imgSozinha from '../../assets/images/sozinha.png';
+import imgTranquila from '../../assets/images/tranquila.png';
+import imgTriste from '../../assets/images/triste.png';
 
 
     const imageList = [
@@ -91,7 +90,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FeelingMeal() {
+export default function EmotionsDialog() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -104,17 +103,17 @@ export default function FeelingMeal() {
 
   return (
     <div>
-    <Box >
-        <Grid container sx={{ p: 0.5, placeItems:"center" }} direction="row" >
-          <Button sx={{textTransform: 'none'}} onClick={handleClickOpen}>
-            <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
-              Como me senti
-            </Typography>
-            <Box sx ={{pl: 1 }}>
-              <img alt='button' height='30px' src={button}/>
+    <Box sx ={{p:1 }}>
+            <Box sx ={{p:1, bgcolor: '#ec6fa7'}}>
+                <Grid container sx={{ p: 0.5 }} direction="row" justifyContent="center">
+                    <Button sx={{textTransform: 'none'}} onClick={handleClickOpen}>
+                        <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
+                            Como me senti hoje?
+                        </Typography>
+                        <KeyboardArrowRightIcon fontSize='large' htmlColor='#fff'/>
+                    </Button>
+                </Grid>
             </Box>
-          </Button>
-        </Grid>
     </Box>
 
       <Dialog
@@ -134,7 +133,7 @@ export default function FeelingMeal() {
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1, textAlign: 'center' }} variant="h6" component="div">
-              Como me senti
+              Como me senti hoje?
             </Typography>
             <Button autoFocus color="inherit" onClick={handleClose}>
               salvar

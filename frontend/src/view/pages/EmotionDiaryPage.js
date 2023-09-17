@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Button, IconButton, Typography } from '@mui/material';
 import DiaryLogo from '../../assets/images/diario_emocoes.png'
-import EmotionsButton from '../widgets/EmotionsDiary/EmotionsButton';
-import ExercisesButton from '../widgets/EmotionsDiary/ExercisesButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link } from 'react-router-dom';
 import ReflexionForm from '../widgets/EmotionsDiary/ReflexionForm';
+import EmotionsDialog from '../widgets/EmotionsDialog';
+import ExercisesDialog from '../widgets/EmotionsDiary/ExercisesDialog';
 
 function EmotionDiaryPage() {
   return (
@@ -22,8 +22,8 @@ function EmotionDiaryPage() {
                 Diário das Emoções
             </Typography>
           <Box sx={{p:2}}>
-            <EmotionsButton/>
-            <ExercisesButton/>
+            <EmotionsDialog/>
+            <ExercisesDialog/>
             <ReflexionForm/>
 
             <Box sx ={{ p:3 }} textAlign='center'>
