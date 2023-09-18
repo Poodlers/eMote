@@ -10,8 +10,12 @@ import LogoOrange from '../../assets/images/icon_laranja.png';
 import LogoGreen from '../../assets/images/icon_verde.png';
 import LogoPurple from '../../assets/images/icon_rosa.png';
 
+import { IconButton, Link } from '@mui/material';
+import { Logout } from '@mui/icons-material';
+import { RepositorySingleton } from '../../repository/RepositoryInjector';
+import { useNavigate } from 'react-router-dom';
+
 import { IconButton, Link as MUILink } from '@mui/material';
-import { Link } from 'react-router-dom';
 
 
 const themes = [
@@ -52,6 +56,14 @@ export function LogoAppBar(props) {
           modified = true;
       }
   }
+  const repository = RepositorySingleton.getInstance().injectRepository();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    repository.logOutUser();
+    navigate('/');
+  }
+
   return (
       <AppBar sx ={{boxShadow: 'none', top:0, height: 60, backgroundColor: modified? "#ffffff" : null }} >
         <Toolbar>
@@ -62,9 +74,16 @@ export function LogoAppBar(props) {
             : null
           }
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}/>
+          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleLogout}>
+            <Logout></Logout>
+          </IconButton>
           <MUILink href="/" sx ={{p:2}}>
             <img alt="logo" src={modified? theme.logo : Logo} height={35}/>
           </MUILink>
+
+          
+
+          
           
         </Toolbar>
       </AppBar>

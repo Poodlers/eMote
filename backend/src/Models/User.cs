@@ -21,16 +21,23 @@ public class UserDTO
     public String? Password { get; set; }
 
     [Required]
-    public String? CreatedAt { get; set; }
+    public int Role { get; set; }
 
     [Required]
-    public int Role { get; set; }
+    public String? CreatedAt { get; set; }
+
+
+    [Required]
+    public bool HasAccessToApp { get; set; }
+
 }
 
 public class User
 {
-
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
+    public int Id { get; set; }
+
     [Required]
     public String? Code { get; set; }
 
@@ -45,6 +52,9 @@ public class User
 
     [Required]
     public bool HasAccessToApp { get; set; } = true;
+
+    [Required]
+    public String? TimeLeftInApp { get; set; } = "";
 
     [Required]
     [ForeignKey("UserAccesses")]
