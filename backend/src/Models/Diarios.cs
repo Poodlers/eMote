@@ -264,6 +264,8 @@ public class SubModuleUserProgress
 
     public DateTime? DataFim { get; set; }
 
+    public bool IsCompleted { get; set; } = false;
+
 }
 
 public class ProgressDTO
@@ -308,6 +310,9 @@ public class ModuloUserProgress
 
     [Required]
     public List<SubModuleUserProgress> SubModuleUserProgresses { get; set; } = new List<SubModuleUserProgress>();
+
+    [Required]
+    public bool IsCompleted { get; set; } = false;
 
     [Required]
     public float UserProgress { get; set; } = 0;

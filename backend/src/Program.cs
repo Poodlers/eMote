@@ -61,6 +61,7 @@ app.UseCors(builder =>
       {
           builder
                 .AllowAnyOrigin()
+                .WithExposedHeaders("Content-Disposition")
                 .AllowAnyHeader()
                 .WithMethods("GET", "PUT", "POST", "DELETE", "OPTIONS")
                 .SetPreflightMaxAge(TimeSpan.FromSeconds(3600));
@@ -105,6 +106,21 @@ using (var scope = app.Services.CreateScope())
     {
         var modulos = ModuloSeeder.SeedModulo();
         moduloContent.AddRange(modulos);
+        context.SaveChanges();
+    }
+
+    var userContent = context.Set<User>();
+
+    if (!userContent.Where(u => u.Role == 3).Any())
+    {
+        var user = new User
+        {
+            Code = "admin",
+            Password = "admin",
+            Role = 3,
+            TimeLeftInApp = "Forever"
+        };
+        userContent.Add(user);
         context.SaveChanges();
     }
 

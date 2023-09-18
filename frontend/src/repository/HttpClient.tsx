@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import { BASE_URL } from "../constants/constants";
+// @ts-ignore
+import { BASE_URL } from "../constants/constants.tsx";
 
 export abstract class HttpClient {
   protected instance: AxiosInstance | undefined;

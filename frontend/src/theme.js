@@ -10,6 +10,11 @@ const myTheme = createTheme({
             main: '#f28db2',
             contrastText: '#fff'
         },
+        warning : {
+            main: '#83e1e5',
+            contrastText: '#067089'
+
+        },
         success: {
             main: '#ec6fa7'
         },
@@ -20,7 +25,34 @@ const myTheme = createTheme({
             primary: '#fff',
             secondary: '#75c1d7',
         }
-    }
-})
+    },
+    components: {
+        MuiDateCalendar: {
+            styleOverrides: {
+                root: {
+                 
+                    color: '#fff',
+                    backgroundColor: '#067089'
+
+                }
+            }
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    color: '#fff',
+                    backgroundColor: '#fff',
+                    borderColor: '#067089',
+                    ":hover": {
+                        borderColor: '#067089',
+                        
+                    },
+                
+            }
+        },
+
+    
+}}  
+});
 
 export default myTheme;

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Models;
 
@@ -10,9 +11,11 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230913153500_AddIsCompleted")]
+    partial class AddIsCompleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.8");
@@ -31,8 +34,8 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserAccesses")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserAccesses")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -59,8 +62,8 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserEmotionDiaries")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserEmotionDiaries")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -86,8 +89,8 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ExerciseFav")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ExerciseFav")
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ModuloNumberOrder")
                         .HasColumnType("INTEGER");
@@ -155,8 +158,8 @@ namespace backend.Migrations
                     b.Property<int>("TipoRefeicao")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserFoodDiaries")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserFoodDiaries")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -204,8 +207,8 @@ namespace backend.Migrations
                     b.Property<int?>("Satisfacao")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("UserModulos")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserModulos")
+                        .HasColumnType("TEXT");
 
                     b.Property<float>("UserProgress")
                         .HasColumnType("REAL");
@@ -304,12 +307,7 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -319,6 +317,10 @@ namespace backend.Migrations
                     b.Property<bool>("HasAccessToApp")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -326,11 +328,7 @@ namespace backend.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("TimeLeftInApp")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
+                    b.HasKey("Code");
 
                     b.ToTable("User");
                 });

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material';
+import { RepositorySingleton } from './repository/RepositoryInjector';
 import myTheme from './theme.js'
 
 import LandingPage from './view/pages/LandingPage.js';
@@ -19,16 +20,35 @@ import EmotionsPage from './view/pages/EmotionsPage.js';
 import ExercisesPage from './view/pages/ExercisesPage.js';
 import MealDiaryPage from './view/pages/MealDiaryPage.js';
 import MealTemplatePage from './view/pages/MealTemplatePage.js';
+import LoginPage from './view/pages/LoginPage.js';
+import AdminPage from './view/pages/AdminPage.js';
 
 
+const repository = RepositorySingleton.getInstance().injectRepository();
 const theme = myTheme;
 
+
 function App() {
+  //ping backend every 30 seconds to log user access
+  const pingInterval = 30;
+  useEffect(() => {
+    
+    const interval = setInterval(() => {
+      repository.logAccessToApp().catch((error) => {
+          console.log(error);
+      });
+    }, pingInterval * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+
   return (
     <ThemeProvider theme={theme}>
       <StyledEngineProvider injectFirst>
       <Routes>
-        <Route path='/' element={<LandingPage />} />
+        <Route path='/' element={<LoginPage />} />
+        <Route path='/admin' element={<AdminPage />} />
+        <Route path='/home' element={<LandingPage />} />
         <Route path='/favorites' element={< FavoritesPage/>} />
         <Route path='/progress' element={< ProgressPage/>} />
         <Route path='/profile' element={< ProfilePage/>} />

@@ -1,4 +1,5 @@
 import { Exercise } from "./Exercise";
+import { Sentimento } from "./Sentimento";
 
 export interface EmotionDiaryEntry {
     date : string,

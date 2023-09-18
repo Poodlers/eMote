@@ -13,7 +13,7 @@ export function NavBar() {
     <BottomNavigation
         sx={{ left: 0, bottom:0, position: 'fixed', width: '100%', bgcolor: "#077088", alignItems: 'center' }}
     >
-      <BottomNavigationAction component={Link} to="/" label="Home" icon={<img alt='home' src={Home} height={25}/>}/>
+      <BottomNavigationAction component={Link} to="/home" label="Home" icon={<img alt='home' src={Home} height={25}/>}/>
       <BottomNavigationAction component={Link} to="/favorites" label="Favoritos" icon={<img alt='fav' src={Favoritos} height={25}/>}/>
       <BottomNavigationAction component={Link} to="/progress" label="Progresso" icon={<img alt='prog' src={Progresso} height={25}/>}/>
       <BottomNavigationAction component={Link} to="/profile" label="Perfil" icon={<img alt='prof' src={Perfil} height={25}/>}/>
