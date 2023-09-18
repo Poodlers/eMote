@@ -13,7 +13,7 @@ export default function SkipMeal() {
                 </Typography>
             </Grid>
             <Grid item xs={2}>
-                <Checkbox color='info'></Checkbox>
+                <Checkbox id='skip' color='info'></Checkbox>
             </Grid>
         </Grid>
     </Box>

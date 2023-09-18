@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, IconButton, Typography } from '@mui/material';
+import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link } from 'react-router-dom';
 
@@ -14,11 +14,9 @@ import SkipMeal from '../widgets/MealDiary/SkipMeal';
 import TimeMeal from '../widgets/MealDiary/TimeMeal';
 import FeelingMeal from '../widgets/MealDiary/FeelingMeal';
 import DescriptionMeal from '../widgets/MealDiary/DescriptionMeal';
-import AttentionMeal from '../widgets/MealDiary/AttentionMeal';
-import RestrictMeal from '../widgets/MealDiary/RestrictMeal';
-import CompulsiveEpisodeMeal from '../widgets/MealDiary/CompulsiveEpisodeMeal';
 import CompensationMeal from '../widgets/MealDiary/CompensationMeal';
 import CommentsMeal from '../widgets/MealDiary/CommentsMeal';
+import CheckboxTemplate from '../widgets/MealDiary/CheckboxTemplate';
 
 
 const imageList = [
@@ -55,7 +53,6 @@ const imageList = [
 function MealTemplatePage(props) {
     var mealImage = null;
     for (const obj of imageList) {
-        console.log(obj.meal);
         if (obj.meal === props.meal) mealImage = obj.image;
     }
   return (
@@ -85,11 +82,19 @@ function MealTemplatePage(props) {
             <TimeMeal/>
             <FeelingMeal/>
             <DescriptionMeal/>
-            <AttentionMeal/>
-            <RestrictMeal/>
-            <CompulsiveEpisodeMeal/>
+            <CheckboxTemplate text="Comi com atenção plena" id='attention'/>
+            <CheckboxTemplate text="Restringi propositadamente a quantidade de alimentos" id='restriction'/>
+            <CheckboxTemplate text="Tive um episódio de ingestão compulsiva" id='episode'/>
             <CompensationMeal/>
             <CommentsMeal/>
+            
+            <Box sx ={{ p:3 }} textAlign='center'>
+                <Button sx ={{ p:1, bgcolor: '#349db7' }}>
+                    <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
+                        Confirmar
+                    </Typography>
+                </Button>
+            </Box>
           </Box>
         </Box>
         </div>

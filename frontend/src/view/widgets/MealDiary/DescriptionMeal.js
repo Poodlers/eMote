@@ -12,7 +12,7 @@ export default function DescriptionMeal(props) {
                     O que comi e bebi
                 </Typography>
                 <TextField
-                        id="outlined-multiline-static"
+                        id='description'
                         multiline
                         rows={4}
                         color='info'

@@ -86,19 +86,19 @@ function EmotionsPage() {
             <IconButton component={Link} to="/emotiondiary" aria-label="back" size="large">
                 <ArrowBackIosIcon color= "secondary" fontSize="inherit" />
             </IconButton>
-            <Box sx ={{p:1, bgcolor: '#ec6fa7', alignSelf: 'center', width: '80%', m: '0 auto'}}>
+            <Box sx ={{p:1, bgcolor: '#ec6fa7', alignSelf: 'center', width: '80%', m: 'auto'}}>
                 <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
                     Como me senti hoje?
                 </Typography>
             </Box>
-          <Box sx={{p:2}}>
-          <Grid container spacing={2}>
-            <Grid item xs={4} key="diarylogo">
+          <Box sx={{p:2, m: '0 auto', alignSelf: 'center'}}>
+          <Grid container rowSpacing={2} sx ={{alignSelf: 'center', m: '0 auto'}}>
+            <Grid item xs={4} key="diarylogo" textAlign={'center'}>
                 <img alt='logo' style={{ opacity: '25%'}} src={DiaryLogo}/>
             </Grid>
             {imageList.map(function(data) {
                 return (
-                    <Grid item xs={4} key= {data.feeling}>
+                    <Grid item xs={4} key= {data.feeling} textAlign={'center'}>
                         <img alt='feeling' src={data.image}/>
                     </Grid>
                 )

@@ -14,9 +14,16 @@ const colorCards = [
     [colors.cyan[100], colors.cyan[500]],
 ]
 
+const links = [
+  "/psicoeducacao",
+  "/mindfulness",
+  "/regulacao",
+  "/tolerancia"
+]
+
 export default function ModuleCard(props) {
   return (
-    <Link href="#" underline="none">
+    <Link href={links[props.index]} underline="none">
     <Card sx={{ height:120, minWidth: 150, bgcolor: colorCards[props.index][0] }}>
       <CardContent>
         <Typography sx={{ fontSize: 11 }} color={colorCards[props.index][1]} >
