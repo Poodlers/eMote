@@ -7,18 +7,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DatabaseContext>();
 
-
 // Add services to the container.
 builder.Services.AddControllers();
 
+/*
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.ConfigureEndpointDefaults(listenOptions =>
     {
-        listenOptions.UseHttps("backend.pfx", "crypticpassword");
+        listenOptions.UseHttps();
     });
 });
 
+*/
 // Add FluentValidation
 // Scans the Assembly, find all the abstract validators and add them for us
 builder.Services.AddValidatorsFromAssemblyContaining<IAssemblyMarker>();
@@ -35,7 +36,14 @@ builder.Services.AddCors(options =>
                           .AllowAnyMethod()
                           .AllowAnyHeader()));
 
+
+builder.Services.AddScoped<UserAccessService>();
+builder.Services.AddSingleton<PeriodicHostedService>();
+builder.Services.AddHostedService(
+    provider => provider.GetRequiredService<PeriodicHostedService>());
+
 var app = builder.Build();
+
 
 // log environment
 app.Logger.LogInformation($"Environment: {app.Environment.EnvironmentName}");
@@ -68,10 +76,45 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
+app.MapGet("/background", (
+    PeriodicHostedService service) =>
+{
+    return new PeriodicHostedServiceState(service.IsEnabled);
+});
 
+app.MapMethods("/background", new[] { "PATCH" }, (
+    PeriodicHostedServiceState state,
+    PeriodicHostedService service) =>
+{
+    service.IsEnabled = state.IsEnabled;
+});
+
+
+
+
+//seed database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<DatabaseContext>();
+    context.Database.EnsureCreated();
+
+    var moduloContent = context.Set<ModuloContent>();
+
+    if (!moduloContent.Any())
+    {
+        var modulos = ModuloSeeder.SeedModulo();
+        moduloContent.AddRange(modulos);
+        context.SaveChanges();
+    }
+
+
+}
 
 
 app.MapHealthChecks("/healthz");
+
+
 
 app.Run();
 

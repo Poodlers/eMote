@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Models;
 
@@ -10,9 +11,11 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230823213045_AddFileToSubModule")]
+    partial class AddFileToSubModule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.8");
@@ -23,11 +26,11 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("DataFim")
+                    b.Property<string>("DataFim")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DataInicio")
+                    b.Property<string>("DataInicio")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -47,11 +50,11 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly?>("Date")
+                    b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeOnly?>("Hour")
+                    b.Property<string>("Hour")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -89,9 +92,6 @@ namespace backend.Migrations
                     b.Property<string>("ExerciseFav")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ModuloNumberOrder")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("SubModuleExercicios")
                         .HasColumnType("INTEGER");
 
@@ -119,7 +119,7 @@ namespace backend.Migrations
                     b.Property<string>("ContentsOfMeal")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly?>("Date")
+                    b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -133,7 +133,7 @@ namespace backend.Migrations
                     b.Property<bool?>("HadCompensatoryBehaviour")
                         .HasColumnType("INTEGER");
 
-                    b.Property<TimeOnly?>("Hour")
+                    b.Property<string>("Hour")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -186,10 +186,10 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("DataFim")
+                    b.Property<string>("DataFim")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DataInicio")
+                    b.Property<string>("DataInicio")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("ModuloContentModuleNumberOrder")
@@ -203,9 +203,6 @@ namespace backend.Migrations
 
                     b.Property<string>("UserModulos")
                         .HasColumnType("TEXT");
-
-                    b.Property<float>("UserProgress")
-                        .HasColumnType("REAL");
 
                     b.Property<int?>("Utilidade")
                         .HasColumnType("INTEGER");
@@ -225,13 +222,25 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("ImageFile")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OtherFile")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("SubModuleContent")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("SubModuleNumberOrder")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Text")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VideoFile")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -241,44 +250,16 @@ namespace backend.Migrations
                     b.ToTable("SubModule");
                 });
 
-            modelBuilder.Entity("backend.Models.SubModulePage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ImageFile")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OtherFile")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("SubModuleId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("VideoFile")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubModuleId");
-
-                    b.ToTable("SubModulePage");
-                });
-
             modelBuilder.Entity("backend.Models.SubModuleUserProgress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("DataFim")
+                    b.Property<string>("DataFim")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DataInicio")
+                    b.Property<string>("DataInicio")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("ModuloUserProgressId")
@@ -300,13 +281,6 @@ namespace backend.Migrations
                 {
                     b.Property<string>("Code")
                         .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("HasAccessToApp")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -344,7 +318,7 @@ namespace backend.Migrations
                         .WithMany("FavoriteExercises")
                         .HasForeignKey("ExerciseFav");
 
-                    b.HasOne("backend.Models.SubModulePage", null)
+                    b.HasOne("backend.Models.SubModule", null)
                         .WithMany("Exercicios")
                         .HasForeignKey("SubModuleExercicios");
                 });
@@ -378,13 +352,6 @@ namespace backend.Migrations
                         .HasForeignKey("SubModuleContent");
                 });
 
-            modelBuilder.Entity("backend.Models.SubModulePage", b =>
-                {
-                    b.HasOne("backend.Models.SubModule", null)
-                        .WithMany("SubModulePages")
-                        .HasForeignKey("SubModuleId");
-                });
-
             modelBuilder.Entity("backend.Models.SubModuleUserProgress", b =>
                 {
                     b.HasOne("backend.Models.ModuloUserProgress", null)
@@ -416,11 +383,6 @@ namespace backend.Migrations
                 });
 
             modelBuilder.Entity("backend.Models.SubModule", b =>
-                {
-                    b.Navigation("SubModulePages");
-                });
-
-            modelBuilder.Entity("backend.Models.SubModulePage", b =>
                 {
                     b.Navigation("Exercicios");
                 });
