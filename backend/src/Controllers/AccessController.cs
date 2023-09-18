@@ -11,14 +11,10 @@ public class AccessController : ControllerBase
 {
     private readonly DbSet<User> _dbUserSet;
     private readonly DatabaseContext _context;
-
-
     public AccessController(DatabaseContext context)
     {
         this._context = context;
         this._dbUserSet = _context.Set<User>();
-
-
     }
 
     [HttpGet("{user_code}", Name = "GetAccesses")]
@@ -38,10 +34,25 @@ public class AccessController : ControllerBase
         };
     }
 
+    [HttpDelete("{user_code}/delete-all", Name = "DeleteAccesses")]
+    public async Task<ActionResult> Delete(string user_code)
+    {
+        var user = _dbUserSet.Include("Accesses").Where(u => u.Code == user_code).FirstOrDefault();
+        if (user == null)
+        {
+            return StatusCode(401, "User not found");
+        }
+        user.Accesses!.Clear();
+        await _context.SaveChangesAsync();
+        return Ok();
+
+    }
+
 
     [HttpPost(Name = "LogAnAcess")]
     public async Task<ActionResult<Access>> LogAccess([FromBody] AccessDTO dto)
     {
+
         var user = _dbUserSet.Include("Accesses").Where(u => u.Code == dto.UserCode).FirstOrDefault();
         if (user == null)
         {
@@ -70,6 +81,17 @@ public class AccessController : ControllerBase
         else
         {
             return StatusCode(401, "Invalid date");
+        }
+
+        //check if the dataInicio from last acccess is the same as the new one
+        if (user.Accesses!.Count > 0)
+        {
+            var lastAccess = user.Accesses!.Last();
+            if (lastAccess.DataInicio == newAccess.DataInicio)
+            {
+                //delete the last access and insert the new updated one
+                user.Accesses!.Remove(lastAccess);
+            }
         }
 
 

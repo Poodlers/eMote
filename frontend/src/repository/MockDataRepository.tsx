@@ -4,6 +4,22 @@ import { User } from "../models/User";
 import { IDataRepository } from "./IDataRepository";
 
 export class MockDataRepository implements IDataRepository {
+    logOutUser(): void {
+        throw new Error("Method not implemented.");
+    }
+   
+    hasAccessToDiaries(): Promise<boolean> {
+        throw new Error("Method not implemented.");
+    }
+    logTimeStampOnAppLogin(): void {
+        throw new Error("Method not implemented.");
+    }
+    updateUser(): void {
+        throw new Error("Method not implemented.");
+    }
+    logAccessToApp(): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
     downloadExcel(): Promise<void> {
         throw new Error("Method not implemented.");
     }

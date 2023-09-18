@@ -4,12 +4,12 @@ import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
 import { ComponentState } from '../../models/ComponentState';
 import Titulo from '../../assets/images/titulo_favoritos.png';
-import { RepositoryInjector } from '../../repository/RepositoryInjector';
+import { RepositorySingleton } from '../../repository/RepositoryInjector';
 
 
 function FavoritesPage() {
 
-    const repository = new RepositoryInjector().injectRepository();
+    const repository = RepositorySingleton.getInstance().injectRepository();
     const [mockList, setMockList] = useState([]);
     const [componentState, setComponentState] = useState(ComponentState.LOADING);
 

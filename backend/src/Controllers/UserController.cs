@@ -109,6 +109,19 @@ public class UserController : ControllerBase
             );
         }
 
+        if (
+            user.Code != null &&
+            user.Code != userToUpdate.Code &&
+            _dbUserSet.Where(userDb => userDb.Code == user.Code).Any()
+        )
+        {
+            return StatusCode(
+                401,
+                "User with that code already exists"
+            );
+        }
+
+
         userToUpdate.Code = user.Code;
         userToUpdate.Password = user.Password;
         userToUpdate.Role = user.Role;

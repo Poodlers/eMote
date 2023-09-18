@@ -3,6 +3,9 @@ import { PersonalPageInfo } from "../models/PersonalPageInfo";
 import { User } from "../models/User";
 
 export interface IDataRepository {
+
+    updateUser(): void;
+
     fetchFavoriteExercises(): Promise<Array<Exercise>>;
 
     fetchPersonalPageInfo(): Promise<PersonalPageInfo>;
@@ -15,8 +18,17 @@ export interface IDataRepository {
 
     loginUser(code: string, password: string): Promise<User>;
 
+    logOutUser(): void;
+
     createUser(code: string, password: string, role: number, createdAt: string, hasAccessToApp: boolean): Promise<void>;
 
+    logAccessToApp(): Promise<void>;
+
+    logTimeStampOnAppLogin() : void;
+
     downloadExcel() : Promise<void>;
+
+    hasAccessToDiaries() : Promise<boolean>;
+
 
   }

@@ -61,6 +61,7 @@ app.UseCors(builder =>
       {
           builder
                 .AllowAnyOrigin()
+                .WithExposedHeaders("Content-Disposition")
                 .AllowAnyHeader()
                 .WithMethods("GET", "PUT", "POST", "DELETE", "OPTIONS")
                 .SetPreflightMaxAge(TimeSpan.FromSeconds(3600));

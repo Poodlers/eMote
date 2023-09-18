@@ -18,7 +18,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import MuiGrid from '@mui/material/Grid';
-import { RepositoryInjector } from '../../repository/RepositoryInjector';
+import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { ComponentState } from '../../models/ComponentState';
 import { Chip, Input, MenuItem, Select, Typography } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -120,15 +120,21 @@ const Popup = ({
                 onChange={event => onChange({ target: { name: 'role', value: event.target.value } })}
                 style={{ width: '100%' }}
               >
+                {row.role == "3" ?
+                <MenuItem sx={{  color: 'black' }} value="3">
+                  3
+                </MenuItem>
+                :
+                <>
                 <MenuItem sx={{  color: 'black' }} value="1">
                   1
                 </MenuItem>
                 <MenuItem sx={{  color: 'black' }} value="2">
                   2
                 </MenuItem>
-                <MenuItem sx={{  color: 'black' }} value="3">
-                  3
-                </MenuItem>
+                </>
+
+                }
             </Select>
             
             <LocalizationProvider  dateAdapter={AdapterDayjs}>
@@ -250,7 +256,7 @@ export default () => {
     { name: 'role', title: 'Role' },
     { name: 'timeLeftInApp', title: 'Time Left In App' },
   ]);
-  const repository = new RepositoryInjector().injectRepository();
+  const repository = RepositorySingleton.getInstance().injectRepository();
   const [componentState, setComponentState] = useState(ComponentState.LOADING);
   const [rows, setRows] = useState([]);
   const [booleanColumns] = useState(['hasAccessToApp']);
@@ -379,9 +385,7 @@ export default () => {
   };
   return (
     <>
-    <Typography variant="h2" align="center" color="primary" sx={{marginTop: '20px'}}>
-        Página de admnistrador
-    </Typography>
+  
 
     <Typography variant="h5" align="left" color="primary" sx={{marginTop: '20px'}}>
         Gestão de utilizadores

@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse, AxiosRequestConfig } from "axios";
 
 import { Exercise } from "../models/Exercise";
 import { HttpClient } from "./HttpClient";
@@ -6,6 +6,7 @@ import { IDataRepository } from "./IDataRepository";
 import { BASE_URL } from "../constants/constants";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
 import { User } from "../models/User";
+import { saveAs } from 'file-saver';
 
 
 
@@ -31,21 +32,85 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
+  logOutUser(): void {
+    localStorage.removeItem('user');
+    this.user = '{}';
+    localStorage.removeItem('dataInicio');
+  }
   
+  logTimeStampOnAppLogin(): void {
+    const timestamp =  new Date().toLocaleString().replace(',','');
+    localStorage.setItem('dataInicio', JSON.stringify(timestamp));
   
+  }
+
   user = JSON.parse(localStorage.getItem('user') || '{}');
 
-  async downloadExcel(): Promise<void> {
+  async hasAccessToDiaries(): Promise<boolean> {
     const instance = this.createInstance();
-  
+    const dataFim = new Date().toLocaleString().replace(',','');
     try{
-      const result = await instance.get(`${BASE_URL}/excel/`).then(transform);
+      const result = await instance.get(`${BASE_URL}/user/${this.user.code}/accessToDiaries`).then(transform);
+      
       console.log(result.data);
+      return result.data;
     }
     catch(error){
       console.log(error);
       throw error;
     }
+  }
+
+  updateUser() {
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+  }
+
+  async logAccessToApp(): Promise<void> {
+    const instance = this.createInstance();
+    if (localStorage.getItem('dataInicio') === null) {
+      return;
+    }
+    const dataInicio = JSON.parse(localStorage.getItem('dataInicio') || '{}');
+    const dataFim = new Date().toLocaleString().replace(',','');
+    try{
+      const result = await instance.post(`${BASE_URL}/access/`,
+      {
+        userCode: this.user.code,
+        dataInicio: dataInicio,
+        dataFim: dataFim,
+      }).then(transform);
+      
+      console.log(result.data);
+     
+    }
+    catch(error){
+      
+      throw error;
+    }
+  }
+
+  async downloadExcel(): Promise<void> {
+    let instance = axios.create({  baseURL: BASE_URL });  
+    let options: AxiosRequestConfig = { 
+      url: `/excel`,
+      "method": "GET",
+      responseType: 'blob' // don't forget this
+    };  
+    return instance.request<any>(options)
+      .then(response => { 
+        let filename = response.headers['content-disposition']
+          .split(';')
+          .find((n: any) => n.includes('filename='))
+          .replace('filename=', '')
+          .trim();      
+        let url = window.URL
+          .createObjectURL(new Blob([response.data]));     
+        saveAs(url, filename);    
+    }).catch(error => {
+      console.log(error);
+      throw error;
+    });
+    
   }
   async createUser(code: string, password: string, role: number, createdAt: string, hasAccessToApp: boolean): Promise<void> {
     const instance = this.createInstance();

@@ -1,12 +1,12 @@
 import { Button, TextField, Grid, Box, Typography} from '@mui/material';
-import { RepositoryInjector } from '../../repository/RepositoryInjector';
+import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import Logo from '../../assets/images/emote_logo.png';
 import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field} from 'formik';
 
 function LoginPage() {
-  const repository = new RepositoryInjector().injectRepository();
+  const repository = RepositorySingleton.getInstance().injectRepository();
   const navigate = useNavigate();
 
   const initialValues = {
@@ -17,15 +17,18 @@ function LoginPage() {
   useEffect(() => {
     const loggedUser = JSON.parse(localStorage.getItem('user'));
     if(loggedUser === null) return;
-    /*
+    repository.updateUser();
+    repository.logTimeStampOnAppLogin();
+    
     
     if(loggedUser.role === 3){
       navigate('/admin', { replace: true });
     }else if(loggedUser.hasAccessToApp){
-      navigate('/', { replace: true });
+      navigate('/home', { replace: true });
+
     }
     
-    */
+    
     
     // eslint-disable-next-line
   }, []);
@@ -43,11 +46,15 @@ function LoginPage() {
           hasAccessToApp: response.hasAccessToApp
         }
         localStorage.setItem('user', JSON.stringify(loggedUser));
+        repository.updateUser();
+        repository.logTimeStampOnAppLogin();
 
         if(response.role === 3){
           navigate('/admin', { replace: true });
         }else if(response.hasAccessToApp){
-          navigate('/', { replace: true });
+          navigate('/home', { replace: true });
+          // log the access
+         
         }else{ 
           alert('O seu periodo de acesso à emotE terminou, esperamos que tenha gostado da experiência!');
         }
@@ -57,7 +64,7 @@ function LoginPage() {
         
     });
       props.setSubmitting(false);
-    }, 2000);
+    }, 1000);
     
   }
   return (

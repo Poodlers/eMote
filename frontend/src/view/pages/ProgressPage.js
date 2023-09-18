@@ -3,20 +3,21 @@ import { Box, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { ComponentState } from '../../models/ComponentState';
 import { NavBar } from '../widgets/NavBar.js';
-import { RepositoryInjector } from '../../repository/RepositoryInjector';
+import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import EpisodesEmotions from '../widgets/ProgressPage/EpisodesEmotions.js';
 import ModuleProgression from '../widgets/ProgressPage/ModuleProgression.js';
 import EpisodesChart from '../widgets/ProgressPage/EpisodesChart.js';
 
 
 function ProgressPage() {
-  const repository = new RepositoryInjector().injectRepository();
+  const repository = RepositorySingleton.getInstance().injectRepository();
   const [personalInfo, setPersonalInfo] = useState({});
   const [componentState, setComponentState] = useState(ComponentState.LOADING);
-
-  const fetchInfo = () => {
-      return repository.fetchPersonalPageInfo().then((response) => {
+  
+  const fetchInfo = () =>  {
+      return repository.fetchPersonalPageInfo().then(async (response) => {
           setPersonalInfo(response);
+          
           setComponentState(ComponentState.LOADED);
       }).catch((error) => {
           setComponentState(ComponentState.ERROR);
