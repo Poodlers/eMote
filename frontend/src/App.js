@@ -63,6 +63,7 @@ function App() {
         <Route path='/emotiondiary' element={< EmotionDiaryPage/>} />
         <Route path='/emotions' element={< EmotionsPage/>} />
         <Route path='/exercises' element={< ExercisesPage/>} />
+        <Route path='/emotionsmeal' element={< EmotionsPage/>} />
         
         <Route path='/mealdiary' element= {<MealDiaryPage/>} />
         <Route path='/pqnoalmoco' element= {<MealTemplatePage meal='Pequeno Almoço'/>} />
@@ -77,7 +78,8 @@ function App() {
         <Route path='/mindfulness' element= {<ModuleIntroductionPage name='Mindfulness'/>} />
         <Route path='/regulacao' element= {<ModuleIntroductionPage name='Regulação emocional'/>} />
         <Route path='/tolerancia' element= {<ModuleIntroductionPage name='Tolerância a estados emocionais dolorosos'/>} />
-      
+
+
         <Route path='/module1' element= {<SubmoduleListPage name='Psicoeducação'/>} />
         <Route path='/module2' element= {<SubmoduleListPage name='Mindfulness'/>} />
         <Route path='/module3' element= {<SubmoduleListPage name='Regulação emocional'/>} />
