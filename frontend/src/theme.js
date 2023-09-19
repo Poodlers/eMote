@@ -27,6 +27,36 @@ const myTheme = createTheme({
         }
     },
     components: {
+        MuiMultiSectionDigitalClock: {
+            styleOverrides: {
+                root: {
+                    color: 'black',
+                    backgroundColor: '#fff',
+                }
+            }
+        },
+        MuiPickersToolbarText: {
+            styleOverrides: {
+                root: {
+                    color: '#75c1d7',
+                    "&.Mui-selected": {
+                        color: '#067089',
+                    }
+                }
+            }
+        },
+        MuiClockNumber:
+        {
+            styleOverrides: {
+                root: {
+                    color: '#75c1d7',
+                    "&.Mui-selected": {
+                        color: '#fff',
+                    }
+                }
+            }
+        },
+
         MuiDateCalendar: {
             styleOverrides: {
                 root: {
@@ -40,7 +70,7 @@ const myTheme = createTheme({
         MuiOutlinedInput: {
             styleOverrides: {
                 root: {
-                    color: '#fff',
+                    color: '#000',
                     backgroundColor: '#fff',
                     borderColor: '#067089',
                     ":hover": {
@@ -50,8 +80,12 @@ const myTheme = createTheme({
                 
             }
         },
-
-    
+        MuiDialogActions: {
+            root: {
+              backgroundColor: '#067089',
+            }
+          },
+                    
 }}  
 });
 

@@ -35,6 +35,7 @@ public enum Refeicao
     Outra
 }
 
+
 public enum CompensatoryBehavior
 {
     Vomitar,
@@ -45,10 +46,9 @@ public enum CompensatoryBehavior
     Outro
 }
 
+
 public class EmotionDiaryEntryDTO
 {
-    [Required]
-    public String? UserCode { get; set; }
 
     [Required]
     public String? Date { get; set; }
@@ -91,8 +91,6 @@ public class EmotionDiaryEntry
 
 public class MealDiaryEntryDTO
 {
-    [Required]
-    public String? UserCode { get; set; }
 
     [Required]
     public String? Date { get; set; }
@@ -106,7 +104,6 @@ public class MealDiaryEntryDTO
     [Required]
     public bool SkippedMeal { get; set; } //yes or no question - perg1
 
-    [Required]
     public String? TimeOfMeal { get; set; } // perg2
 
     public ICollection<Sentimento> FeelingsAroundMeal { get; set; } = new List<Sentimento>(); //perg3
@@ -123,7 +120,6 @@ public class MealDiaryEntryDTO
 
     public ICollection<CompensatoryBehavior> CompensatoryBehaviors { get; set; } = new List<CompensatoryBehavior>(); //perg8_options
 
-    [Required]
     public String? Reflexao { get; set; } //perg_9
 }
 public class MealDiaryEntry

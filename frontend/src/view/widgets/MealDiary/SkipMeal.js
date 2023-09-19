@@ -3,7 +3,7 @@ import { Grid, Box, Checkbox } from '@mui/material'
 import Typography from '@mui/material/Typography';
 
 
-export default function SkipMeal() {
+export default function SkipMeal(props) {
   return (
     <Box sx ={{ p: 0.5 }}>
         <Grid container spacing={2} sx={{ p: 0.5 }} direction="row" >
@@ -13,7 +13,14 @@ export default function SkipMeal() {
                 </Typography>
             </Grid>
             <Grid item xs={2}>
-                <Checkbox id='skip' color='info'></Checkbox>
+                <Checkbox id='skip' 
+                checked={props.initialValue}
+                disabled={props.readOnly}
+                color='info' onChange={
+                    (event) => {
+                        props.setSkippedMeal(event.target.checked);
+                    }
+                }></Checkbox>
             </Grid>
         </Grid>
     </Box>

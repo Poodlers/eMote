@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material';
 import { RepositorySingleton } from './repository/RepositoryInjector';
-import myTheme from './theme.js'
-
+import myTheme from './theme.js';
 import LandingPage from './view/pages/LandingPage.js';
 import FavoritesPage from './view/pages/FavoritesPage.js';
 import ProgressPage from './view/pages/ProgressPage.js';
@@ -63,7 +62,6 @@ function App() {
         <Route path='/emotiondiary' element={< EmotionDiaryPage/>} />
         <Route path='/emotions' element={< EmotionsPage/>} />
         <Route path='/exercises' element={< ExercisesPage/>} />
-        <Route path='/emotionsmeal' element={< EmotionsPage/>} />
         
         <Route path='/mealdiary' element= {<MealDiaryPage/>} />
         <Route path='/pqnoalmoco' element= {<MealTemplatePage meal='Pequeno Almoço'/>} />

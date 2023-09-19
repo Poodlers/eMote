@@ -72,10 +72,10 @@ export function LogoAppBar(props) {
             : null
           }
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}/>
-          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={handleLogout}>
+          <IconButton edge="start" aria-label="menu" sx={{ mr: 2 }} onClick={handleLogout}>
             <Logout></Logout>
           </IconButton>
-          <MUILink href="/" sx ={{p:2}}>
+          <MUILink href="/home" sx ={{p:2}}>
             <img alt="logo" src={modified? theme.logo : Logo} height={35}/>
           </MUILink>
           

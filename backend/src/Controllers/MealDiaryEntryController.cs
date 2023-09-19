@@ -38,18 +38,48 @@ public class MealDiaryEntryController : ControllerBase
         };
     }
 
-
-    [HttpPost(Name = "LogDiaryEntry")]
-    public async Task<ActionResult<MealDiaryEntry>> LogAccess([FromBody] MealDiaryEntryDTO dto)
+    [HttpGet("{user_code}/{date}/{refeicao}", Name = "GetDayEntries")]
+    public ActionResult<MealDiaryEntry> GetDatesEntries(string user_code, string date, Refeicao refeicao)
     {
-        var user = _dbUserSet.Include("FoodDiaryEntries").Where(u => u.Code == dto.UserCode).FirstOrDefault();
+        var user = _dbUserSet.Include("FoodDiaryEntries").Where(u => u.Code == user_code).FirstOrDefault();
         if (user == null)
         {
             return StatusCode(401, "User not found");
         }
 
-        string[] formatDate = { "M/d/yyyy", "M-d-yyyy" };
-        string[] formatHours = { "HH:mm:ss", "HH:mm" };
+        DateOnly data;
+        if (DateOnly.TryParse(date, out DateOnly dataOut))
+        {
+            data = dataOut;
+        }
+        else
+        {
+            return StatusCode(401, "Invalid date");
+        }
+
+        var mealDiaryEntries = user.FoodDiaryEntries.Where(e => e.Date == data && e.TipoRefeicao == refeicao).FirstOrDefault();
+        if (mealDiaryEntries == null)
+        {
+            return Ok(false);
+        }
+        else
+        {
+            return Ok(mealDiaryEntries);
+        }
+    }
+
+
+
+
+    [HttpPost("{user_code}", Name = "LogDiaryEntry")]
+    public async Task<ActionResult<MealDiaryEntry>> LogAccess(string user_code, [FromBody] MealDiaryEntryDTO dto)
+    {
+        var user = _dbUserSet.Include("FoodDiaryEntries").Where(u => u.Code == user_code).FirstOrDefault();
+        if (user == null)
+        {
+            return StatusCode(401, "User not found");
+        }
+
         DateOnly data;
         TimeOnly hora;
         TimeOnly hora_refeicao;

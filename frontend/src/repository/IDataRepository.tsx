@@ -1,5 +1,7 @@
 import { Exercise } from "../models/Exercise";
+import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
+import { TipoRefeicao } from "../models/TipoRefeicao";
 import { User } from "../models/User";
 
 export interface IDataRepository {
@@ -20,7 +22,11 @@ export interface IDataRepository {
 
     logOutUser(): void;
 
+    checkIfMealDiaryIsAlreadyAdded(refeicao : TipoRefeicao): Promise<FoodDiaryEntry>;
+
     createUser(code: string, password: string, role: number, createdAt: string, hasAccessToApp: boolean): Promise<void>;
+
+    addFoodDiaryEntry(foodDiary : FoodDiaryEntry): Promise<void>;
 
     logAccessToApp(): Promise<void>;
 

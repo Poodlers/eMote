@@ -44,17 +44,16 @@ public class EmotionDiaryEntryController : ControllerBase
     }
 
 
-    [HttpPost(Name = "LogEmotionDiaryEntry")]
-    public async Task<ActionResult<EmotionDiaryEntry>> LogAccess([FromBody] EmotionDiaryEntryDTO dto)
+    [HttpPost("{user_code}", Name = "LogEmotionDiaryEntry")]
+    public async Task<ActionResult<EmotionDiaryEntry>> LogAccess(string user_code, [FromBody] EmotionDiaryEntryDTO dto)
     {
-        var user = _dbUserSet.Include("EmotionDiaryEntries").Where(u => u.Code == dto.UserCode).FirstOrDefault();
+        var user = _dbUserSet.Include("EmotionDiaryEntries").Where(u => u.Code == user_code).FirstOrDefault();
         if (user == null)
         {
             return StatusCode(401, "User not found");
         }
 
-        string[] formatDate = { "dd/MM/yyyy", "dd-MM-yyyy" };
-        string[] formatHours = { "HH:mm:ss", "HH:mm" };
+
         DateOnly data;
         TimeOnly hora;
         if (DateOnly.TryParse(dto.Date, out DateOnly dataOut))

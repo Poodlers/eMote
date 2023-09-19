@@ -15,7 +15,7 @@ function MealDiaryPage() {
 
   useEffect(() => {
     repository.hasAccessToDiaries().then((response) => {
-      setHasAccess(true);
+      setHasAccess(response);
       setComponentState(ComponentState.LOADED);
     }).catch((error) => {
       console.log(error);
@@ -38,7 +38,7 @@ function MealDiaryPage() {
           </Typography>
           :
           componentState === ComponentState.ERROR ?
-            <Typography color="error" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
+            <Typography color="secondary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
               Erro ao carregar página
             </Typography>
             :

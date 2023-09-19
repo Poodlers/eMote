@@ -7,6 +7,8 @@ import { BASE_URL } from "../constants/constants";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
 import { User } from "../models/User";
 import { saveAs } from 'file-saver';
+import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
+import { TipoRefeicao } from "../models/TipoRefeicao";
 
 
 
@@ -32,6 +34,34 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
+  async checkIfMealDiaryIsAlreadyAdded(refeicao : TipoRefeicao): Promise<FoodDiaryEntry> {
+    const instance = this.createInstance();
+    const data = new  Date().toLocaleString().split(',')[0].replace('/','-').replace('/','-');
+    try{
+      const result = await instance.get(`${BASE_URL}/meal-diary/${this.user.code}/${data}/${refeicao}`).then(transform);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+  async addFoodDiaryEntry(foodDiary: FoodDiaryEntry): Promise<void> {
+    const instance = this.createInstance();
+    const dataFim = new Date().toLocaleString().replace(',','');
+    try{
+      const result = await instance.post(`${BASE_URL}/meal-diary/${this.user.code}`,
+        foodDiary
+      ).then(transform);
+      
+      console.log(result.data);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
   logOutUser(): void {
     localStorage.removeItem('user');
     this.user = '{}';

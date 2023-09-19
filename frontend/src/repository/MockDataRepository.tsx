@@ -1,9 +1,16 @@
 import { Exercise } from "../models/Exercise";
+import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
 import { User } from "../models/User";
 import { IDataRepository } from "./IDataRepository";
 
 export class MockDataRepository implements IDataRepository {
+    checkIfMealDiaryIsAlreadyAdded(): Promise<FoodDiaryEntry> {
+        throw new Error("Method not implemented.");
+    }
+    addFoodDiaryEntry(foodDiary: FoodDiaryEntry): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
     logOutUser(): void {
         throw new Error("Method not implemented.");
     }

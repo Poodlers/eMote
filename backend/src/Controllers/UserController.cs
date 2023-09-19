@@ -78,6 +78,8 @@ public class UserController : ControllerBase
     public ActionResult<User> Get(String user_code)
     {
         var user = _dbUserSet.Where(user => user.Code == user_code)
+        .Include(user => user.FoodDiaryEntries)
+        .Include(user => user.EmotionDiaryEntries)
         .Include(user => user.ModulosProgress)
         .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses)
         .FirstOrDefault();

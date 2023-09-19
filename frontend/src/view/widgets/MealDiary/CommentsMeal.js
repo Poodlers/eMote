@@ -16,7 +16,14 @@ export default function CommentsMeal(props) {
                         multiline
                         rows={4}
                         color='info'
+                        disabled={props.readOnly}
+                        value={props.initialValue}
                         fullWidth
+                        onChange={
+                            (event) => {
+                                props.setReflection(event.target.value);
+                            } 
+                        }
                     />
             </Box>
         </Link>

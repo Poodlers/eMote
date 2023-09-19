@@ -16,7 +16,7 @@ function EmotionDiaryPage() {
 
   useEffect(() => {
     repository.hasAccessToDiaries().then((response) => {
-      setHasAccess(response);
+      setHasAccess(true);
       setComponentState(ComponentState.LOADED);
     }).catch((error) => {
       console.log(error);
