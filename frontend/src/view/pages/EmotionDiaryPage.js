@@ -27,7 +27,6 @@ function EmotionDiaryPage() {
 
   return (
     document.body.style = 'background: #e6d4e0',
-    <div>
     <Box sx={{mt:'10px', mb:'10px' }}>
       <IconButton component={Link} to="/home" aria-label="back" size="large">
           <ArrowBackIosIcon color= "secondary" fontSize="inherit" />
@@ -78,7 +77,7 @@ function EmotionDiaryPage() {
     }
     </Box>
 
-  </div>  
+        
   );
 }
 
