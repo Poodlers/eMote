@@ -46,6 +46,7 @@ function App() {
 
 
   return (
+    document.body.style = 'margin: 0 auto',
     <ThemeProvider theme={theme}>
       <StyledEngineProvider injectFirst>
       <Routes>

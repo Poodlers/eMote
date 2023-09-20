@@ -79,11 +79,11 @@ function SubmoduleListPage(props) {
     }
     
   return (
-    document.body.style = 'background:' + module.color2,
+
     <>
     <LogoAppBar color={module.theme}/>
 
-    <Box sx={{mt:'60px', mb:'70px'}}>
+    <Box sx={{mt:'60px', mb:'70px', backgroundColor: module.color2, height: '100vh'}}>
       <Box sx ={{p:5, pt:2, pb:2, bgcolor: module.color1, alignContent: 'center', width: '80%', m:'0 auto'}}>
         <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
             {props.name}

@@ -27,8 +27,7 @@ function AdminPage() {
   }
 
   return (
-    document.body.style = 'background: #fffefe',
-    <Grid paddingX={10}  container  direction="column" justifyContent="center"  >
+    <Grid paddingX={10} sx={{backgroundColor : '#fffefe'}}  container  direction="column" justifyContent="center"  >
     {
         user === null ||
         user.role !== 3 ? 

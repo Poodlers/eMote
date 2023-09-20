@@ -172,9 +172,8 @@ function MealTemplatePage(props) {
 
 
   return (
-    document.body.style = 'background: #01698b',
-    
-        <div>
+
+        <Box sx= {{backgroundColor: '#01698b' }}>
             {
             componentState == ComponentState.LOADING ?
             <Typography color="primary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
@@ -186,7 +185,7 @@ function MealTemplatePage(props) {
                 Erro ao carregar página
             </Typography>    
             :
-            <Box sx={{mt:'10px', mb:'10px' }}>
+            <Box sx={{mt:'10px', mb:'10px'}}>
             <Box sx ={{p:1, bgcolor: '#349db7', alignContent: 'center', width: '80%', m: '0 auto'}}>
                 <Grid container spacing={2}>
                     <Grid item >
@@ -251,7 +250,7 @@ function MealTemplatePage(props) {
 
         }
         
-        </div>
+        </Box>
   );
 }
 

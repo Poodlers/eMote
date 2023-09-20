@@ -24,9 +24,8 @@ function MealDiaryPage() {
     // eslint-disable-next-line
   }, []);
   return (
-    document.body.style = 'background: #01698b',
 
-        <Box sx={{mt:'10px', mb:'10px' }}>
+        <Box sx={{mt:'10px', mb:'10px', backgroundColor: '#01698b' }}>
 
         <IconButton component={Link} to="/home" aria-label="back" size="large">
           <ArrowBackIosIcon htmlColor= "#349db7" fontSize="inherit" />

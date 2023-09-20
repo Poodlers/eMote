@@ -81,8 +81,8 @@ import imgTriste from '../../assets/images/triste.png';
 
 function EmotionsMealPage(props) {
   return (
-    document.body.style = 'background: #e6d4e0',
-        <Box sx={{mt:'10px', mb:'10px' }}>
+
+        <Box sx={{mt:'10px', mb:'10px', backgroundColor: '#e6d4e0' }}>
             <IconButton component={Link} to={props.link} aria-label="back" size="large">
                 <ArrowBackIosIcon color= "secondary" fontSize="inherit" />
             </IconButton>
