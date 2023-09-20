@@ -17,31 +17,7 @@ import imgTranquila from '../../../assets/images/tranquila.png';
 import imgTriste from '../../../assets/images/triste.png';
 
 
-function EpisodesEmotions() {
-
-    const mockList = [
-        {
-            feeling: 'Feliz',
-            quantity: 10
-        },
-        {
-            feeling: 'Ansiosa',
-            quantity: 4
-        },
-        {
-            feeling: 'Aborrecida',
-            quantity: 5
-        },
-        {
-            feeling: 'Culpada',
-            quantity: 7
-        },
-        {
-            feeling: 'Sozinha',
-            quantity: 4
-        }
-    ];
-
+function EpisodesEmotions(props) {
     const feelingsImg = 
         {
             'Feliz': imgFeliz,
@@ -60,7 +36,9 @@ function EpisodesEmotions() {
             'Triste': imgTriste,
         }
 
-  return (
+    const emotionsData = props.emotionsData;
+
+    return (
         <>
             <Typography sx={{ fontWeight: 'bold', fontSize: 12, m: '0 auto', width:'70%', mt:'10px' }} variant="h6" align='center' color="primary">
                 Sentimentos associados aos episódios de ingestão alimentar compulsiva
@@ -72,11 +50,11 @@ function EpisodesEmotions() {
                     gridAutoColumns: "minmax(90px, 1fr)"
                 }}
             >
-                {mockList.map(function(data) {
+                {emotionsData.map(function(data) {
                     return (
-                        <ImageListItem key={data.feeling} sx={{ pl:1}} >
-                            <img alt={data.feeling} src={feelingsImg[data.feeling]}/>
-                            <ImageListItemBar sx={{ color: '#ed6fa6', textAlign:'center'}} position='below' title={data.quantity}/>
+                        <ImageListItem key={data.sentimento} sx={{ pl:1}} >
+                            <img alt={data.sentimento} src={feelingsImg[data.sentimento]}/>
+                            <ImageListItemBar sx={{ color: '#ed6fa6', textAlign:'center'}} position='below' title={data.count}/>
                         </ImageListItem>
                     )
                     })}

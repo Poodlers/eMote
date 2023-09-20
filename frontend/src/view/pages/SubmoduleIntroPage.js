@@ -1,7 +1,6 @@
 import React from 'react';
-import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
-import { NavBar } from '../widgets/NavBar.js';
 import { Link } from 'react-router-dom';
 import { modulesThemes } from '../../constants/themes.js';
 

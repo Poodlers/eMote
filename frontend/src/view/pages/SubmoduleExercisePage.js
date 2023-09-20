@@ -1,14 +1,11 @@
 import React from 'react';
-import { Box, Grid, IconButton, Link, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar';
-import { NavBar } from '../widgets/NavBar';
 
-import Lock from '@mui/icons-material/Lock';
-import LockOpen from '@mui/icons-material/LockOpen';
 import { modulesThemes } from '../../constants/themes.js';
+import { Link } from 'react-router-dom';
 
-
- const submodulesContent = [
+const submodulesContent = [
     {id:0,text:null,videoFile:null,
     imageFile:null,otherFile:null,
     exercicios:[{id:1,moduloNumberOrder:0,
@@ -39,26 +36,11 @@ const submodules = [
 
 function SubmoduleExercisePage(props) {
     var module = null;
-    var content = null;
 
     for (const obj of modulesThemes) {
         if (obj.name === props.name) {
             module = obj;
         }
-    }
-
-    const list = [];
-
-    for (const obj of submodules){
-
-        for (const cont of submodulesContent) {
-            if (cont.id === obj.id) {
-                content = cont;
-                break;
-            }
-        }
-        console.log(content)
-
     }
     
   return (
@@ -74,13 +56,19 @@ function SubmoduleExercisePage(props) {
       </Box>
 
       <Box sx= {{pt:1}} textAlign='center'>
-
+        {/* exercício é mostrado aqui */}
       </Box>
+      
+        <IconButton component={Link} to={module.feedbacklink} 
+            sx={{ bottom: "5%",
+                left: "70%",
+                position: "absolute" }}
+        >
+            <img alt='check' src={module.check}/>
+
+        </IconButton>
     </Box>
 
-
-
-    <NavBar color={module.theme}/>
     </>
 
   );

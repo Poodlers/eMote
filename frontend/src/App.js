@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material';
+import { RepositorySingleton } from './repository/RepositoryInjector';
 import myTheme from './theme.js'
 
 import LandingPage from './view/pages/LandingPage.js';
@@ -15,7 +16,6 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import EmotionsPage from './view/pages/EmotionsPage.js';
 import ExercisesPage from './view/pages/ExercisesPage.js';
 import MealDiaryPage from './view/pages/MealDiaryPage.js';
 import MealTemplatePage from './view/pages/MealTemplatePage.js';
@@ -23,16 +23,36 @@ import ModuleIntroductionPage from './view/pages/ModuleIntroductionPage.js';
 import SubmoduleListPage from './view/pages/SubmoduleListPage.js';
 import SubmoduleIntroPage from './view/pages/SubmoduleIntroPage.js';
 import SubmoduleExercisePage from './view/pages/SubmoduleExercisePage.js';
+import FeedbackPage from './view/pages/FeedbackPage.js';
+import LoginPage from './view/pages/LoginPage.js';
+import AdminPage from './view/pages/AdminPage.js';
 
 
+const repository = RepositorySingleton.getInstance().injectRepository();
 const theme = myTheme;
 
+
 function App() {
+  //ping backend every 30 seconds to log user access
+  const pingInterval = 30;
+  useEffect(() => {
+    
+    const interval = setInterval(() => {
+      repository.logAccessToApp().catch((error) => {
+          console.log(error);
+      });
+    }, pingInterval * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+
   return (
     <ThemeProvider theme={theme}>
       <StyledEngineProvider injectFirst>
       <Routes>
-        <Route path='/' element={<LandingPage />} />
+        <Route path='/' element={<LoginPage />} />
+        <Route path='/admin' element={<AdminPage />} />
+        <Route path='/home' element={<LandingPage />} />
         <Route path='/favorites' element={< FavoritesPage/>} />
         <Route path='/progress' element={< ProgressPage/>} />
         <Route path='/profile' element={< ProfilePage/>} />
@@ -41,9 +61,8 @@ function App() {
         <Route path='/contact' element={< ContactPage/>} />
 
         <Route path='/emotiondiary' element={< EmotionDiaryPage/>} />
-        <Route path='/emotions' element={< EmotionsPage/>} />
         <Route path='/exercises' element={< ExercisesPage/>} />
-        
+                
         <Route path='/mealdiary' element= {<MealDiaryPage/>} />
         <Route path='/pqnoalmoco' element= {<MealTemplatePage meal='Pequeno Almoço'/>} />
         <Route path='/lanchemanha' element= {<MealTemplatePage meal='Lanche da Manhã'/>} />
@@ -57,7 +76,8 @@ function App() {
         <Route path='/mindfulness' element= {<ModuleIntroductionPage name='Mindfulness'/>} />
         <Route path='/regulacao' element= {<ModuleIntroductionPage name='Regulação emocional'/>} />
         <Route path='/tolerancia' element= {<ModuleIntroductionPage name='Tolerância a estados emocionais dolorosos'/>} />
-      
+
+
         <Route path='/module1' element= {<SubmoduleListPage name='Psicoeducação'/>} />
         <Route path='/module2' element= {<SubmoduleListPage name='Mindfulness'/>} />
         <Route path='/module3' element= {<SubmoduleListPage name='Regulação emocional'/>} />
@@ -65,12 +85,16 @@ function App() {
        
         <Route path='/submoduleintro1' element= {<SubmoduleIntroPage name='Psicoeducação'/>} />
         <Route path='/submoduleexercise1' element= {<SubmoduleExercisePage name='Psicoeducação'/>} />
+        <Route path='/feedback1' element= {<FeedbackPage name='Psicoeducação'/>} />
         <Route path='/submoduleintro2' element= {<SubmoduleIntroPage name='Mindfulness'/>} />
         <Route path='/submoduleexercise2' element= {<SubmoduleExercisePage name='Mindfulness'/>} />
+        <Route path='/feedback2' element= {<FeedbackPage name='Mindfulness'/>} />
         <Route path='/submoduleintro3' element= {<SubmoduleIntroPage name='Regulação emocional'/>} />
         <Route path='/submoduleexercise3' element= {<SubmoduleExercisePage name='Regulação emocional'/>} />
+        <Route path='/feedback3' element= {<FeedbackPage name='Regulação emocional'/>} />
         <Route path='/submoduleintro4' element= {<SubmoduleIntroPage name='Tolerância a estados emocionais dolorosos'/>} />
         <Route path='/submoduleexercise4' element= {<SubmoduleExercisePage name='Tolerância a estados emocionais dolorosos'/>} />
+        <Route path='/feedback4' element= {<FeedbackPage name='Tolerância a estados emocionais dolorosos'/>} />
 
 
       </Routes>
