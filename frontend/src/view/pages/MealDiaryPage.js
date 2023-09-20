@@ -25,7 +25,7 @@ function MealDiaryPage() {
   }, []);
   return (
 
-        <Box sx={{mt:'10px', mb:'10px', backgroundColor: '#01698b' }}>
+        <Box sx={{px:5, height:'100vh',  backgroundColor: '#01698b' }}>
 
         <IconButton component={Link} to="/home" aria-label="back" size="large">
           <ArrowBackIosIcon htmlColor= "#349db7" fontSize="inherit" />

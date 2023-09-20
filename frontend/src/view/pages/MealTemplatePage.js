@@ -173,7 +173,7 @@ function MealTemplatePage(props) {
 
   return (
 
-        <Box sx= {{backgroundColor: '#01698b' }}>
+        <Box sx= {{backgroundColor: '#01698b', width:'100vw', height:'100vh' }}>
             {
             componentState == ComponentState.LOADING ?
             <Typography color="primary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
