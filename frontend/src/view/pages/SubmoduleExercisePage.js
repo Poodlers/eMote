@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar';
 
 import { modulesThemes } from '../../constants/themes.js';
@@ -11,13 +11,17 @@ import phonesGreen from '../../assets/images/phones.png';
 
 import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const submodulesContent = {
     id:0,text:null,videoFile:null,
     imageFile:null,otherFile:null,
     exercicios:[{id:1,moduloNumberOrder:0,
     exercicioName:"Exercício 1 - Respiração diafragmática",
-    exercicioFile:"submod2.1_ativ1.mp3"}]
+    exercicioFile:"submod2.1_ativ1.mp3"}, {id:1,moduloNumberOrder:0,
+        exercicioName:"Exercício 1 - Respiração diafragmática",
+        exercicioFile:"submod2.1_ativ1.mp3"}]
 } 
 
 const submodules = [
@@ -40,6 +44,7 @@ const submodules = [
 
 function SubmoduleExercisePage(props) {
     const [isPlaying, setIsPlaying] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
         if(isPlaying){
@@ -80,16 +85,31 @@ function SubmoduleExercisePage(props) {
             </Typography>
         </Box>
 
-        <Box sx= {{p:3}}> 
+        <Box sx= {{p:3}}>
             {submodulesContent.exercicios[0].exercicioFile.split('.')[2] == "mp3" ?
-            <img alt='phones' src={props.name == 'Regulação emocional'? phonesPurple : phonesGreen}/> : null
+            <>
+            <Grid container direction='row'>
+                <Grid item xs={9}>
+                    <img alt='phones' src={props.name == 'Regulação emocional'? phonesPurple : phonesGreen}/>
+                </Grid>
+                <Grid item alignSelf='end' xs={3}>
+                    <IconButton size='large' onClick={()=>{setIsPlaying(!isPlaying)}} >
+                        {isPlaying ? 
+                        <PauseCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } />
+                        : <PlayCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } /> }
+                    </IconButton>
+                </Grid>
+            </Grid>
+            </> : null
             }
+
+            <IconButton sx={{p:3}} size='large' onClick={()=>{setIsFavorite(!isFavorite)}} >
+                {isFavorite ? 
+                <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } />
+                : <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } /> }
+            </IconButton>
         </Box>
-        <IconButton size='large' onClick={()=>{setIsPlaying(!isPlaying)}} >
-            {isPlaying ? 
-            <PauseCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } />
-            : <PlayCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } /> }
-        </IconButton>
+
 
       </Box>
       
