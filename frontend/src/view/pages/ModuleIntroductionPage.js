@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
 import { Link } from 'react-router-dom';
 import { modulesThemes } from '../../constants/themes.js';
+import { RepositorySingleton } from '../../repository/RepositoryInjector';
 
 const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu ante at ipsum mattis varius eget ornare ligula. Sed vitae dignissim leo, et ullamcorper dolor. Donec iaculis convallis tristique. Etiam libero eros, tempus non euismod eu, dignissim a dui. Nulla auctor mattis neque et molestie. Ut luctus massa ut purus viverra volutpat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.Sed varius urna tortor, blandit consequat lacus consequat eget. Nulla facilisi. '
 
 
 function ModuleIntroductionPage(props) {
+    const repository = RepositorySingleton.getInstance().injectRepository();
+
+    useEffect(() => {
+      const data = new Date().toLocaleString();
+      console.log(data);
+      repository.registerModuloTimeStamps(props.order ).then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      } );
+      // eslint-disable-next-line
+    }
+    , []);
+
+
     var module = null;
 
     for (const obj of modulesThemes) {

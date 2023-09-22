@@ -10,6 +10,10 @@ export interface IDataRepository {
 
     fetchFavoriteExercises(): Promise<Array<Exercise>>;
 
+    registerSubModuloTimeStamps(moduloId: Number, subModuloId: Number, timeInicio?: string, timeFim?: string): Promise<void>;
+
+    registerModuloTimeStamps(moduloId: Number,  timeInicio?: string, timeFim?: string): Promise<void>;
+
     fetchPersonalPageInfo(): Promise<PersonalPageInfo>;
 
     fetchAllUsers(): Promise<Array<User>>;

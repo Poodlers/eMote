@@ -5,6 +5,12 @@ import { User } from "../models/User";
 import { IDataRepository } from "./IDataRepository";
 
 export class MockDataRepository implements IDataRepository {
+    registerSubModuloTimeStamps(moduloId: Number, subModuloId: Number, timeInicio?: string | undefined, timeFim?: string | undefined): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+    registerModuloTimeStamps(moduloId: Number,timeInicio?: string | undefined, timeFim?: string | undefined): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
     checkIfMealDiaryIsAlreadyAdded(): Promise<FoodDiaryEntry> {
         throw new Error("Method not implemented.");
     }

@@ -34,6 +34,64 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
+  async registerSubModuloTimeStamps(moduloId: Number, subModuloId: Number, timeInicio?: string | undefined, timeFim?: string | undefined): Promise<void> {
+    const instance = this.createInstance();
+    //create object with timeInicio if not undefined
+    let timeStamps = {};
+    if(timeInicio !== undefined){
+      timeStamps = {
+        timeInicio: timeInicio,
+      };
+    }
+  
+    if(timeFim !== undefined){
+      timeStamps = {
+        ...timeStamps,
+        timeFim: timeFim,
+      };
+    }
+    try{
+      const result = await instance.post(`${BASE_URL}/modulo-progress/${this.user.code}/${moduloId}/${subModuloId}`,
+        timeStamps
+      ).then(transform);
+      
+      console.log(result.data);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+  async registerModuloTimeStamps(moduloId: Number, timeInicio?: string | undefined, timeFim?: string | undefined): Promise<void> {
+    const instance = this.createInstance();
+    //create object with timeInicio if not undefined
+    let timeStamps = {};
+    if(timeInicio !== undefined){
+      timeStamps = {
+        timeInicio: timeInicio,
+      };
+    }
+  
+    if(timeFim !== undefined){
+      timeStamps = {
+        ...timeStamps,
+        timeFim: timeFim,
+      };
+    }
+    try{
+      const result = await instance.post(`${BASE_URL}/modulo-progress/${this.user.code}/${moduloId}`,
+        timeStamps
+      ).then(transform);
+      
+      console.log(result.data);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  } 
   async checkIfMealDiaryIsAlreadyAdded(refeicao : TipoRefeicao): Promise<FoodDiaryEntry> {
     const instance = this.createInstance();
     const data = new  Date().toLocaleString().split(',')[0].replace('/','-').replace('/','-');
