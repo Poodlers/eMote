@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, IconButton, Typography } from '@mui/material';
+import { AppBar, Box, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar';
 
 import { modulesThemes } from '../../constants/themes.js';
@@ -55,13 +55,15 @@ function SubmoduleExercisePage(props) {
     <>
     {/*<audio src=''/>*/}
     <LogoAppBar color={module.theme} goBack={true}/>
+    <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: module.color1 }} >
+        <Box sx ={{p:5, pt:2, pb:2, alignContent: 'center', width: '80%', m:'0 auto'}}>
+            <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
+                {props.name}
+            </Typography>
+        </Box>
+    </AppBar>
 
-    <Box sx={{mt:'60px', mb:'70px'}}>
-      <Box sx ={{p:5, pt:2, pb:2, bgcolor: module.color1, alignContent: 'center', width: '80%', m:'0 auto'}}>
-        <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
-            {props.name}
-        </Typography>
-      </Box>
+    <Box sx={{mt:'120px', mb:'70px'}}>
 
       <Box sx= {{pt:1}} textAlign='center'>
         {submodulesContent.exercicios.map(function(data){
