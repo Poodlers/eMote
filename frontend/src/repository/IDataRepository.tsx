@@ -2,12 +2,22 @@ import { Exercise } from "../models/Exercise";
 import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { ModuloInfo } from "../models/ModuloInfo";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
+import { SubModuleInfo } from "../models/SubModuleInfo";
+import { SubModulePage } from "../models/SubModulePage";
 import { TipoRefeicao } from "../models/TipoRefeicao";
 import { User } from "../models/User";
 
 export interface IDataRepository {
 
     updateUser(): void;
+
+    userCompletedLogin(): boolean;
+
+    getSubmoduleList(moduloId: Number): Promise<Array<SubModuleInfo>>;
+
+    getPageContent(moduloId: Number, subModuloId: Number, pageNumber: Number): Promise<SubModulePage>;
+
+    setUserCompletedLogin(hasCompletedLogin: boolean): void;
 
     fetchFavoriteExercises(): Promise<Array<Exercise>>;
 

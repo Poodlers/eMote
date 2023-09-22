@@ -3,6 +3,7 @@ import React, {  useState } from 'react';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import PopupEditing from '../widgets/PopupEditing'
 import { DownloadState } from '../../models/DownloadState';
+import LogoutButton from '../widgets/LogoutButton';
 
 function AdminPage() {
   const repository = RepositorySingleton.getInstance().injectRepository();
@@ -45,6 +46,7 @@ function AdminPage() {
           </Typography>
           <PopupEditing />
           
+          <LogoutButton size='150' />
 
         </> 
 

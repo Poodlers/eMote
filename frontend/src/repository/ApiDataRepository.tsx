@@ -10,6 +10,8 @@ import { saveAs } from 'file-saver';
 import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { TipoRefeicao } from "../models/TipoRefeicao";
 import { ModuloInfo } from "../models/ModuloInfo";
+import { SubModuleInfo } from "../models/SubModuleInfo";
+import { SubModulePage } from "../models/SubModulePage";
 
 
 
@@ -35,6 +37,59 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
+  
+ 
+  
+
+  user = JSON.parse(localStorage.getItem('user') || '{}');
+  completedLogin : boolean = false;
+
+  async getPageContent(moduloId: Number, subModuloId: Number, pageNumber: Number): Promise<SubModulePage> {
+    const instance = this.createInstance();
+    
+    try{
+      const result = await instance.get(`${BASE_URL}/modulo/${moduloId}/${subModuloId}/${pageNumber}`).then(transform);    
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async getSubmoduleList(moduloId: Number): Promise<SubModuleInfo[]> {
+    const instance = this.createInstance();
+    
+    try{
+      const result = await instance.get(`${BASE_URL}/modulo-progress/${this.user.code}/${moduloId}`).then(transform);
+      let submodulesInfo: SubModuleInfo[] = [];
+      const submodules = result.data.subModuleUserProgresses;
+      let lockModules = false;
+      submodules.forEach((submodule: any) => {
+        submodulesInfo.push({
+          title: submodule.subModule.title,
+          isBlocked: lockModules,
+        });
+        if(!submodule.isCompleted) lockModules = true;
+
+        
+        });
+      
+      return submodulesInfo;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+
+  userCompletedLogin(): boolean {
+    return this.completedLogin;
+  }
+
+  setUserCompletedLogin(hasCompletedLogin: boolean): void {
+    this.completedLogin = hasCompletedLogin;
+  }
   async fetchModuloNameAndIntro(moduloId: Number): Promise<ModuloInfo> {
     const instance = this.createInstance();
     
@@ -84,14 +139,14 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
     let timeStamps = {};
     if(timeInicio !== undefined){
       timeStamps = {
-        timeInicio: timeInicio,
+        timeStampInicio: timeInicio,
       };
     }
   
     if(timeFim !== undefined){
       timeStamps = {
         ...timeStamps,
-        timeFim: timeFim,
+        timeStampFim: timeFim,
       };
     }
     try{
@@ -147,7 +202,6 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
   
   }
 
-  user = JSON.parse(localStorage.getItem('user') || '{}');
 
   async hasAccessToDiaries(): Promise<boolean> {
     const instance = this.createInstance();
@@ -169,6 +223,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
   }
 
   async logAccessToApp(): Promise<void> {
+    if(!this.completedLogin) return;
     const instance = this.createInstance();
     if (localStorage.getItem('dataInicio') === null) {
       return;

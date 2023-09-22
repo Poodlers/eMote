@@ -14,6 +14,7 @@ import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { IconButton, Link as MUILink } from '@mui/material';
+import LogoutButton from './LogoutButton';
 
 
 const themes = [
@@ -54,13 +55,6 @@ export function LogoAppBar(props) {
           modified = true;
       }
   }
-  const repository = RepositorySingleton.getInstance().injectRepository();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    repository.logOutUser();
-    navigate('/');
-  }
 
   return (
       <AppBar sx ={{boxShadow: 'none', top:0, height: 60, backgroundColor: modified? "#ffffff" : null }} >
@@ -72,9 +66,7 @@ export function LogoAppBar(props) {
             : null
           }
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}/>
-          <IconButton edge="start" aria-label="menu" sx={{ mr: 2 }} onClick={handleLogout}>
-            <Logout></Logout>
-          </IconButton>
+          <LogoutButton/>
           <MUILink href="/home" sx ={{p:2}}>
             <img alt="logo" src={modified? theme.logo : Logo} height={35}/>
           </MUILink>

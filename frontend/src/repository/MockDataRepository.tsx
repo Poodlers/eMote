@@ -2,10 +2,24 @@ import { Exercise } from "../models/Exercise";
 import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { ModuloInfo } from "../models/ModuloInfo";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
+import { SubModuleInfo } from "../models/SubModuleInfo";
+import { SubModulePage } from "../models/SubModulePage";
 import { User } from "../models/User";
 import { IDataRepository } from "./IDataRepository";
 
 export class MockDataRepository implements IDataRepository {
+    getPageContent(moduloId: Number, subModuloId: Number, pageNumber: Number): Promise<SubModulePage> {
+        throw new Error("Method not implemented.");
+    }
+    getSubmoduleList(moduloId: Number): Promise<SubModuleInfo[]> {
+        throw new Error("Method not implemented.");
+    }
+    setUserCompletedLogin(hasCompletedLogin: boolean): void {
+        throw new Error("Method not implemented.");
+    }
+    userCompletedLogin(): boolean {
+        throw new Error("Method not implemented.");
+    }
     fetchModuloNameAndIntro(moduloId: Number): Promise<ModuloInfo> {
         throw new Error("Method not implemented.");
     }

@@ -76,25 +76,21 @@ function App() {
             <Route path=':moduleNumber' element= {<ModuleIntroductionPage/>} />
         </Route>
 
-        <Route path='/module'>
+        <Route path='/submodulelist'>
            <Route path=':moduleNumber' element= {<SubmoduleListPage/>} />
         </Route>
        
-       
-       
-        <Route path='/submoduleintro' element= {<SubmoduleIntroPage name='Psicoeducação'/>} />
-        <Route path='/submoduleexercise1' element= {<SubmoduleExercisePage name='Psicoeducação'/>} />
-        <Route path='/feedback1' element= {<FeedbackPage name='Psicoeducação'/>} />
-        <Route path='/submoduleintro2' element= {<SubmoduleIntroPage name='Mindfulness'/>} />
-        <Route path='/submoduleexercise2' element= {<SubmoduleExercisePage name='Mindfulness'/>} />
-        <Route path='/feedback2' element= {<FeedbackPage name='Mindfulness'/>} />
-        <Route path='/submoduleintro3' element= {<SubmoduleIntroPage name='Regulação emocional'/>} />
-        <Route path='/submoduleexercise3' element= {<SubmoduleExercisePage name='Regulação emocional'/>} />
-        <Route path='/feedback3' element= {<FeedbackPage name='Regulação emocional'/>} />
-        <Route path='/submoduleintro4' element= {<SubmoduleIntroPage name='Tolerância a estados emocionais dolorosos'/>} />
-        <Route path='/submoduleexercise4' element= {<SubmoduleExercisePage name='Tolerância a estados emocionais dolorosos'/>} />
-        <Route path='/feedback4' element= {<FeedbackPage name='Tolerância a estados emocionais dolorosos'/>} />
+       <Route path='/submoduleintro'>
+            <Route path=':moduleNumber' element= {<SubmoduleIntroPage/>} />
+        </Route>
 
+        <Route path='/submodulepage'>
+            <Route path=':moduleNumber/:submoduleNumber/:pageNumber' element= {<SubmoduleExercisePage/>} />
+        </Route>
+       
+        <Route path='/feedback'>
+            <Route path=':moduleNumber' element= {<FeedbackPage/>} />
+        </Route>
 
       </Routes>
       </StyledEngineProvider>

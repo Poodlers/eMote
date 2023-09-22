@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, IconButton, Slider, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { modulesThemes } from '../../constants/themes.js';
 
 const marks = [
@@ -36,19 +36,20 @@ function valuetext(value) {
   }
 
 function FeedbackPage(props) {
+    let { moduleNumber } = useParams();
     var module = null;
 
     for (const obj of modulesThemes) {
-        if (obj.name === props.name) {
+        if (obj.moduloId == moduleNumber) {
             module = obj;
         }
     }
     return (
-        document.body.style = 'background:' + module.color2,
+        
         <>
         <LogoAppBar color={module.theme} />
 
-        <Box sx={{mt:'60px', mb:'70px'}}>
+        <Box sx={{pt: '60px', height: '93vh'}} bgcolor={module.color2}>
             <Typography align= 'center' sx={{ pt:5, alignSelf:'center', fontSize: 50, fontWeight: 500 }} variant='body1' color={module.theme == 'blue'? module.color1: 'white'}>
                 Parabéns!
             </Typography>

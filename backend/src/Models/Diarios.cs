@@ -220,6 +220,8 @@ public class SubModulePage
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
+
+    public int PageNumber { get; set; }
     public String? Text { get; set; }
     public String? VideoFile { get; set; }
     public String? ImageFile { get; set; }

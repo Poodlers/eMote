@@ -59,6 +59,33 @@ public class ModuloController : ControllerBase
         return Ok(modulo);
     }
 
+    [HttpGet("{id}/{submodule_id}/{submodule_page_number}", Name = "GetSubModulePage")]
+    public ActionResult<SubModulePage> Get(int id, int submodule_id, int submodule_page_number)
+    {
+        var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules.Where(s => s.SubModuleNumberOrder == submodule_id))
+        .ThenInclude(submodulo => submodulo.SubModulePages.Where(s => s.PageNumber == submodule_page_number))
+        .ThenInclude(submodulopage => submodulopage.Exercicios)
+        .Where(u => u.ModuleNumberOrder == id)
+        .FirstOrDefault();
+        if (modulo == null)
+        {
+            return StatusCode(
+                404,
+                "SubModulePage not found"
+
+            );
+        }
+        if (modulo.SubModules.FirstOrDefault()?.SubModulePages.FirstOrDefault() == null)
+        {
+            return StatusCode(
+                404,
+                "SubModulePage not found"
+
+            );
+        }
+
+        return Ok(modulo.SubModules.FirstOrDefault()?.SubModulePages.FirstOrDefault());
+    }
 
 
 

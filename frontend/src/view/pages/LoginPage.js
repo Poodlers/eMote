@@ -16,21 +16,23 @@ function LoginPage() {
   }
 
   useEffect(() => {
+    
     const loggedUser = JSON.parse(localStorage.getItem('user'));
     if(loggedUser === null) return;
-    repository.updateUser();
-    repository.logTimeStampOnAppLogin();
-    
-    
-    if(loggedUser.role === 3){
-      navigate('/admin', { replace: true });
-    }else if(loggedUser.hasAccessToApp){
-      navigate('/home', { replace: true });
+    repository.loginUser(loggedUser.code, loggedUser.password).then((response) => {
+      repository.updateUser();
+      repository.logTimeStampOnAppLogin();
+      
+      if(loggedUser.role === 3){
+        navigate('/admin', { replace: true });
+      }else if(loggedUser.hasAccessToApp){
+        navigate('/home', { replace: true });
 
-    }
-    
-    
-    
+      }
+      }).catch((error) => {
+        console.log(error);
+      });
+      
     // eslint-disable-next-line
   }, []);
 
@@ -44,7 +46,9 @@ function LoginPage() {
         const loggedUser = {
           code: response.code,
           role: response.role,
-          hasAccessToApp: response.hasAccessToApp
+          password: response.password,
+          hasAccessToApp: response.hasAccessToApp,
+          completedLogin: false
         }
         localStorage.setItem('user', JSON.stringify(loggedUser));
         repository.updateUser();
@@ -53,10 +57,9 @@ function LoginPage() {
         //setHasSeenTermsOfService(response.accesses.length > 0);
 
         const hasAccessedOnce = response.accesses.length > 0;
-        if(!hasAccessedOnce){
-            setHasSeenTermsOfService(false);
-        }else{
-        
+        setHasSeenTermsOfService(hasAccessedOnce);
+       
+        if(repository.userCompletedLogin() || hasAccessedOnce){
           if(response.role === 3){
             navigate('/admin', { replace: true });
           }else if(response.hasAccessToApp){
@@ -66,7 +69,7 @@ function LoginPage() {
           }else{ 
             alert('O seu periodo de acesso à emotE terminou, esperamos que tenha gostado da experiência!');
           }
-      }
+        }
        
     }).catch((error) => {
         props.setErrors({code: 'Código ou password incorretos :('});
@@ -80,6 +83,7 @@ function LoginPage() {
 
   const onAgree = () => {
     setHasSeenTermsOfService(true);
+    repository.setUserCompletedLogin(true);
     const loggedUser = JSON.parse(localStorage.getItem('user'));
     if(loggedUser.role === 3){
       navigate('/admin', { replace: true });

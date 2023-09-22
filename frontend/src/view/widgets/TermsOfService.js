@@ -3,6 +3,7 @@ import React from 'react';
 import { Box, Button, List, Paper, Typography } from "@mui/material";
 
 function TermsOfService(props) {
+   
     return(
         <Popup open={props.trigger} position="right center" >
             <Paper sx={{backgroundColor: 'white', width: '80vw' }}>
@@ -78,7 +79,7 @@ function TermsOfService(props) {
         </Typography>
 
         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', pb: 2}}>
-        <Button gutterBottom color={'white'} sx={{ mr:'1vw', pt:1, width: '25vw' , textAlign: 'center', fontSize: 18, fontWeight: 500, backgroundColor: '#f28db2', 
+        <Button color={'white'} sx={{ mr:'1vw', pt:1, width: '25vw' , textAlign: 'center', fontSize: 18, fontWeight: 500, backgroundColor: '#f28db2', 
             ":hover": {
                 backgroundColor: '#f28db2',
                 opacity: '0.8'
@@ -86,7 +87,7 @@ function TermsOfService(props) {
         }} variant='body1' onClick={() => props.onDisagree(true)}>
                 Discordo
             </Button>
-            <Button gutterBottom color={'white'} sx={{ pt:1, width: '25vw', textAlign: 'center', fontSize: 18, fontWeight: 500, backgroundColor: '#067089', 
+            <Button color={'white'} sx={{ pt:1, width: '25vw', textAlign: 'center', fontSize: 18, fontWeight: 500, backgroundColor: '#067089', 
             ":hover": {
                 backgroundColor: '#067089',
                 opacity: '0.8'
