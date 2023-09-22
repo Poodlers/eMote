@@ -1,5 +1,6 @@
 import { Exercise } from "../models/Exercise";
 import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
+import { ModuloInfo } from "../models/ModuloInfo";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
 import { TipoRefeicao } from "../models/TipoRefeicao";
 import { User } from "../models/User";
@@ -9,6 +10,8 @@ export interface IDataRepository {
     updateUser(): void;
 
     fetchFavoriteExercises(): Promise<Array<Exercise>>;
+
+    fetchModuloNameAndIntro(moduloId: Number): Promise<ModuloInfo>;
 
     registerSubModuloTimeStamps(moduloId: Number, subModuloId: Number, timeInicio?: string, timeFim?: string): Promise<void>;
 

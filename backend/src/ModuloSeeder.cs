@@ -12,23 +12,11 @@ public class ModuloSeeder
         {
             ModuleNumberOrder = 1,
             Title = "Psicoeducação",
+            IntroText = @"Neste módulo 
+                            iremos explicar a ingestão alimentar compulsiva, os mecanismos que a mantêm e o papel da regulação emocional para que possa entender melhor as suas dificuldades e sintomas. 
+                            Vamos começar?",
             SubModules = new List<SubModule>
             {
-                new SubModule
-                {
-                    SubModuleNumberOrder = 0,
-                    Title = "Introdução",
-                    SubModulePages =
-                    new List<SubModulePage>
-                    {
-                        new SubModulePage
-                        {
-                            Text = @"Neste módulo 
-                            iremos explicar a ingestão alimentar compulsiva, os mecanismos que a mantêm e o papel da regulação emocional para que possa entender melhor as suas dificuldades e sintomas. 
-                            Vamos começar?"
-                        }
-                    }
-                },
 
             new SubModule
             {
@@ -150,24 +138,12 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
         {
             ModuleNumberOrder = 2,
             Title = "Mindfulness",
-            SubModules = new List<SubModule>
-            {
-                new SubModule
-                {
-                    SubModuleNumberOrder = 0,
-                    Title = "Introdução",
-                    SubModulePages =
-                    new List<SubModulePage>
-                    {
-                        new SubModulePage
-                        {
-                            Text = @"Mindfulness, 
+            IntroText = @"Mindfulness, 
                             ou atenção plena, 
                             é a capacidade de estar no momento presente sem julgamento. Esta capacidade permite-nos estar menos reativas ao que acontece a cada momento, seja essa experiência positiva, negativa ou neutra, diminuindo o sofrimento e aumentando a sensação de bem-estar. 
-Vamos começar?"
-                        }
-                    }
-                },
+Vamos começar?",
+            SubModules = new List<SubModule>
+            {
                 new SubModule
                 {
                     SubModuleNumberOrder = 1,
@@ -417,21 +393,10 @@ Preparada?"
         {
             ModuleNumberOrder = 3,
             Title = "Regulação Emocional",
+            IntroText = @"Este módulo ajuda-nos a lidar habilmente com as nossas emoções. As emoções dolorosas e difíceis fazem parte da vida e não podem ser totalmente evitadas, mas podemos mudar a forma como nos relacionamos com o sofrimento emocional.
+Vamos começar?",
             SubModules = new List<SubModule>
             {
-                new SubModule{
-                    SubModuleNumberOrder = 0,
-                    Title = "Introdução",
-                    SubModulePages = new List<SubModulePage>
-                    {
-                        new SubModulePage
-                        {
-                            Text = @"Este módulo ajuda-nos a lidar habilmente com as nossas emoções. As emoções dolorosas e difíceis fazem parte da vida e não podem ser totalmente evitadas, mas podemos mudar a forma como nos relacionamos com o sofrimento emocional.
-Vamos começar?"
-                        }
-
-                    },
-                },
 
                 new SubModule{
                     SubModuleNumberOrder = 1,
@@ -560,19 +525,10 @@ Preparada?"
         {
             ModuleNumberOrder = 4,
             Title = "Tolerância a estados emocionais dolorosos",
+            IntroText = @"Os exercícios deste módulo são úteis quando estamos a sentir emoções dolorosas, angustiantes ou desconfortáveis em situações que não podemos controlar ou em situações que nos sentimos emocionalmente sobrecarregadas e mais nada parece resultar.
+Vamos começar?",
             SubModules = new List<SubModule>
             {
-                new SubModule{
-                    SubModuleNumberOrder = 0,
-                    Title = "Introdução",
-                    SubModulePages = new List<SubModulePage>
-                    {
-                        new SubModulePage{
-                            Text = @"Os exercícios deste módulo são úteis quando estamos a sentir emoções dolorosas, angustiantes ou desconfortáveis em situações que não podemos controlar ou em situações que nos sentimos emocionalmente sobrecarregadas e mais nada parece resultar.
-Vamos começar?"
-                        }
-                    }
-                },
                 new SubModule{
                     SubModuleNumberOrder = 1,
                     Title = "Observar a respiração",

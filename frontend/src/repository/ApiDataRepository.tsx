@@ -9,6 +9,7 @@ import { User } from "../models/User";
 import { saveAs } from 'file-saver';
 import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { TipoRefeicao } from "../models/TipoRefeicao";
+import { ModuloInfo } from "../models/ModuloInfo";
 
 
 
@@ -34,6 +35,20 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
+  async fetchModuloNameAndIntro(moduloId: Number): Promise<ModuloInfo> {
+    const instance = this.createInstance();
+    
+    try{
+      const result = await instance.get(`${BASE_URL}/modulo/${moduloId}`).then(transform);
+      
+      console.log(result.data);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
   async registerSubModuloTimeStamps(moduloId: Number, subModuloId: Number, timeInicio?: string | undefined, timeFim?: string | undefined): Promise<void> {
     const instance = this.createInstance();
     //create object with timeInicio if not undefined

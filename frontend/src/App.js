@@ -71,19 +71,18 @@ function App() {
         <Route path='/jantar' element= {<MealTemplatePage meal='Jantar'/>} />
         <Route path='/ceia' element= {<MealTemplatePage meal='Ceia'/>} />
         <Route path='/outraref' element= {<MealTemplatePage meal='Outra Refeição'/>} />
-      
-        <Route path='/psicoeducacao' element= {<ModuleIntroductionPage name='Psicoeducação'/>} />
-        <Route path='/mindfulness' element= {<ModuleIntroductionPage name='Mindfulness'/>} />
-        <Route path='/regulacao' element= {<ModuleIntroductionPage name='Regulação emocional'/>} />
-        <Route path='/tolerancia' element= {<ModuleIntroductionPage name='Tolerância a estados emocionais dolorosos'/>} />
 
+        <Route path='/moduleintro'>
+            <Route path=':moduleNumber' element= {<ModuleIntroductionPage/>} />
+        </Route>
 
-        <Route path='/module1' element= {<SubmoduleListPage name='Psicoeducação'/>} />
-        <Route path='/module2' element= {<SubmoduleListPage name='Mindfulness'/>} />
-        <Route path='/module3' element= {<SubmoduleListPage name='Regulação emocional'/>} />
-        <Route path='/module4' element= {<SubmoduleListPage name='Tolerância a estados emocionais dolorosos'/>} />
+        <Route path='/module'>
+           <Route path=':moduleNumber' element= {<SubmoduleListPage/>} />
+        </Route>
        
-        <Route path='/submoduleintro1' element= {<SubmoduleIntroPage name='Psicoeducação'/>} />
+       
+       
+        <Route path='/submoduleintro' element= {<SubmoduleIntroPage name='Psicoeducação'/>} />
         <Route path='/submoduleexercise1' element= {<SubmoduleExercisePage name='Psicoeducação'/>} />
         <Route path='/feedback1' element= {<FeedbackPage name='Psicoeducação'/>} />
         <Route path='/submoduleintro2' element= {<SubmoduleIntroPage name='Mindfulness'/>} />

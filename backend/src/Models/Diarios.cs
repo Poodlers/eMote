@@ -287,6 +287,8 @@ public class ModuloContent
     [Required]
     public String? Title { get; set; }
 
+    [Required]
+    public String? IntroText { get; set; }
 
     [ForeignKey("SubModuleContent")]
     public List<SubModule> SubModules { get; set; } = new List<SubModule>();

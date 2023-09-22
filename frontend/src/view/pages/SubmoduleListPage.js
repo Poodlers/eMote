@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Grid, IconButton, Link, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar';
 import { NavBar } from '../widgets/NavBar';
@@ -6,6 +6,8 @@ import { NavBar } from '../widgets/NavBar';
 import Lock from '@mui/icons-material/Lock';
 import LockOpen from '@mui/icons-material/LockOpen';
 import { modulesThemes } from '../../constants/themes.js'
+import { useParams } from 'react-router-dom';
+import { RepositorySingleton } from '../../repository/RepositoryInjector';
 
 
  const submodulesContent = [
@@ -38,6 +40,11 @@ const submodules = [
 ]
 
 function SubmoduleListPage(props) {
+    let { moduleId } = useParams();
+    const repository = RepositorySingleton.getInstance().injectRepository();
+            
+
+
     var module = null;
     var content = null;
 

@@ -1,10 +1,14 @@
 import { Exercise } from "../models/Exercise";
 import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
+import { ModuloInfo } from "../models/ModuloInfo";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
 import { User } from "../models/User";
 import { IDataRepository } from "./IDataRepository";
 
 export class MockDataRepository implements IDataRepository {
+    fetchModuloNameAndIntro(moduloId: Number): Promise<ModuloInfo> {
+        throw new Error("Method not implemented.");
+    }
     registerSubModuloTimeStamps(moduloId: Number, subModuloId: Number, timeInicio?: string | undefined, timeFim?: string | undefined): Promise<void> {
         throw new Error("Method not implemented.");
     }
