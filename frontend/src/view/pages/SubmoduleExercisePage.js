@@ -19,28 +19,10 @@ const submodulesContent = {
     imageFile:null,otherFile:null,
     exercicios:[{id:1,moduloNumberOrder:0,
     exercicioName:"Exercício 1 - Respiração diafragmática",
-    exercicioFile:"submod2.1_ativ1.mp3"}, {id:1,moduloNumberOrder:0,
+    exercicioFile:"submod2.1_ativ1.mp3"}, {id:2,moduloNumberOrder:0,
         exercicioName:"Exercício 1 - Respiração diafragmática",
         exercicioFile:"submod2.1_ativ1.mp3"}]
-} 
-
-const submodules = [
-    {
-        id: 0,
-        name: 'O que é uma ingestão alimentar compulsiva?',
-        blocked: false
-    },
-    {
-        id: 1,
-        name:'O que são comportamentos compensatórios inapropriados?',
-        blocked: true
-    },
-    {
-        id: 2,
-        name: 'Regulação emocional e ingestão alimentar compulsiva',
-        blocked: true
-    }   
-]
+}
 
 function SubmoduleExercisePage(props) {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -79,47 +61,47 @@ function SubmoduleExercisePage(props) {
       </Box>
 
       <Box sx= {{pt:1}} textAlign='center'>
-        <Box sx= {{pt:3}}> 
-            <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 22, fontWeight: 500 }} variant='body1' color={"white"}>
-                {submodulesContent.exercicios[0].exercicioName}
-            </Typography>
-        </Box>
-
-        <Box sx= {{p:3}}>
-            {submodulesContent.exercicios[0].exercicioFile.split('.')[2] == "mp3" ?
+        {submodulesContent.exercicios.map(function(data){
+            return (
             <>
-            <Grid container direction='row'>
-                <Grid item xs={9}>
-                    <img alt='phones' src={props.name == 'Regulação emocional'? phonesPurple : phonesGreen}/>
-                </Grid>
-                <Grid item alignSelf='end' xs={3}>
-                    <IconButton size='large' onClick={()=>{setIsPlaying(!isPlaying)}} >
-                        {isPlaying ? 
-                        <PauseCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } />
-                        : <PlayCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } /> }
-                    </IconButton>
-                </Grid>
-            </Grid>
-            </> : null
-            }
+                <Box sx= {{pt:3}}> 
+                    <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 22, fontWeight: 500 }} variant='body1' color={"white"}>
+                        {data.exercicioName}
+                    </Typography>
+                </Box>
+                <Box sx= {{p:3}}>
+                    {data.exercicioFile.split('.')[2] == "mp3" ?
+                    <>
+                    <Grid container direction='row'>
+                        <Grid item xs={9}>
+                            <img alt='phones' src={props.name == 'Regulação emocional'? phonesPurple : phonesGreen}/>
+                        </Grid>
+                        <Grid item alignSelf='end' xs={3}>
+                            <IconButton size='large' onClick={()=>{setIsPlaying(!isPlaying)}} >
+                                {isPlaying ? 
+                                <PauseCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } />
+                                : <PlayCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } /> }
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+                    </> : null
+                    }
 
-            <IconButton sx={{p:3}} size='large' onClick={()=>{setIsFavorite(!isFavorite)}} >
-                {isFavorite ? 
-                <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } />
-                : <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } /> }
-            </IconButton>
-        </Box>
+                    <IconButton sx={{p:3}} size='large' onClick={()=>{setIsFavorite(!isFavorite)}} >
+                        {isFavorite ? 
+                        <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } />
+                        : <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } /> }
+                    </IconButton>
+                </Box>
+            </>
+            )
+        })}
 
 
       </Box>
       
-        <IconButton component={Link} to={module.feedbacklink} 
-            sx={{ bottom: "5%",
-                left: "70%",
-                position: "absolute" }}
-        >
+        <IconButton component={Link} to={module.feedbacklink} sx={{ bottom:"5%", left:"70%" }}>
             <img alt='check' src={module.check}/>
-
         </IconButton>
     </Box>
 
