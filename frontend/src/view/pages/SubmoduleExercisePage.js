@@ -21,7 +21,7 @@ const submodulesContent = {
     exercicioName:"Exercício 1 - Respiração diafragmática",
     exercicioFile:"submod2.1_ativ1.mp3"}, {id:2,moduloNumberOrder:0,
         exercicioName:"Exercício 1 - Respiração diafragmática",
-        exercicioFile:"submod2.1_ativ1.mp3"}]
+        exercicioFile:"submod2.1_ativ1.mp4"}]
 }
 
 function SubmoduleExercisePage(props) {
@@ -84,7 +84,18 @@ function SubmoduleExercisePage(props) {
                             </IconButton>
                         </Grid>
                     </Grid>
-                    </> : null
+                    </> : 
+                    data.exercicioFile.split('.')[2] == "mp4" ? 
+                    <>
+                    <Grid container direction='row'>
+                        <Grid item xs={12}>
+                            <video width="200" height="400" controls >
+                                <source src=''/>
+                            </video>
+                        </Grid>
+                    </Grid>
+                    </> :
+                    null
                     }
 
                     <IconButton sx={{p:3}} size='large' onClick={()=>{setIsFavorite(!isFavorite)}} >
