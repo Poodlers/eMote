@@ -13,6 +13,7 @@ import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const submodulesContent = {
     id:0,text:null,videoFile:null,
@@ -21,7 +22,9 @@ const submodulesContent = {
     exercicioName:"Exercício 1 - Respiração diafragmática",
     exercicioFile:"submod2.1_ativ1.mp3"}, {id:2,moduloNumberOrder:0,
         exercicioName:"Exercício 1 - Respiração diafragmática",
-        exercicioFile:"submod2.1_ativ1.mp4"}]
+        exercicioFile:"submod2.1_ativ1.pdf"}, {id:3,moduloNumberOrder:0,
+            exercicioName:"Exercício 1 - Respiração diafragmática",
+            exercicioFile:"submod2.1_ativ1.mp4"}]
 }
 
 function SubmoduleExercisePage(props) {
@@ -95,7 +98,14 @@ function SubmoduleExercisePage(props) {
                         </Grid>
                     </Grid>
                     </> :
-                    null
+                    <Grid container direction='row' justifyContent='center' alignItems='center'>
+                        <Grid item >
+                            <DownloadIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } />
+                        </Grid>
+                        <Grid item >
+                            <Link to='' download>Download exercício</Link>
+                        </Grid>
+                    </Grid>
                     }
 
                     <IconButton sx={{p:3}} size='large' onClick={()=>{setIsFavorite(!isFavorite)}} >
