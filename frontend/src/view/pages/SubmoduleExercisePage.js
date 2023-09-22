@@ -4,17 +4,21 @@ import { LogoAppBar } from '../widgets/LogoAppBar';
 
 import { modulesThemes } from '../../constants/themes.js';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
-const submodulesContent = [
-    {id:0,text:null,videoFile:null,
+import phonesPurple from '../../assets/images/phones_rosa.png';
+import phonesGreen from '../../assets/images/phones.png';
+
+import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
+import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
+
+const submodulesContent = {
+    id:0,text:null,videoFile:null,
     imageFile:null,otherFile:null,
     exercicios:[{id:1,moduloNumberOrder:0,
     exercicioName:"Exercício 1 - Respiração diafragmática",
-    exercicioFile:"submod2.1_ativ1.mp3"}]},
-    {id:1,text:"Aqui pode ver o modelo de regulação emocional para o episódio de ingestão alimentar compulsiva da Ângela.",
-    videoFile:null,imageFile:"submod4_ativ2.png",otherFile:null,
-    exercicios:[]}
-] 
+    exercicioFile:"submod2.1_ativ1.mp3"}]
+} 
 
 const submodules = [
     {
@@ -35,6 +39,19 @@ const submodules = [
 ]
 
 function SubmoduleExercisePage(props) {
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    useEffect(() => {
+        if(isPlaying){
+            //audioElem.current.play();
+            console.log('playing');
+        }
+        else{
+            //audioElem.current.pause();
+            console.log('paused');
+        }
+    })
+
     var module = null;
 
     for (const obj of modulesThemes) {
@@ -46,6 +63,7 @@ function SubmoduleExercisePage(props) {
   return (
     document.body.style = 'background:' + module.color2,
     <>
+    {/*<audio src=''/>*/}
     <LogoAppBar color={module.theme} goBack={true}/>
 
     <Box sx={{mt:'60px', mb:'70px'}}>
@@ -56,7 +74,23 @@ function SubmoduleExercisePage(props) {
       </Box>
 
       <Box sx= {{pt:1}} textAlign='center'>
-        {/* exercício é mostrado aqui */}
+        <Box sx= {{pt:3}}> 
+            <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 22, fontWeight: 500 }} variant='body1' color={"white"}>
+                {submodulesContent.exercicios[0].exercicioName}
+            </Typography>
+        </Box>
+
+        <Box sx= {{p:3}}> 
+            {submodulesContent.exercicios[0].exercicioFile.split('.')[2] == "mp3" ?
+            <img alt='phones' src={props.name == 'Regulação emocional'? phonesPurple : phonesGreen}/> : null
+            }
+        </Box>
+        <IconButton size='large' onClick={()=>{setIsPlaying(!isPlaying)}} >
+            {isPlaying ? 
+            <PauseCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } />
+            : <PlayCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={props.name == 'Regulação emocional'? '#ac7c94' : '#53b8c4' } /> }
+        </IconButton>
+
       </Box>
       
         <IconButton component={Link} to={module.feedbacklink} 
