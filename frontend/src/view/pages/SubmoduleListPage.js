@@ -9,7 +9,7 @@ import { modulesThemes } from '../../constants/themes.js'
 
 
  const submodulesContent = [
-    {id:0,text:null,videoFile:null,
+    {id:0,text:null,videoFile:"submod2.1_ativ1.mp3",
     imageFile:null,otherFile:null,
     exercicios:[{id:1,moduloNumberOrder:0,
     exercicioName:"Exercício 1 - Respiração diafragmática",
@@ -61,7 +61,7 @@ function SubmoduleListPage(props) {
 
         list.push(
             <Box key={obj.id} sx ={{p:5, pt:2, pb:2, bgcolor: obj.id%2===0? module.color3 : module.color1 , alignContent: 'center', width: '80%', m:'0 auto'}}>
-                <Link underline="none" href={content.text ? module.introlink : module.exerciselink} >
+                <Link underline="none" href={(content.text || content.videoFile || content.imageFile) ? module.introlink : module.exerciselink} >
                     <Grid direction='row' container spacing={2}>
                         <Grid item xs={1}>
                             {obj.blocked ? <Lock htmlColor={'white'}/> : <LockOpen htmlColor={'white'}/>}
