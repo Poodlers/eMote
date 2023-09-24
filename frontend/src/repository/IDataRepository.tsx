@@ -3,7 +3,7 @@ import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { ModuloInfo } from "../models/ModuloInfo";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
 import { SubModuleInfo } from "../models/SubModuleInfo";
-import { SubModulePage } from "../models/SubModulePage";
+import { SubModulePageInfo } from "../models/SubModulePageInfo";
 import { TipoRefeicao } from "../models/TipoRefeicao";
 import { User } from "../models/User";
 
@@ -13,9 +13,13 @@ export interface IDataRepository {
 
     userCompletedLogin(): boolean;
 
+    sendFeedback(moduloId: Number, usefulnessScore: Number, satisfactionScore: Number): Promise<void>;
+
+    hasCompletedModulo(moduloId: Number): Promise<boolean>;
+
     getSubmoduleList(moduloId: Number): Promise<Array<SubModuleInfo>>;
 
-    getPageContent(moduloId: Number, subModuloId: Number, pageNumber: Number): Promise<SubModulePage>;
+    getPageContent(moduloId: Number, subModuloId: Number, pageNumber: Number): Promise<SubModulePageInfo>;
 
     setUserCompletedLogin(hasCompletedLogin: boolean): void;
 

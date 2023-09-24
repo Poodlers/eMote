@@ -1,46 +1,66 @@
 import React from 'react';
 import { AppBar, Box, Button, Grid, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { modulesThemes } from '../../constants/themes.js';
 import DownloadIcon from '@mui/icons-material/Download';
+import { useEffect } from 'react';
+import ReactPlayer from 'react-player';
 
-function SubmoduleIntroPage(props) {
 
+function SubmoduleContentPage(props) {
+    const navigate = useNavigate();
     const module = props.module;
     const submodulesContent = props.submodulesContent;
+    const subModuleNumber = props.subModuleNumber;
+    const pageNumber = props.pageNumber;
+    console.log("pageNumber: " + pageNumber)
 
   return (
         <>
-        <Box sx={{mt:'120px', mb:'70px'}}>
+      
           {submodulesContent.text ?
             <>
-              <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
+              <Typography color={module.theme === "blue" ? module.color1 : "black" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
                     {submodulesContent.text}
               </Typography>
+              {pageNumber === 1 ?
               <Box sx ={{ p:3}} textAlign='center'>
-                <Button component={Link} to={submodulesContent.exercicios.length == 0? module.feedbacklink : module.exerciselink} sx ={{ p:1, bgcolor: module.color1 }}>
+                <Button  onClick={() =>
+                   navigate( `/submodulepage/${module.moduloId}/${subModuleNumber}/${pageNumber + 1}`,
+                   {replace: true}
+                   )} sx ={{ p:1, bgcolor: module.color1 }}>
                     <Typography gutterBottom color={"white"} sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' >
                         Preparada?
                     </Typography>
                 </Button>
-              </Box>
+              </Box> 
+            : null}
+            
             </> : null}
           <Box sx= {{pt:1}} textAlign='center'>
             <Box sx= {{p:3}}>
                 {submodulesContent.imageFile ?
                   <>
                   <div style={{ paddingBottom: 10, display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
-                        <img alt="imgFile" style={{ alignSelf: 'center' }} src={submodulesContent.imageFile} width='30%' />
+                        <img alt="imgFile" style={{ alignSelf: 'center' }}
+                         src={'/images/'+ submodulesContent.imageFile} width='30%' />
                   </div>
                   </> : null}
                   {submodulesContent.videoFile ? 
                   <>
                   <Grid container direction='row'>
-                      <Grid item xs={12}>
-                          <video width="200" height="400" controls >
-                              <source src={submodulesContent.videoFile}/>
-                          </video>
+                      <Grid item xs={12}  >
+                          <ReactPlayer
+                              style={{margin: '0 auto'}}
+                              url={'/videos/'+ submodulesContent.videoFile}
+                              width={'auto'}
+                              height={'400px'}
+                              controls={true}
+                              playing={false}
+                              muted={false}
+                              />
+                          
                       </Grid>
                   </Grid>
                   </> : null}
@@ -57,9 +77,8 @@ function SubmoduleIntroPage(props) {
             </Box>
           </Box>
 
-        </Box>
         </>
   );
 }
 
-export default SubmoduleIntroPage;
+export default SubmoduleContentPage;

@@ -1,8 +1,11 @@
 import React from 'react';
 import { Box, Button, IconButton, Slider, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { modulesThemes } from '../../constants/themes.js';
+import { RepositorySingleton } from '../../repository/RepositoryInjector';
+import { useEffect } from 'react';
+import { ComponentState } from '../../models/ComponentState';
 
 const marks = [
     {
@@ -36,33 +39,83 @@ function valuetext(value) {
   }
 
 function FeedbackPage(props) {
+    const repository = RepositorySingleton.getInstance().injectRepository();
+    const navigate = useNavigate();
     let { moduleNumber } = useParams();
-    var module = null;
+    const [componentState, setComponentState] = React.useState(ComponentState.LOADING);
+    const [usefelnessScore, setUsefulnessScore] = React.useState(0);
+    const [satisfactionScore, setSatisfactionScore] = React.useState(0);
+    const [module, setModule] = React.useState({});
 
-    for (const obj of modulesThemes) {
-        if (obj.moduloId == moduleNumber) {
-            module = obj;
-        }
+    const onSubmit = () => {
+        
+        repository.sendFeedback(moduleNumber, 
+            usefelnessScore, satisfactionScore).then((response) => {
+            navigate('/home', { replace: true });
+        }).catch((error) => {
+            console.log(error);
+        });
     }
+
+    useEffect(() => {
+        
+        for (const obj of modulesThemes) {
+        if (obj.moduloId == moduleNumber) {
+            setModule(obj);
+            break;
+            }
+        }
+        repository.hasCompletedModulo(moduleNumber).then((response) => {
+            setComponentState(ComponentState.LOADED);
+            console.log(response);
+        }).catch((error) => {
+            console.log(error);
+            setComponentState(ComponentState.ERROR);
+        });
+
+        }
+    
+    , []);
+
+
+    
     return (
         
         <>
-        <LogoAppBar color={module.theme} />
+        {
+            componentState == ComponentState.LOADING ?
+            <Typography align= 'center' sx={{ pt:5, alignSelf:'center', fontSize: 50, fontWeight: 500 }} variant='body1' color={module.theme == 'blue'? module.color1: 'white'}>
+                A carregar...
+            </Typography>
+            :
+            componentState == ComponentState.ERROR ?
+            <Typography align= 'center' sx={{ pt:5, alignSelf:'center', fontSize: 50, fontWeight: 500 }} variant='body1' color={module.theme == 'blue'? module.color1: 'white'}>
+                Erro ao carregar página
+            </Typography>
+            :
+            <>
+                <LogoAppBar color={module.theme} />
 
-        <Box sx={{pt: '60px', height: '93vh'}} bgcolor={module.color2}>
+            <Box sx={{pt: '60px', height: '93vh'}} bgcolor={module.color2}>
             <Typography align= 'center' sx={{ pt:5, alignSelf:'center', fontSize: 50, fontWeight: 500 }} variant='body1' color={module.theme == 'blue'? module.color1: 'white'}>
                 Parabéns!
             </Typography>
 
             <Box sx={{ p:10 }}/>
-                <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20, textAlign:'center' }} variant='body1'>
+                <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5,
+                     pt:2.5, fontSize: 20, textAlign:'center' }} variant='body1'>
                     Considera que este Módulo foi útil para si?
                 </Typography>
                 <Box sx={{ display:"flex", alignItems: 'center', justifyContent: 'center' }}>
                     <Box sx={{ width: '70%',}}>
                         <Slider
                             aria-label="Custom marks"
-                            defaultValue={2}
+                            value = {usefelnessScore}
+                            onChange={(event, newValue) => {
+                                setUsefulnessScore(newValue);
+
+                            }
+                            }
                             step={1}
                             valueLabelFormat={valuetext}
                             valueLabelDisplay="auto"
@@ -80,7 +133,12 @@ function FeedbackPage(props) {
                     <Box sx={{ width: '70%',}}>
                         <Slider
                             aria-label="Custom marks"
-                            defaultValue={2}
+                            value={satisfactionScore}
+                            onChange={(event, newValue) => {
+                                setSatisfactionScore(newValue);
+
+                            }
+                            }
                             step={1}
                             valueLabelFormat={valuetext}
                             valueLabelDisplay="auto"
@@ -91,17 +149,18 @@ function FeedbackPage(props) {
                         />
                     </Box>
                 </Box>
+                <IconButton onClick={onSubmit}
+                    sx={{ bottom: "5%",
+                        left: "70%",
+                        position: "absolute" }} >
+                    <img alt='check' src={module.check}/>
 
+                </IconButton>
+                </Box>
+            </>
+        }
 
-            <IconButton component={Link} to='/home' 
-                sx={{ bottom: "5%",
-                    left: "70%",
-                    position: "absolute" }}
-            >
-                <img alt='check' src={module.check}/>
-
-            </IconButton>
-        </Box>
+        
         </>
   );
 }

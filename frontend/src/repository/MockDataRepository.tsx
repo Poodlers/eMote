@@ -4,11 +4,18 @@ import { ModuloInfo } from "../models/ModuloInfo";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
 import { SubModuleInfo } from "../models/SubModuleInfo";
 import { SubModulePage } from "../models/SubModulePage";
+import { SubModulePageInfo } from "../models/SubModulePageInfo";
 import { User } from "../models/User";
 import { IDataRepository } from "./IDataRepository";
 
 export class MockDataRepository implements IDataRepository {
-    getPageContent(moduloId: Number, subModuloId: Number, pageNumber: Number): Promise<SubModulePage> {
+    sendFeedback(moduloId: Number, usefulnessScore: Number, satisfactionScore: Number): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+    hasCompletedModulo(moduloId: Number): Promise<boolean> {
+        throw new Error("Method not implemented.");
+    }
+    getPageContent(moduloId: Number, subModuloId: Number, pageNumber: Number): Promise<SubModulePageInfo> {
         throw new Error("Method not implemented.");
     }
     getSubmoduleList(moduloId: Number): Promise<SubModuleInfo[]> {

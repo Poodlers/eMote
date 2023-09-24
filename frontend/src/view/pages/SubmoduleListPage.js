@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
-import { AppBar, Box, Grid, IconButton, Link, Typography } from '@mui/material';
+import { AppBar, Box, Button, Grid, IconButton, Link, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar';
 import { NavBar } from '../widgets/NavBar';
 
 import Lock from '@mui/icons-material/Lock';
 import LockOpen from '@mui/icons-material/LockOpen';
 import { modulesThemes } from '../../constants/themes.js'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { ComponentState } from '../../models/ComponentState';
 
 function SubmoduleListPage() {
     let { moduleNumber } = useParams();
+    const navigate = useNavigate();
     const [componentState, setComponentState] = React.useState(ComponentState.LOADING);
     const [submodules, setSubmodules] = React.useState([]);
     const [module, setModule] = React.useState({});
@@ -39,6 +40,23 @@ function SubmoduleListPage() {
         );
     }, []);
     
+    const onSubModuleClick = (isBlocked, index) => {
+        if(isBlocked){
+            return;
+        }
+        const dataInicio = new Date().toLocaleString().replace(',', '');
+        console.log(dataInicio);
+        repository.registerSubModuloTimeStamps(moduleNumber, index, dataInicio,
+            undefined
+            ).then((response) => {
+                console.log(response);
+            }).catch((error) => {
+                console.log(error);
+            });   
+
+        navigate(`/submodulepage/${moduleNumber}/${index}/1`);
+    }
+
   return (
 
     <>
@@ -65,22 +83,23 @@ function SubmoduleListPage() {
             </Box>
             </AppBar>
 
-                <Box sx= {{pt:10, pb:10}} textAlign='center'>
+                <Box sx= {{pt:10, pb:10, backgroundColor: module.color2}} textAlign='center'>
                 {submodules.map((obj, index) => (
-                    <Box key={index} sx ={{p:5, pt:2, pb:2, bgcolor: index%2===0? module.color3 : module.color1 , alignContent: 'center', width: '80%', m:'0 auto'}}>
-                    <Link underline="none" href={ obj.isBlocked ? '#': `/submodulepage/${moduleNumber}/${index + 1}/1` } >
-                        <Grid direction='row' container spacing={2}>
+                    <Box key={index} sx ={{ p:5, pt:2, pb:2, bgcolor: index%2===0? module.color3 : module.color1 , alignContent: 'center', width: '80%', m:'0 auto'}}>
+                    <Button  onClick={() => onSubModuleClick(obj.isBlocked, index + 1)} 
+                        sx ={{ width:'100%', p:1, bgcolor: index%2===0? module.color3 : module.color1 }} >
+                        <Grid direction='row' container spacing={3}>
                             <Grid item xs={1}>
                                 {obj.isBlocked ? <Lock htmlColor={'white'}/> : <LockOpen htmlColor={'white'}/>}
                             </Grid>
                             <Grid item xs={11} sx={{ display:'flex', alignItems:'center', }}>
-                                <Typography sx={{ fontSize: 18, textAlign:'center' }} variant='body1' color={"white"}>
+                                <Typography sx={{ fontSize: 18, textAlign:'center', textTransform:'none' }} variant='body1' color={"white"}>
                                     {obj.title}
                                 </Typography>
                             </Grid>
                         </Grid>
-                    </Link>
-    
+                    </Button>
+
                     </Box>
                 ))}
                 </Box>

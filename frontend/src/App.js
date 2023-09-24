@@ -20,11 +20,10 @@ import MealDiaryPage from './view/pages/MealDiaryPage.js';
 import MealTemplatePage from './view/pages/MealTemplatePage.js';
 import ModuleIntroductionPage from './view/pages/ModuleIntroductionPage.js';
 import SubmoduleListPage from './view/pages/SubmoduleListPage.js';
-import SubmoduleIntroPage from './view/pages/SubmoduleIntroPage.js';
-import SubmoduleExercisePage from './view/pages/SubmoduleExercisePage.js';
 import FeedbackPage from './view/pages/FeedbackPage.js';
 import LoginPage from './view/pages/LoginPage.js';
 import AdminPage from './view/pages/AdminPage.js';
+import SubModulePage from './view/pages/SubModulePage';
 
 
 const repository = RepositorySingleton.getInstance().injectRepository();
@@ -80,12 +79,8 @@ function App() {
            <Route path=':moduleNumber' element= {<SubmoduleListPage/>} />
         </Route>
        
-       <Route path='/submoduleintro'>
-            <Route path=':moduleNumber' element= {<SubmoduleIntroPage/>} />
-        </Route>
-
         <Route path='/submodulepage'>
-            <Route path=':moduleNumber/:submoduleNumber/:pageNumber' element= {<SubmoduleExercisePage/>} />
+            <Route path=':moduleNumber/:submoduleNumber/:pageNumber' element= {<SubModulePage/>} />
         </Route>
        
         <Route path='/feedback'>

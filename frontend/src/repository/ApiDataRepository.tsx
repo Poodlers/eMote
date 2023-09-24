@@ -11,7 +11,7 @@ import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { TipoRefeicao } from "../models/TipoRefeicao";
 import { ModuloInfo } from "../models/ModuloInfo";
 import { SubModuleInfo } from "../models/SubModuleInfo";
-import { SubModulePage } from "../models/SubModulePage";
+import { SubModulePageInfo } from "../models/SubModulePageInfo";
 
 
 
@@ -44,11 +44,43 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
   user = JSON.parse(localStorage.getItem('user') || '{}');
   completedLogin : boolean = false;
 
-  async getPageContent(moduloId: Number, subModuloId: Number, pageNumber: Number): Promise<SubModulePage> {
+  async sendFeedback(moduloId: Number, usefulnessScore: Number, satisfactionScore: Number): Promise<void> {
+    const instance = this.createInstance();
+    try{
+      const result = await instance.post(`${BASE_URL}/modulo-rating/${this.user.code}/${moduloId}`,
+      {
+        utilidade: usefulnessScore,
+        satisfacao: satisfactionScore,
+      }).then(transform);
+      
+      console.log(result.data);
+    
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+ 
+  async hasCompletedModulo(moduloId: Number): Promise<boolean> {
     const instance = this.createInstance();
     
     try{
-      const result = await instance.get(`${BASE_URL}/modulo/${moduloId}/${subModuloId}/${pageNumber}`).then(transform);    
+      const result = await instance.get(`${BASE_URL}/modulo-progress/${this.user.code}/${moduloId}`).then(transform);    
+      return result.data.isCompleted;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+  
+
+  async getPageContent(moduloId: Number, subModuloId: Number, pageNumber: Number): Promise<SubModulePageInfo> {
+    const instance = this.createInstance();
+    
+    try{
+      const result = await instance.get(`${BASE_URL}/modulo/${this.user.code}/${moduloId}/${subModuloId}/${pageNumber}`).then(transform);    
       return result.data;
     }
     catch(error){
@@ -110,14 +142,14 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
     let timeStamps = {};
     if(timeInicio !== undefined){
       timeStamps = {
-        timeInicio: timeInicio,
+        timeStampInicio: timeInicio,
       };
     }
   
     if(timeFim !== undefined){
       timeStamps = {
         ...timeStamps,
-        timeFim: timeFim,
+        timeStampFim: timeFim,
       };
     }
     try{

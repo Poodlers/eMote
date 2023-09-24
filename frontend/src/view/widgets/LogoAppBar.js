@@ -22,26 +22,26 @@ const themes = [
       name: "orange",
       logo: LogoOrange,
       color: "#f48d0d",
-      link: "/module1"
+      link: "/moduleintro/1"
   },
   {
       name: "green",
       logo: LogoGreen,
       color: "#519a96",
-      link: "/module2"
+      link: "/moduleintro/2"
   },
   
   {
       name: "purple",
       logo: LogoPurple,
       color: "#a87e95",
-      link: "/module3"
+      link: "/moduleintro/3"
   },
   {
       name: "blue",
       logo: LogoBlue,
       color: "#52b9c4",
-      link: "/module4"
+      link: "/moduleintro/4"
   },
 ]
 

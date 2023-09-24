@@ -215,6 +215,24 @@ public class Exercicio
 
 }
 
+public class SubModulePageUserInfo
+{
+    [Required]
+    public SubModulePage? SubModulePage { get; set; }
+
+    [Required]
+    public bool IsBlocked { get; set; }
+
+    [Required]
+    public bool IsLastPage { get; set; }
+
+    [Required]
+    public bool IsLastPageInModulo { get; set; }
+
+    [Required]
+    public String? SubModuleTitle { get; set; }
+}
+
 public class SubModulePage
 {
     [Key]

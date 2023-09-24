@@ -10,6 +10,9 @@ namespace backend.Controllers;
 public class ModuloController : ControllerBase
 {
     private readonly DbSet<ModuloContent> _dbModuloContentSet;
+
+    private readonly DbSet<User> _dbUserSet;
+
     private readonly DatabaseContext _context;
 
 
@@ -17,6 +20,7 @@ public class ModuloController : ControllerBase
     {
         this._context = context;
         this._dbModuloContentSet = _context.Set<ModuloContent>();
+        this._dbUserSet = _context.Set<User>();
     }
 
     [HttpGet("{id}", Name = "GetModulo")]
@@ -59,32 +63,82 @@ public class ModuloController : ControllerBase
         return Ok(modulo);
     }
 
-    [HttpGet("{id}/{submodule_id}/{submodule_page_number}", Name = "GetSubModulePage")]
-    public ActionResult<SubModulePage> Get(int id, int submodule_id, int submodule_page_number)
+    [HttpGet("{user_code}/{id}/{submodule_id}/{submodule_page_number}", Name = "GetSubModulePage")]
+    public ActionResult<SubModulePageUserInfo> Get(string user_code, int id, int submodule_id, int submodule_page_number)
     {
-        var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules.Where(s => s.SubModuleNumberOrder == submodule_id))
-        .ThenInclude(submodulo => submodulo.SubModulePages.Where(s => s.PageNumber == submodule_page_number))
-        .ThenInclude(submodulopage => submodulopage.Exercicios)
-        .Where(u => u.ModuleNumberOrder == id)
+        var subModuleUserProgress = _dbUserSet.Include(user =>
+         user.ModulosProgress.Where(m => m.ModuloContent!.ModuleNumberOrder == id))
+        .ThenInclude(modulo => modulo.SubModuleUserProgresses)
+        .ThenInclude(submodulo => submodulo.SubModule)
+        .ThenInclude(submodulopage => submodulopage!.SubModulePages)
+        .Where(user => user.Code == user_code)
         .FirstOrDefault();
-        if (modulo == null)
+
+
+        if (subModuleUserProgress == null)
         {
             return StatusCode(
                 404,
-                "SubModulePage not found"
+                "Modulo Not Found"
 
             );
         }
-        if (modulo.SubModules.FirstOrDefault()?.SubModulePages.FirstOrDefault() == null)
+        var subModule = subModuleUserProgress.ModulosProgress[0]
+            .SubModuleUserProgresses
+            .Where(s => s.SubModule!.SubModuleNumberOrder == submodule_id).FirstOrDefault();
+
+        if (subModule == null)
         {
             return StatusCode(
                 404,
-                "SubModulePage not found"
+                "SubModule Not Found"
 
             );
         }
+        var subModulePage = subModule
+            .SubModule!.SubModulePages.Where(s => s.PageNumber == submodule_page_number).FirstOrDefault();
 
-        return Ok(modulo.SubModules.FirstOrDefault()?.SubModulePages.FirstOrDefault());
+        if (subModulePage == null)
+        {
+            return StatusCode(
+                404,
+                "Page not Found"
+
+            );
+        }
+        var isLastPage = false;
+        var isLastPageInModulo = false;
+        if (subModulePage.PageNumber == subModule.SubModule!.SubModulePages.Count)
+        {
+            isLastPage = true;
+            if (subModule.SubModule!.SubModuleNumberOrder
+            == subModuleUserProgress.ModulosProgress[0].SubModuleUserProgresses.Count)
+            {
+                isLastPageInModulo = true;
+            }
+        }
+
+
+
+        var isBlocked = false;
+        var previousSubModule = subModuleUserProgress.ModulosProgress[0]
+            .SubModuleUserProgresses
+            .Where(s => s.SubModule!.SubModuleNumberOrder == submodule_id - 1).FirstOrDefault();
+        if (previousSubModule != null)
+        {
+            isBlocked = !previousSubModule.IsCompleted;
+        }
+
+        var submodulePageInfo = new SubModulePageUserInfo
+        {
+            SubModulePage = subModulePage,
+            IsBlocked = isBlocked,
+            IsLastPageInModulo = isLastPageInModulo,
+            IsLastPage = isLastPage,
+            SubModuleTitle = subModule.SubModule!.Title
+        };
+
+        return Ok(submodulePageInfo);
     }
 
 

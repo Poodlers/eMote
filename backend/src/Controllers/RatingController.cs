@@ -12,7 +12,6 @@ public class RatingController : ControllerBase
     private readonly DbSet<User> _dbUserSet;
     private readonly DatabaseContext _context;
 
-
     public RatingController(DatabaseContext context)
     {
         this._context = context;
@@ -69,7 +68,7 @@ public class RatingController : ControllerBase
 
         return Ok(rating);
     }
-    
+
 
 
 
