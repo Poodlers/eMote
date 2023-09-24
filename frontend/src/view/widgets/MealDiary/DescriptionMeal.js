@@ -16,6 +16,13 @@ export default function DescriptionMeal(props) {
                         multiline
                         rows={4}
                         color='info'
+                        disabled={props.readOnly}
+                        value={props.initialValue}
+                        onChange={
+                            (event) => {
+                                props.setContentsOfMeal(event.target.value);
+                            }
+                        } 
                         fullWidth
                     />
             </Box>

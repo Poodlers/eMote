@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { Grid, Box, Checkbox } from '@mui/material'
 import Typography from '@mui/material/Typography';
+import { CompensatoryBehavior } from '../../../models/CompensatoryBehavior';
+import { useEffect } from 'react';
 
 
-export default function CompensationMeal() {
+export default function CompensationMeal(props) {
 
     const [checked, setChecked] = React.useState(false);
     const handleChange = () => {
         setChecked(!checked);
-      };
+        props.setHadBehaviour(!checked)
+    };
 
     const [behav1, setBehav1] = React.useState(false);
 
@@ -22,40 +25,96 @@ export default function CompensationMeal() {
 
     const [behav6, setBehav6] = React.useState(false);
 
+    const getCompensatoryList = () => {
+        return compensationBehaviors.map(function(data, index) {
+             if(data.controller){
+                return data.enumValue;
+             }
+                return null;
+
+            }).filter(function (el) {
+                return el != null;
+              });
+       
+    }
+
     const compensationBehaviors = [
         {
             behavior: 'Vomitar',
             controller: behav1,
-            function: setBehav1
+            enumValue: CompensatoryBehavior.Vomitar,
+            onChange: (bool) => {
+                setBehav1(bool);
+              
+            }
+                
         },
         {
             behavior: 'Fazer exercício físico excessivo',
+            enumValue : CompensatoryBehavior.AtividadeFisicaExcessiva,
             controller: behav2,
-            function: setBehav2
+            onChange: (bool) => {
+                setBehav2(bool);
+                
+            }
         },
         {
             behavior: 'Restrição alimentar excessiva',
+            enumValue : CompensatoryBehavior.RestricaoAlimentarExcessiva,
             controller: behav3,
-            function: setBehav3
+            onChange: (bool) => {
+                setBehav3(bool);
+                
+            }
         },
         {
             behavior: 'Tomar laxantes e/ou diuréticos',
+            enumValue : CompensatoryBehavior.TomarLaxantes,
             controller: behav4,
-            function: setBehav4
+            onChange: (bool) => {
+                setBehav4(bool);
+                
+            }
         },
         {
             behavior: 'Tomar medicação para emagrecer',
+            enumValue : CompensatoryBehavior.TomarMedicacaoParaEmagrecer,
             controller: behav5,
-            function: setBehav5
+            onChange: (bool) => {
+                setBehav5(bool);
+             
+            }
         },
         {
             behavior: 'Outro',
+            enumValue : CompensatoryBehavior.Outro,
             controller: behav6,
-            function: setBehav6
+            onChange: (bool) => {
+                setBehav6(bool);
+                
+            }
         },
     ]
 
+    useEffect(() => {
+        
+        if(props.initialValue.length > 0){
+            
+            setChecked(true);
+            compensationBehaviors.forEach((data) => {
+                if(props.initialValue.includes(data.enumValue)){
+                    data.onChange(true);
+                }
+            })
+        }
+    }, []);
+
+    useEffect(() => {
+        props.setBehaviours(getCompensatoryList());
+    }, [behav1, behav2, behav3, behav4, behav5, behav6]);
+
   return (
+    
     <Box sx ={{p: 0.5 }}>
         <Grid container spacing={2} sx={{ p: 0.5 }} direction="row" >
             <Grid item xs={10}>
@@ -65,6 +124,7 @@ export default function CompensationMeal() {
             </Grid>
             <Grid item xs={2}>
                 <Checkbox id='compensation' color='info'
+                disabled={props.readOnly}
                 checked={checked}
                 onChange={handleChange}></Checkbox>
             </Grid>
@@ -73,7 +133,7 @@ export default function CompensationMeal() {
             <Box sx={{ p: 2.5 }}>
                 {compensationBehaviors.map(function(data, index) {
                     return (
-                    <Grid container spacing={2} direction="row" >
+                    <Grid key={index} container spacing={2} direction="row" >
                         <Grid item xs={10}>
                             <Typography gutterBottom sx={{ fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
                                 {data.behavior}
@@ -81,9 +141,11 @@ export default function CompensationMeal() {
                         </Grid>
                         <Grid item xs={2}>
                             <Checkbox
+                            disabled={props.readOnly}
                             id={data.behavior}
                             checked={data.controller}
-                            onChange={() => {data.function(!data.controller); console.log(data.controller)}}
+                            
+                            onChange={() => {data.onChange(!data.controller);}}
                             color='info'></Checkbox>
                         </Grid>
                     </Grid>

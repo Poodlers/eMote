@@ -15,10 +15,10 @@ const colorCards = [
 ]
 
 const links = [
-  "/psicoeducacao",
-  "/mindfulness",
-  "/regulacao",
-  "/tolerancia"
+  "/moduleintro/1",
+  "/moduleintro/2",
+  "/moduleintro/3",
+  "/moduleintro/4"
 ]
 
 export default function ModuleCard(props) {

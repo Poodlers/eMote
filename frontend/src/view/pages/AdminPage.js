@@ -3,6 +3,7 @@ import React, {  useState } from 'react';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import PopupEditing from '../widgets/PopupEditing'
 import { DownloadState } from '../../models/DownloadState';
+import LogoutButton from '../widgets/LogoutButton';
 
 function AdminPage() {
   const repository = RepositorySingleton.getInstance().injectRepository();
@@ -27,8 +28,7 @@ function AdminPage() {
   }
 
   return (
-    document.body.style = 'background: #fffefe',
-    <Grid paddingX={10}  container  direction="column" justifyContent="center"  >
+    <Grid paddingX={10} sx={{backgroundColor : '#fffefe'}}  container  direction="column" justifyContent="center"  >
     {
         user === null ||
         user.role !== 3 ? 
@@ -46,6 +46,7 @@ function AdminPage() {
           </Typography>
           <PopupEditing />
           
+          <LogoutButton size='150' />
 
         </> 
 

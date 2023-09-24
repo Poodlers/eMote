@@ -26,7 +26,9 @@ public class LoginController : ControllerBase
     public async Task<ActionResult<User>> LoginUser(LoginDTO user)
     {
 
-        var userFound = await _dbUserSet.FirstOrDefaultAsync(u => u.Code == user.Code
+        var userFound = await _dbUserSet.
+        Include(u => u.Accesses).
+        FirstOrDefaultAsync(u => u.Code == user.Code
         && u.Password == user.Password);
 
         if (userFound == null)

@@ -15,7 +15,7 @@ function MealDiaryPage() {
 
   useEffect(() => {
     repository.hasAccessToDiaries().then((response) => {
-      setHasAccess(true);
+      setHasAccess(response);
       setComponentState(ComponentState.LOADED);
     }).catch((error) => {
       console.log(error);
@@ -24,9 +24,8 @@ function MealDiaryPage() {
     // eslint-disable-next-line
   }, []);
   return (
-    document.body.style = 'background: #01698b',
 
-        <Box sx={{mt:'10px', mb:'10px' }}>
+        <Box sx={{px:5, height:'100vh',  backgroundColor: '#01698b' }}>
 
         <IconButton component={Link} to="/home" aria-label="back" size="large">
           <ArrowBackIosIcon htmlColor= "#349db7" fontSize="inherit" />
@@ -38,7 +37,7 @@ function MealDiaryPage() {
           </Typography>
           :
           componentState === ComponentState.ERROR ?
-            <Typography color="error" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
+            <Typography color="secondary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
               Erro ao carregar página
             </Typography>
             :

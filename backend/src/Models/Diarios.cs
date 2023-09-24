@@ -35,6 +35,7 @@ public enum Refeicao
     Outra
 }
 
+
 public enum CompensatoryBehavior
 {
     Vomitar,
@@ -45,10 +46,9 @@ public enum CompensatoryBehavior
     Outro
 }
 
+
 public class EmotionDiaryEntryDTO
 {
-    [Required]
-    public String? UserCode { get; set; }
 
     [Required]
     public String? Date { get; set; }
@@ -91,8 +91,6 @@ public class EmotionDiaryEntry
 
 public class MealDiaryEntryDTO
 {
-    [Required]
-    public String? UserCode { get; set; }
 
     [Required]
     public String? Date { get; set; }
@@ -106,7 +104,6 @@ public class MealDiaryEntryDTO
     [Required]
     public bool SkippedMeal { get; set; } //yes or no question - perg1
 
-    [Required]
     public String? TimeOfMeal { get; set; } // perg2
 
     public ICollection<Sentimento> FeelingsAroundMeal { get; set; } = new List<Sentimento>(); //perg3
@@ -123,7 +120,6 @@ public class MealDiaryEntryDTO
 
     public ICollection<CompensatoryBehavior> CompensatoryBehaviors { get; set; } = new List<CompensatoryBehavior>(); //perg8_options
 
-    [Required]
     public String? Reflexao { get; set; } //perg_9
 }
 public class MealDiaryEntry
@@ -219,11 +215,31 @@ public class Exercicio
 
 }
 
+public class SubModulePageUserInfo
+{
+    [Required]
+    public SubModulePage? SubModulePage { get; set; }
+
+    [Required]
+    public bool IsBlocked { get; set; }
+
+    [Required]
+    public bool IsLastPage { get; set; }
+
+    [Required]
+    public bool IsLastPageInModulo { get; set; }
+
+    [Required]
+    public String? SubModuleTitle { get; set; }
+}
+
 public class SubModulePage
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
+
+    public int PageNumber { get; set; }
     public String? Text { get; set; }
     public String? VideoFile { get; set; }
     public String? ImageFile { get; set; }
@@ -291,6 +307,8 @@ public class ModuloContent
     [Required]
     public String? Title { get; set; }
 
+    [Required]
+    public String? IntroText { get; set; }
 
     [ForeignKey("SubModuleContent")]
     public List<SubModule> SubModules { get; set; } = new List<SubModule>();

@@ -13,7 +13,15 @@ export default function CheckboxTemplate(props) {
                 </Typography>
             </Grid>
             <Grid item xs={2}>
-                <Checkbox id={props.id} color='info'></Checkbox>
+                <Checkbox id={props.id} color='info'
+                checked={props.initialValue}
+                disabled={props.readOnly}
+                onChange={
+                    (event) => {
+                        props.setCheck(event.target.checked);
+                    }
+                }
+                ></Checkbox>
             </Grid>
         </Grid>
     </Box>

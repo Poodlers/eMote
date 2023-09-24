@@ -1,11 +1,11 @@
 import { Box, Button, IconButton, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import DiaryLogo from '../../assets/images/diario_emocoes.png'
-import EmotionsButton from '../widgets/EmotionsDiary/EmotionsButton';
-import ExercisesButton from '../widgets/EmotionsDiary/ExercisesButton';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link } from 'react-router-dom';
 import ReflexionForm from '../widgets/EmotionsDiary/ReflexionForm';
+import EmotionsDialog from '../widgets/EmotionsDiary/EmotionsDialog';
+import ExercisesDialog from '../widgets/EmotionsDiary/ExercisesDialog';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { ComponentState } from '../../models/ComponentState';
 
@@ -16,7 +16,7 @@ function EmotionDiaryPage() {
 
   useEffect(() => {
     repository.hasAccessToDiaries().then((response) => {
-      setHasAccess(response);
+      setHasAccess(true);
       setComponentState(ComponentState.LOADED);
     }).catch((error) => {
       console.log(error);
@@ -26,8 +26,7 @@ function EmotionDiaryPage() {
   }, []);
 
   return (
-    document.body.style = 'background: #e6d4e0',
-    <Box sx={{mt:'10px', mb:'10px' }}>
+    <Box sx={{backgroundColor: '#e6d4e0', width: '100%' }}>
       <IconButton component={Link} to="/home" aria-label="back" size="large">
           <ArrowBackIosIcon color= "secondary" fontSize="inherit" />
       </IconButton>
@@ -54,8 +53,8 @@ function EmotionDiaryPage() {
                   Diário das Emoções
               </Typography>
             <Box sx={{p:2}}>
-              <EmotionsButton/>
-              <ExercisesButton/>
+              <EmotionsDialog/>
+              <ExercisesDialog/>
               <ReflexionForm/>
 
               <Box sx ={{ p:3 }} textAlign='center'>

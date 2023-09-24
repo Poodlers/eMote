@@ -1,5 +1,6 @@
 export enum ComponentState {
     LOADING,
     LOADED,
-    ERROR
+    ERROR,
+    NOT_ALLOWED
 }

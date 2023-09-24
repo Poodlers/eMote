@@ -86,15 +86,15 @@ const Popup = ({
                 label="Has Access To App"
                 sx={{  color: 'black' }}
                 input={<Input />}
-                value={row.hasAccessToApp == undefined ? 'No' : (row.hasAccessToApp ? 'Yes' : 'No')}
-                onChange={event => onChange({ target: { name: 'hasAccessToApp', value: event.target.value === 'Yes' } })}
+                value={row.hasAccessToApp == undefined ? true : row.hasAccessToApp }
+                onChange={event => onChange({ target: { name: 'hasAccessToApp', value: event.target.value} })}
                 style={{ width: '100%' }}
               >
                 <MenuItem sx={{ color: 'black' }}
-                value="Yes">
+                value={true}>
                   Yes
                 </MenuItem>
-                <MenuItem sx={{ color: 'black' }} value="No">
+                <MenuItem sx={{ color: 'black' }} value={false}>
                   No
                 </MenuItem>
             </Select>
@@ -116,25 +116,18 @@ const Popup = ({
           <Select
                 input={<Input />}
                 sx={{  color: 'black' }}
-                value={row.role || '1'}
+                value={row.role || '1' }
                 onChange={event => onChange({ target: { name: 'role', value: event.target.value } })}
                 style={{ width: '100%' }}
               >
-                {row.role == "3" ?
-                <MenuItem sx={{  color: 'black' }} value="3">
-                  3
-                </MenuItem>
-                :
-                <>
+              
                 <MenuItem sx={{  color: 'black' }} value="1">
                   1
                 </MenuItem>
                 <MenuItem sx={{  color: 'black' }} value="2">
                   2
                 </MenuItem>
-                </>
-
-                }
+                
             </Select>
             
             <LocalizationProvider  dateAdapter={AdapterDayjs}>
@@ -314,13 +307,13 @@ export default () => {
       const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
       const added_map = added.map(async (row, index) => 
       {
-        const code = row.code;
-        const password = row.password;
-        const role = row.role;
-        const createdAt = row.createdAt || dayjs().format('DD-MM-YYYY');
-        const hasAccessToApp = row.hasAccessToApp;
+        row.code = row.code;
+        row.password = row.password;
+        row.role = row.role || 1;
+        row.createdAt = row.createdAt || dayjs().format('DD-MM-YYYY');
+        row.hasAccessToApp = row.hasAccessToApp || true;
         console.log(row);
-        if(await createUser(code, password, role, createdAt, hasAccessToApp)){
+        if(await createUser(row.code, row.password, row.role, row.createdAt, row.hasAccessToApp)){
           console.log("User created");
           return { id: startingAddedId + index, ...row };
         }else{

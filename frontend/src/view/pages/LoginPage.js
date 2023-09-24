@@ -4,32 +4,35 @@ import Logo from '../../assets/images/emote_logo.png';
 import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field} from 'formik';
+import TermsOfService from '../widgets/TermsOfService';
 
 function LoginPage() {
   const repository = RepositorySingleton.getInstance().injectRepository();
   const navigate = useNavigate();
-
+  const [hasSeenTermsOfService, setHasSeenTermsOfService] = React.useState(true);
   const initialValues = {
     code: '',
     password: ''
   }
 
   useEffect(() => {
+    
     const loggedUser = JSON.parse(localStorage.getItem('user'));
     if(loggedUser === null) return;
-    repository.updateUser();
-    repository.logTimeStampOnAppLogin();
-    
-    
-    if(loggedUser.role === 3){
-      navigate('/admin', { replace: true });
-    }else if(loggedUser.hasAccessToApp){
-      navigate('/home', { replace: true });
+    repository.loginUser(loggedUser.code, loggedUser.password).then((response) => {
+      repository.updateUser();
+      repository.logTimeStampOnAppLogin();
+      
+      if(loggedUser.role === 3){
+        navigate('/admin', { replace: true });
+      }else if(loggedUser.hasAccessToApp){
+        navigate('/home', { replace: true });
 
-    }
-    
-    
-    
+      }
+      }).catch((error) => {
+        console.log(error);
+      });
+      
     // eslint-disable-next-line
   }, []);
 
@@ -43,20 +46,29 @@ function LoginPage() {
         const loggedUser = {
           code: response.code,
           role: response.role,
-          hasAccessToApp: response.hasAccessToApp
+          password: response.password,
+          hasAccessToApp: response.hasAccessToApp,
+          completedLogin: false
         }
         localStorage.setItem('user', JSON.stringify(loggedUser));
         repository.updateUser();
         repository.logTimeStampOnAppLogin();
+        
+        //setHasSeenTermsOfService(response.accesses.length > 0);
 
-        if(response.role === 3){
-          navigate('/admin', { replace: true });
-        }else if(response.hasAccessToApp){
-          navigate('/home', { replace: true });
-          // log the access
-         
-        }else{ 
-          alert('O seu periodo de acesso à emotE terminou, esperamos que tenha gostado da experiência!');
+        const hasAccessedOnce = response.accesses.length > 0;
+        setHasSeenTermsOfService(hasAccessedOnce);
+       
+        if(repository.userCompletedLogin() || hasAccessedOnce){
+          if(response.role === 3){
+            navigate('/admin', { replace: true });
+          }else if(response.hasAccessToApp){
+            navigate('/home', { replace: true });
+            // log the access
+            
+          }else{ 
+            alert('O seu periodo de acesso à emotE terminou, esperamos que tenha gostado da experiência!');
+          }
         }
        
     }).catch((error) => {
@@ -66,16 +78,33 @@ function LoginPage() {
       props.setSubmitting(false);
     }, 1000);
     
+
+  }
+
+  const onAgree = () => {
+    setHasSeenTermsOfService(true);
+    repository.setUserCompletedLogin(true);
+    const loggedUser = JSON.parse(localStorage.getItem('user'));
+    if(loggedUser.role === 3){
+      navigate('/admin', { replace: true });
+    }else if(loggedUser.hasAccessToApp){
+      navigate('/home', { replace: true });
+      // log the access
+      
+    }else{ 
+      alert('O seu periodo de acesso à emotE terminou, esperamos que tenha gostado da experiência!');
+    }
   }
   return (
-    document.body.style = 'background: #077088',
         <Box
+          sx = {{backgroundColor : "#077088"}}
           display="flex"
           justifyContent="center"
           alignItems="center"
-          minHeight="95vh"
-          marginX={5}
+          minHeight="100vh"
+          paddingX={6}
         >
+           <TermsOfService trigger={!hasSeenTermsOfService} onAgree= {onAgree} onDisagree={setHasSeenTermsOfService} ></TermsOfService>
             <Grid container  direction="column" justifyContent="center"  >
 
               <Box

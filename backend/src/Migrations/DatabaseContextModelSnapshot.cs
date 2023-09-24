@@ -171,6 +171,10 @@ namespace backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("IntroText")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -255,6 +259,9 @@ namespace backend.Migrations
 
                     b.Property<string>("OtherFile")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("PageNumber")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("SubModuleId")
                         .HasColumnType("INTEGER");

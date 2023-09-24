@@ -12,11 +12,14 @@ public class UserModuloProgress : ControllerBase
     private readonly DbSet<User> _dbUserSet;
     private readonly DatabaseContext _context;
 
+    private readonly ILogger<ExcelExportController> _logger;
 
-    public UserModuloProgress(DatabaseContext context)
+
+    public UserModuloProgress(ILogger<ExcelExportController> logger, DatabaseContext context)
     {
         this._context = context;
         this._dbUserSet = _context.Set<User>();
+        _logger = logger;
     }
 
     [HttpGet("{user_code}/{modulo_id}", Name = "GetModuloProgress")]
@@ -26,6 +29,7 @@ public class UserModuloProgress : ControllerBase
         .Include(user => user.ModulosProgress.Where(m =>
          m.ModuloContent!.ModuleNumberOrder == modulo_id))
         .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses)
+        .ThenInclude(subModuleUserPorgress => subModuleUserPorgress.SubModule)
         .FirstOrDefault();
         if (userProgressModulo == null || userProgressModulo.ModulosProgress.Count == 0)
         {
@@ -44,6 +48,7 @@ public class UserModuloProgress : ControllerBase
         var userProgressModulo = _dbUserSet.Where(user => user.Code == user_code)
         .Include(user => user.ModulosProgress)
         .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses)
+        .ThenInclude(subModuleUserPorgress => subModuleUserPorgress.SubModule)
         .FirstOrDefault();
 
         if (userProgressModulo == null)
@@ -77,30 +82,32 @@ public class UserModuloProgress : ControllerBase
             );
         }
         string[] format = { "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss" };
-        if (DateTime.TryParseExact(progressDTO.TimeStampInicio, format, null,
-                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
-                               System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataInicio))
+        if (progressDTO.TimeStampInicio != null)
         {
-            userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].DataInicio = dataInicio;
-        }
-        else
-        {
-            return StatusCode(401, "Invalid dataInicio");
-        }
-        if (DateTime.TryParseExact(progressDTO.TimeStampFim, format, null,
+            if (DateTime.TryParseExact(progressDTO.TimeStampInicio, format, null,
                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
-                              System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataFim))
-        {
-            userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].DataFim = dataFim;
+                              System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataInicio))
+            {
+                userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].DataInicio = dataInicio;
+            }
+            else
+            {
+                return StatusCode(401, "Invalid dataInicio");
+            }
         }
-        else
-        {
-            return StatusCode(401, "Invalid dataFim");
-        }
-
         if (progressDTO.TimeStampFim != null)
         {
-            userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].IsCompleted = true;
+            if (DateTime.TryParseExact(progressDTO.TimeStampFim, format, null,
+                              System.Globalization.DateTimeStyles.AllowWhiteSpaces |
+                              System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataFim))
+            {
+                userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].DataFim = dataFim;
+                userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].IsCompleted = true;
+            }
+            else
+            {
+                return StatusCode(401, "Invalid dataFim");
+            }
         }
 
 
@@ -135,32 +142,39 @@ public class UserModuloProgress : ControllerBase
                 "User or Modulo not found"
             );
         }
+
+        _logger.LogInformation("progressDTO.TimeStampInicio: " + progressDTO.TimeStampInicio);
         string[] format = { "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss" };
-        if (DateTime.TryParseExact(progressDTO.TimeStampInicio, format, null,
+
+        if (progressDTO.TimeStampInicio != null)
+        {
+            if (DateTime.TryParseExact(progressDTO.TimeStampInicio, format, null,
                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
                               System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataInicio))
-        {
-            userProgressModulo.ModulosProgress[0].DataInicio = dataInicio;
-        }
-        else
-        {
-            return StatusCode(401, "Invalid dataInicio");
-        }
-        if (DateTime.TryParseExact(progressDTO.TimeStampFim, format, null,
-                              System.Globalization.DateTimeStyles.AllowWhiteSpaces |
-                              System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataFim))
-        {
-            userProgressModulo.ModulosProgress[0].DataFim = dataFim;
-        }
-        else
-        {
-            return StatusCode(401, "Invalid dataFim");
-        }
-        if (progressDTO.TimeStampFim != null)
-        {
-            userProgressModulo.ModulosProgress[0].IsCompleted = true;
+            {
+                userProgressModulo.ModulosProgress[0].DataInicio = dataInicio;
+            }
+            else
+            {
+                return StatusCode(401, "Invalid dataInicio");
+            }
         }
 
+        if (progressDTO.TimeStampFim != null)
+        {
+
+            if (DateTime.TryParseExact(progressDTO.TimeStampFim, format, null,
+                             System.Globalization.DateTimeStyles.AllowWhiteSpaces |
+                             System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataFim))
+            {
+                userProgressModulo.ModulosProgress[0].DataFim = dataFim;
+                userProgressModulo.ModulosProgress[0].IsCompleted = true;
+            }
+            else
+            {
+                return StatusCode(401, "Invalid dataFim");
+            }
+        }
 
 
         await _context.SaveChangesAsync();
