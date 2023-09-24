@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
+import { AppBar, Box, Button, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -79,25 +79,31 @@ function ModuleIntroductionPage(props) {
             :
             <>
             <LogoAppBar color={module.theme}/>
-            <Box sx={{mt:'60px', mb:'70px', backgroundColor: module.color2, height: '100vh'}}>
-              <Box sx ={{p:3, bgcolor: module.color1, alignContent: 'center', width: '80%', m:'0 auto'}}>
-                <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
-                    {moduloName}
-                </Typography>
+            <Box sx={{mt:'60px', backgroundColor: module.color2, height: '95vh'}}>
+            
+            <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: module.color1 }} >
+              <Box sx ={{p:5, pt:2, pb:2, alignContent: 'center', width: '80%', m:'0 auto'}}>
+                  <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
+                      {moduloName}
+                  </Typography>
               </Box>
-              <Box sx={{ width: '80%', alignContent: 'center', m: '0 auto'}}>
-              <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
-                    {moduloIntroText}
-                </Typography>
-              </Box>
-              <Box sx ={{ p:3}} textAlign='center'>
-                <Button onClick={onSubmit} sx ={{ p:1, bgcolor: module.color1 }}>
-                    <Typography gutterBottom color={"white"} sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' >
-                        Vamos começar?
-                    </Typography>
-                </Button>
-              </Box>
-          </Box>
+            </AppBar>
+
+            <Box sx ={{ p:3}} textAlign='center'>
+                </Box>
+                <Box sx={{pt:5, width: '80%', alignContent: 'center', m: '0 auto'}}>
+                <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
+                      {moduloIntroText}
+                  </Typography>
+                </Box>
+                <Box sx ={{ p:3}} textAlign='center'>
+                  <Button onClick={onSubmit} sx ={{ p:1, bgcolor: module.color1 }}>
+                      <Typography gutterBottom color={"white"} sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' >
+                          Vamos começar?
+                      </Typography>
+                  </Button>
+                </Box>
+            </Box>
           <NavBar color={module.theme}/>
           </>
         }
