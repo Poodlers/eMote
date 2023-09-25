@@ -9,6 +9,10 @@ import { User } from "../models/User";
 import { IDataRepository } from "./IDataRepository";
 
 export class MockDataRepository implements IDataRepository {
+    manageFavoriteExercises(exercicioFiles: string[], exercicioToFavorite: boolean[]): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+    
     sendFeedback(moduloId: Number, usefulnessScore: Number, satisfactionScore: Number): Promise<void> {
         throw new Error("Method not implemented.");
     }

@@ -38,11 +38,64 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
   
- 
-  
-
   user = JSON.parse(localStorage.getItem('user') || '{}');
   completedLogin : boolean = false;
+
+
+  async manageFavoriteExercises(exercicioFiles: string[], exercicioToFavorite: boolean[]): Promise<void> {
+    const instance = this.createInstance();
+    let exerciseObj: any[] = [];
+
+    for(let i = 0; i < exercicioFiles.length; i++){
+        exerciseObj.push(
+          {
+            exercicioFile : exercicioFiles[i],
+            exercicioIsFavorite : exercicioToFavorite[i],
+          }
+        );
+    }
+
+  
+    try{
+      const result = await instance.post(`${BASE_URL}/user/${this.user.code}/favorites`, exerciseObj).then(transform);
+    
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async addFavoriteExercise(exerciseFile: string): Promise<void> {
+    const instance = this.createInstance();
+    try{
+      const result = await instance.post(`${BASE_URL}/user/${this.user.code}/add-favorite`,
+      {
+        exercicioFile: exerciseFile,
+      }).then(transform);
+      
+    
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+  async removeFavoriteExercise(exerciseFile: string): Promise<void> {
+    const instance = this.createInstance();
+    try{
+      const result = await instance.post(`${BASE_URL}/user/${this.user.code}/remove-favorite`,
+      {
+        exercicioFile: exerciseFile,
+      }).then(transform);
+      
+    
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
 
   async sendFeedback(moduloId: Number, usefulnessScore: Number, satisfactionScore: Number): Promise<void> {
     const instance = this.createInstance();

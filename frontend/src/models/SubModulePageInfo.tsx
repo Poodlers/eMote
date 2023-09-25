@@ -1,3 +1,4 @@
+import { ExerciciosFavoriteInfo } from "./ExerciciosFavoriteInfo";
 import { SubModulePage } from "./SubModulePage";
 
 export interface SubModulePageInfo{
@@ -6,4 +7,5 @@ export interface SubModulePageInfo{
     isBlocked: boolean;
     isLastPage: boolean;
     isLastPageInModulo: boolean;
+    exerciciosFavoritos: ExerciciosFavoriteInfo[];
 }

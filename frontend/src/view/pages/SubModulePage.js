@@ -17,7 +17,7 @@ import { ComponentState } from '../../models/ComponentState';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { NavBar } from '../widgets/NavBar';
 import SubmoduleContentPage from './SubmoduleContentPage';
-import { set } from 'react-hook-form';
+
 
 
 function SubModulePage(props) {
@@ -28,8 +28,31 @@ function SubModulePage(props) {
     const [module, setModule] = React.useState({});
     const [pageContent, setPageContent] = React.useState({});
     const [isPlaying, setIsPlaying] = useState(false);
-    const [isFavorite, setIsFavorite] = useState(false);
+    const [exercisesObj, setExercisesObj] = useState({});
 
+    useEffect(() => {
+        let exerciseFiles = [];
+        let exercisesToFavorite = [];
+        for (const key in exercisesObj) {
+            if (exercisesObj.hasOwnProperty(key)) {
+                exerciseFiles.push(key);
+                exercisesToFavorite.push(exercisesObj[key]);
+            }
+          }
+       
+        if(exerciseFiles.length == 0) return;
+
+        repository.manageFavoriteExercises(exerciseFiles, exercisesToFavorite
+        ).then((response) => {
+            
+        }
+        ).catch((error) => {
+            console.log(error);
+        });
+    },
+        [exercisesObj])
+
+    
     useEffect(() => {
         if(isPlaying){
             //audioElem.current.play();
@@ -55,14 +78,28 @@ function SubModulePage(props) {
             }
           }
           setPageContent(response);
+          let exercises = {};
+          for(let i = 0; i < response.exerciciosFavoritos.length; i++){
+                exercises[response.exerciciosFavoritos[i].exercicioFile] = response.exerciciosFavoritos[i].exercicioIsFavorite;
+            }
+
+          setExercisesObj(exercises);
+          
           setComponentState(ComponentState.LOADED);
-          console.log(response);
+            
         }).catch((error) => {
             setComponentState(ComponentState.ERROR);
             console.log(error);
         });
-    }, [componentState]);
+    }, [pageNumber, submoduleNumber, moduleNumber]);
 
+    const setFavorite = (exerciseFile) => {
+        let exercises = exercisesObj;
+        
+        exercises[exerciseFile] = !exercises[exerciseFile];
+    
+        setExercisesObj({...exercises});
+    }
 
     const handleEndOfPage = () => {
         const nextPageLink =
@@ -95,7 +132,7 @@ function SubModulePage(props) {
 
             
         }else{
-            setComponentState(ComponentState.LOADING);
+            
             navigate(nextPageLink, { replace: true });
         }   
 
@@ -116,11 +153,11 @@ function SubModulePage(props) {
         :
         componentState == ComponentState.ERROR ?
             <Typography color="secondary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
-                Erro ao carregar página - 404
+                Erro ao carregar página 
             </Typography>
             :
             <>
-    {/*<audio src=''/>*/}
+    {<audio src=''/>}
     <LogoAppBar color={module.theme} goBack={true}/>
     <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: module.color1 }} >
         <Box sx ={{p:5, pt:2, pb:2, alignContent: 'center', width: '80%', m:'0 auto'}}>
@@ -133,10 +170,12 @@ function SubModulePage(props) {
     <Box sx={{mt:'120px', mb:'70px'}}>
 
       <Box sx= {{pt:1}} textAlign='center'>
-        <SubmoduleContentPage module={module} pageNumber={pageNumber} subModuleNumber={submoduleNumber} submodulesContent={pageContent.subModulePage}/>
-        {pageContent.subModulePage.exercicios.map(function(data){
+        <SubmoduleContentPage 
+        isLastPage={pageContent.isLastPage}
+        module={module} pageNumber={pageNumber} subModuleNumber={submoduleNumber} submodulesContent={pageContent.subModulePage}/>
+        {pageContent.subModulePage.exercicios.map(function(data, index){
             return (
-            <>
+            <div key={index}>
                 <Box sx= {{pt:3}}> 
                     <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 22, fontWeight: 500 }} variant='body1' color={"white"}>
                         {data.exercicioName}
@@ -157,14 +196,15 @@ function SubModulePage(props) {
                         </Grid>
                     </Grid>
 
-                    <IconButton sx={{p:3}} size='large' onClick={()=>{setIsFavorite(!isFavorite)}} >
-                        {isFavorite ? 
+                    <IconButton sx={{p:3}} size='large' onClick={()=>{setFavorite(data.exercicioFile)}} >
+                        
+                        {exercisesObj[data.exercicioFile] ? 
                         <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={module.color1} />
                         :
                         <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={module.color1 } /> }
                     </IconButton>
                 </Box>
-            </>
+            </div>
             )
         })}
 

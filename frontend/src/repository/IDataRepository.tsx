@@ -13,6 +13,8 @@ export interface IDataRepository {
 
     userCompletedLogin(): boolean;
 
+    manageFavoriteExercises(exercicioFiles: string[], exercicioToFavorite: boolean[]): Promise<void>;
+
     sendFeedback(moduloId: Number, usefulnessScore: Number, satisfactionScore: Number): Promise<void>;
 
     hasCompletedModulo(moduloId: Number): Promise<boolean>;

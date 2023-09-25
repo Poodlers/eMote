@@ -1,10 +1,7 @@
 import React from 'react';
 import { AppBar, Box, Button, Grid, Typography } from '@mui/material';
-import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { Link, useNavigate } from 'react-router-dom';
-import { modulesThemes } from '../../constants/themes.js';
 import DownloadIcon from '@mui/icons-material/Download';
-import { useEffect } from 'react';
 import ReactPlayer from 'react-player';
 
 
@@ -14,7 +11,8 @@ function SubmoduleContentPage(props) {
     const submodulesContent = props.submodulesContent;
     const subModuleNumber = props.subModuleNumber;
     const pageNumber = props.pageNumber;
-    console.log("pageNumber: " + pageNumber)
+    const isLastPage = props.isLastPage;
+    
 
   return (
         <>
@@ -24,12 +22,15 @@ function SubmoduleContentPage(props) {
               <Typography color={module.theme === "blue" ? module.color1 : "black" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
                     {submodulesContent.text}
               </Typography>
-              {pageNumber === 1 ?
+              {pageNumber == 1 ?
               <Box sx ={{ p:3}} textAlign='center'>
-                <Button  onClick={() =>
-                   navigate( `/submodulepage/${module.moduloId}/${subModuleNumber}/${pageNumber + 1}`,
+                <Button  onClick={() =>{
+                   navigate(
+                    isLastPage ? `/submodulelist/${module.moduloId}/` : `/submodulepage/${module.moduloId}/${subModuleNumber}/${parseInt(pageNumber) + 1}`,
+            
                    {replace: true}
-                   )} sx ={{ p:1, bgcolor: module.color1 }}>
+                   )
+                }} sx ={{ p:1, bgcolor: module.color1 }}>
                     <Typography gutterBottom color={"white"} sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' >
                         Preparada?
                     </Typography>
