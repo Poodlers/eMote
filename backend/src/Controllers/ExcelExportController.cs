@@ -240,7 +240,7 @@ public class ExcelExportController : ControllerBase
 
                 dataTableEmotionDiary.Rows.Add(
                     user.Code, emotionDiary.Date,
-                    emotionDiary.Hour, sentimentosString, exerciciosString, emotionDiary.Reflexao);
+                    emotionDiary.Hour, sentimentosString, exerciciosString, emotionDiary.ReflexaoEmotion);
             }
 
             foreach (var mealDiary in user.FoodDiaryEntries!)

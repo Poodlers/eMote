@@ -26,7 +26,7 @@ function ModuleIntroductionPage(props) {
         setModuloIntroText(response.introText);
         for (const obj of modulesThemes) {
           
-          if (obj.name === response.title) {
+          if (obj.moduloId == moduleNumber) {
             setModule(obj);
             break;
           }

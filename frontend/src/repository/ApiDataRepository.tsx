@@ -12,6 +12,8 @@ import { TipoRefeicao } from "../models/TipoRefeicao";
 import { ModuloInfo } from "../models/ModuloInfo";
 import { SubModuleInfo } from "../models/SubModuleInfo";
 import { SubModulePageInfo } from "../models/SubModulePageInfo";
+import { ModuloBlockInfo } from "../models/ModuloBlockInfo";
+import { Sentimento } from "../models/Sentimento";
 
 
 
@@ -37,9 +39,59 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
+
+
   
   user = JSON.parse(localStorage.getItem('user') || '{}');
   completedLogin : boolean = false;
+
+  async saveEmotionDiary(feelings: Sentimento[], exercicios: Exercise[], reflection: string): Promise<void> {
+    const dateObj = new  Date().toLocaleString().split(',');
+    const data = dateObj[0].replace('/','-').replace('/','-');
+    const hour = dateObj[1].trim();
+    const instance = this.createInstance();
+    try{
+      const result = await instance.post(`${BASE_URL}/emotion-diary/${this.user.code}`,
+        {
+          date: data,
+          hour: hour,
+          sentimentos: feelings,
+          exercicios: exercicios,
+          reflexaoEmotion: reflection,
+        }
+      ).then(transform);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+
+  }
+
+  async fetchAllSeenExercises(): Promise<{ mindfulness: Exercise[]; emotion_regulation: Exercise[]; distress_tolerance: Exercise[]; }> {
+    const instance = this.createInstance();
+    try{
+      const result = await instance.get(`${BASE_URL}/emotion-diary/${this.user.code}/exercises-names`).then(transform);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async fetchModuloList(): Promise<ModuloBlockInfo[]> {
+    const instance = this.createInstance();
+    try{
+      const result = await instance.get(`${BASE_URL}/modulo/${this.user.code}/modulo-blocked`).then(transform);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
 
 
   async manageFavoriteExercises(exercicioFiles: string[], exercicioToFavorite: boolean[]): Promise<void> {

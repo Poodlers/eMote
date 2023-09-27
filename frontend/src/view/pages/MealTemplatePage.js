@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import imgPqnoAlmoco from '../../assets/images/p_almoco.png'
 import imgLancheManha from '../../assets/images/lanche_manha.png'
@@ -32,48 +32,58 @@ const errorMessagesText = {
 const imageList = [
     {
         meal: 'Pequeno Almoço',
+        link: 'pqnoalmoco',
         enumValue : TipoRefeicao.PequenoAlmoco,
         image: imgPqnoAlmoco
     },
     {
         meal: 'Lanche da Manhã',
+        link: 'lanchemanha',
         enumValue : TipoRefeicao.LancheDaManha,
         image: imgLancheManha
     },
     {
         meal: 'Almoço',
+        link: 'almoco',
         enumValue : TipoRefeicao.Almoco,
         image: imgAlmoco
     },
     {
         meal: 'Lanche da Tarde',
+        link: 'lanche',
         enumValue : TipoRefeicao.LancheDaTarde,
         image: imgLancheTarde
     },
     {
         meal: 'Jantar',
+        link: 'jantar',
         enumValue : TipoRefeicao.Jantar,
         image: imgJantar
     },        
     {
         meal: 'Ceia',
+        link: 'ceia',
         enumValue : TipoRefeicao.Ceia,
         image: imgCeia
     },
     {
         meal: 'Outra Refeição',
+        link: 'outraref',
         enumValue : TipoRefeicao.Outra,
         image: imgOutraRef
     },
 ]
 
-function MealTemplatePage(props) {
+function MealTemplatePage() {
+    const { meal } = useParams();
     var mealImage = null;
+    var mealName = null;
     var mealEnum = null;
     for (const obj of imageList) {
-        if (obj.meal === props.meal) {
+        if (obj.link == meal) {
             mealImage = obj.image;
             mealEnum = obj.enumValue;
+            mealName = obj.meal;
         }
     }
 
@@ -185,7 +195,7 @@ function MealTemplatePage(props) {
                 Erro ao carregar página
             </Typography>    
             :
-            <Box sx={{mt:'10px', mb:'10px'}}>
+            <Box sx={{mt:'10px', mb:'10px', backgroundColor: '#01698b'}}>
             <Box sx ={{p:1, bgcolor: '#349db7', alignContent: 'center', width: '80%', m: '0 auto'}}>
                 <Grid container spacing={2}>
                     <Grid item >
@@ -195,7 +205,7 @@ function MealTemplatePage(props) {
                     </Grid>
                     <Grid item sx={{ display:'flex', alignItems:'center', }}>
                         <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
-                            {props.meal}
+                            {mealName}
                         </Typography>
                     </Grid>
                 </Grid>

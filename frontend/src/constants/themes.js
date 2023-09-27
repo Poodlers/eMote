@@ -39,7 +39,7 @@ export let modulesThemes = [
         color2: "#f5c3e8",
         color3: "#d2aed1",
         check: checkPurple,
-        link: '/module3',
+        link: '/module/3',
         introlink: '/submoduleintro/3',
         exerciselink: '/submoduleexercise/3',
         feedbacklink: '/feedback3'

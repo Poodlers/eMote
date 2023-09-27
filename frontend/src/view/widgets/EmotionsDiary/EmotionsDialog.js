@@ -90,12 +90,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function EmotionsDialog() {
+export default function EmotionsDialog(props) {
   const [open, setOpen] = React.useState(false);
+  const emotionsSelected = props.emotionsSelected;
+  const setEmotionsSelected = props.setEmotions;
+  
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const handleEmotionClick = (emotion) => {
+    if (emotionsSelected.includes(emotion)) {
+        setEmotionsSelected(emotionsSelected.filter((e) => e !== emotion));
+
+    } else {
+        setEmotionsSelected([...emotionsSelected, emotion]);
+    }
+  }
 
   const handleClose = () => {
     setOpen(false);
@@ -142,7 +154,7 @@ export default function EmotionsDialog() {
         </AppBar>
 
         <Box display="flex" alignItems='center' justifyContent='center' sx={{ p:2 }}>
-          <Grid container spacing={1}>
+          <Grid container spacing={1} textAlign={'center'}>
             <Grid item xs={4} key="diarylogo">
               <IconButton
                 color="info"
@@ -152,11 +164,13 @@ export default function EmotionsDialog() {
                 <img alt='logo' style={{ opacity: '25%'}} src={DiaryLogo}/>
               </IconButton>
             </Grid>
-            {imageList.map(function(data) {
+            {imageList.map(function(data, index) {
                 return (
                     <Grid item xs={4} key= {data.feeling}>
                         <IconButton
                         color="info"
+                        sx ={{backgroundColor: emotionsSelected.includes(index) ? '#ec6fa7' : '#fff' }}
+                        onClick={() => handleEmotionClick(index)}
                         size="large"
                         >
                         <img alt='logo' src={data.image}/>

@@ -95,9 +95,7 @@ function SubModulePage(props) {
 
     const setFavorite = (exerciseFile) => {
         let exercises = exercisesObj;
-        
         exercises[exerciseFile] = !exercises[exerciseFile];
-    
         setExercisesObj({...exercises});
     }
 

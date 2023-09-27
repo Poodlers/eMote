@@ -1,7 +1,9 @@
 import { Exercise } from "../models/Exercise";
 import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
+import { ModuloBlockInfo } from "../models/ModuloBlockInfo";
 import { ModuloInfo } from "../models/ModuloInfo";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
+import { Sentimento } from "../models/Sentimento";
 import { SubModuleInfo } from "../models/SubModuleInfo";
 import { SubModulePageInfo } from "../models/SubModulePageInfo";
 import { TipoRefeicao } from "../models/TipoRefeicao";
@@ -12,6 +14,12 @@ export interface IDataRepository {
     updateUser(): void;
 
     userCompletedLogin(): boolean;
+
+    saveEmotionDiary(feelings: Array<Sentimento>, exercicios: Array<Exercise>, reflection: string): Promise<void>;
+
+    fetchAllSeenExercises(): Promise<{mindfulness: Array<Exercise>, emotion_regulation: Array<Exercise>, distress_tolerance: Array<Exercise>}>;
+
+    fetchModuloList(): Promise<Array<ModuloBlockInfo>>;
 
     manageFavoriteExercises(exercicioFiles: string[], exercicioToFavorite: boolean[]): Promise<void>;
 

@@ -18,22 +18,24 @@ import imgTriste from '../../../assets/images/triste.png';
 
 
 function EpisodesEmotions(props) {
+    
     const feelingsImg = 
         {
-            'Feliz': imgFeliz,
-            'Aborrecida': imgAborrecida,
-            'Ansiosa': imgAnsiosa,
-            'Culpada': imgCulpada,
-            'Entusiasmada': imgEntusiasmada,
-            'Envergonhada': imgEnvergonhada,
-            'Frustrada': imgFrustrada,
-            'Furiosa': imgFuriosa,
-            'Irritada': imgIrritada,
-            'Motivada': imgMotivada,
-            'Orgulhosa': imgOrgulhosa,
-            'Sozinha': imgSozinha,
-            'Tranquila': imgTranquila,
-            'Triste': imgTriste,
+            0 : imgAnsiosa,
+            1: imgAborrecida,
+            2: imgCulpada,
+            3: imgEntusiasmada,
+            4: imgEnvergonhada,
+            5: imgFeliz,
+            6: imgFrustrada,
+            7: imgFuriosa,
+            8: imgIrritada,
+            9: imgMotivada,
+            10: imgOrgulhosa,
+            11: imgSozinha,
+            12: imgTranquila,
+            13: imgTriste
+
         }
 
     const emotionsData = props.emotionsData;
@@ -50,9 +52,9 @@ function EpisodesEmotions(props) {
                     gridAutoColumns: "minmax(90px, 1fr)"
                 }}
             >
-                {emotionsData.map(function(data) {
+                {emotionsData.map(function(data,index) {
                     return (
-                        <ImageListItem key={data.sentimento} sx={{ pl:1}} >
+                        <ImageListItem key={index} sx={{ pl:1}} >
                             <img alt={data.sentimento} src={feelingsImg[data.sentimento]}/>
                             <ImageListItemBar sx={{ color: '#ed6fa6', textAlign:'center'}} position='below' title={data.count}/>
                         </ImageListItem>
