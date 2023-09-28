@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, IconButton, Slider, Typography } from '@mui/material';
+import { Box, Button, IconButton, Rating, Slider, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { useNavigate, useParams } from 'react-router-dom';
 import { modulesThemes } from '../../constants/themes.js';
@@ -7,44 +7,29 @@ import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { useEffect } from 'react';
 import { ComponentState } from '../../models/ComponentState';
 
-const marks = [
-    {
-      value: 0,
-      label: 'Nada',
-    },
-    {
-      value: 1,
-      label: 'Pouco',
-    },
-    {
-      value: 2,
-      label: 'Mais ou menos',
-    },
-    {
-      value: 3,
-      label: 'Muito',
-    },
-    {
-      value: 4,
-      label: 'Extremamente',
-    },
-];
+const marks = {
+      1: 'Nada',
+        2:  'Pouco',
+        3: 'Mais ou menos',
+        4: 'Muito',
+        5: 'Extremamente',
 
-function valuetext(value) {
-    for (let mark of marks){
-        if (mark.value==value)
-            return mark.label
+
+    };
+
+function getLabelText(value) {
+    return `${value} Star${value !== 1 ? 's' : ''}, ${marks[value]}`;
     }
-    return null;
-  }
 
 function FeedbackPage(props) {
     const repository = RepositorySingleton.getInstance().injectRepository();
     const navigate = useNavigate();
     let { moduleNumber } = useParams();
+    const [hoverSatisfaction, setHoverSatisfaction] = React.useState(-1);
+    const [hoverUsefulness, setHoverUsefulness] = React.useState(-1);
     const [componentState, setComponentState] = React.useState(ComponentState.LOADING);
-    const [usefelnessScore, setUsefulnessScore] = React.useState(0);
-    const [satisfactionScore, setSatisfactionScore] = React.useState(0);
+    const [usefelnessScore, setUsefulnessScore] = React.useState(2);
+    const [satisfactionScore, setSatisfactionScore] = React.useState(2);
     const [module, setModule] = React.useState({});
 
     const onSubmit = () => {
@@ -107,46 +92,52 @@ function FeedbackPage(props) {
                     Considera que este Módulo foi útil para si?
                 </Typography>
                 <Box sx={{ display:"flex", alignItems: 'center', justifyContent: 'center' }}>
-                    <Box sx={{ width: '70%',}}>
-                        <Slider
-                            aria-label="Custom marks"
-                            value = {usefelnessScore}
-                            onChange={(event, newValue) => {
-                                setUsefulnessScore(newValue);
-
-                            }
-                            }
-                            step={1}
-                            valueLabelFormat={valuetext}
-                            valueLabelDisplay="auto"
-                            marks
-                            min={0}
-                            max={4}
-                            color="info"
-                        />
+                    <Box sx={{ width: '70%', m: '0 auto', textAlign:'center'}}>
+                    <Rating
+                        sx ={{ scale:'1.5'}}
+                        name="hover-feedback"
+                        value={usefelnessScore}
+                        getLabelText={getLabelText}
+                        onChange={(event, newValue) => {
+                            setUsefulnessScore(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                            setHoverUsefulness(newHover);
+                        }}
+                        
+                    />
+                    {usefelnessScore !== null && (
+                       <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5,
+                        pt:2.5, fontSize: 17, textAlign:'center' }} variant='body2'>
+                            <Box sx={{ ml: 2 }}>{marks[hoverUsefulness !== -1 ? hoverUsefulness : usefelnessScore]}</Box>
+                        </Typography>
+                    )}
                     </Box>
                 </Box>
                 <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20, textAlign:'center' }} variant='body1'>
                     Ficou satisfeita com este Módulo?
                 </Typography>
-                <Box sx={{ display:"flex", alignItems: 'center', justifyContent: 'center' }}>
-                    <Box sx={{ width: '70%',}}>
-                        <Slider
-                            aria-label="Custom marks"
-                            value={satisfactionScore}
-                            onChange={(event, newValue) => {
-                                setSatisfactionScore(newValue);
-
-                            }
-                            }
-                            step={1}
-                            valueLabelFormat={valuetext}
-                            valueLabelDisplay="auto"
-                            marks
-                            min={0}
-                            max={4}
-                            color="info"
-                        />
+                <Box sx={{ display:"flex", alignItems: 'center', justifyContent: 'center', width:'100%'}}>
+                    <Box sx={{ width: '70%', m: '0 auto', textAlign:'center'}}>
+                    <Rating
+                        sx ={{ scale:'1.5'}}
+                        name="hover-feedback"
+                        value={satisfactionScore}
+                        getLabelText={getLabelText}
+                        onChange={(event, newValue) => {
+                            setSatisfactionScore(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                            setHoverSatisfaction(newHover);
+                        }}
+                        
+                    />
+                    {usefelnessScore !== null && (
+                       <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5,
+                        pt:2.5, fontSize: 17, textAlign:'center' }} variant='body2'>
+                            <Box sx={{ ml: 2 }}>{marks[hoverSatisfaction !== -1 ? hoverSatisfaction : satisfactionScore]}</Box>
+                        </Typography>
+                    )}
                     </Box>
                 </Box>
                 <IconButton onClick={onSubmit}

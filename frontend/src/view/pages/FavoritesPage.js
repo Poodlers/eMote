@@ -5,17 +5,18 @@ import { NavBar } from '../widgets/NavBar.js';
 import { ComponentState } from '../../models/ComponentState';
 import Titulo from '../../assets/images/titulo_favoritos.png';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
+import { Link } from 'react-router-dom';
 
 
 function FavoritesPage() {
 
     const repository = RepositorySingleton.getInstance().injectRepository();
-    const [mockList, setMockList] = useState([]);
+    const [exercisesList, setExerciseList] = useState([]);
     const [componentState, setComponentState] = useState(ComponentState.LOADING);
 
     const fetchInfo = () => {
         return repository.fetchFavoriteExercises().then((response) => {
-            setMockList(response);
+            setExerciseList(response);
             setComponentState(ComponentState.LOADED);
         }).catch((error) => {
             setComponentState(ComponentState.ERROR);
@@ -46,13 +47,19 @@ function FavoritesPage() {
                     Erro ao carregar exercícios favoritos
                 </Typography>
                 :
-                mockList.length !== 0 ?
-                    mockList.map(function(data, index) {
+                exercisesList.length !== 0 ?
+                    exercisesList.map(function(data, index) {
                         return (
                             <div key= {index}>
+                                <Link 
+                                    to={`/submodulepage/${data.moduloNumberOrder}/${data.subModuleNumberOrder}/${data.pageNumber}`}
+                                    underline="none"
+                                    style={{ textDecoration: 'none' }}
+                                >
                                 <Typography color="primary" sx = {{fontWeight: "bold", p:0.5, ml: '10px'}} >
                                     {data.exercicioName}
                                 </Typography>
+                                </Link>
                             </div>
                         )
                     })

@@ -1,5 +1,5 @@
 export enum Sentimento {
-    Ansiosa = 0,
+    Ansiosa ,
     Aborrecida,
     Culpada ,
     Entusiasmada,

@@ -110,18 +110,6 @@ public class UserModuloProgress : ControllerBase
             }
         }
 
-
-        var userProgress = 0;
-        foreach (SubModuleUserProgress subModuleUserProgress in userProgressModulo.ModulosProgress[0].SubModuleUserProgresses)
-        {
-            if (subModuleUserProgress.DataInicio == null)
-            {
-                break;
-            }
-            userProgress += 1;
-        }
-        userProgressModulo.ModulosProgress[0].UserProgress = userProgress / userProgressModulo.ModulosProgress[0].SubModuleUserProgresses.Count;
-
         await _context.SaveChangesAsync();
 
 

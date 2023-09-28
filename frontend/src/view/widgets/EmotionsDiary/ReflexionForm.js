@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 
 
 export default function ReflexionForm(props) {
+  const { dayReflection, setDayReflection } = props;
   return (
     <Box sx ={{p:1 }}>
         
@@ -19,6 +20,7 @@ export default function ReflexionForm(props) {
                         rows={4}
                         color='info'
                         fullWidth
+                        onChange={(event) => setDayReflection(event.target.value)}
                     />
                 </Grid>
             </Box>

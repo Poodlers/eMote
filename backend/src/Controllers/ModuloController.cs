@@ -43,6 +43,44 @@ public class ModuloController : ControllerBase
         return Ok(modulo);
     }
 
+    [HttpGet("{user_code}/modulo-blocked", Name = "GetModuloBlockInfo")]
+    public ActionResult<List<ModuloBlockInfo>> GetModuloBlockInfo(string user_code)
+    {
+        var user = _dbUserSet.Include(user => user.ModulosProgress)
+        .ThenInclude(modulo => modulo.ModuloContent)
+        .Where(u => u.Code == user_code)
+        .FirstOrDefault();
+        if (user == null)
+        {
+            return StatusCode(
+                404,
+                "User not found"
+
+            );
+        }
+        var isBlocked = false;
+        var moduloBlockInfo = new List<ModuloBlockInfo>();
+        foreach (var moduloProgress in user.ModulosProgress)
+        {
+            var previousModulo = user.ModulosProgress
+            .Where(m => m.ModuloContent!.ModuleNumberOrder == moduloProgress.ModuloContent!.ModuleNumberOrder - 1)
+            .FirstOrDefault();
+            if (previousModulo != null)
+            {
+                isBlocked = !previousModulo.IsCompleted;
+            }
+            moduloBlockInfo.Add(new ModuloBlockInfo
+            {
+                ModuloNumberOrder = moduloProgress.ModuloContent!.ModuleNumberOrder,
+                ModuloTitle = moduloProgress.ModuloContent!.Title,
+                IsBlocked = isBlocked
+            });
+        }
+
+        return Ok(moduloBlockInfo);
+
+    }
+
     [HttpGet("{id}/{submodule_id}", Name = "GetSubModule")]
     public ActionResult<SubModule> Get(int id, int submodule_id)
     {
@@ -71,7 +109,9 @@ public class ModuloController : ControllerBase
         .ThenInclude(modulo => modulo.SubModuleUserProgresses)
         .ThenInclude(submodulo => submodulo.SubModule)
         .ThenInclude(submodulopage => submodulopage!.SubModulePages)
+        .ThenInclude(submodulepage => submodulepage.Exercicios)
         .Where(user => user.Code == user_code)
+        .Include(user => user.FavoriteExercises)
         .FirstOrDefault();
 
 
@@ -129,13 +169,37 @@ public class ModuloController : ControllerBase
             isBlocked = !previousSubModule.IsCompleted;
         }
 
+        var exerciciosFavoritos = new List<ExercicioDTO>();
+        foreach (var exercicioInPage in subModulePage.Exercicios)
+        {
+            var exercicioFavorito = subModuleUserProgress.FavoriteExercises
+            .Where(e => e!.Id == exercicioInPage!.Id).FirstOrDefault();
+            if (exercicioFavorito != null)
+            {
+                exerciciosFavoritos.Add(new ExercicioDTO
+                {
+                    ExercicioFile = exercicioFavorito.ExercicioFile,
+                    ExercicioIsFavorite = true,
+                });
+            }
+            else
+            {
+                exerciciosFavoritos.Add(new ExercicioDTO
+                {
+                    ExercicioFile = exercicioInPage!.ExercicioFile,
+                    ExercicioIsFavorite = false,
+                });
+            }
+        }
+
         var submodulePageInfo = new SubModulePageUserInfo
         {
             SubModulePage = subModulePage,
             IsBlocked = isBlocked,
             IsLastPageInModulo = isLastPageInModulo,
             IsLastPage = isLastPage,
-            SubModuleTitle = subModule.SubModule!.Title
+            SubModuleTitle = subModule.SubModule!.Title,
+            ExerciciosFavoritos = exerciciosFavoritos
         };
 
         return Ok(submodulePageInfo);

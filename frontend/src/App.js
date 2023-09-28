@@ -60,16 +60,13 @@ function App() {
         <Route path='/contact' element={< ContactPage/>} />
 
         <Route path='/emotiondiary' element={< EmotionDiaryPage/>} />
-        <Route path='/exercises' element={< ExercisesPage/>} />
-                
         <Route path='/mealdiary' element= {<MealDiaryPage/>} />
-        <Route path='/pqnoalmoco' element= {<MealTemplatePage meal='Pequeno Almoço'/>} />
-        <Route path='/lanchemanha' element= {<MealTemplatePage meal='Lanche da Manhã'/>} />
-        <Route path='/almoco' element= {<MealTemplatePage meal='Almoço'/>} />
-        <Route path='/lanche' element= {<MealTemplatePage meal='Lanche da Tarde'/>} />
-        <Route path='/jantar' element= {<MealTemplatePage meal='Jantar'/>} />
-        <Route path='/ceia' element= {<MealTemplatePage meal='Ceia'/>} />
-        <Route path='/outraref' element= {<MealTemplatePage meal='Outra Refeição'/>} />
+        <Route path='/exercises' element={< ExercisesPage/>} />
+        
+        <Route path='/mealpage' >
+          <Route path=':meal' element= {<MealTemplatePage />} />
+        </Route>
+
 
         <Route path='/moduleintro'>
             <Route path=':moduleNumber' element= {<ModuleIntroductionPage/>} />

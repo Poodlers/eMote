@@ -232,6 +232,8 @@ public class UserController : ControllerBase
         var user = _dbUserSet.Where(user => user.Code == user_code)
         .Include(user => user.FoodDiaryEntries)
         .Include(user => user.ModulosProgress)
+        .ThenInclude(user => user.SubModuleUserProgresses)
+        .Include(user => user.ModulosProgress)
         .ThenInclude(moduloProgress => moduloProgress.ModuloContent)
         .FirstOrDefault();
 
@@ -314,10 +316,20 @@ public class UserController : ControllerBase
         var modulos_progress = user.ModulosProgress;
         foreach (var modulo_progress in modulos_progress)
         {
+            var modulo_user_progress = 0;
+            foreach (var submodule_progress in modulo_progress.SubModuleUserProgresses)
+            {
+                if (submodule_progress.IsCompleted)
+                {
+                    modulo_user_progress++;
+                }
+            }
+            modulo_user_progress = modulo_user_progress * 100 / modulo_progress.SubModuleUserProgresses.Count;
+
             var modulo_progress_info = new ProgressInfo
             {
                 ModuloNumberOrder = modulo_progress.ModuloContent!.ModuleNumberOrder,
-                UserProgress = modulo_progress.UserProgress
+                UserProgress = modulo_user_progress
             };
             progressInfo.Add(modulo_progress_info);
         }
@@ -331,15 +343,15 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("{user_code}/favorites", Name = "AddUserFavorite")]
-    public async Task<ActionResult<Exercicio>> AddUserFavorite(String user_code, [FromBody] ExercicioDTO exercicioDTO)
+    public async Task<ActionResult> AddUserFavorite(String user_code, [FromBody] List<ExercicioDTO> exercicioDTO)
     {
         var user = _dbUserSet.Where(user => user.Code == user_code)
         .Include(user => user.FavoriteExercises)
         .FirstOrDefault();
 
-
-
-        var exercicio = _dbExercicioSet.Where(exercicio => exercicio.ExercicioFile == exercicioDTO.ExercicioFile).FirstOrDefault(); if (user == null)
+        foreach (var exercicioObj in exercicioDTO)
+        {
+            var exercicio = _dbExercicioSet.Where(exercicio => exercicio.ExercicioFile == exercicioObj.ExercicioFile).FirstOrDefault();
             if (exercicio == null || user == null)
             {
                 return StatusCode(
@@ -347,21 +359,29 @@ public class UserController : ControllerBase
                     "User or Exercicio not found"
                 );
             }
+            if (exercicioObj.ExercicioIsFavorite)
+            {
+                if (!user.FavoriteExercises.Where(exercicio => exercicio.ExercicioFile == exercicioObj.ExercicioFile).Any())
+                {
+                    user.FavoriteExercises.Add(exercicio!);
+                }
+            }
+            else
+            {
+                if (user.FavoriteExercises.Where(exercicio => exercicio.ExercicioFile == exercicioObj.ExercicioFile).Any())
+                {
+                    user.FavoriteExercises.Remove(exercicio!);
+                }
 
-        if (user.FavoriteExercises.Where(exercicio => exercicio.ExercicioFile == exercicioDTO.ExercicioFile).Any())
-        {
-            return StatusCode(
-                401,
-                "User already has this exercise as favorite"
-            );
+            }
+
         }
-
-        user.FavoriteExercises.Add(exercicio!);
 
         await _context.SaveChangesAsync();
 
-        return Ok(exercicio);
+        return Ok();
     }
+
 
     [HttpGet("{user_code}/has-access", Name = "HasAccessToApp")]
     public ActionResult<bool> HasAccessToApp(String user_code)

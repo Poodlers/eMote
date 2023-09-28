@@ -14,69 +14,23 @@ import Mindfulness from '../../../assets/images/mindfulness.png'
 import Regulacao from '../../../assets/images/regulacao.png'
 import Tolerancia from '../../../assets/images/tolerancia.png'
 
-const modulesContent = [
-    {
-        module: 'Mindfulness',
-        image: Mindfulness,
-        exercises: [
-          "Respiração diafragmática",
-          "Santiago Solis",
-          "Dawid Floyd",
-          "Mateo Barlow",
-          "Samia Navarro",
-          "Kaden Fields",
-          "Genevieve Watkins",
-          "Mariah Hickman",
-          "Rocco Richardson",
-          "Harris Glenn"
-        ]
-    },
-    {
-        module: 'Regulação Emocional',
-        image: Regulacao,
-        exercises: [
-          "Humaira Sims",
-          "Santiago Solis",
-          "Dawid Floyd",
-          "Mateo Barlow",
-          "Samia Navarro",
-          "Kaden Fields",
-          "Genevieve Watkins",
-          "Mariah Hickman",
-          "Rocco Richardson",
-          "Harris Glenn"
-        ]
-    },
-    {
-        module: 'Tolerânica a estados emocionais dolorosos',
-        image: Tolerancia,
-        exercises: [
-          "Humaira Sims",
-          "Santiago Solis",
-          "Dawid Floyd",
-          "Mateo Barlow",
-          "Samia Navarro",
-          "Kaden Fields",
-          "Genevieve Watkins",
-          "Mariah Hickman",
-          "Rocco Richardson",
-          "Harris Glenn"
-        ]
-    },
-]
+
 
 const modules = [
     {
         module: 'Mindfulness',
-        image: Mindfulness
+        image: Mindfulness,
+        possibleExercisesKey: "mindfulness"
     },
     {
         module: 'Regulação Emocional',
-        image: Regulacao
+        image: Regulacao,
+        possibleExercisesKey: "emotion_regulation"
     },
     {
         module: 'Tolerânica a estados emocionais dolorosos',
-        image: Tolerancia
+        image: Tolerancia,
+        possibleExercisesKey: "distress_tolerance"
     },
 ]
 
@@ -84,7 +38,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ExercisesDialog() {
+export default function ExercisesDialog(props) {
+  
+  let setExercises = props.setExercises;
+  let exercisesSelected = props.exercisesSelected;
+  let possibleExercises = props.possibleExercises;
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -98,7 +57,7 @@ export default function ExercisesDialog() {
   return (
     <div>
     <Box sx ={{p:1 }}>
-        <Box sx ={{p:1, bgcolor: '#ec6fa7'}}>
+        <Box sx ={{p:1, bgcolor: '#ec6fa7',textAlign:'center'}}>
             <Button sx={{textTransform: 'none'}} onClick={handleClickOpen}>
                 <Grid container direction='column'>
                     <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
@@ -157,9 +116,11 @@ export default function ExercisesDialog() {
 
         <Box sx ={{pt:2, mt:2}}>
         
-            {modulesContent.map(function(data, index) {
+            {modules.map(function(data, index) {
+                const exercises = possibleExercises[data.possibleExercisesKey]
+                
                 return (
-                    <Box sx ={{p:1, bgcolor: '#ec6fa7', alignSelf: 'center', width: '80%', m: '0 auto'}}>
+                    <Box key={index} sx ={{p:1, bgcolor: '#ec6fa7', alignSelf: 'center', width: '80%', m: '0 auto'}}>
                   <Grid
                   sx={{placeItems:"center", justifyContent: 'center', alignItems: 'center'}}>
                         <img style={{ width: '30%', display: 'block', marginLeft: 'auto', marginRight: 'auto'}} alt={data.module} src={data.image} />
@@ -167,9 +128,37 @@ export default function ExercisesDialog() {
                     <Autocomplete
                     sx={{ m: 1 }}
                     multiple
-                    options={data.exercises}
+                    options={exercises.map((option) => option.exercicioName)}
                     getOptionLabel={(option) => option}
                     disableCloseOnSelect
+                    onChange={(event, value, reason) => {
+                      console.log("value", value)
+                       if(reason == "selectOption"){
+                        
+                          let newExercisesSelected = exercisesSelected
+                          value.forEach((exercise) => {
+                            if(exercisesSelected.find((ex) => ex.exercicioName == exercise)) return;
+                            
+                            newExercisesSelected.push(exercises.find((ex) => ex.exercicioName == exercise))
+                          
+                          })
+                          setExercises(newExercisesSelected)
+                       }
+                       else if(reason == "removeOption"){
+                  
+                        let newExercisesSelected = exercisesSelected
+                        newExercisesSelected = newExercisesSelected.filter((ex) => {
+                          if(exercises.find((localOptions) => ex.exercicioName == localOptions.exercicioName) != undefined){ //exercise is in these options
+                              return value.find((exercise) => exercise == ex.exercicioName) != undefined //exercise is not in the value
+                          }
+                          return true
+                        })
+                        
+                     
+                        setExercises(newExercisesSelected)
+                      }
+                    }
+                  }
                     ChipProps={{color:"success"}}
                     renderInput={(params) => (
                         <TextField

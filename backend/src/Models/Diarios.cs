@@ -57,12 +57,14 @@ public class EmotionDiaryEntryDTO
     public String? Hour { get; set; }
 
     [Required]
+    public String? ReflexaoEmotion { get; set; }
+
+    [Required]
     public ICollection<Sentimento> Sentimentos { get; set; } = new List<Sentimento>();
 
     [Required]
     public List<ExercicioDTO> Exercicios { get; set; } = new List<ExercicioDTO>();
-    [Required]
-    public String? Reflexao;
+
 }
 
 
@@ -79,13 +81,14 @@ public class EmotionDiaryEntry
     public TimeOnly? Hour { get; set; }
 
     [Required]
+    public String? ReflexaoEmotion { get; set; }
+
+    [Required]
     public ICollection<Sentimento> Sentimentos { get; set; } = new List<Sentimento>();
 
     [Required]
     public List<Exercicio> Exercicios { get; set; } = new List<Exercicio>();
 
-    [Required]
-    public String? Reflexao;
 }
 
 
@@ -160,6 +163,8 @@ public class ExercicioDTO
 {
     [Required]
     public String? ExercicioFile { get; set; }
+
+    public bool ExercicioIsFavorite { get; set; }
 }
 
 public class PersonalPageInfo
@@ -202,16 +207,36 @@ public class Exercicio
     public int ModuloNumberOrder { get; set; }
 
     [Required]
+    public int SubModuleNumberOrder { get; set; }
+
+    [Required]
+    public int PageNumber { get; set; }
+
+    [Required]
     public String? ExercicioName { get; set; }
 
     [Required]
     public String? ExercicioFile { get; set; }
+
 
     //override toString
     public override string ToString()
     {
         return ExercicioName!;
     }
+
+}
+
+public class ModuloBlockInfo
+{
+    [Required]
+    public int ModuloNumberOrder { get; set; }
+
+    [Required]
+    public String? ModuloTitle { get; set; }
+
+    [Required]
+    public bool IsBlocked { get; set; }
 
 }
 
@@ -231,6 +256,21 @@ public class SubModulePageUserInfo
 
     [Required]
     public String? SubModuleTitle { get; set; }
+
+    [Required]
+    public List<ExercicioDTO> ExerciciosFavoritos { get; set; } = new List<ExercicioDTO>();
+}
+
+public class PageInfo
+{
+    [Required]
+    public int ModuloNumberOrder { get; set; }
+
+    [Required]
+    public int SubModuleNumberOrder { get; set; }
+
+    [Required]
+    public int PageNumber { get; set; }
 }
 
 public class SubModulePage

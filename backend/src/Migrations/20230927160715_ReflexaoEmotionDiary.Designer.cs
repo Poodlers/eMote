@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Models;
 
@@ -10,9 +11,11 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230927160715_ReflexaoEmotionDiary")]
+    partial class ReflexaoEmotionDiary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.8");
@@ -96,13 +99,7 @@ namespace backend.Migrations
                     b.Property<int>("ModuloNumberOrder")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PageNumber")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int?>("SubModuleExercicios")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SubModuleNumberOrder")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

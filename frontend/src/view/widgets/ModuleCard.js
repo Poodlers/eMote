@@ -23,7 +23,7 @@ const links = [
 
 export default function ModuleCard(props) {
   return (
-    <Link href={links[props.index]} underline="none">
+    <Link href={props.blocked ? '#': links[props.index]} underline="none">
     <Card sx={{ height:120, minWidth: 150, bgcolor: colorCards[props.index][0] }}>
       <CardContent>
         <Typography sx={{ fontSize: 11 }} color={colorCards[props.index][1]} >

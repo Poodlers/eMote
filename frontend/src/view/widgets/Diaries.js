@@ -1,8 +1,8 @@
 import DiaryCard from './DiaryCard'
 import { Grid } from '@mui/material'
 
-function Diaries() {
-    
+function Diaries(props) {
+    const isBlocked = props.isBlocked;
 const diariesList = [
     {
         diary: 'Refeições',
@@ -21,7 +21,7 @@ const diariesList = [
                     <Grid item xs={6}  key= {index}>
                         <DiaryCard
                             name = {data.diary}
-                            blocked = {data.blocked}
+                            blocked = {isBlocked}
                             index = {index}
                         />
                     </Grid>

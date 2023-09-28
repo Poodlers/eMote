@@ -25,7 +25,7 @@ function MealDiaryPage() {
   }, []);
   return (
 
-        <Box sx={{px:5, height:'100vh',  backgroundColor: '#01698b' }}>
+        <Box sx={{ height:'100vh', width:'100%', backgroundColor: '#01698b' }}>
 
         <IconButton component={Link} to="/home" aria-label="back" size="large">
           <ArrowBackIosIcon htmlColor= "#349db7" fontSize="inherit" />
@@ -43,20 +43,20 @@ function MealDiaryPage() {
             :
             hasAccess ?
             <>
-            <div style={{ paddingBottom: 10, display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+            <div style={{ paddingBottom: 10, backgroundColor: '#01698b' ,display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
                   <img alt="logo" style={{ alignSelf: 'center' }} src={DiaryLogo} width='30%' />
               </div>
             <Typography gutterBottom sx={{ pb:1, textAlign: 'center', fontSize: 17, fontWeight: 500 }} variant='body1' color={"white"}>
                 Diário das Refeições
             </Typography>
-            <Box sx={{p:2}}>
-              <MealButton meal= "Pequeno Almoço" href="/pqnoalmoco"/>
-              <MealButton meal= "Lanche da Manhã" href="/lanchemanha"/>
-              <MealButton meal= "Almoço" href="/almoco"/>
-              <MealButton meal= "Lanche da Tarde" href="/lanche" />
-              <MealButton meal= "Jantar" href="/jantar" />
-              <MealButton meal= "Ceia" href="/ceia"/>
-              <MealButton meal= "Outra Refeição" href="/outraref"/>
+            <Box sx={{p:5, backgroundColor: '#01698b' }}>
+              <MealButton meal= "Pequeno Almoço" href="mealpage/pqnoalmoco"/>
+              <MealButton meal= "Lanche da Manhã" href="mealpage/lanchemanha"/>
+              <MealButton meal= "Almoço" href="mealpage/almoco"/>
+              <MealButton meal= "Lanche da Tarde" href="mealpage/lanche" />
+              <MealButton meal= "Jantar" href="mealpage/jantar" />
+              <MealButton meal= "Ceia" href="mealpage/ceia"/>
+              <MealButton meal= "Outra Refeição" href="mealpage/outraref"/>
             </Box>
 
             </>

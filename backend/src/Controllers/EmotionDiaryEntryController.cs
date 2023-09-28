@@ -14,12 +14,14 @@ public class EmotionDiaryEntryController : ControllerBase
 
     private readonly DbSet<Exercicio> _dbExercicioSet;
 
-    public EmotionDiaryEntryController(DatabaseContext context)
+    private readonly ILogger<EmotionDiaryEntryController> _logger;
+
+    public EmotionDiaryEntryController(DatabaseContext context, ILogger<EmotionDiaryEntryController> logger)
     {
         this._context = context;
         this._dbUserSet = _context.Set<User>();
         this._dbExercicioSet = _context.Set<Exercicio>();
-
+        _logger = logger;
 
     }
 
@@ -75,9 +77,6 @@ public class EmotionDiaryEntryController : ControllerBase
         }
         //get all exercises with the same fileNames present in the dto.Exercicios list
 
-
-
-
         var exercicios = _dbExercicioSet.ToList().Where(e =>
          dto.Exercicios.Find(exercicioDTO => exercicioDTO.ExercicioFile == e.ExercicioFile)
             != null
@@ -89,7 +88,7 @@ public class EmotionDiaryEntryController : ControllerBase
             Hour = hora,
             Sentimentos = dto.Sentimentos,
             Exercicios = exercicios,
-            Reflexao = dto.Reflexao
+            ReflexaoEmotion = dto.ReflexaoEmotion
         };
 
         user.EmotionDiaryEntries!.Add(newEntry);
@@ -97,7 +96,51 @@ public class EmotionDiaryEntryController : ControllerBase
         return Ok(newEntry);
 
     }
+    [HttpGet("{user_code}/exercises-names", Name = "GetAllExercises")]
+    public Dictionary<string, List<Exercicio>> GetExercises(string user_code)
+    {
+        var user = _dbUserSet
+        .Include(user => user.ModulosProgress)
+        .ThenInclude(modulo => modulo.SubModuleUserProgresses.Where(s => s.IsCompleted))
+        .ThenInclude(submodulo => submodulo.SubModule)
+        .ThenInclude(submodulo => submodulo!.SubModulePages)
+        .ThenInclude(submodulopage => submodulopage.Exercicios)
+        .Where(u => u.Code == user_code)
+        .FirstOrDefault();
 
+        if (user == null)
+        {
+            return new Dictionary<string, List<Exercicio>> { };
+        }
+        var completed_exercises = new List<Exercicio>();
+        foreach (var modulo in user.ModulosProgress)
+        {
+            foreach (var submodulo in modulo.SubModuleUserProgresses)
+            {
+                foreach (var submodulopage in submodulo.SubModule!.SubModulePages)
+                {
+                    foreach (var exercicio in submodulopage.Exercicios)
+                    {
+                        completed_exercises.Add(exercicio);
+
+                    }
+                }
+            }
+        }
+
+
+
+        var mindfulness_exercises = completed_exercises.Where(exercicio => exercicio.ModuloNumberOrder == 2).ToList();
+        var emotion_regulation_exercises = completed_exercises.Where(exercicio => exercicio.ModuloNumberOrder == 3).ToList();
+        var distress_tolerance_exercises = completed_exercises.Where(exercicio => exercicio.ModuloNumberOrder == 4).ToList();
+
+        return new Dictionary<string, List<Exercicio>>
+        {
+            ["mindfulness"] = mindfulness_exercises,
+            ["emotion_regulation"] = emotion_regulation_exercises,
+            ["distress_tolerance"] = distress_tolerance_exercises!
+        };
+    }
 
 
 
