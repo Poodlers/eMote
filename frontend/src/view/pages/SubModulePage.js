@@ -1,11 +1,8 @@
 import React from 'react';
-import { AppBar, Box, Grid, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Grid, IconButton, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar';
 
 import { modulesThemes } from '../../constants/themes.js';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-
 import phonesPurple from '../../assets/images/phones_rosa.png';
 import phonesGreen from '../../assets/images/phones.png';
 
@@ -17,112 +14,222 @@ import { ComponentState } from '../../models/ComponentState';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { NavBar } from '../widgets/NavBar';
 import SubmoduleContentPage from './SubmoduleContentPage';
+import withRouter from '../widgets/withRouter';
 
 
 
-function SubModulePage(props) {
-    const navigate = useNavigate();
-    let { moduleNumber, submoduleNumber, pageNumber } = useParams();
-    const repository = RepositorySingleton.getInstance().injectRepository();
-    const [componentState, setComponentState] = React.useState(ComponentState.LOADING);
-    const [module, setModule] = React.useState({});
-    const [pageContent, setPageContent] = React.useState({});
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [exercisesObj, setExercisesObj] = useState({});
+class SubModulePage extends React.Component {
 
-    useEffect(() => {
-        let exerciseFiles = [];
-        let exercisesToFavorite = [];
-        for (const key in exercisesObj) {
-            if (exercisesObj.hasOwnProperty(key)) {
-                exerciseFiles.push(key);
-                exercisesToFavorite.push(exercisesObj[key]);
+   
+    constructor(props) {
+        super();
+        this.props = props;
+        
+        this.state = {
+            componentState: ComponentState.LOADING,
+            module: {},
+            pageContent: {},
+            exercisesObj: {},
+            audioRefs: [],
+            moduleNumber: this.props.router.params.moduleNumber,
+            submoduleNumber: this.props.router.params.submoduleNumber,
+            pageNumber: this.props.router.params.pageNumber,
+        }
+
+    }
+    togglePlay = (audioFile) => {
+        let audioRefsCopy = this.state.audioRefs;
+        for(let i = 0; i < audioRefsCopy.length; i++){
+            if(audioRefsCopy[i].audioFile == audioFile){
+                audioRefsCopy[i].isPlaying = !audioRefsCopy[i].isPlaying;
+                break;
             }
-          }
-       
-        if(exerciseFiles.length == 0) return;
-
-        repository.manageFavoriteExercises(exerciseFiles, exercisesToFavorite
-        ).then((response) => {
-            
         }
-        ).catch((error) => {
-            console.log(error);
-        });
-    },
-        [exercisesObj])
+        this.setState({audioRefs : [...audioRefsCopy]});
+      
+    }
 
-    
-    useEffect(() => {
-        if(isPlaying){
-            //audioElem.current.play();
-            console.log('playing');
+    componentWillUnmount() {
+        for(let i = 0; i < this.state.audioRefs.length; i++){
+            this.state.audioRefs[i].audioRef.pause();
         }
-        else{
-            //audioElem.current.pause();
-            console.log('paused');
+        //remove all audio tags from the DOM
+        let audioTags = document.getElementsByTagName('audio');
+        for(let i = 0; i < audioTags.length; i++){
+            audioTags[i].remove();
         }
-    },
-        [isPlaying])
+    }
 
-    useEffect(() => {
-        repository.getPageContent(moduleNumber, submoduleNumber,pageNumber).then((response) => {
+    componentDidMount() {
+        const repository = RepositorySingleton.getInstance().injectRepository();
+        repository.getPageContent(this.props.router.params.moduleNumber, this.props.router.params.submoduleNumber,this.props.router.params.pageNumber).then((response) => {
             if(response.isBlocked){
-                setComponentState(ComponentState.NOT_ALLOWED);
+                this.setState(
+                    {componentState: ComponentState.NOT_ALLOWED});
                 return;
             }
           for (const obj of modulesThemes) {
-            if (obj.moduloId == moduleNumber) {
-              setModule(obj);
+            if (obj.moduloId == this.state.moduleNumber) {
+              this.setState({module: obj});
               break;
             }
           }
-          setPageContent(response);
+          this.setState(
+                {pageContent: response});
+          
           let exercises = {};
+          let audioRefs = [];
           for(let i = 0; i < response.exerciciosFavoritos.length; i++){
+                audioRefs.push({    
+                     audioRef : new Audio( `/audios/${response.exerciciosFavoritos[i].exercicioFile}`),
+                     isPlaying : false,
+                     audioFile: response.exerciciosFavoritos[i].exercicioFile
+                    });
                 exercises[response.exerciciosFavoritos[i].exercicioFile] = response.exerciciosFavoritos[i].exercicioIsFavorite;
             }
-
-          setExercisesObj(exercises);
-          
-          setComponentState(ComponentState.LOADED);
+          this.setState(
+                {audioRefs: [...audioRefs],
+                exercisesObj: exercises,
+                componentState: ComponentState.LOADED
+                }
+            );
+        
+        
             
         }).catch((error) => {
-            setComponentState(ComponentState.ERROR);
+            this.setState( { componentState: ComponentState.ERROR});
             console.log(error);
         });
-    }, [pageNumber, submoduleNumber, moduleNumber]);
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.router.params.moduleNumber != this.props.router.params.moduleNumber ||
+            prevProps.router.params.submoduleNumber != this.props.router.params.submoduleNumber ||
+            prevProps.router.params.pageNumber != this.props.router.params.pageNumber){
+                this.setState({moduleNumber: this.props.router.params.moduleNumber,
+                    submoduleNumber: this.props.router.params.submoduleNumber,
+                    pageNumber: this.props.router.params.pageNumber});
+            }
+    
+        const repository = RepositorySingleton.getInstance().injectRepository();
+        if (prevState.moduleNumber != this.state.moduleNumber ||
+            prevState.submoduleNumber != this.state.submoduleNumber ||
+            prevState.pageNumber != this.state.pageNumber) {  
+               let objModule = {};
+                repository.getPageContent(this.state.moduleNumber, this.state.submoduleNumber,this.state.pageNumber).then((response) => {
+                    if(response.isBlocked){
+                        this.setState(
+                            {componentState: ComponentState.NOT_ALLOWED});
+                        return;
+                    }
+                  for (const obj of modulesThemes) {
+                    if (obj.moduloId == this.state.moduleNumber) {
+                      
+                        objModule = obj;
+                        break;
+                    }
+                  }
+                
+                  
+                  let exercises = {};
+                  let audioRefs = [];
+                  for(let i = 0; i < response.exerciciosFavoritos.length; i++){
+                        audioRefs.push({    
+                             audioRef : new Audio( `/audios/${response.exerciciosFavoritos[i].exercicioFile}`),
+                             isPlaying : false,
+                             audioFile: response.exerciciosFavoritos[i].exercicioFile
+                            });
+                        exercises[response.exerciciosFavoritos[i].exercicioFile] = response.exerciciosFavoritos[i].exercicioIsFavorite;
+                    }
+                    console.log('setting new state ');
+                  this.setState(
+                        {audioRefs: [...audioRefs],
+                        objModule: objModule,
+                        exercisesObj: exercises,
+                        pageContent: response,
+                        componentState: ComponentState.LOADED
+                        }
+                    );
+                
+                
+                    
+                }).catch((error) => {
+                    this.setState( { componentState: ComponentState.ERROR});
+                    console.log(error);
+                });
+            
+           
+        }
+        if(prevState.exercisesObj != this.state.exercisesObj){
+            let exerciseFiles = [];
+            let exercisesToFavorite = [];
+            for (const key in this.state.exercisesObj) {
+                if (this.state.exercisesObj.hasOwnProperty(key)) {
+                    exerciseFiles.push(key);
+                    exercisesToFavorite.push(this.state.exercisesObj[key]);
+                }
+            }
+        
+            if(exerciseFiles.length == 0) return;
 
-    const setFavorite = (exerciseFile) => {
-        let exercises = exercisesObj;
-        exercises[exerciseFile] = !exercises[exerciseFile];
-        setExercisesObj({...exercises});
+            repository.manageFavoriteExercises(exerciseFiles, exercisesToFavorite
+            ).then((response) => {
+                
+            }
+            ).catch((error) => {
+                console.log(error);
+            });
+        }
+        if(prevState.audioRefs != this.state.audioRefs){
+            if(this.state.audioRefs.length == 0) return;
+        
+            for(let i = 0; i < this.state.audioRefs.length; i++){
+                
+                this.state.audioRefs[i].audioRef.addEventListener('ended', () => this.togglePlay(this.state.audioRefs[i].audioFile));
+                if(this.state.audioRefs[i].isPlaying){
+                    this.state.audioRefs[i].audioRef.play();
+                }else{
+                    this.state.audioRefs[i].audioRef.pause();
+                }
+            }
+        }
+        
     }
 
-    const handleEndOfPage = () => {
+
+    setFavorite = (exerciseFile) => {
+        let exercises = this.state.exercisesObj;
+        exercises[exerciseFile] = !exercises[exerciseFile];
+        this.setState({exercisesObj :
+              {...exercises}});
+    }
+
+   
+
+    handleEndOfPage = () => {
+        const repository = RepositorySingleton.getInstance().injectRepository();
         const nextPageLink =
-        pageContent.isLastPageInModulo ?
-        module.feedbacklink :
-        pageContent.isLastPage ? 
-        `/submodulelist/${moduleNumber}` :
-        `/submodulepage/${moduleNumber}/${submoduleNumber}/${parseInt(pageNumber) + 1}`;
+        this.state.pageContent.isLastPageInModulo ?
+        this.state.module.feedbacklink :
+        this.state.pageContent.isLastPage ? 
+        `/submodulelist/${this.props.router.params.moduleNumber}` :
+        `/submodulepage/${this.props.router.params.moduleNumber}/${this.props.router.params.submoduleNumber}/${parseInt(this.props.router.params.pageNumber) + 1}`;
         
         const dataFim = new Date().toLocaleString().replace(',', '');
-        console.log(dataFim);
-        if(pageContent.isLastPage){
-            repository.registerSubModuloTimeStamps(moduleNumber, submoduleNumber, undefined,
+        
+        if(this.state.pageContent.isLastPage){
+            repository.registerSubModuloTimeStamps(this.state.moduleNumber, this.state.submoduleNumber, undefined,
             dataFim
             ).then((response) => {
-                console.log('Submodule end!: ' + response);
-                if(pageContent.isLastPageInModulo){
-                    repository.registerModuloTimeStamps(moduleNumber, undefined,dataFim).then((response) => {
-                        console.log(response);
-                        navigate(nextPageLink, { replace: true });
+                
+                if(this.state.pageContent.isLastPageInModulo){
+                    repository.registerModuloTimeStamps(this.state.moduleNumber, undefined,dataFim).then((response) => {
+                       
+                        this.props.router.navigate(nextPageLink, { replace: true });
                     }).catch((error) => {
                         console.log(error);
                     });
                 }else{
-                    navigate(nextPageLink, { replace: true });
+                    this.props.router.navigate(nextPageLink, { replace: true });
                 }
             }).catch((error) => {
                 console.log(error);
@@ -131,98 +238,103 @@ function SubModulePage(props) {
             
         }else{
             
-            navigate(nextPageLink, { replace: true });
+            this.props.router.navigate(nextPageLink, { replace: true });
         }   
 
     }
+    render() {
 
-  return (
-    <>
-    {
-        componentState == ComponentState.NOT_ALLOWED ?
-        <Typography color="secondary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
-            Página bloqueada até completar o submodulo anterior
-        </Typography>
-        :
-        componentState == ComponentState.LOADING ?
-        <Typography color="primary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
-            Carregando...
-        </Typography>
-        :
-        componentState == ComponentState.ERROR ?
-            <Typography color="secondary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
-                Erro ao carregar página 
-            </Typography>
-            :
+        return (
             <>
-    {<audio src=''/>}
-    <LogoAppBar color={module.theme} goBack={true}/>
-    <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: module.color1 }} >
-        <Box sx ={{p:5, pt:2, pb:2, alignContent: 'center', width: '80%', m:'0 auto'}}>
-            <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
-                {pageContent.subModuleTitle}
-            </Typography>
-        </Box>
-    </AppBar>
+            {
+                this.state.componentState == ComponentState.NOT_ALLOWED ?
+                <Typography color="secondary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
+                    Página bloqueada até completar o submodulo anterior
+                </Typography>
+                :
+                this.state.componentState == ComponentState.LOADING ?
+                <Typography color="primary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
+                    Carregando...
+                </Typography>
+                :
+                this.state.componentState == ComponentState.ERROR ?
+                    <Typography color="secondary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
+                        Erro ao carregar página 
+                    </Typography>
+                    :
+                    <>
 
-    <Box sx={{mt:'120px', mb:'70px'}}>
-
-      <Box sx= {{pt:1}} textAlign='center'>
-        <SubmoduleContentPage 
-        isLastPage={pageContent.isLastPage}
-        module={module} pageNumber={pageNumber} subModuleNumber={submoduleNumber} submodulesContent={pageContent.subModulePage}/>
-        {pageContent.subModulePage.exercicios.map(function(data, index){
-            return (
-            <div key={index}>
-                <Box sx= {{pt:3}}> 
-                    <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 22, fontWeight: 500 }} variant='body1' color={"white"}>
-                        {data.exercicioName}
+            <LogoAppBar color={this.state.module.theme} goBack={true}/>
+            <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: this.state.module.color1 }} >
+                <Box sx ={{p:5, pt:2, pb:2, alignContent: 'center', width: '80%', m:'0 auto'}}>
+                    <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
+                        {this.state.pageContent.subModuleTitle}
                     </Typography>
                 </Box>
-                <Box sx= {{p:3}}>
-                    <Grid container direction='row'>
-                        <Grid item xs={9}>
-                            <img alt='phones' src={module.name == 'Regulação emocional'? phonesPurple : phonesGreen}/>
-                        </Grid>
-                        <Grid item alignSelf='end' xs={3}>
-                            <IconButton size='large' onClick={()=>{setIsPlaying(!isPlaying)}} >
-                                {isPlaying ? 
-                                <PauseCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={module.color1} />
-                                : 
-                                <PlayCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={module.color1} /> }
+            </AppBar>
+
+            <Box sx={{mt:'120px', mb:'70px'}}>
+
+            <Box sx= {{pt:1}} textAlign='center'>
+                <SubmoduleContentPage 
+                isLastPage={this.state.pageContent.isLastPage} isModuleEnd = {this.state.pageContent.isLastPageInModulo}
+                module={this.state.module} pageNumber={this.state.pageNumber} subModuleNumber={this.state.submoduleNumber} 
+                submodulesContent={this.state.pageContent.subModulePage}/>
+                {this.state.pageContent.subModulePage.exercicios.map((data, index) => {
+                
+                    return (
+                    <div key={index}>
+                        <Box sx= {{pt:3}}> 
+                            <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 22, fontWeight: 500 }} variant='body1' color={"white"}>
+                                {data.exercicioName}
+                            </Typography>
+                        </Box>
+                        <Box sx= {{p:3}}>
+                            <Grid container direction='row'>
+                                <Grid item xs={9}>
+                                    <img alt='phones' src={module.name == 'Regulação emocional'? phonesPurple : phonesGreen}/>
+                                </Grid>
+                                <Grid item alignSelf='end' xs={3}>
+                                    <IconButton size='large' onClick={()=>{this.togglePlay(data.exercicioFile)}} >
+                                        {
+                                        this.state.audioRefs.find(audioRef => audioRef.audioFile == data.exercicioFile).isPlaying ? 
+                                        <PauseCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1} />
+                                        : 
+                                        <PlayCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1} /> }
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
+
+                            <IconButton sx={{p:3}} size='large' onClick={()=>{this.setFavorite(data.exercicioFile)}} >
+                                
+                                {this.state.exercisesObj[data.exercicioFile] ? 
+                                <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1} />
+                                :
+                                <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1 } /> }
                             </IconButton>
-                        </Grid>
-                    </Grid>
-
-                    <IconButton sx={{p:3}} size='large' onClick={()=>{setFavorite(data.exercicioFile)}} >
-                        
-                        {exercisesObj[data.exercicioFile] ? 
-                        <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={module.color1} />
-                        :
-                        <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={module.color1 } /> }
-                    </IconButton>
-                </Box>
-            </div>
-            )
-        })}
+                        </Box>
+                    </div>
+                    )
+                })}
 
 
-      </Box>
-      
-        <IconButton onClick={handleEndOfPage} sx={{ bottom:"5%", left:"70%" }}>
-            <img alt='check' src={module.check}/>
-        </IconButton>
-    </Box>
-    <NavBar color={module.theme}/>
-   
-    </>
+            </Box>
             
+                <IconButton onClick={this.handleEndOfPage} sx={{ bottom:"5%", left:"70%" }}>
+                    <img alt='check' src={this.state.module.check}/>
+                </IconButton>
+            </Box>
+            <NavBar color={this.state.module.theme}/>
         
-    }
-    </>
-    
+            </>
+                    
+                
+            }
+            </>
+            
 
-  );
+        );
+    }
 }
 
-export default SubModulePage;
+export default withRouter(SubModulePage);

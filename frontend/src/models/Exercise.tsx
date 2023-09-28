@@ -1,5 +1,7 @@
 export interface Exercise {
     moduloNumberOrder : number,
     exercicioName : string,
-    exercicioFile : string
+    exercicioFile : string,
+    subModuleNumberOrder : number,
+    pageNumber : number,
 }

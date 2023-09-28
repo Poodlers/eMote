@@ -12,7 +12,7 @@ const colorCards = ['#349cb6', '#d8accc']
 export default function DiaryCard(props) {
   return (
     <Box sx ={{p:2}}>
-        <Link href={props.name === 'Emoções' ? "/emotiondiary" : "/mealdiary"}>
+        <Link href={props.blocked ? '#' : props.name === 'Emoções' ? "/emotiondiary" : "/mealdiary"}>
             <Grid container sx={{ p: 0.5 }} direction="row" justifyContent="center">
                 <img alt= {props.name} src={props.name === 'Emoções' ? Emocoes : Refeicoes} height={120}/>
             </Grid>

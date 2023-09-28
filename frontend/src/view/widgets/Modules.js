@@ -1,9 +1,6 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import ModuleCard from './ModuleCard'
-import { Grid, Typography } from '@mui/material'
-import { ComponentState } from '../../models/ComponentState';
+import { Grid } from '@mui/material'
 
 function Modules(props) {
     const modulesList = props.modulesList;
@@ -14,7 +11,7 @@ function Modules(props) {
             <Grid container spacing={2}>
                 
                 {modulesList.map(function(data, index) {
-                    console.log(data);
+                    
                     return (
                         <Grid item xs={6} key={index}>
                             <ModuleCard

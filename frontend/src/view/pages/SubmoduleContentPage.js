@@ -12,6 +12,7 @@ function SubmoduleContentPage(props) {
     const subModuleNumber = props.subModuleNumber;
     const pageNumber = props.pageNumber;
     const isLastPage = props.isLastPage;
+    const isModuleEnd = props.isModuleEnd;
     
 
   return (
@@ -26,7 +27,10 @@ function SubmoduleContentPage(props) {
               <Box sx ={{ p:3}} textAlign='center'>
                 <Button  onClick={() =>{
                    navigate(
-                    isLastPage ? `/submodulelist/${module.moduloId}/` : `/submodulepage/${module.moduloId}/${subModuleNumber}/${parseInt(pageNumber) + 1}`,
+                    isLastPage ? (isModuleEnd ? `/feedback/${module.moduloId}`:
+                     `/submodulelist/${module.moduloId}/`)
+
+                     : `/submodulepage/${module.moduloId}/${subModuleNumber}/${parseInt(pageNumber) + 1}`,
             
                    {replace: true}
                    )

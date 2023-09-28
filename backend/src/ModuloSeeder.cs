@@ -176,7 +176,12 @@ Preparada?"
                                 {
 
                                     ExercicioName = @"Exercício 1 - Respiração diafragmática",
-                                    ExercicioFile = "submod2.1_ativ1.mp3"
+                                    ExercicioFile = "submod2.1_ativ1.mp3",
+                                    ModuloNumberOrder = 2,
+                                    SubModuleNumberOrder = 1,
+                                    PageNumber = 2
+
+
                                 }
                             }
                         }
@@ -212,6 +217,8 @@ Preparada?
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 2,
+                                    SubModuleNumberOrder = 2,
+                                    PageNumber = 2,
                                     ExercicioName = @"Exercício 2 - Encontre a sua mente sábia",
                                     ExercicioFile = "submod2.2_ativ1.mp3"
                                 }
@@ -239,6 +246,8 @@ Preparada?
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 2,
+                                    SubModuleNumberOrder = 3,
+                                    PageNumber = 2,
                                     ExercicioName = @"Exercício 3 - Observar",
                                     ExercicioFile = "submod2.3_ativ1.mp3"
                                 }
@@ -265,6 +274,8 @@ Preparada?
                             new Exercicio
                             {
                                 ModuloNumberOrder = 2,
+                                SubModuleNumberOrder = 4,
+                                PageNumber = 2,
                                 ExercicioName = @"Exercício 4 - Observar e descrever com um tapete rolante",
                                 ExercicioFile = "submod2.4_ativ1.mp3"
                             }
@@ -293,7 +304,9 @@ Preparada?"
                     {
                         new Exercicio
                         {
-                             ModuloNumberOrder = 2,
+                            ModuloNumberOrder = 2,
+                            SubModuleNumberOrder = 5,
+                            PageNumber = 2,
                             ExercicioName = "Exercício 5 - Meditação da passa de uva",
                             ExercicioFile = "submod2.5_ativ1.mp3"
                         }
@@ -321,6 +334,8 @@ Preparada?"
                         new Exercicio
                         {
                             ModuloNumberOrder = 2,
+                            SubModuleNumberOrder = 6,
+                            PageNumber = 2,
                             ExercicioName = "Exercício 6 - Não julgar",
                             ExercicioFile = "submod2.6_ativ1.mp3"
                         }
@@ -348,6 +363,8 @@ Preparada?"
                         new Exercicio
                         {
                             ModuloNumberOrder = 2,
+                            SubModuleNumberOrder = 7,
+                            PageNumber = 2,
                             ExercicioName = "Exercício 7 - Focar num momento de cada vez",
                             ExercicioFile = "submod2.7_ativ1.mp3"
                         }
@@ -376,6 +393,8 @@ Preparada?"
                         new Exercicio
                         {
                             ModuloNumberOrder = 2,
+                            SubModuleNumberOrder = 8,
+                            PageNumber = 2,
                             ExercicioName = "Exercício 8 - Mindful eating em imaginação",
                             ExercicioFile = "submod2.8_ativ1.mp3"
                         }
@@ -403,6 +422,8 @@ Preparada?"
                         new Exercicio
                         {
                             ModuloNumberOrder = 2,
+                            SubModuleNumberOrder = 9,
+                            PageNumber = 2,
                             ExercicioName = "Exercício 9 - Surfar o Impulso",
                             ExercicioFile = "submod2.9_ativ1.mp3"
                         }
@@ -445,6 +466,8 @@ Preparada?"
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 3,
+                                    SubModuleNumberOrder = 1,
+                                    PageNumber = 2,
                                     ExercicioName = "Exercício 1 - Mindfulness da emoção presente",
                                     ExercicioFile = "submod3.1_ativ1.mp3"
                                 }
@@ -470,6 +493,8 @@ Preparada?"
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 3,
+                                    SubModuleNumberOrder = 2,
+                                    PageNumber = 2,
                                     ExercicioName = "Exercício 2 - Aceitar radicalmente a nossa emoção",
                                     ExercicioFile = "submod3.2_ativ1.mp3"
                                 }
@@ -496,6 +521,8 @@ Preparada?"
                             new Exercicio
                             {
                                 ModuloNumberOrder = 3,
+                                SubModuleNumberOrder = 3,
+                                PageNumber = 2,
                                 ExercicioName = "Exercício 3 - Como reduzir a vulnerabilidade?",
                                 ExercicioFile = "submod3.3_ativ1.mp3"
                             }
@@ -524,6 +551,8 @@ Preparada?"
                             new Exercicio
                             {
                                 ModuloNumberOrder = 3,
+                                SubModuleNumberOrder = 4,
+                                PageNumber = 2,
                                 ExercicioName = "Exercício 4 - Mindfulness das experiências positivas",
                                 ExercicioFile = "submod3.4_ativ1.mp3"
                             }
@@ -549,6 +578,8 @@ Preparada?"
                             new Exercicio
                             {
                                 ModuloNumberOrder = 3,
+                                SubModuleNumberOrder = 5,
+                                PageNumber = 2,
                                 ExercicioName = "Exercício 5 - Agir de forma oposta à emoção presente",
                                 ExercicioFile = "submod3.5_ativ1.mp3"
                             }
@@ -585,6 +616,8 @@ Preparada?"
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 4,
+                                    SubModuleNumberOrder = 1,
+                                    PageNumber = 2,
                                     ExercicioName = "Exercício 1 - Observar a respiração",
                                     ExercicioFile = "submod4.1_ativ1.mp3"
                                 }
@@ -610,6 +643,8 @@ Preparada?"
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 4,
+                                    SubModuleNumberOrder = 2,
+                                    PageNumber = 2,
                                     ExercicioName = "Exercício 2 - Meio sorriso",
                                     ExercicioFile = "submod4.2_ativ1.mp3"
                                 }
@@ -637,6 +672,8 @@ Preparada?"
                                 {
 
                                     ModuloNumberOrder = 4,
+                                    SubModuleNumberOrder = 3,
+                                    PageNumber = 2,
                                     ExercicioName = "Exercício 3 - Aceitação radical",
                                     ExercicioFile = "submod4.3_ativ1.mp3"
                                 }
@@ -662,6 +699,8 @@ Preparada?"
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 4,
+                                    SubModuleNumberOrder = 4,
+                                    PageNumber = 2,
                                     ExercicioName = "Exercício 4 - Aceitar a dor de uma situação atual",
                                     ExercicioFile = "submod4.4_ativ1.mp3"
                                 }
@@ -690,18 +729,24 @@ Preparada?"
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 4,
+                                    SubModuleNumberOrder = 5,
+                                    PageNumber = 2,
                                     ExercicioName = "Exercício 5 - Sobrevivência às crises - Parte 1",
                                     ExercicioFile = "submod4.5_ativ1.mp3"
                                 },
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 4,
+                                    SubModuleNumberOrder = 5,
+                                    PageNumber = 2,
                                     ExercicioName = "Exercício 5 - Sobrevivência às crises - Parte 2",
                                     ExercicioFile = "submod4.5_ativ2.mp3"
                                 },
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 4,
+                                    SubModuleNumberOrder = 5,
+                                    PageNumber = 2,
                                     ExercicioName = "Exercício 5 - Sobrevivência às crises - Parte 3",
                                     ExercicioFile = "submod4.5_ativ3.mp3"
                                 }

@@ -32,7 +32,7 @@ function EmotionDiaryPage() {
   useEffect(() => {
     repository.hasAccessToDiaries().then((response) => {
       setHasAccess(response);
-      if(!response) return;
+     
       repository.fetchAllSeenExercises().then((response) => {
         setExercisesContent({...response});
         setComponentState(ComponentState.LOADED);
@@ -49,7 +49,7 @@ function EmotionDiaryPage() {
   }, []);
 
   return (
-    <Box sx={{backgroundColor: '#e6d4e0', width: '100%' }}>
+    <Box sx={{backgroundColor: '#e6d4e0', width: '100%', height:'100vh'}}>
       <IconButton component={Link} to="/home" aria-label="back" size="large">
           <ArrowBackIosIcon color= "secondary" fontSize="inherit" />
       </IconButton>

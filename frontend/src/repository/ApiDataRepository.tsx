@@ -158,7 +158,6 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
         satisfacao: satisfactionScore,
       }).then(transform);
       
-      console.log(result.data);
     
     }
     catch(error){
@@ -233,7 +232,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
     try{
       const result = await instance.get(`${BASE_URL}/modulo/${moduloId}`).then(transform);
       
-      console.log(result.data);
+
       return result.data;
     }
     catch(error){
@@ -262,7 +261,6 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
         timeStamps
       ).then(transform);
       
-      console.log(result.data);
       return result.data;
     }
     catch(error){
@@ -291,7 +289,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
         timeStamps
       ).then(transform);
       
-      console.log(result.data);
+
       return result.data;
     }
     catch(error){
@@ -319,7 +317,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
         foodDiary
       ).then(transform);
       
-      console.log(result.data);
+
       return result.data;
     }
     catch(error){
@@ -346,7 +344,6 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
     try{
       const result = await instance.get(`${BASE_URL}/user/${this.user.code}/accessToDiaries`).then(transform);
       
-      console.log(result.data);
       return result.data;
     }
     catch(error){
@@ -375,7 +372,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
         dataFim: dataFim,
       }).then(transform);
       
-      console.log(result.data);
+  
      
     }
     catch(error){
@@ -420,7 +417,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
         hasAccessToApp: hasAccessToApp,
       }).then(transform);
       
-      console.log(result.data);
+   
     }
     catch(error){
       console.log(error);
@@ -441,7 +438,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
         hasAccessToApp: hasAccessToApp,
       }).then(transform);
       
-      console.log(result.data);
+     
     }
     catch(error){
       console.log(error);
@@ -454,7 +451,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
     const instance = this.createInstance();
     try{
       const result = await instance.delete(`${BASE_URL}/user/${code}`).then(transform);
-      console.log(result.data);
+      
       return result.data;
     }
     catch(error){
@@ -473,7 +470,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
         newUser.createdAt = user.createdAt.slice(0,10);
         users.push(newUser);
       });
-      console.log(users);
+     
       return users;
     }
     catch(error){
@@ -488,7 +485,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
             code: code,
             password: password,
           }).then(transform);
-          console.log(result.data);
+          
           return result.data;
         }
         catch(error){
@@ -500,7 +497,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
       const instance = this.createInstance();
         try{
           const result = await instance.get(`${BASE_URL}/user/${this.user.code}/personal-page`).then(transform);
-          console.log(result.data);
+       
           return result.data;
         }
         catch(error){
@@ -512,8 +509,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
         const instance = this.createInstance();
         try{
           const result = await instance.get(`${BASE_URL}/user/${this.user.code}/favorites`).then(transform);
-          
-          console.log(result.data);
+        
           return result.data;
         }
         catch(error){

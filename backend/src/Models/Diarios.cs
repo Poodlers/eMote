@@ -207,10 +207,17 @@ public class Exercicio
     public int ModuloNumberOrder { get; set; }
 
     [Required]
+    public int SubModuleNumberOrder { get; set; }
+
+    [Required]
+    public int PageNumber { get; set; }
+
+    [Required]
     public String? ExercicioName { get; set; }
 
     [Required]
     public String? ExercicioFile { get; set; }
+
 
     //override toString
     public override string ToString()
@@ -252,6 +259,18 @@ public class SubModulePageUserInfo
 
     [Required]
     public List<ExercicioDTO> ExerciciosFavoritos { get; set; } = new List<ExercicioDTO>();
+}
+
+public class PageInfo
+{
+    [Required]
+    public int ModuloNumberOrder { get; set; }
+
+    [Required]
+    public int SubModuleNumberOrder { get; set; }
+
+    [Required]
+    public int PageNumber { get; set; }
 }
 
 public class SubModulePage
