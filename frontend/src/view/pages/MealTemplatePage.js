@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import imgPqnoAlmoco from '../../assets/images/p_almoco.png'
 import imgLancheManha from '../../assets/images/lanche_manha.png'
@@ -88,7 +88,7 @@ function MealTemplatePage() {
     }
 
   const repository = RepositorySingleton.getInstance().injectRepository();
-
+  const navigate = useNavigate();
   const [errorMessages, setErrorMessages] = React.useState([]);
   const submitMealDiary = () => {
         const foodDiary = 
@@ -119,13 +119,16 @@ function MealTemplatePage() {
 
         repository.addFoodDiaryEntry(foodDiary).then((response) => {
             console.log(response);
+            navigate('/mealdiary');
         }).catch((error) => {
             let errors = [];
             //iterate error.response.data.errors and set error messages
-            Object.keys(error.response.data.errors).forEach(element => {
-                
-                errors.push(errorMessagesText[element]);
-            }); 
+            for (const key in error.response.data.errors) {
+                if (error.response.data.errors.hasOwnProperty(key)) {
+                    errors.push(errorMessagesText[key]);
+                }
+            }
+           
             setErrorMessages(errors);
             console.log(errorMessages);
         }
@@ -137,7 +140,7 @@ function MealTemplatePage() {
     const [componentState, setComponentState] = React.useState(ComponentState.LOADING);
     const [skippedMeal, setSkippedMeal] = React.useState(false);
    
-    const [timeOfMeal, setTimeOfMeal] = React.useState('');
+    const [timeOfMeal, setTimeOfMeal] = React.useState(new Date().toLocaleString().split(',')[1].trimStart());
     const [feelingsAroundMeal, setFeelingsAroundMeal] = React.useState([]);
     const [contentsOfMeal, setContentsOfMeal] = React.useState('');
     const [plainAttention, setPlainAttention] = React.useState(false);
@@ -228,9 +231,7 @@ function MealTemplatePage() {
                     </div>
                     }
                 {errorMessages.length > 0 ?
-        
-                        
-                            errorMessages.map((error) => {
+                        errorMessages.map((error) => {
                                 return (
                                     <Box sx ={{ p:1, mb: 5,bgcolor: '#f28db2' }} textAlign='center'>
                                         <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>

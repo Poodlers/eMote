@@ -1,3 +1,4 @@
+import { EmotionDiaryEntry } from "../models/EmotionDiaryEntry";
 import { Exercise } from "../models/Exercise";
 import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { ModuloBlockInfo } from "../models/ModuloBlockInfo";
@@ -11,6 +12,9 @@ import { User } from "../models/User";
 import { IDataRepository } from "./IDataRepository";
 
 export class MockDataRepository implements IDataRepository {
+    checkIfEmotionDiaryIsAlreadyAdded(): Promise<EmotionDiaryEntry> {
+        throw new Error("Method not implemented.");
+    }
     saveEmotionDiary(feelings: Sentimento[], exercicios: Exercise[], reflection: string): Promise<void> {
         throw new Error("Method not implemented.");
     }

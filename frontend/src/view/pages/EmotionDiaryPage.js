@@ -14,6 +14,7 @@ function EmotionDiaryPage() {
   const navigate = useNavigate();
   const repository = RepositorySingleton.getInstance().injectRepository();
   const [hasAccess, setHasAccess] = React.useState(false);
+  const [hasAlreadyFilled, setHasAlreadyFilled] = React.useState(false);
   const [componentState, setComponentState] = React.useState(ComponentState.LOADING);
   const [emotionsSelected, setEmotionsSelected] = React.useState([]);
   const [exercisesSelected, setExercisesSelected] = React.useState([]);
@@ -21,6 +22,10 @@ function EmotionDiaryPage() {
   const [dayReflection, setDayReflection] = React.useState('');
 
   const handleSubmit = () => {
+    if(hasAlreadyFilled){
+      navigate('/home');
+      return;
+    }
     repository.saveEmotionDiary(emotionsSelected, exercisesSelected, dayReflection).then((response) => {
       console.log(response);
       navigate('/home');
@@ -32,14 +37,38 @@ function EmotionDiaryPage() {
   useEffect(() => {
     repository.hasAccessToDiaries().then((response) => {
       setHasAccess(response);
-     
+      repository.checkIfEmotionDiaryIsAlreadyAdded().then((response) => {
+        if(!response){
+          setHasAlreadyFilled(false);
+        }else{
+          setHasAlreadyFilled(true);
+          setDayReflection(response.reflexaoEmotion);
+          setEmotionsSelected(response.sentimentos);
+          setExercisesSelected(response.exercicios);       
+        }
+        
+
+        repository.fetchAllSeenExercises().then((response) => {
+          setExercisesContent({...response});
+          
+        }
+        ).catch((error) => {
+          throw error;
+        });
+
+
+      }).catch((error) => {
+        throw error;
+      });
+
+
+      
       repository.fetchAllSeenExercises().then((response) => {
         setExercisesContent({...response});
         setComponentState(ComponentState.LOADED);
       }).catch((error) => {
         throw error;
       });
-
       
     }).catch((error) => {
       console.log(error);
@@ -76,9 +105,9 @@ function EmotionDiaryPage() {
                   Diário das Emoções
               </Typography>
             <Box sx={{p:2}}>
-              <EmotionsDialog emotionsSelected={emotionsSelected} setEmotions= {setEmotionsSelected}/>
-              <ExercisesDialog possibleExercises={exercisesContent} exercisesSelected={exercisesSelected} setExercises = {setExercisesSelected} />
-              <ReflexionForm dayReflection={dayReflection} setDayReflection={setDayReflection}/>
+              <EmotionsDialog canEdit={!hasAlreadyFilled} emotionsSelected={emotionsSelected} setEmotions= {setEmotionsSelected}/>
+              <ExercisesDialog canEdit={!hasAlreadyFilled} possibleExercises={exercisesContent} exercisesSelected={exercisesSelected} setExercises = {setExercisesSelected} />
+              <ReflexionForm canEdit={!hasAlreadyFilled} dayReflection={dayReflection} setDayReflection={setDayReflection}/>
 
               <Box sx ={{ p:3 }} textAlign='center'>
               <Button onClick={handleSubmit} sx ={{ p:1, bgcolor: '#ec6fa7' }}>

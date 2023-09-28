@@ -1,3 +1,4 @@
+import { EmotionDiaryEntry } from "../models/EmotionDiaryEntry";
 import { Exercise } from "../models/Exercise";
 import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { ModuloBlockInfo } from "../models/ModuloBlockInfo";
@@ -54,6 +55,8 @@ export interface IDataRepository {
     logOutUser(): void;
 
     checkIfMealDiaryIsAlreadyAdded(refeicao : TipoRefeicao): Promise<FoodDiaryEntry>;
+
+    checkIfEmotionDiaryIsAlreadyAdded(): Promise<EmotionDiaryEntry>;
 
     createUser(code: string, password: string, role: number, createdAt: string, hasAccessToApp: boolean): Promise<void>;
 

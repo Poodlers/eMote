@@ -94,7 +94,9 @@ export default function EmotionsDialog(props) {
   const [open, setOpen] = React.useState(false);
   const emotionsSelected = props.emotionsSelected;
   const setEmotionsSelected = props.setEmotions;
-  
+  const canEdit = props.canEdit;
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -169,8 +171,13 @@ export default function EmotionsDialog(props) {
                     <Grid item xs={4} key= {data.feeling}>
                         <IconButton
                         color="info"
-                        sx ={{backgroundColor: emotionsSelected.includes(index) ? '#ec6fa7' : '#fff' }}
-                        onClick={() => handleEmotionClick(index)}
+                        disabled={!canEdit}
+                        sx ={{
+                          ':disabled': { opacity: '50%',
+                           backgroundColor: emotionsSelected.includes(index) ? '#ec6fa7' : '#fff' },
+                          backgroundColor: emotionsSelected.includes(index) ? '#ec6fa7' : '#fff' ,
+                        '&:hover': {backgroundColor: '#ec6fa7' }}}
+                        onClick={() => canEdit ? handleEmotionClick(index): null}
                         size="large"
                         >
                         <img alt='logo' src={data.image}/>
