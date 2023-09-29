@@ -32,6 +32,13 @@ public class UserDTO
 
 }
 
+public class NotifsDTO
+{
+
+    [Required]
+    public int NotifsPerDay { get; set; }
+}
+
 public class User
 {
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -43,6 +50,9 @@ public class User
 
     [Required]
     public String? Password { get; set; }
+
+    [Required]
+    public int NotifsPerDay { get; set; } = 1;
 
     [Required]
     public DateTime? CreatedAt { get; set; } = DateTime.Now;

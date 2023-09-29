@@ -40,12 +40,30 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
+  
  
 
 
   
   user = JSON.parse(localStorage.getItem('user') || '{}');
   completedLogin : boolean = false;
+
+  async changeRateOfNotifsPerDay(notifsPerDay: Number): Promise<void> {
+    const instance = this.createInstance();
+    try{
+      const result = instance.post(`${BASE_URL}/user/${this.user.code}/change-notifs`, {
+        notifsPerDay: notifsPerDay,
+      }).then(transform);
+      
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+    this.user.notifsPerDay = notifsPerDay;
+    localStorage.setItem('user', JSON.stringify(this.user));
+
+  }
 
   async checkIfEmotionDiaryIsAlreadyAdded(): Promise<EmotionDiaryEntry> {
     const instance = this.createInstance();

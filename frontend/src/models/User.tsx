@@ -10,6 +10,7 @@ export interface User {
     createdAt : string,
     password : string,
     hasAccessToApp : boolean,
+    notifsPerDay: Number,
     role: Number,
     timeLeftInApp : string,
     emotionDiaryEntries?: Array<EmotionDiaryEntry>,

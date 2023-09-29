@@ -16,6 +16,8 @@ export interface IDataRepository {
 
     userCompletedLogin(): boolean;
 
+    changeRateOfNotifsPerDay(notifsPerDay: Number): Promise<void>;
+
     saveEmotionDiary(feelings: Array<Sentimento>, exercicios: Array<Exercise>, reflection: string): Promise<void>;
 
     fetchAllSeenExercises(): Promise<{mindfulness: Array<Exercise>, emotion_regulation: Array<Exercise>, distress_tolerance: Array<Exercise>}>;

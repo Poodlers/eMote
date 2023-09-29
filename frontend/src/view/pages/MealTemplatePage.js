@@ -88,9 +88,11 @@ function MealTemplatePage() {
     }
 
   const repository = RepositorySingleton.getInstance().injectRepository();
-  const navigate = useNavigate();
+  const navigate = useNavigate();   
+  const user = JSON.parse(localStorage.getItem('user'));
   const [errorMessages, setErrorMessages] = React.useState([]);
   const submitMealDiary = () => {
+      
         const foodDiary = 
             skippedMeal ? {
                 date : new Date().toLocaleString().split(',')[0],
@@ -109,12 +111,12 @@ function MealTemplatePage() {
                 plainAttention : plainAttention,
                 restrainedConsumption : restrainedConsumption,
                 hadAnEpisode : hadAnEpisode,
-                hadCompensatoryBehaviour : hadCompensatoryBehaviour,
-                compensatoryBehaviors : compensatoryBehaviors,
+                hadCompensatoryBehaviour : user.role == 2 ? hadCompensatoryBehaviour : null,
+                compensatoryBehaviors : user.role == 2 ? compensatoryBehaviors : null,
                 reflexao : reflexao,
             }
 
-        console.log(foodDiary);
+       
         setErrorMessages('');
 
         repository.addFoodDiaryEntry(foodDiary).then((response) => {
@@ -226,7 +228,13 @@ function MealTemplatePage() {
                     <CheckboxTemplate initialValue = {plainAttention} readOnly={hasAlreadyFilled} setCheck = {setPlainAttention} text="Comi com atenção plena" id='attention' />
                     <CheckboxTemplate initialValue = {restrainedConsumption} readOnly={hasAlreadyFilled} setCheck = {setRestrainedConsumption} text="Restringi propositadamente a quantidade de alimentos" id='restriction'/>
                     <CheckboxTemplate initialValue = {hadAnEpisode} readOnly={hasAlreadyFilled} setCheck={setHadAnEpisode} text="Tive um episódio de ingestão compulsiva" id='episode'/>
-                    <CompensationMeal initialValue = {compensatoryBehaviors} readOnly={hasAlreadyFilled} setBehaviours ={setCompensatoryBehaviors} setHadBehaviour = {setHadCompensatoryBehaviour}  />
+                    {
+                        user.role == 2 ?
+                        <CompensationMeal initialValue = {compensatoryBehaviors} readOnly={hasAlreadyFilled} setBehaviours ={setCompensatoryBehaviors} setHadBehaviour = {setHadCompensatoryBehaviour}  />
+                        :
+                        null
+                    }
+                    
                     <CommentsMeal initialValue = {reflexao} readOnly={hasAlreadyFilled} setReflection = {setReflexao }/>
                     </div>
                     }

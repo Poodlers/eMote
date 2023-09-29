@@ -45,6 +45,42 @@ public class EmotionDiaryEntryController : ControllerBase
         };
     }
 
+    [HttpGet("{user_code}/{date}", Name = "GetEmotionEntryDay")]
+    public ActionResult<EmotionDiaryEntry> Get(string user_code, string date)
+    {
+        var user = _dbUserSet.
+        Include(emotionDiary => emotionDiary.EmotionDiaryEntries)
+        .ThenInclude(emotionDiaryEntry => emotionDiaryEntry.Exercicios).
+        Where(u => u.Code == user_code).FirstOrDefault();
+
+        if (user == null)
+        {
+            return StatusCode(401, "User not found");
+        }
+
+        DateOnly data;
+        if (DateOnly.TryParse(date, out DateOnly dataOut))
+        {
+            data = dataOut;
+        }
+        else
+        {
+            return StatusCode(401, "Invalid date");
+        }
+
+        var emotionDiaryEntry = user.EmotionDiaryEntries.Where(emotionDiaryEntry
+        => emotionDiaryEntry.Date == data).FirstOrDefault();
+
+        if (emotionDiaryEntry == null)
+        {
+            return Ok(false);
+        }
+        else
+        {
+            return Ok(emotionDiaryEntry);
+        }
+
+    }
 
     [HttpPost("{user_code}", Name = "LogEmotionDiaryEntry")]
     public async Task<ActionResult<EmotionDiaryEntry>> LogAccess(string user_code, [FromBody] EmotionDiaryEntryDTO dto)
