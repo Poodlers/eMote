@@ -12,11 +12,16 @@ public class MealDiaryEntryController : ControllerBase
     private readonly DbSet<User> _dbUserSet;
     private readonly DatabaseContext _context;
 
+    private readonly string[] _format_time;
+    private readonly string[] _format_date;
+
 
     public MealDiaryEntryController(DatabaseContext context)
     {
         this._context = context;
         this._dbUserSet = _context.Set<User>();
+        this._format_date = new string[] { "dd/MM/yyyy", "dd-MM-yyyy" };
+        this._format_time = new string[] { "HH:mm:ss" };
 
 
     }
@@ -47,8 +52,10 @@ public class MealDiaryEntryController : ControllerBase
             return StatusCode(401, "User not found");
         }
 
+
         DateOnly data;
-        if (DateOnly.TryParse(date, out DateOnly dataOut))
+
+        if (DateOnly.TryParseExact(date, this._format_date, out DateOnly dataOut))
         {
             data = dataOut;
         }
@@ -83,7 +90,8 @@ public class MealDiaryEntryController : ControllerBase
         DateOnly data;
         TimeOnly hora;
         TimeOnly hora_refeicao;
-        if (DateOnly.TryParse(dto.Date, out DateOnly dataOut))
+
+        if (DateOnly.TryParseExact(dto.Date, this._format_date, out DateOnly dataOut))
         {
             data = dataOut;
         }
@@ -92,7 +100,7 @@ public class MealDiaryEntryController : ControllerBase
             return StatusCode(401, "Invalid date");
         }
 
-        if (TimeOnly.TryParse(dto.Hour, out TimeOnly timeOut))
+        if (TimeOnly.TryParseExact(dto.Hour, this._format_time, out TimeOnly timeOut))
         {
             hora = timeOut;
         }
@@ -101,7 +109,7 @@ public class MealDiaryEntryController : ControllerBase
             return StatusCode(401, "Invalid hora");
         }
 
-        if (TimeOnly.TryParse(dto.TimeOfMeal, out TimeOnly timeOfMealOut))
+        if (TimeOnly.TryParseExact(dto.TimeOfMeal, this._format_time, out TimeOnly timeOfMealOut))
         {
             hora_refeicao = timeOfMealOut;
         }

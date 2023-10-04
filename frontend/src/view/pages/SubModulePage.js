@@ -19,8 +19,6 @@ import withRouter from '../widgets/withRouter';
 
 
 class SubModulePage extends React.Component {
-
-   
     constructor(props) {
         super();
         this.props = props;

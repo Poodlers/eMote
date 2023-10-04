@@ -16,12 +16,17 @@ public class EmotionDiaryEntryController : ControllerBase
 
     private readonly ILogger<EmotionDiaryEntryController> _logger;
 
+    private readonly string[] _format_time;
+    private readonly string[] _format_date;
+
     public EmotionDiaryEntryController(DatabaseContext context, ILogger<EmotionDiaryEntryController> logger)
     {
         this._context = context;
         this._dbUserSet = _context.Set<User>();
         this._dbExercicioSet = _context.Set<Exercicio>();
-        _logger = logger;
+        this._format_date = new string[] { "dd/MM/yyyy", "dd-MM-yyyy" };
+        this._format_time = new string[] { "HH:mm:ss" };
+        this._logger = logger;
 
     }
 
@@ -59,7 +64,7 @@ public class EmotionDiaryEntryController : ControllerBase
         }
 
         DateOnly data;
-        if (DateOnly.TryParse(date, out DateOnly dataOut))
+        if (DateOnly.TryParseExact(date, this._format_date, out DateOnly dataOut))
         {
             data = dataOut;
         }
@@ -94,7 +99,7 @@ public class EmotionDiaryEntryController : ControllerBase
 
         DateOnly data;
         TimeOnly hora;
-        if (DateOnly.TryParse(dto.Date, out DateOnly dataOut))
+        if (DateOnly.TryParseExact(dto.Date, this._format_date, out DateOnly dataOut))
         {
             data = dataOut;
         }
@@ -103,7 +108,7 @@ public class EmotionDiaryEntryController : ControllerBase
             return StatusCode(401, "Invalid date");
         }
 
-        if (TimeOnly.TryParse(dto.Hour, out TimeOnly timeOut))
+        if (TimeOnly.TryParseExact(dto.Hour, this._format_time, out TimeOnly timeOut))
         {
             hora = timeOut;
         }
