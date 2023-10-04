@@ -8,8 +8,8 @@ import { useEffect } from 'react';
 import { ComponentState } from '../../models/ComponentState';
 
 const marks = {
-      1: 'Nada',
-        2:  'Pouco',
+        1: 'Nada',
+        2: 'Pouco',
         3: 'Mais ou menos',
         4: 'Muito',
         5: 'Extremamente',

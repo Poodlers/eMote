@@ -17,7 +17,7 @@ function LandingPage() {
       repository.fetchModuloList().then((modules) => {
           setModulesList([...modules]);
           setComponentState(ComponentState.LOADED);
-          if(!modules[0].isBlocked){
+          if(!modules[1].isBlocked){
             setAreDiariesBlocked(false);
           }
           

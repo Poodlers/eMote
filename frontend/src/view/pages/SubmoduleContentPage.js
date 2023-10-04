@@ -3,6 +3,8 @@ import { AppBar, Box, Button, Grid, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import DownloadIcon from '@mui/icons-material/Download';
 import ReactPlayer from 'react-player';
+import { saveAs } from 'file-saver';
+
 
 
 function SubmoduleContentPage(props) {
@@ -13,7 +15,15 @@ function SubmoduleContentPage(props) {
     const pageNumber = props.pageNumber;
     const isLastPage = props.isLastPage;
     const isModuleEnd = props.isModuleEnd;
-    
+
+
+    const saveFile = (file) => {
+      console.log('saving!');
+      saveAs(
+        '/downloadable/'+ file,
+        file
+      );
+    }
 
   return (
         <>
@@ -71,12 +81,18 @@ function SubmoduleContentPage(props) {
                   </> : null}
                   {submodulesContent.otherFile ? 
                     <Grid container direction='row' justifyContent='center' alignItems='center'>
+                      <Button
+                          style={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500, color: module.color1 }}
+                           
+                          onClick={() => saveFile(submodulesContent.otherFile)} >
                       <Grid item >
                           <DownloadIcon sx={{ fontSize: 60 }} htmlColor='#f58d0c' />
                       </Grid>
                       <Grid item >
-                          <Link style={{color:'white'}} to={submodulesContent.otherFile} download>Download exercício</Link>
+                        Download PDF
                       </Grid>
+                    </Button>
+                      
                     </Grid> : null}
 
             </Box>
