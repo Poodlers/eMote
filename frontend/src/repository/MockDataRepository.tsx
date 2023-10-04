@@ -1,3 +1,4 @@
+import { EmotionDiaryEntry } from "../models/EmotionDiaryEntry";
 import { Exercise } from "../models/Exercise";
 import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { ModuloBlockInfo } from "../models/ModuloBlockInfo";
@@ -5,12 +6,17 @@ import { ModuloInfo } from "../models/ModuloInfo";
 import { PersonalPageInfo } from "../models/PersonalPageInfo";
 import { Sentimento } from "../models/Sentimento";
 import { SubModuleInfo } from "../models/SubModuleInfo";
-import { SubModulePage } from "../models/SubModulePage";
 import { SubModulePageInfo } from "../models/SubModulePageInfo";
 import { User } from "../models/User";
 import { IDataRepository } from "./IDataRepository";
 
 export class MockDataRepository implements IDataRepository {
+    changeRateOfNotifsPerDay(notifsPerDay: Number): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+    checkIfEmotionDiaryIsAlreadyAdded(): Promise<EmotionDiaryEntry> {
+        throw new Error("Method not implemented.");
+    }
     saveEmotionDiary(feelings: Sentimento[], exercicios: Exercise[], reflection: string): Promise<void> {
         throw new Error("Method not implemented.");
     }

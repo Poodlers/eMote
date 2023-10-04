@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import imgPqnoAlmoco from '../../assets/images/p_almoco.png'
 import imgLancheManha from '../../assets/images/lanche_manha.png'
@@ -88,9 +88,11 @@ function MealTemplatePage() {
     }
 
   const repository = RepositorySingleton.getInstance().injectRepository();
-
+  const navigate = useNavigate();   
+  const user = JSON.parse(localStorage.getItem('user'));
   const [errorMessages, setErrorMessages] = React.useState([]);
   const submitMealDiary = () => {
+      
         const foodDiary = 
             skippedMeal ? {
                 date : new Date().toLocaleString().split(',')[0],
@@ -109,23 +111,26 @@ function MealTemplatePage() {
                 plainAttention : plainAttention,
                 restrainedConsumption : restrainedConsumption,
                 hadAnEpisode : hadAnEpisode,
-                hadCompensatoryBehaviour : hadCompensatoryBehaviour,
-                compensatoryBehaviors : compensatoryBehaviors,
+                hadCompensatoryBehaviour : user.role == 2 ? hadCompensatoryBehaviour : null,
+                compensatoryBehaviors : user.role == 2 ? compensatoryBehaviors : null,
                 reflexao : reflexao,
             }
 
-        console.log(foodDiary);
+       
         setErrorMessages('');
 
         repository.addFoodDiaryEntry(foodDiary).then((response) => {
             console.log(response);
+            navigate('/mealdiary');
         }).catch((error) => {
             let errors = [];
             //iterate error.response.data.errors and set error messages
-            Object.keys(error.response.data.errors).forEach(element => {
-                
-                errors.push(errorMessagesText[element]);
-            }); 
+            for (const key in error.response.data.errors) {
+                if (error.response.data.errors.hasOwnProperty(key)) {
+                    errors.push(errorMessagesText[key]);
+                }
+            }
+           
             setErrorMessages(errors);
             console.log(errorMessages);
         }
@@ -137,7 +142,7 @@ function MealTemplatePage() {
     const [componentState, setComponentState] = React.useState(ComponentState.LOADING);
     const [skippedMeal, setSkippedMeal] = React.useState(false);
    
-    const [timeOfMeal, setTimeOfMeal] = React.useState('');
+    const [timeOfMeal, setTimeOfMeal] = React.useState(new Date().toLocaleString().split(',')[1].trimStart());
     const [feelingsAroundMeal, setFeelingsAroundMeal] = React.useState([]);
     const [contentsOfMeal, setContentsOfMeal] = React.useState('');
     const [plainAttention, setPlainAttention] = React.useState(false);
@@ -223,14 +228,18 @@ function MealTemplatePage() {
                     <CheckboxTemplate initialValue = {plainAttention} readOnly={hasAlreadyFilled} setCheck = {setPlainAttention} text="Comi com atenção plena" id='attention' />
                     <CheckboxTemplate initialValue = {restrainedConsumption} readOnly={hasAlreadyFilled} setCheck = {setRestrainedConsumption} text="Restringi propositadamente a quantidade de alimentos" id='restriction'/>
                     <CheckboxTemplate initialValue = {hadAnEpisode} readOnly={hasAlreadyFilled} setCheck={setHadAnEpisode} text="Tive um episódio de ingestão compulsiva" id='episode'/>
-                    <CompensationMeal initialValue = {compensatoryBehaviors} readOnly={hasAlreadyFilled} setBehaviours ={setCompensatoryBehaviors} setHadBehaviour = {setHadCompensatoryBehaviour}  />
+                    {
+                        user.role == 2 ?
+                        <CompensationMeal initialValue = {compensatoryBehaviors} readOnly={hasAlreadyFilled} setBehaviours ={setCompensatoryBehaviors} setHadBehaviour = {setHadCompensatoryBehaviour}  />
+                        :
+                        null
+                    }
+                    
                     <CommentsMeal initialValue = {reflexao} readOnly={hasAlreadyFilled} setReflection = {setReflexao }/>
                     </div>
                     }
                 {errorMessages.length > 0 ?
-        
-                        
-                            errorMessages.map((error) => {
+                        errorMessages.map((error) => {
                                 return (
                                     <Box sx ={{ p:1, mb: 5,bgcolor: '#f28db2' }} textAlign='center'>
                                         <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>

@@ -14,6 +14,7 @@ import { SubModuleInfo } from "../models/SubModuleInfo";
 import { SubModulePageInfo } from "../models/SubModulePageInfo";
 import { ModuloBlockInfo } from "../models/ModuloBlockInfo";
 import { Sentimento } from "../models/Sentimento";
+import { EmotionDiaryEntry } from "../models/EmotionDiaryEntry";
 
 
 
@@ -39,11 +40,43 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
+  
+ 
 
 
   
   user = JSON.parse(localStorage.getItem('user') || '{}');
   completedLogin : boolean = false;
+
+  async changeRateOfNotifsPerDay(notifsPerDay: Number): Promise<void> {
+    const instance = this.createInstance();
+    try{
+      const result = instance.post(`${BASE_URL}/user/${this.user.code}/change-notifs`, {
+        notifsPerDay: notifsPerDay,
+      }).then(transform);
+      
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+    this.user.notifsPerDay = notifsPerDay;
+    localStorage.setItem('user', JSON.stringify(this.user));
+
+  }
+
+  async checkIfEmotionDiaryIsAlreadyAdded(): Promise<EmotionDiaryEntry> {
+    const instance = this.createInstance();
+    const data = new  Date().toLocaleString().split(',')[0].replace('/','-').replace('/','-');
+    try{
+      const result = await instance.get(`${BASE_URL}/emotion-diary/${this.user.code}/${data}`).then(transform);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
 
   async saveEmotionDiary(feelings: Sentimento[], exercicios: Exercise[], reflection: string): Promise<void> {
     const dateObj = new  Date().toLocaleString().split(',');

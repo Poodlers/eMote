@@ -6,5 +6,5 @@ export interface EmotionDiaryEntry {
     hour : string,
     sentimentos : Array<Sentimento>,
     exercicios : Array<Exercise>,
-    reflexao : string,
+    reflexaoEmotion : string,
 }

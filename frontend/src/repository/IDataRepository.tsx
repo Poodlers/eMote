@@ -1,3 +1,4 @@
+import { EmotionDiaryEntry } from "../models/EmotionDiaryEntry";
 import { Exercise } from "../models/Exercise";
 import { FoodDiaryEntry } from "../models/FoodDiaryEntry";
 import { ModuloBlockInfo } from "../models/ModuloBlockInfo";
@@ -14,6 +15,8 @@ export interface IDataRepository {
     updateUser(): void;
 
     userCompletedLogin(): boolean;
+
+    changeRateOfNotifsPerDay(notifsPerDay: Number): Promise<void>;
 
     saveEmotionDiary(feelings: Array<Sentimento>, exercicios: Array<Exercise>, reflection: string): Promise<void>;
 
@@ -54,6 +57,8 @@ export interface IDataRepository {
     logOutUser(): void;
 
     checkIfMealDiaryIsAlreadyAdded(refeicao : TipoRefeicao): Promise<FoodDiaryEntry>;
+
+    checkIfEmotionDiaryIsAlreadyAdded(): Promise<EmotionDiaryEntry>;
 
     createUser(code: string, password: string, role: number, createdAt: string, hasAccessToApp: boolean): Promise<void>;
 

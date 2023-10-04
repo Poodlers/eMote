@@ -9,8 +9,6 @@ import LogoBlue from '../../assets/images/icon_azul.png';
 import LogoOrange from '../../assets/images/icon_laranja.png';
 import LogoGreen from '../../assets/images/icon_verde.png';
 import LogoPurple from '../../assets/images/icon_rosa.png';
-import { Logout } from '@mui/icons-material';
-import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { IconButton, Link as MUILink } from '@mui/material';

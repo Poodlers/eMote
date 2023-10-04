@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Modules from '../widgets/Modules.js';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import Diaries from '../widgets/Diaries.js';
 import { NavBar } from '../widgets/NavBar.js';
@@ -27,6 +27,9 @@ function LandingPage() {
       });
 
   }, []);
+
+  
+
   return (
     <>
       {
@@ -42,7 +45,9 @@ function LandingPage() {
           :
           <>
         <LogoAppBar/>
+        
         <Box sx={{mt:'60px', mb:'70px', backgroundColor: '#fffefe' }}>
+     
           <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5, mt:'70px' }} 
           variant="h4" align='center' color="primary">Bem-vinda à eMOTE!</Typography>
           <Box sx={{p:2}}>

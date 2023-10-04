@@ -47,6 +47,7 @@ function LoginPage() {
           code: response.code,
           role: response.role,
           password: response.password,
+          notifsPerDay : response.notifsPerDay,
           hasAccessToApp: response.hasAccessToApp,
           completedLogin: false
         }

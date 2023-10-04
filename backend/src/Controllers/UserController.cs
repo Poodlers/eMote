@@ -400,6 +400,26 @@ public class UserController : ControllerBase
         return Ok(user.HasAccessToApp);
     }
 
+    [HttpPost("{user_code}/change-notifs", Name = "ChangeNotifs")]
+    public async Task<ActionResult> ChangeNotifs(String user_code, [FromBody] NotifsDTO notifsPerDay)
+    {
+        var user = _dbUserSet.Where(user => user.Code == user_code)
+        .FirstOrDefault();
+
+        if (user == null)
+        {
+            return StatusCode(
+                404,
+                "User not found"
+            );
+        }
+
+        user.NotifsPerDay = notifsPerDay.NotifsPerDay;
+
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
 
 
     [HttpPost(Name = "CreateUser")]
@@ -418,7 +438,8 @@ public class UserController : ControllerBase
             Code = user.Code,
             Password = user.Password,
             Role = user.Role,
-            HasAccessToApp = user.HasAccessToApp
+            HasAccessToApp = user.HasAccessToApp,
+            NotifsPerDay = 2,
         };
 
         string[] format = { "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss" };

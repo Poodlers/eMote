@@ -43,6 +43,7 @@ export default function ExercisesDialog(props) {
   let setExercises = props.setExercises;
   let exercisesSelected = props.exercisesSelected;
   let possibleExercises = props.possibleExercises;
+  const canEdit = props.canEdit;
 
   const [open, setOpen] = React.useState(false);
 
@@ -128,6 +129,10 @@ export default function ExercisesDialog(props) {
                     <Autocomplete
                     sx={{ m: 1 }}
                     multiple
+                    disabled={!canEdit}
+                    defaultValue={exercisesSelected.filter((ex) => 
+                      exercises.find((localOptions) => 
+                      ex.exercicioName == localOptions.exercicioName) != undefined).map((ex) => ex.exercicioName)}
                     options={exercises.map((option) => option.exercicioName)}
                     getOptionLabel={(option) => option}
                     disableCloseOnSelect

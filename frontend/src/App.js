@@ -67,7 +67,6 @@ function App() {
           <Route path=':meal' element= {<MealTemplatePage />} />
         </Route>
 
-
         <Route path='/moduleintro'>
             <Route path=':moduleNumber' element= {<ModuleIntroductionPage/>} />
         </Route>

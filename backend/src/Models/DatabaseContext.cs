@@ -21,19 +21,21 @@ public class DatabaseContext : DbContext
             .AddJsonFile("appsettings.local.json", optional: true)
             .Build();
         var databaseFilePath = configuration.GetSection("DatabaseFilePath").Value ?? "./db.sqlite";
-        optionsBuilder.UseSqlite(@"Data Source=" + databaseFilePath + @";foreign keys=true;");
+        optionsBuilder.UseSqlite(@"Data Source=" + databaseFilePath + @";foreign keys=true;",
+         o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder){
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
 
         base.OnModelCreating(modelBuilder);
 
 
-       var SentimentoConverter = new EnumCollectionJsonValueConverter<Sentimento>();
-       var SentimentoComparer = new CollectionValueComparer<Sentimento>();
+        var SentimentoConverter = new EnumCollectionJsonValueConverter<Sentimento>();
+        var SentimentoComparer = new CollectionValueComparer<Sentimento>();
 
-       var CompensatoryConverter = new EnumCollectionJsonValueConverter<CompensatoryBehavior>();
-       var CompensatoryComparer = new CollectionValueComparer<CompensatoryBehavior>();
+        var CompensatoryConverter = new EnumCollectionJsonValueConverter<CompensatoryBehavior>();
+        var CompensatoryComparer = new CollectionValueComparer<CompensatoryBehavior>();
 
         modelBuilder.Entity<EmotionDiaryEntry>()
         .Property(e => e.Sentimentos)
@@ -50,16 +52,16 @@ public class DatabaseContext : DbContext
         .HasConversion(SentimentoConverter!)
         .Metadata.SetValueComparer(SentimentoComparer);
 
-        
+
         modelBuilder.Entity<ModuloContent>(
-            x => 
+            x =>
             x.HasMany<SubModule>("SubModules")
             .WithOne()
-    
-            ); 
+
+            );
 
         modelBuilder.Entity<SubModule>(
-            x => 
+            x =>
             x.HasMany<SubModulePage>("SubModulePages")
             .WithOne()
             );

@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 
 
 export default function ReflexionForm(props) {
-  const { dayReflection, setDayReflection } = props;
+  const { dayReflection, setDayReflection, canEdit } = props;
   return (
     <Box sx ={{p:1 }}>
         
@@ -16,6 +16,8 @@ export default function ReflexionForm(props) {
                     </Typography>
                     <TextField
                         id="reflexion"
+                        disabled={!canEdit}
+                        defaultValue={dayReflection}
                         multiline
                         rows={4}
                         color='info'

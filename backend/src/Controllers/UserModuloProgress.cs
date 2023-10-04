@@ -82,7 +82,8 @@ public class UserModuloProgress : ControllerBase
             );
         }
         string[] format = { "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss" };
-        if (progressDTO.TimeStampInicio != null)
+        if (progressDTO.TimeStampInicio != null
+        && userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].DataInicio == null)
         {
             if (DateTime.TryParseExact(progressDTO.TimeStampInicio, format, null,
                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
@@ -95,7 +96,8 @@ public class UserModuloProgress : ControllerBase
                 return StatusCode(401, "Invalid dataInicio");
             }
         }
-        if (progressDTO.TimeStampFim != null)
+        if (progressDTO.TimeStampFim != null
+        && !userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].IsCompleted)
         {
             if (DateTime.TryParseExact(progressDTO.TimeStampFim, format, null,
                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
@@ -134,7 +136,7 @@ public class UserModuloProgress : ControllerBase
         _logger.LogInformation("progressDTO.TimeStampInicio: " + progressDTO.TimeStampInicio);
         string[] format = { "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss" };
 
-        if (progressDTO.TimeStampInicio != null)
+        if (progressDTO.TimeStampInicio != null && userProgressModulo.ModulosProgress[0].DataInicio == null)
         {
             if (DateTime.TryParseExact(progressDTO.TimeStampInicio, format, null,
                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
@@ -148,7 +150,7 @@ public class UserModuloProgress : ControllerBase
             }
         }
 
-        if (progressDTO.TimeStampFim != null)
+        if (progressDTO.TimeStampFim != null && !userProgressModulo.ModulosProgress[0].IsCompleted)
         {
 
             if (DateTime.TryParseExact(progressDTO.TimeStampFim, format, null,

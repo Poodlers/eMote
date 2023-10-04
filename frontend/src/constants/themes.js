@@ -42,7 +42,7 @@ export let modulesThemes = [
         link: '/module/3',
         introlink: '/submoduleintro/3',
         exerciselink: '/submoduleexercise/3',
-        feedbacklink: '/feedback3'
+        feedbacklink: '/feedback/3'
     },
     {
         moduloId: 4,
