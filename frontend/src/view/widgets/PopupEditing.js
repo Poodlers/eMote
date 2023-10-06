@@ -20,7 +20,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import MuiGrid from '@mui/material/Grid';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { ComponentState } from '../../models/ComponentState';
-import { Chip, Input, MenuItem, Select, Typography } from '@mui/material';
+import { Box, Chip, Input, MenuItem, Select, Typography } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
@@ -78,7 +78,7 @@ const Popup = ({
               value={row.code || ''}
               onChange={onChange}
             />
-            <Typography variant="h6" align="left" color="primary" sx = {{fontSize: 15}}>
+            <Typography variant="h6" align="left" color="primary" sx = {{fontSize: 12}}>
                 Has Access To App
             </Typography>
              <Select
@@ -380,8 +380,8 @@ export default () => {
     <>
   
 
-    <Typography variant="h5" align="left" color="primary" sx={{marginTop: '20px'}}>
-        Gestão de utilizadores
+    <Typography sx={{ fontWeight: 'bold', fontSize: 20, pb:2.5 }} variant="h4" align='center' color="text.secondary">
+      Gestão de utilizadores
     </Typography>
     {
         componentState === ComponentState.LOADING ?
@@ -396,7 +396,8 @@ export default () => {
 
             :
             rows.length !== 0 ?
-            <Paper >
+            <Box textAlign='center' sx = {{width:'100%'}}>
+            <Paper>
               <Grid
                 rows={rows}
                 columns={columns}
@@ -419,6 +420,7 @@ export default () => {
                 <PopupEditing popupComponent={Popup} />
               </Grid>
             </Paper>
+            </Box>
                 
             :   
             <Typography color="primary" sx = {{fontWeight: "bold", p:0.5, ml: '10px'}} >
