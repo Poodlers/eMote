@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { AppBar, Box, Button, Grid, Toolbar, Typography } from '@mui/material';
 import React, {  useState } from 'react';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import PopupEditing from '../widgets/PopupEditing'
@@ -28,31 +28,41 @@ function AdminPage() {
   }
 
   return (
-    <Grid paddingX={10} sx={{backgroundColor : '#fffefe'}}  container  direction="column" justifyContent="center"  >
+    <>
+    
     {
         user === null ||
         user.role !== 3 ? 
         notAdminMessage
         :
-        <>
-          <Typography variant="h2" align="center" color="primary" sx={{marginTop: '20px'}}>
-            Página de admnistrador
-          </Typography>
-          <Button sx = {{marginY : '20px'}} variant="contained" onClick={downloadFile}>Download Excel</Button>
-          <Typography variant="h5" align="center" color="primary" sx={{marginTop: '20px'}}>
-            {downloadState === DownloadState.STARTED ? 'Downloading...' : 
-            downloadState === DownloadState.FINISHED ? 'Download finished!' :
-            downloadState === DownloadState.ERROR ? 'Error downloading file. Check your internet connectivity' : ''}
-          </Typography>
-          <PopupEditing />
-          
-          <LogoutButton size='150' />
+        <>    
 
+          <AppBar sx ={{boxShadow: 'none', top:0, height: 60 }} >
+            <Toolbar>
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Página de admnistrador
+              </Typography>
+              <LogoutButton/>
+            </Toolbar>
+          </AppBar>
+          <Box sx={{mt:'60px', mb:'70px'}}>
+            <Box sx ={{ p:3 }} textAlign='center'>
+              <Button sx = {{justifyContent:'center'}} variant="contained" onClick={downloadFile}>Download Excel</Button>
+            </Box>
+            <Typography variant="h5" align="center" color="primary" sx={{marginTop: '20px'}}>
+              {downloadState === DownloadState.STARTED ? 'Downloading...' : 
+              downloadState === DownloadState.FINISHED ? 'Download finished!' :
+              downloadState === DownloadState.ERROR ? 'Error downloading file. Check your internet connectivity' : ''}
+            </Typography>
+            <PopupEditing />
+
+          </Box>
         </> 
 
     }
+    </>
 
-    </Grid>
+    
   );
 }
 

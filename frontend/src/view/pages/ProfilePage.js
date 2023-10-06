@@ -12,7 +12,7 @@ function ProfilePage() {
             <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5, mt:'70px' }} variant="h4" align='center' color="text.secondary">
               Perfil
             </Typography>
-            <Link href="#" underline="none">
+            <Link href="/notifications" underline="none">
               <Typography sx={{ p:1, fontWeight:'bold !important', fontSize: 16, textAlign:'center' }} color="text.secondary" >
                 Editar Lembretes
               </Typography>

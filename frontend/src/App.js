@@ -24,6 +24,7 @@ import FeedbackPage from './view/pages/FeedbackPage.js';
 import LoginPage from './view/pages/LoginPage.js';
 import AdminPage from './view/pages/AdminPage.js';
 import SubModulePage from './view/pages/SubModulePage';
+import NotificationsPage from './view/pages/NotificationsPage';
 
 
 const repository = RepositorySingleton.getInstance().injectRepository();
@@ -58,6 +59,7 @@ function App() {
         <Route path='/socialmedia' element={< SocialMediaPage/>} />
         <Route path='/appts' element={< PsychApptPage/>} />
         <Route path='/contact' element={< ContactPage/>} />
+        <Route path='/notifications' element={< NotificationsPage/>} />
 
         <Route path='/emotiondiary' element={< EmotionDiaryPage/>} />
         <Route path='/mealdiary' element= {<MealDiaryPage/>} />
@@ -66,6 +68,7 @@ function App() {
         <Route path='/mealpage' >
           <Route path=':meal' element= {<MealTemplatePage />} />
         </Route>
+
 
         <Route path='/moduleintro'>
             <Route path=':moduleNumber' element= {<ModuleIntroductionPage/>} />
