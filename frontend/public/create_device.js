@@ -13,7 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     Notification.requestPermission().then(function (status) {
         if (status === 'denied') {
-            errorHandler('[Notification.requestPermission] Browser denied permissions to notification api.');
+            //ask user to allow notifications
+            errorHandler('[Notification.requestPermission] The user has blocked notifications.');
+            
         } else if (status === 'granted') {
             console.log('[Notification.requestPermission] Initializing service worker.');
             initialiseServiceWorker();
@@ -134,7 +136,7 @@ function errorHandler(message, e) {
     }
 
     console.error(message, e);
-    alert(message);
+    
 }
 
 function urlB64ToUint8Array(base64String) {

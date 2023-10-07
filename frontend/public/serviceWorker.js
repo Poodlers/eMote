@@ -50,7 +50,7 @@ self.addEventListener('push', function (event) {
   console.log('Notification Received:');
   console.log(data);
 
-  var title = "Notification";
+  var title = "eMote";
   var message = data;
   var icon = "icon_azul.jpg";
   
@@ -59,11 +59,4 @@ self.addEventListener('push', function (event) {
       icon: icon,
       badge: icon
   }));
-});
-
-self.addEventListener('notificationclick', function (event) {
-  //open the app
-  clients.openWindow('/');
-  //close the notification
-  event.notification.close();
 });
