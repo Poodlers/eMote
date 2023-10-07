@@ -72,6 +72,8 @@ public class DatabaseContext : DbContext
 
     public DbSet<User>? User { get; set; }
 
+    public DbSet<Devices>? Devices { get; set; }
+
     public DbSet<SubModule>? SubModule { get; set; }
 
     public DbSet<Exercicio>? Exercicio { get; set; }

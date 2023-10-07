@@ -32,7 +32,7 @@ builder.Services.AddHealthChecks();
 
 builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins",
-        builder => builder.AllowAnyOrigin()
+        builder => builder.WithOrigins("https://emoteapp.netlify.app")
                           .AllowAnyMethod()
                           .AllowAnyHeader()));
 
@@ -41,6 +41,12 @@ builder.Services.AddScoped<UserAccessService>();
 builder.Services.AddSingleton<PeriodicHostedService>();
 builder.Services.AddHostedService(
     provider => provider.GetRequiredService<PeriodicHostedService>());
+
+builder.Services.AddScoped<UserNotificationService>();
+builder.Services.AddSingleton<NotificationPeriodicService>();
+builder.Services.AddHostedService(
+    provider => provider.GetRequiredService<NotificationPeriodicService>());
+
 
 var app = builder.Build();
 
@@ -60,7 +66,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors(builder =>
       {
           builder
-                .AllowAnyOrigin()
+                .WithOrigins("https://emoteapp.netlify.app")
                 .WithExposedHeaders("Content-Disposition")
                 .AllowAnyHeader()
                 .WithMethods("GET", "PUT", "POST", "DELETE", "OPTIONS")

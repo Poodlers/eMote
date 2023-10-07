@@ -24,23 +24,27 @@
     />
   </head>
   <body>
+    <script src="./create_device.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
-        window.addEventListener("load", function () {
-          navigator.serviceWorker.register("/serviceWorker.js").then(
-            function (registration) {
-              // Registration was successful
-              console.log(
-                "ServiceWorker registration successful with scope: ",
-                registration.scope
-              );
-            },
-            function (err) {
-              // registration failed :(
-              console.log("ServiceWorker registration failed: ", err);
-            }
-          );
-        });
+        window.addEventListener(
+          "load",
+          function () {
+            navigator.serviceWorker
+              .register("/serviceWorker.js")
+              .then(function (registration) {
+                // Registration was successful
+                console.log(
+                  "ServiceWorker registration successful with scope: ",
+                  registration.scope
+                );
+              });
+          },
+          function (err) {
+            // registration failed :(
+            console.log("ServiceWorker registration failed: ", err);
+          }
+        );
       }
     </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>

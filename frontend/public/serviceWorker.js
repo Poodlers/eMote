@@ -37,28 +37,33 @@ self.addEventListener('fetch', function(event) {
 );
 });
 
-self.addEventListener('push', (event) => {
-    let body
-    if (event.data) {
-      //You can set an original message by passing it on the event.
-      body = event.data.text()
-    } else {
-      body = 'Default body'
-    }
-   
-    event.waitUntil(
-      Notification.requestPermission().then((result) => {
-        if (result === "granted") {
-          navigator.serviceWorker.ready.then((registration) => {
-            console.log('showing notification');
-            registration.showNotification("Vibration Sample", {
-              body: "Buzz! Buzz!",
-              icon: "./icon_azul.png",
-              vibrate: [200, 100, 200, 100, 200, 100, 200],
-              tag: "vibration-sample",
-            });
-          });
-        }
-      })
-    )
-  })
+self.addEventListener('push', function (event) {
+  if (!(self.Notification && self.Notification.permission === 'granted')) {
+      return;
+  }
+
+  var data = {};
+  if (event.data) {
+      data = event.data.text();
+  }
+
+  console.log('Notification Received:');
+  console.log(data);
+
+  var title = "Notification";
+  var message = data;
+  var icon = "icon_azul.jpg";
+  
+  event.waitUntil(self.registration.showNotification(title, {
+      body: message,
+      icon: icon,
+      badge: icon
+  }));
+});
+
+self.addEventListener('notificationclick', function (event) {
+  //open the app
+  clients.openWindow('/');
+  //close the notification
+  event.notification.close();
+});
