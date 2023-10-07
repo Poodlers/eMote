@@ -2,15 +2,33 @@ import React from 'react';
 import { Box, Button, Checkbox, Grid, Slider, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
+import { RepositorySingleton } from '../../repository/RepositoryInjector';
 
 
 function NotificationsPage() {
+    const repository = RepositorySingleton.getInstance().injectRepository();
+
+    const onConfirm = () => {
+        repository.changeRateOfNotifsPerDay(amountOfNotifs).then(() => {
+            console.log("Rate of notifs changed");
+        }
+        ).catch((error) => {
+            console.log("Error changing rate of notifs: " + error);
+        });
+
+    }
 
     const [checked, setChecked] = React.useState(false);
+    const [amountOfNotifs, setAmountOfNotifs] = React.useState(3);
     const handleChange = () => {
+        if(!checked) setAmountOfNotifs(0);
+        else setAmountOfNotifs(3);
         setChecked(!checked);
+
+        
     };
     return (
+        
         <>
         <LogoAppBar/>
         <Box sx={{mt:'60px', mb:'70px'}}>
@@ -41,12 +59,13 @@ function NotificationsPage() {
                     <Box sx={{ width: '70%', m: '0 auto', textAlign:'center'}}>
                     <Slider
                             aria-label="Custom marks"
-                            defaultValue={3}
+                            value={amountOfNotifs}
+                            onChange={(e) => setAmountOfNotifs(e.target.value)}
                             step={1}
                             valueLabelDisplay="auto"
                             marks
                             min={1}
-                            max={5}
+                            max={6}
                             color="primary"
                         />
                        <Typography sx={{p:1, pl:2.5,
@@ -59,7 +78,7 @@ function NotificationsPage() {
 
                 </Box>
                 <Box sx ={{ p:3 }} textAlign='center'>
-                    <Button sx ={{ p:1, bgcolor: '#349db7' }}>
+                    <Button sx ={{ p:1, bgcolor: '#349db7' }} onClick={onConfirm}>
                         <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
                             Confirmar
                         </Typography>

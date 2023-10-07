@@ -42,9 +42,6 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
   
  
-
-
-  
   user = JSON.parse(localStorage.getItem('user') || '{}');
   completedLogin : boolean = false;
 
