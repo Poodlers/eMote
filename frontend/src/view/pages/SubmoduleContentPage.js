@@ -34,13 +34,12 @@ function SubmoduleContentPage(props) {
               <Typography color={module.theme === "blue" ? module.color1 : "black" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
                     {submodulesContent.text}
               </Typography>
-              {pageNumber == 1 ?
+              {pageNumber == 1 && !isLastPage ?
               <Box sx ={{ p:3}} textAlign='center'>
                 <Button  onClick={() =>{
                    navigate(
                     isLastPage ? (isModuleEnd ? `/feedback/${module.moduloId}`:
                      `/submodulelist/${module.moduloId}/`)
-
                      : `/submodulepage/${module.moduloId}/${subModuleNumber}/${parseInt(pageNumber) + 1}`,
             
                    {replace: true}
@@ -67,7 +66,8 @@ function SubmoduleContentPage(props) {
                   <>
                   {
                     videoLoading ?
-                    <Typography color={module.theme === "blue" ? module.color1 : "black" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
+                    <Typography color={module.theme === "blue" ? module.color1 : "black" }
+                     sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
                       Carregando o vídeo...
                     </Typography>
                     :    

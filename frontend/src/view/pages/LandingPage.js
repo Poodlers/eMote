@@ -16,6 +16,7 @@ function LandingPage() {
   useEffect(() => {
       repository.fetchModuloList().then((modules) => {
           setModulesList([...modules]);
+          console.log(modules);
           setComponentState(ComponentState.LOADED);
           if(!modules[1].isBlocked){
             setAreDiariesBlocked(false);

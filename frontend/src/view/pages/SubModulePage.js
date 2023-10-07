@@ -152,7 +152,7 @@ class SubModulePage extends React.Component {
                             });
                         exercises[response.exerciciosFavoritos[i].exercicioFile] = response.exerciciosFavoritos[i].exercicioIsFavorite;
                     }
-                    console.log('setting new state ');
+                    
                   this.setState(
                         {audioRefs: [...audioRefs],
                         objModule: objModule,
@@ -193,7 +193,7 @@ class SubModulePage extends React.Component {
         }
         if(prevState.audioRefs != this.state.audioRefs){
             if(this.state.audioRefs.length == 0) return;
-            console.log('setting new audio refs');
+            
             for(let i = 0; i < this.state.audioRefs.length; i++){
                 
                 this.state.audioRefs[i].audioRef.addEventListener('ended', () => this.togglePlay(this.state.audioRefs[i].audioFile));
@@ -234,6 +234,7 @@ class SubModulePage extends React.Component {
             ).then((response) => {
                 
                 if(this.state.pageContent.isLastPageInModulo){
+                    console.log('registering modulo final time: ', dataFim);
                     repository.registerModuloTimeStamps(this.state.moduleNumber, undefined,dataFim).then((response) => {
                        
                         this.props.router.navigate(nextPageLink, { replace: true });

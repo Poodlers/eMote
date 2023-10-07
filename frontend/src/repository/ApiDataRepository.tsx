@@ -41,11 +41,24 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
 
+
   
  
   user = JSON.parse(localStorage.getItem('user') || '{}');
   completedLogin : boolean = false;
 
+  async getFeedback(moduloId: Number): Promise<{ utilidade: Number; satisfacao: Number; }> {
+    const instance = this.createInstance();
+
+    try{
+      const result = await instance.get(`${BASE_URL}/modulo-rating/${this.user.code}/${moduloId}`).then(transform);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
   async getRateOfNotifsPerDay(): Promise<number> {
     const instance = this.createInstance();
 
