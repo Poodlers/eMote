@@ -25,6 +25,7 @@ import imgOrgulhosa from '../../../assets/images/orgulhosa.png';
 import imgSozinha from '../../../assets/images/sozinha.png';
 import imgTranquila from '../../../assets/images/tranquila.png';
 import imgTriste from '../../../assets/images/triste.png';
+import EmotionsDialog from '../EmotionDialog';
 
 
     const imageList = [
@@ -90,26 +91,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function EmotionsDialog(props) {
+export default function EmotionDiaryEmotions(props) {
   const [open, setOpen] = React.useState(false);
   const emotionsSelected = props.emotionsSelected;
   const setEmotionsSelected = props.setEmotions;
   const canEdit = props.canEdit;
 
-
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
-  const handleEmotionClick = (emotion) => {
-    if (emotionsSelected.includes(emotion)) {
-        setEmotionsSelected(emotionsSelected.filter((e) => e !== emotion));
-
-    } else {
-        setEmotionsSelected([...emotionsSelected, emotion]);
-    }
-  }
 
   const handleClose = () => {
     setOpen(false);
@@ -130,65 +120,12 @@ export default function EmotionsDialog(props) {
             </Box>
     </Box>
 
-      <Dialog
-        fullScreen
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Transition}
-      >
-        <AppBar sx={{ position: 'relative' }} color='secondary'>
-          <Toolbar color='#ec6fa7' sx={{minHeight: '80px'}} >
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-            <Typography sx={{ ml: 2, flex: 1, textAlign: 'center' }} variant="h6" component="div">
-              Como me senti hoje?
-            </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              salvar
-            </Button>
-          </Toolbar>
-        </AppBar>
-
-        <Box display="flex" alignItems='center' justifyContent='center' sx={{ p:2 }}>
-          <Grid container spacing={1} textAlign={'center'}>
-            <Grid item xs={4} key="diarylogo">
-              <IconButton
-                color="info"
-                size="large"
-                disabled={true}
-                >
-                <img alt='logo' style={{ opacity: '25%'}} src={DiaryLogo}/>
-              </IconButton>
-            </Grid>
-            {imageList.map(function(data, index) {
-                return (
-                    <Grid item xs={4} key= {data.feeling}>
-                        <IconButton
-                        color="info"
-                        disabled={!canEdit}
-                        sx ={{
-                          ':disabled': { opacity: '50%',
-                           backgroundColor: emotionsSelected.includes(index) ? '#ec6fa7' : '#fff' },
-                          backgroundColor: emotionsSelected.includes(index) ? '#ec6fa7' : '#fff' ,
-                        '&:hover': {backgroundColor: '#ec6fa7' }}}
-                        onClick={() => canEdit ? handleEmotionClick(index): null}
-                        size="large"
-                        >
-                        <img alt='logo' src={data.image}/>
-                        </IconButton>
-                    </Grid>
-                )
-            })}
-            </Grid>
-          </Box>
-
-      </Dialog>
+    <EmotionsDialog 
+    isOpen = {open} 
+    mainColor = '#ec6fa7' 
+    handleClickClose = {handleClose}
+    canEdit={canEdit} 
+            emotionsSelected={emotionsSelected} setEmotions={setEmotionsSelected} ></EmotionsDialog>
     </div>
   );
 }

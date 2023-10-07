@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Modules from '../widgets/Modules.js';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import Diaries from '../widgets/Diaries.js';
 import { NavBar } from '../widgets/NavBar.js';

@@ -17,6 +17,7 @@ function Modules(props) {
                             <ModuleCard
                                 name = {data.moduloTitle}
                                 blocked = {data.isBlocked}
+                                isStarted = {data.isStarted}
                                 index = {index}
                             />
                         </Grid>

@@ -54,6 +54,16 @@ function LoginPage() {
         localStorage.setItem('user', JSON.stringify(loggedUser));
         repository.updateUser();
         repository.logTimeStampOnAppLogin();
+
+        const newEvent = new MouseEvent("user-login", {
+          view: window,
+          bubbles: true,
+          cancelable: true,
+        });
+      
+        const cb = document.getElementById("main-body");
+        cb?.dispatchEvent(newEvent);
+        
         
         //setHasSeenTermsOfService(response.accesses.length > 0);
 

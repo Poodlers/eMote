@@ -428,6 +428,23 @@ public class UserController : ControllerBase
         return Ok();
     }
 
+    [HttpGet("{user_code}/notifs", Name = "GetNotifs")]
+    public ActionResult<int> GetNotifs(String user_code)
+    {
+        var user = _dbUserSet.Where(user => user.Code == user_code)
+        .FirstOrDefault();
+
+        if (user == null)
+        {
+            return StatusCode(
+                404,
+                "User not found"
+            );
+        }
+
+        return Ok(user.NotifsPerDay);
+    }
+
 
     [HttpPost(Name = "CreateUser")]
     public async Task<ActionResult<User>> CreateUser([FromBody] UserDTO user)

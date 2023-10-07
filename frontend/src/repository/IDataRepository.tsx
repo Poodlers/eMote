@@ -66,6 +66,8 @@ export interface IDataRepository {
 
     logAccessToApp(): Promise<void>;
 
+    getRateOfNotifsPerDay(): Promise<number>;
+
     logTimeStampOnAppLogin() : void;
 
     downloadExcel() : Promise<void>;

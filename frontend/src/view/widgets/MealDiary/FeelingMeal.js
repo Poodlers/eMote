@@ -26,6 +26,7 @@ import imgOrgulhosa from '../../../assets/images/orgulhosa.png';
 import imgSozinha from '../../../assets/images/sozinha.png';
 import imgTranquila from '../../../assets/images/tranquila.png';
 import imgTriste from '../../../assets/images/triste.png';
+import EmotionsDialog from '../EmotionDialog';
 
 
     const imageList = [
@@ -91,8 +92,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FeelingMeal() {
+export default function FeelingMeal(props) {
   const [open, setOpen] = React.useState(false);
+  const emotionsSelected = props.initialValue;
+  const setEmotionsSelected = props.setEmotions;
+  const canEdit = props.canEdit;
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -117,58 +122,12 @@ export default function FeelingMeal() {
         </Grid>
     </Box>
 
-      <Dialog
-        fullScreen
-        open={open}
-        onClose={handleClose}
-        TransitionComponent={Transition}
-      >
-        <AppBar sx={{ position: 'relative' }} color='secondary'>
-          <Toolbar color='#ec6fa7' sx={{minHeight: '80px'}} >
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-            <Typography sx={{ ml: 2, flex: 1, textAlign: 'center' }} variant="h6" component="div">
-              Como me senti
-            </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              salvar
-            </Button>
-          </Toolbar>
-        </AppBar>
-
-        <Box display="flex" alignItems='center' justifyContent='center' sx={{ p:2 }}>
-          <Grid container spacing={1}>
-            <Grid item xs={4} key="diarylogo">
-              <IconButton
-                color="info"
-                size="large"
-                disabled={true}
-                >
-                <img alt='logo' style={{ opacity: '25%'}} src={DiaryLogo}/>
-              </IconButton>
-            </Grid>
-            {imageList.map(function(data) {
-                return (
-                    <Grid item xs={4} key= {data.feeling}>
-                        <IconButton
-                        color="info"
-                        size="large"
-                        >
-                        <img alt='logo' src={data.image}/>
-                        </IconButton>
-                    </Grid>
-                )
-            })}
-            </Grid>
-          </Box>
-
-      </Dialog>
+    <EmotionsDialog 
+    isOpen = {open} 
+    mainColor = '#ec6fa7' 
+    handleClickClose = {handleClose}
+    canEdit={canEdit} 
+            emotionsSelected={emotionsSelected} setEmotions={setEmotionsSelected} ></EmotionsDialog>
     </div>
   );
 }

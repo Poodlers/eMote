@@ -15,7 +15,6 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import ExercisesPage from './view/pages/ExercisesPage.js';
 import MealDiaryPage from './view/pages/MealDiaryPage.js';
 import MealTemplatePage from './view/pages/MealTemplatePage.js';
 import ModuleIntroductionPage from './view/pages/ModuleIntroductionPage.js';
@@ -63,7 +62,7 @@ function App() {
 
         <Route path='/emotiondiary' element={< EmotionDiaryPage/>} />
         <Route path='/mealdiary' element= {<MealDiaryPage/>} />
-        <Route path='/exercises' element={< ExercisesPage/>} />
+        
         
         <Route path='/mealpage' >
           <Route path=':meal' element= {<MealTemplatePage />} />

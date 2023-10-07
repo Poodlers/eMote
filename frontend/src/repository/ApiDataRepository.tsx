@@ -40,10 +40,24 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
+
   
  
   user = JSON.parse(localStorage.getItem('user') || '{}');
   completedLogin : boolean = false;
+
+  async getRateOfNotifsPerDay(): Promise<number> {
+    const instance = this.createInstance();
+
+    try{
+      const result = await instance.get(`${BASE_URL}/user/${this.user.code}/notifs`).then(transform);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
 
   async changeRateOfNotifsPerDay(notifsPerDay: Number): Promise<void> {
     const instance = this.createInstance();
@@ -515,7 +529,8 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
             code: code,
             password: password,
           }).then(transform);
-          
+
+    
           return result.data;
         }
         catch(error){

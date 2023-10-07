@@ -109,9 +109,10 @@ export default function ExercisesDialog(props) {
             <Typography sx={{ ml: 2, flex: 1, textAlign: 'center', fontSize:17 }} variant="h6" component="div">
                 Quais os exercícios que mais me ajudaram hoje?
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
+            {canEdit ?  <Button autoFocus color="inherit" onClick={handleClose}>
               salvar
-            </Button>
+            </Button> : null }
+         
           </Toolbar>
         </AppBar>
 

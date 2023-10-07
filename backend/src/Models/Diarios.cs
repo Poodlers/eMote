@@ -238,6 +238,9 @@ public class ModuloBlockInfo
     [Required]
     public bool IsBlocked { get; set; }
 
+    [Required]
+    public bool IsStarted { get; set; }
+
 }
 
 public class SubModulePageUserInfo

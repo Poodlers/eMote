@@ -69,11 +69,13 @@ public class ModuloController : ControllerBase
             {
                 isBlocked = !previousModulo.IsCompleted;
             }
+            var isStarted = moduloProgress.DataInicio != null;
             moduloBlockInfo.Add(new ModuloBlockInfo
             {
                 ModuloNumberOrder = moduloProgress.ModuloContent!.ModuleNumberOrder,
                 ModuloTitle = moduloProgress.ModuloContent!.Title,
-                IsBlocked = isBlocked
+                IsBlocked = isBlocked,
+                IsStarted = isStarted,
             });
         }
 
