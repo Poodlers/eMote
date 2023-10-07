@@ -66,7 +66,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors(builder =>
       {
           builder
-                .WithOrigins("https://emoteapp.netlify.app")
+                .WithOrigins("https://emoteapp.netlify.app", "http://localhost:3000")
                 .WithExposedHeaders("Content-Disposition")
                 .AllowAnyHeader()
                 .WithMethods("GET", "PUT", "POST", "DELETE", "OPTIONS")
