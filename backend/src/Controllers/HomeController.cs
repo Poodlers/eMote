@@ -6,11 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 [Route("/")]
 public class HomeController : ControllerBase
 {
+
     [HttpGet(Name = "MockHome")]
     public Dictionary<string, string> Get()
     {
-        var arr = new Dictionary<string, string>();
-        arr.Add("greeting", "Hello World");
+        var arr = new Dictionary<string, string>
+        {
+            { "greeting", "Hello World" }
+        };
         return arr;
     }
+
+
 }

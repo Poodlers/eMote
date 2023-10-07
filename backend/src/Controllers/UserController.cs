@@ -406,6 +406,13 @@ public class UserController : ControllerBase
         var user = _dbUserSet.Where(user => user.Code == user_code)
         .FirstOrDefault();
 
+        if (notifsPerDay.NotifsPerDay < 0 || notifsPerDay.NotifsPerDay > 6)
+        {
+            return StatusCode(
+                401,
+                "Invalid number of notifications"
+            );
+        }
         if (user == null)
         {
             return StatusCode(
