@@ -80,7 +80,7 @@ class NotificationPeriodicService : BackgroundService
                 {
                     await using AsyncServiceScope asyncScope = _factory.CreateAsyncScope();
                     UserNotificationService sampleService = asyncScope.ServiceProvider.GetRequiredService<UserNotificationService>();
-                    sampleService.SendOutNotifications(nextMeal);
+                    await sampleService.SendOutNotifications(nextMeal);
                     jobDelay = GetJobRunDelay();
                     nextMeal = jobDelay.Item2;
                     timer = new PeriodicTimer(jobDelay.Item1);

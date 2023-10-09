@@ -42,10 +42,20 @@ self.addEventListener('push', function (event) {
   if (!(self.Notification && self.Notification.permission === 'granted')) {
       return;
   }
+  
 
   var data = {};
   if (event.data) {
       data = event.data.text();
+  }
+    
+  if(data.endsWith('deploy')){
+    console.log("Got deploy request - resetting serviceWorker");
+     //unregister the serviceWorker
+     self.registration.unregister();
+     
+     return;  
+
   }
 
   console.log('Notification Received:');

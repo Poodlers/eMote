@@ -35,10 +35,16 @@ class UserNotificationService
         this._configuration = configuration;
     }
 
-    public void SendOutNotifications(Refeicao nextMeal)
+    public async Task SendOutNotifications(Refeicao nextMeal)
     {
         _logger.LogInformation(
             "Running UserNotificationService");
+        string vapidPublicKey = _configuration.GetSection("VapidKeys")["PublicKey"]!;
+        var payload = "Já usou a eMote hoje?";
+        string vapidPrivateKey = _configuration.GetSection("VapidKeys")["PrivateKey"]!;
+        var vapidDetails = new VapidDetails("mailto:example@example.com", vapidPublicKey, vapidPrivateKey);
+
+        var webPushClient = new WebPushClient();
 
         foreach (var device in _devicesDbSet)
         {
@@ -55,17 +61,21 @@ class UserNotificationService
                 _logger.LogInformation("User not scheduled to be notified at this time");
                 continue;
             }
-            var payload = "Já usou a eMote hoje?";
-
-
-            string vapidPublicKey = _configuration.GetSection("VapidKeys")["PublicKey"]!;
-            string vapidPrivateKey = _configuration.GetSection("VapidKeys")["PrivateKey"]!;
 
             var pushSubscription = new PushSubscription(device!.PushEndpoint, device.PushP256DH, device.PushAuth);
-            var vapidDetails = new VapidDetails("mailto:example@example.com", vapidPublicKey, vapidPrivateKey);
+            try
+            {
+                webPushClient.SendNotification(pushSubscription, payload, vapidDetails);
+            }
+            catch
+            {
+                Console.WriteLine("User push Subscription has expired:" + device.Name + "with ID: " + device.Id);
+                _dbContext.Devices!.Remove(device);
+            }
 
-            var webPushClient = new WebPushClient();
-            webPushClient.SendNotification(pushSubscription, payload, vapidDetails);
+
         }
+
+        await _dbContext.SaveChangesAsync();
     }
 }

@@ -6,6 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field} from 'formik';
 import TermsOfService from '../widgets/TermsOfService';
 
+
+const newEvent = new MouseEvent("user-login", {
+  view: window,
+  bubbles: true,
+  cancelable: true,
+});
+
+   
+const cb = document.getElementById("main-body");
+
 function LoginPage() {
   const repository = RepositorySingleton.getInstance().injectRepository();
   const navigate = useNavigate();
@@ -22,6 +32,7 @@ function LoginPage() {
     repository.loginUser(loggedUser.code, loggedUser.password).then((response) => {
       repository.updateUser();
       repository.logTimeStampOnAppLogin();
+      cb?.dispatchEvent(newEvent);
       
       if(loggedUser.role === 3){
         navigate('/admin', { replace: true });
@@ -55,13 +66,7 @@ function LoginPage() {
         repository.updateUser();
         repository.logTimeStampOnAppLogin();
 
-        const newEvent = new MouseEvent("user-login", {
-          view: window,
-          bubbles: true,
-          cancelable: true,
-        });
-      
-        const cb = document.getElementById("main-body");
+   
         cb?.dispatchEvent(newEvent);
         
         

@@ -10,6 +10,16 @@ function LogoutButton(props){
     const navigate = useNavigate();
     const handleLogout = () => {
         repository.logOutUser();
+
+        //unregister all serviceWorkers
+        navigator.serviceWorker
+        .getRegistrations()
+        .then(function (registrations) {
+          for (let registration of registrations) {
+            registration.unregister();
+           
+          }
+        });
         navigate('/');
       }
 

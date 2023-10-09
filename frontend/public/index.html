@@ -5,10 +5,7 @@
     <link rel="icon" href="%PUBLIC_URL%/icon_azul.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="description" content="emotE - Control your emotions" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/icon_192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>emotE</title>
@@ -30,15 +27,6 @@
         window.addEventListener(
           "load",
           function () {
-            navigator.serviceWorker
-              .getRegistrations()
-              .then(function (registrations) {
-                for (let registration of registrations) {
-                  registration.unregister();
-                  document.location.reload();
-                }
-              });
-
             navigator.serviceWorker
               .register("/serviceWorker.js")
               .then(function (registration) {

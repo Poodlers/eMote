@@ -1,6 +1,6 @@
 // http://localhost:8080, https://emote-dev-api.fly.dev
 
-const BASE_URL = 'https://emote-dev-api.fly.dev';   
+const BASE_URL = 'http://localhost:8080';   
 var applicationServerPublicKey = 'BJoBWVlRziIyn-vD3BRXrfMlzqiOTIc_XxqaCRO5O3MT0tXr1oEdfGakUeRkPKy2SCxN7OimPxc8tKJJOkRqOKA';
 var serviceWorker = '/serviceWorker.js';
 var isSubscribed = false;
@@ -8,6 +8,7 @@ var isSubscribed = false;
 const event = new Event("user-login");
 document.addEventListener("user-login", function () {
     // Application Server Public Key defined in Views/Device/Create.cshtml
+
     if (typeof applicationServerPublicKey === 'undefined') {
         errorHandler('Vapid public key is undefined.');
         return;
@@ -28,6 +29,8 @@ document.addEventListener("user-login", function () {
     });
 
     subscribe();
+
+    
 });
 
 
@@ -74,6 +77,7 @@ function initialiseState(reg) {
                 if (isSubscribed) {
                     console.log('User is already subscribed to push notifications');
                 } else {
+                    
                     console.log('User is not yet subscribed to push notifications');
                 }
             })
