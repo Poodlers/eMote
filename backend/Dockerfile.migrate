@@ -23,6 +23,8 @@ COPY src src
 
 WORKDIR /usr/src/app/src
 
+RUN touch /data/db.sqlite
+
 RUN touch db.sqlite
 
 CMD [ "dotnet", "ef", "database", "update","--runtime", "linux-x64"]
