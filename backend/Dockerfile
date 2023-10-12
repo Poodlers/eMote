@@ -5,6 +5,8 @@ ENV DATABASE_URL="file:///data/db.sqlite"
 
 VOLUME /data
 
+RUN touch /data/db.sqlite
+
 RUN dotnet --info
 
 # Copy csproj and restore as distinct layers
