@@ -5,7 +5,6 @@ WORKDIR /usr/src/app
 VOLUME /data
 ENV DATABASE_URL="file:///data/db.sqlite"
 
-RUN touch /data/db.sqlite
 
 RUN dotnet --info
 

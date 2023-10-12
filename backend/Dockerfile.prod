@@ -5,7 +5,7 @@ ENV PATH="${PATH}:/root/.dotnet/tools"
 VOLUME /data
 ENV DATABASE_URL="file:///data/db.sqlite"
 
-RUN touch /data/db.sqlite
+
 WORKDIR /usr/src/app
 
 RUN dotnet --info
