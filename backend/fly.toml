@@ -16,6 +16,10 @@ kill_timeout = "5s"
 [experimental]
   auto_rollback = true
 
+[mounts]
+ source="myapp_data"
+ destination="/data"
+
 [build]
 
 [[services]]
