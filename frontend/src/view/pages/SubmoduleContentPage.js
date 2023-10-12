@@ -59,7 +59,7 @@ function SubmoduleContentPage(props) {
                   <>
                   <div style={{ paddingBottom: 10, display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
                         <img alt="imgFile" style={{ alignSelf: 'center' }}
-                         src={'/images/'+ submodulesContent.imageFile} width='30%' />
+                         src={'/images/'+ submodulesContent.imageFile} width='80%' />
                   </div>
                   </> : null}
                   {submodulesContent.videoFile ? 
