@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0.306-alpine3.18 as build
 
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
-# ENV DATABASE_URL="file:///data/db.sqlite"
+ENV DATABASE_URL="file:///data/db.sqlite"
 
 WORKDIR /usr/src/app
 

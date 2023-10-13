@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0.306-alpine3.18
 
 VOLUME /data
 
-# ENV DATABASE_URL="file:///data/db.sqlite"
+ENV DATABASE_URL="file:///data/db.sqlite"
 
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
@@ -24,6 +24,6 @@ COPY src src
 
 WORKDIR /usr/src/app/src
 
-RUN touch db.sqlite
+RUN touch /data/db.sqlite
 
 CMD [ "dotnet", "ef", "database", "update","--runtime", "linux-x64"]

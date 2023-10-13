@@ -2,9 +2,9 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0.306-alpine3.18
 VOLUME /data
 
 WORKDIR /usr/src/app
-# ENV DATABASE_URL="file:///data/db.sqlite"
+ENV DATABASE_URL="file:///data/db.sqlite"
 
-# RUN touch /data/db.sqlite
+RUN touch /data/db.sqlite
 
 RUN dotnet --info
 
