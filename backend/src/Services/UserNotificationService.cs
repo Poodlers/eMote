@@ -11,6 +11,16 @@ class UserNotificationService
 
     private readonly DatabaseContext _dbContext;
 
+    private readonly Dictionary<Refeicao, string> refeicaoNames =
+        new Dictionary<Refeicao, string>(){
+            {Refeicao.PequenoAlmoco, "o seu Pequeno Almoço"},
+            {Refeicao.LancheDaManha, "o seu Lanche da Manhã"},
+            {Refeicao.Almoco, "o seu Almoço"},
+            {Refeicao.LancheDaTarde, "o seu Lanche da Tarde"},
+            {Refeicao.Jantar, "o seu Jantar"},
+            {Refeicao.Ceia, "a sua Ceia"}
+        };
+
     private readonly Dictionary<int, List<Refeicao>> mealsToBeNotified =
         new Dictionary<int, List<Refeicao>>(){
             {6, new List<Refeicao>(){Refeicao.PequenoAlmoco, Refeicao.LancheDaManha, Refeicao.Almoco, Refeicao.LancheDaTarde, Refeicao.Jantar, Refeicao.Ceia}},
@@ -40,7 +50,7 @@ class UserNotificationService
         _logger.LogInformation(
             "Running UserNotificationService");
         string vapidPublicKey = _configuration.GetSection("VapidKeys")["PublicKey"]!;
-        var payload = "Já usou a eMote hoje?";
+        var payload = "Já usou a eMote hoje? Registe " + refeicaoNames[nextMeal] + "!";
         string vapidPrivateKey = _configuration.GetSection("VapidKeys")["PrivateKey"]!;
         var vapidDetails = new VapidDetails("mailto:example@example.com", vapidPublicKey, vapidPrivateKey);
 
