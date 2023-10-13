@@ -39,8 +39,7 @@ class NotificationPeriodicService : BackgroundService
         string[] formats = { @"hh\:mm\:ss", "hh\\:mm" };
         TimeOnly[] jobStartTimes = refeicaoTimes.Keys.ToArray();
         // gett the timeSpan between now and the next job start time
-        var UTCTime = TimeZoneInfo.ConvertTime(DateTime.Now,
-                 TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time"));
+        var UTCTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
         var closestTime = jobStartTimes.MinBy(t => Math.Abs((
             t -
              new TimeOnly(UTCTime.TimeOfDay.Hours, UTCTime.TimeOfDay.Minutes, UTCTime.TimeOfDay.Seconds)
@@ -54,8 +53,7 @@ class NotificationPeriodicService : BackgroundService
     private Tuple<TimeSpan, Refeicao> GetJobRunDelay()
     {
         Tuple<TimeSpan, Refeicao> scheduledParsedTime = GetScheduledParsedTime();
-        var UTCTime = TimeZoneInfo.ConvertTime(DateTime.Now,
-                 TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time"));
+        var UTCTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
         TimeSpan curentTimeOftheDay = UTCTime.TimeOfDay;
         TimeSpan delayTime = scheduledParsedTime.Item1 >= curentTimeOftheDay
             ? scheduledParsedTime.Item1 - curentTimeOftheDay     // Initial Run, when ETA is within 24 hours
