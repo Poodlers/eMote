@@ -21,7 +21,6 @@ RUN dotnet dev-certs https --trust
 
 COPY src src
 
-
 WORKDIR /usr/src/app/src
 
 RUN touch /data/db.sqlite

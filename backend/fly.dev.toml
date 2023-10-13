@@ -5,6 +5,7 @@ kill_timeout = 5
 processes = []
 
 [env]
+  DATABASE_URL="file:///data/db.sqlite"
 
 [experimental]
   allowed_public_ports = []
