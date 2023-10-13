@@ -1,9 +1,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0.306-alpine3.18 as build
 
 ENV PATH="${PATH}:/root/.dotnet/tools"
-VOLUME [ "/data" ]
+
+RUN mkdir /data
 
 RUN touch /data/db.sqlite
+
+VOLUME [ "/data" ]
 
 ENV DATABASE_URL="/data/db.sqlite"
 
