@@ -1,6 +1,6 @@
 // http://localhost:8080, https://emote-dev-api.fly.dev
 
-const BASE_URL = 'http://localhost:8080';   
+const BASE_URL = 'https://emote-dev-api.fly.dev';   
 var applicationServerPublicKey = 'BJoBWVlRziIyn-vD3BRXrfMlzqiOTIc_XxqaCRO5O3MT0tXr1oEdfGakUeRkPKy2SCxN7OimPxc8tKJJOkRqOKA';
 var serviceWorker = '/serviceWorker.js';
 var isSubscribed = false;

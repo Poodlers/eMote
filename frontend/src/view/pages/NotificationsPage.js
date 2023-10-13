@@ -4,15 +4,19 @@ import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { useEffect } from 'react';
+
 import { ComponentState } from '../../models/ComponentState';
+import { useNavigate } from 'react-router-dom';
 
 
 function NotificationsPage() {
+    const navigate = useNavigate();
     const repository = RepositorySingleton.getInstance().injectRepository();
 
     const onConfirm = () => {
         repository.changeRateOfNotifsPerDay(amountOfNotifs).then(() => {
             console.log("Rate of notifs changed");
+            navigate('/profile', { replace: true })
         }
         ).catch((error) => {
             console.log("Error changing rate of notifs: " + error);
