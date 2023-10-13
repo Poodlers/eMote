@@ -68,6 +68,9 @@ self.addEventListener('push', function (event) {
   event.waitUntil(self.registration.showNotification(title, {
       body: message,
       icon: icon,
-      badge: icon
+      badge: icon,
+      vibrate :  [200, 100, 200, 100, 200, 100, 200],
+      tag: "eMote",
+      renotify: true,
   }));
 });
