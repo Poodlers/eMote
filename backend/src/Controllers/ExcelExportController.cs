@@ -352,7 +352,7 @@ public class ExcelExportController : ControllerBase
             moduloProgress.DataFim
         };
         _logger.LogInformation($"Adding user with subModules with count {subModules.Count} to excel file");
-        foreach (SubModuleUserProgress subModuleUserProgress in subModules.Skip(1))
+        foreach (SubModuleUserProgress subModuleUserProgress in subModules)
         {
             content.Add(subModuleUserProgress.DataInicio);
             content.Add(subModuleUserProgress.DataFim);
