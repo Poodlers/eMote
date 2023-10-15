@@ -163,7 +163,10 @@ public class UserController : ControllerBase
             else
             {
                 userToUpdateEnhanced!.ModulosProgress[0]
-                .SubModuleUserProgresses.Remove(userToUpdateEnhanced!.ModulosProgress[0].SubModuleUserProgresses[1]);
+                .SubModuleUserProgresses.Remove(userToUpdateEnhanced!.ModulosProgress[0].SubModuleUserProgresses.Where(
+                    submodulo => submodulo.SubModule!.SubModuleNumberOrder == 2
+                ).FirstOrDefault()!
+                );
             }
         }
         userToUpdate.Code = user.Code;
