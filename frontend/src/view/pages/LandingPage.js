@@ -6,9 +6,10 @@ import Diaries from '../widgets/Diaries.js';
 import { NavBar } from '../widgets/NavBar.js';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { ComponentState } from '../../models/ComponentState';
+import { useNavigate } from 'react-router-dom';
 
 function LandingPage() {
-
+  const navigate = useNavigate();
   const repository = RepositorySingleton.getInstance().injectRepository();
   const [componentState, setComponentState] = useState(ComponentState.LOADING);
   const [modulesList, setModulesList] = useState([]);
@@ -25,6 +26,7 @@ function LandingPage() {
       }).catch((error) => {
           console.log(error);
           setComponentState(ComponentState.ERROR);
+          navigate('/', { replace: true });
       });
 
   }, []);

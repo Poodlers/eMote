@@ -206,7 +206,9 @@ public class ExcelExportController : ControllerBase
         .Include(user => user.EmotionDiaryEntries)
         .ThenInclude(emotionDiary => emotionDiary.Exercicios)
         .Include(user => user.ModulosProgress)
-        .ThenInclude(modulo => modulo.SubModuleUserProgresses)
+        .ThenInclude(modulo => modulo.SubModuleUserProgresses
+        .OrderBy(submodulo => submodulo.SubModule!.SubModuleNumberOrder))
+        .ThenInclude(submodulo => submodulo.SubModule)
         .Include(user => user.ModulosProgress)
         .ThenInclude(modulo => modulo.ModuloContent)
         .Include(user => user.FavoriteExercises)
@@ -280,19 +282,19 @@ public class ExcelExportController : ControllerBase
                 switch (moduloProgress.ModuloContent!.ModuleNumberOrder)
                 {
                     case 1:
-                        dataTableModulo1UserProgress.Rows.Add(AddRowsToModuloTable(moduloProgress, user.Code!, fav_exercises_modulo));
+                        dataTableModulo1UserProgress.Rows.Add(AddRowsToModuloTable(moduloProgress, user.Code!, user.Role, fav_exercises_modulo));
                         break;
                     case 2:
 
-                        dataTableModulo2UserProgress.Rows.Add(AddRowsToModuloTable(moduloProgress, user.Code!, fav_exercises_modulo));
+                        dataTableModulo2UserProgress.Rows.Add(AddRowsToModuloTable(moduloProgress, user.Code!, user.Role, fav_exercises_modulo));
                         break;
                     case 3:
 
-                        dataTableModulo3UserProgress.Rows.Add(AddRowsToModuloTable(moduloProgress, user.Code!, fav_exercises_modulo));
+                        dataTableModulo3UserProgress.Rows.Add(AddRowsToModuloTable(moduloProgress, user.Code!, user.Role, fav_exercises_modulo));
                         break;
                     case 4:
 
-                        dataTableModulo4UserProgress.Rows.Add(AddRowsToModuloTable(moduloProgress, user.Code!, fav_exercises_modulo));
+                        dataTableModulo4UserProgress.Rows.Add(AddRowsToModuloTable(moduloProgress, user.Code!, user.Role, fav_exercises_modulo));
                         break;
                 }
             }
@@ -342,7 +344,7 @@ public class ExcelExportController : ControllerBase
 
     }
 
-    private object?[] AddRowsToModuloTable(ModuloUserProgress moduloProgress, string code, List<Exercicio> exercicios)
+    private object?[] AddRowsToModuloTable(ModuloUserProgress moduloProgress, string code, int user_role, List<Exercicio> exercicios)
     {
         var subModules = moduloProgress.SubModuleUserProgresses;
         var content = new List<object?>
@@ -354,8 +356,20 @@ public class ExcelExportController : ControllerBase
         _logger.LogInformation($"Adding user with subModules with count {subModules.Count} to excel file");
         foreach (SubModuleUserProgress subModuleUserProgress in subModules)
         {
+
             content.Add(subModuleUserProgress.DataInicio);
             content.Add(subModuleUserProgress.DataFim);
+
+
+
+            if (moduloProgress.ModuloContent!.ModuleNumberOrder == 1
+           && subModuleUserProgress.SubModule!.SubModuleNumberOrder == 1
+           && user_role == 1)
+            {
+
+                content.Add(DateTime.MinValue);
+                content.Add(DateTime.MinValue);
+            }
         }
 
         string fav_exercises = "";

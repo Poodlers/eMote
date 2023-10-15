@@ -1,4 +1,5 @@
 using backend.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 class UserAccessService
@@ -22,10 +23,10 @@ class UserAccessService
 
         foreach (var user in _dbUserSet)
         {
-            if (user.HasAccessToApp)
+            if (user.HasAccessToApp && user.Role != 3)
             {
                 //if it has been more than 2 months since the user was created, remove access
-                if (DateTime.Now.Subtract((DateTime) user.CreatedAt!).Days / (365.25 / 12) > 2)
+                if (DateTime.Now.Subtract((DateTime)user.CreatedAt!).Days / (365.25 / 12) > 2)
                 {
                     user.HasAccessToApp = false;
                     _dbUserSet.Update(user);

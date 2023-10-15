@@ -86,6 +86,7 @@ class SubModulePage extends React.Component {
               break;
             }
           }
+        
           this.setState(
                 {pageContent: response});
           
@@ -232,18 +233,8 @@ class SubModulePage extends React.Component {
             repository.registerSubModuloTimeStamps(this.state.moduleNumber, this.state.submoduleNumber, undefined,
             dataFim
             ).then((response) => {
+                this.props.router.navigate(nextPageLink, { replace: true });
                 
-                if(this.state.pageContent.isLastPageInModulo){
-                    console.log('registering modulo final time: ', dataFim);
-                    repository.registerModuloTimeStamps(this.state.moduleNumber, undefined,dataFim).then((response) => {
-                       
-                        this.props.router.navigate(nextPageLink, { replace: true });
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-                }else{
-                    this.props.router.navigate(nextPageLink, { replace: true });
-                }
             }).catch((error) => {
                 console.log(error);
             });

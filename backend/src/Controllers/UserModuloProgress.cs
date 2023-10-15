@@ -28,9 +28,12 @@ public class UserModuloProgress : ControllerBase
         var userProgressModulo = _dbUserSet.Where(user => user.Code == user_code)
         .Include(user => user.ModulosProgress.Where(m =>
          m.ModuloContent!.ModuleNumberOrder == modulo_id))
-        .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses)
+        .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses
+        .OrderBy(submodulo => submodulo.SubModule!.SubModuleNumberOrder))
         .ThenInclude(subModuleUserPorgress => subModuleUserPorgress.SubModule)
         .FirstOrDefault();
+
+
         if (userProgressModulo == null || userProgressModulo.ModulosProgress.Count == 0)
         {
             return StatusCode(
@@ -39,7 +42,8 @@ public class UserModuloProgress : ControllerBase
             );
         }
 
-        return Ok(userProgressModulo.ModulosProgress[0]);
+        var moduloProgress = userProgressModulo.ModulosProgress[0];
+        return Ok(moduloProgress);
     }
 
     [HttpGet("{user_code}", Name = "GetAllUserProgress")]
@@ -47,7 +51,8 @@ public class UserModuloProgress : ControllerBase
     {
         var userProgressModulo = _dbUserSet.Where(user => user.Code == user_code)
         .Include(user => user.ModulosProgress)
-        .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses)
+        .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses
+        .OrderBy(submodulo => submodulo.SubModule!.SubModuleNumberOrder))
         .ThenInclude(subModuleUserPorgress => subModuleUserPorgress.SubModule)
         .FirstOrDefault();
 
@@ -70,7 +75,7 @@ public class UserModuloProgress : ControllerBase
         .Include(user => user.ModulosProgress.Where(m =>
          m.ModuloContent!.ModuleNumberOrder == modulo_id))
         .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses
-        .Where(s => s.SubModule!.SubModuleNumberOrder == submodulo_id))
+        .OrderBy(submodulo => submodulo.SubModule!.SubModuleNumberOrder))
         .FirstOrDefault();
         if (userProgressModulo == null || userProgressModulo.ModulosProgress.Count == 0
 
@@ -83,13 +88,13 @@ public class UserModuloProgress : ControllerBase
         }
         string[] format = { "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy", "dd-MM-yyyy", "dd-MM-yyyy HH:mm:ss" };
         if (progressDTO.TimeStampInicio != null
-        && userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].DataInicio == null)
+        && userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[submodulo_id - 1].DataInicio == null)
         {
             if (DateTime.TryParseExact(progressDTO.TimeStampInicio, format, null,
                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
                               System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataInicio))
             {
-                userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].DataInicio = dataInicio;
+                userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[submodulo_id - 1].DataInicio = dataInicio;
             }
             else
             {
@@ -97,14 +102,14 @@ public class UserModuloProgress : ControllerBase
             }
         }
         if (progressDTO.TimeStampFim != null
-        && !userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].IsCompleted)
+        && !userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[submodulo_id - 1].IsCompleted)
         {
             if (DateTime.TryParseExact(progressDTO.TimeStampFim, format, null,
                               System.Globalization.DateTimeStyles.AllowWhiteSpaces |
                               System.Globalization.DateTimeStyles.AdjustToUniversal, out DateTime dataFim))
             {
-                userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].DataFim = dataFim;
-                userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[0].IsCompleted = true;
+                userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[submodulo_id - 1].DataFim = dataFim;
+                userProgressModulo.ModulosProgress[0].SubModuleUserProgresses[submodulo_id - 1].IsCompleted = true;
             }
             else
             {

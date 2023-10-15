@@ -33,9 +33,15 @@ function FeedbackPage(props) {
     const [module, setModule] = React.useState({});
 
     const onSubmit = () => {
-        
+        const dataFim = new Date().toLocaleString().replace(',', '');
         repository.sendFeedback(moduleNumber, 
             usefelnessScore, satisfactionScore).then((response) => {
+                repository.registerModuloTimeStamps(moduleNumber, undefined,dataFim).then((response) => {
+                       
+                    navigate('/home', { replace: true });
+                }).catch((error) => {
+                    console.log(error);
+                });
             navigate('/home', { replace: true });
         }).catch((error) => {
             console.log(error);

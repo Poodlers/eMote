@@ -525,6 +525,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
       result.data.users.forEach(user => {
         let newUser: User = user;
         newUser.createdAt = user.createdAt.slice(0,10);
+        newUser.createdAt = newUser.createdAt.split('-').reverse().join('-');
         users.push(newUser);
       });
      
