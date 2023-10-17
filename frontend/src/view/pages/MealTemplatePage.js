@@ -226,8 +226,8 @@ function MealTemplatePage() {
                     <FeelingMeal initialValue = {feelingsAroundMeal} canEdit={!hasAlreadyFilled} setEmotions={setFeelingsAroundMeal}/>
                     <DescriptionMeal initialValue = {contentsOfMeal} readOnly={hasAlreadyFilled} setContentsOfMeal = {setContentsOfMeal}/>
                     <CheckboxTemplate initialValue = {plainAttention} readOnly={hasAlreadyFilled} setCheck = {setPlainAttention} text="Comi com atenção plena" id='attention' />
-                    <CheckboxTemplate initialValue = {restrainedConsumption} readOnly={hasAlreadyFilled} setCheck = {setRestrainedConsumption} text="Restringi propositadamente a quantidade de alimentos" id='restriction'/>
-                    <CheckboxTemplate initialValue = {hadAnEpisode} readOnly={hasAlreadyFilled} setCheck={setHadAnEpisode} text="Tive um episódio de ingestão compulsiva" id='episode'/>
+                    <CheckboxTemplate initialValue = {restrainedConsumption} readOnly={hasAlreadyFilled} setCheck = {setRestrainedConsumption} text="Restringi propositadamente a quantidade de alimentos" note="ou seja, mindful eating" id='restriction'/>
+                    <CheckboxTemplate initialValue = {hadAnEpisode} readOnly={hasAlreadyFilled} setCheck={setHadAnEpisode} text="Tive um episódio de ingestão compulsiva" note="i.e., comer uma grande quantidade de comida e perda de controlo" id='episode'/>                    
                     {
                         user.role == 2 ?
                         <CompensationMeal initialValue = {compensatoryBehaviors} readOnly={hasAlreadyFilled} setBehaviours ={setCompensatoryBehaviors} setHadBehaviour = {setHadCompensatoryBehaviour}  />

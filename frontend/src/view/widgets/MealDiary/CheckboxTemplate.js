@@ -24,6 +24,12 @@ export default function CheckboxTemplate(props) {
                 ></Checkbox>
             </Grid>
         </Grid>
+        {props.note? 
+            <Typography gutterBottom sx={{ pl:3, pb: 0.5, mr:8, fontSize: 15, fontWeight: 200 }} variant='body1' color={"white"}>
+                {props.note}
+            </Typography>
+        : null
+        }
     </Box>
   );
 }
