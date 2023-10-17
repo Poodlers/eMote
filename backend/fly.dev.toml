@@ -5,10 +5,16 @@ kill_timeout = 5
 processes = []
 
 [env]
+  DATABASE_URL="file:///data/db.sqlite"
 
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
+
+
+[mounts]
+ source="myapp_data"
+ destination="/data"
 
 [[services]]
   http_checks = []

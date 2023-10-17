@@ -22,10 +22,6 @@ function EmotionDiaryPage() {
   const [dayReflection, setDayReflection] = React.useState('');
 
   const handleSubmit = () => {
-    if(hasAlreadyFilled){
-      navigate('/home');
-      return;
-    }
     repository.saveEmotionDiary(emotionsSelected, exercisesSelected, dayReflection).then((response) => {
       console.log(response);
       navigate('/home');
@@ -78,7 +74,7 @@ function EmotionDiaryPage() {
   }, []);
 
   return (
-    <Box sx={{backgroundColor: '#e6d4e0', width: '100%', height:'100vh'}}>
+    <Box sx={{backgroundColor: '#e6d4e0', height:'100vh'}}>
       <IconButton component={Link} to="/home" aria-label="back" size="large">
           <ArrowBackIosIcon color= "secondary" fontSize="inherit" />
       </IconButton>
@@ -104,18 +100,25 @@ function EmotionDiaryPage() {
               <Typography gutterBottom sx={{ pb:1, textAlign: 'center', fontSize: 17, fontWeight: 500, color: "#e7007f" }} variant='body1'>
                   Diário das Emoções
               </Typography>
-            <Box sx={{p:2}}>
-              <EmotionsDialog canEdit={!hasAlreadyFilled} emotionsSelected={emotionsSelected} setEmotions= {setEmotionsSelected}/>
+            <Box sx={{p:2 , backgroundColor: '#e6d4e0'}}>
+              <EmotionsDialog 
+              canEdit={!hasAlreadyFilled} emotionsSelected={emotionsSelected} setEmotions= {setEmotionsSelected}/>
               <ExercisesDialog canEdit={!hasAlreadyFilled} possibleExercises={exercisesContent} exercisesSelected={exercisesSelected} setExercises = {setExercisesSelected} />
               <ReflexionForm canEdit={!hasAlreadyFilled} dayReflection={dayReflection} setDayReflection={setDayReflection}/>
 
-              <Box sx ={{ p:3 }} textAlign='center'>
-              <Button onClick={handleSubmit} sx ={{ p:1, bgcolor: '#ec6fa7' }}>
-                  <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
-                      Confirmar
-                  </Typography>
-              </Button>
-            </Box>
+           
+                {
+                  hasAlreadyFilled ? null :
+                  <Box sx ={{ p:3 }} textAlign='center'>
+                  <Button onClick={handleSubmit} sx ={{ p:1, bgcolor: '#ec6fa7' }}>
+                    <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
+                        Confirmar
+                    </Typography>
+                  </Button>
+                  </Box>
+                }
+              
+              
             </Box>
           
         </>

@@ -5,6 +5,7 @@ const urlsToCache = [
 ];
 self.addEventListener('install', function(event) {
 // Perform install steps
+
     event.waitUntil(
     caches.open(CACHE_NAME)
     .then(function(cache) {
@@ -41,10 +42,20 @@ self.addEventListener('push', function (event) {
   if (!(self.Notification && self.Notification.permission === 'granted')) {
       return;
   }
+  
 
   var data = {};
   if (event.data) {
       data = event.data.text();
+  }
+    
+  if(data.endsWith('deploy')){
+    console.log("Got deploy request - resetting serviceWorker");
+     //unregister the serviceWorker
+     self.registration.unregister();
+     
+     return;  
+
   }
 
   console.log('Notification Received:');
@@ -57,6 +68,9 @@ self.addEventListener('push', function (event) {
   event.waitUntil(self.registration.showNotification(title, {
       body: message,
       icon: icon,
-      badge: icon
+      badge: icon,
+      vibrate :  [200, 100, 200, 100, 200, 100, 200],
+      tag: "eMote",
+      renotify: true,
   }));
 });

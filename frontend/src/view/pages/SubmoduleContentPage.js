@@ -9,6 +9,7 @@ import { saveAs } from 'file-saver';
 
 function SubmoduleContentPage(props) {
     const navigate = useNavigate();
+    const [videoLoading, setVideoLoading] = React.useState(true);
     const module = props.module;
     const submodulesContent = props.submodulesContent;
     const subModuleNumber = props.subModuleNumber;
@@ -33,13 +34,12 @@ function SubmoduleContentPage(props) {
               <Typography color={module.theme === "blue" ? module.color1 : "black" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
                     {submodulesContent.text}
               </Typography>
-              {pageNumber == 1 ?
+              {pageNumber == 1 && !isLastPage ?
               <Box sx ={{ p:3}} textAlign='center'>
                 <Button  onClick={() =>{
                    navigate(
                     isLastPage ? (isModuleEnd ? `/feedback/${module.moduloId}`:
                      `/submodulelist/${module.moduloId}/`)
-
                      : `/submodulepage/${module.moduloId}/${subModuleNumber}/${parseInt(pageNumber) + 1}`,
             
                    {replace: true}
@@ -59,15 +59,25 @@ function SubmoduleContentPage(props) {
                   <>
                   <div style={{ paddingBottom: 10, display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
                         <img alt="imgFile" style={{ alignSelf: 'center' }}
-                         src={'/images/'+ submodulesContent.imageFile} width='30%' />
+                         src={'/images/'+ submodulesContent.imageFile} width='80%' />
                   </div>
                   </> : null}
                   {submodulesContent.videoFile ? 
                   <>
+                  {
+                    videoLoading ?
+                    <Typography color={module.theme === "blue" ? module.color1 : "black" }
+                     sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
+                      Carregando o vídeo...
+                    </Typography>
+                    :    
+                    null
+                    }               
                   <Grid container direction='row'>
                       <Grid item xs={12}  >
                           <ReactPlayer
-                              style={{margin: '0 auto'}}
+                              onReady={() => setVideoLoading(false)}
+                              style={{margin: '0 auto', display: videoLoading ? 'none' : 'block'}}
                               url={'/videos/'+ submodulesContent.videoFile}
                               width={'auto'}
                               height={'400px'}
@@ -78,6 +88,7 @@ function SubmoduleContentPage(props) {
                           
                       </Grid>
                   </Grid>
+                  
                   </> : null}
                   {submodulesContent.otherFile ? 
                     <Grid container direction='row' justifyContent='center' alignItems='center'>

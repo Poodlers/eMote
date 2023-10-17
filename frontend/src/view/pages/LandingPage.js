@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Modules from '../widgets/Modules.js';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import Diaries from '../widgets/Diaries.js';
 import { NavBar } from '../widgets/NavBar.js';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { ComponentState } from '../../models/ComponentState';
+import { useNavigate } from 'react-router-dom';
 
 function LandingPage() {
-
+  const navigate = useNavigate();
   const repository = RepositorySingleton.getInstance().injectRepository();
   const [componentState, setComponentState] = useState(ComponentState.LOADING);
   const [modulesList, setModulesList] = useState([]);
@@ -16,6 +17,7 @@ function LandingPage() {
   useEffect(() => {
       repository.fetchModuloList().then((modules) => {
           setModulesList([...modules]);
+          console.log(modules);
           setComponentState(ComponentState.LOADED);
           if(!modules[1].isBlocked){
             setAreDiariesBlocked(false);
@@ -24,6 +26,7 @@ function LandingPage() {
       }).catch((error) => {
           console.log(error);
           setComponentState(ComponentState.ERROR);
+          navigate('/', { replace: true });
       });
 
   }, []);

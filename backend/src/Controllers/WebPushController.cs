@@ -30,27 +30,36 @@ public class WebPushController : Controller
         _dbDevicesSet = context.Set<Devices>();
 
     }
-    [HttpGet(Name = "SendNotification")]
-    public ActionResult Send(int? id)
-    {
-        return Ok();
-    }
 
-    [HttpPost, ActionName("Send")]
+    [HttpGet, ActionName("SendNotifEveryone")]
 
-    public async Task<ActionResult> Send(int id)
+    public async Task<ActionResult> SendToEveryone(int id)
     {
-        var payload = Request.Form["payload"];
-        var device = await _context.Devices!.SingleOrDefaultAsync(m => m.Id == id);
+        var payload = "Example notification payload.";
+        var devices = await _context.Devices!.ToListAsync();
+
 
         string vapidPublicKey = _configuration.GetSection("VapidKeys")["PublicKey"]!;
+        var webPushClient = new WebPushClient();
         string vapidPrivateKey = _configuration.GetSection("VapidKeys")["PrivateKey"]!;
-
-        var pushSubscription = new PushSubscription(device!.PushEndpoint, device.PushP256DH, device.PushAuth);
         var vapidDetails = new VapidDetails("mailto:example@example.com", vapidPublicKey, vapidPrivateKey);
 
-        var webPushClient = new WebPushClient();
-        webPushClient.SendNotification(pushSubscription, payload, vapidDetails);
+        foreach (var device in devices)
+        {
+            var pushSubscription = new PushSubscription(device!.PushEndpoint, device.PushP256DH, device.PushAuth);
+            try
+            {
+                webPushClient.SendNotification(pushSubscription, payload, vapidDetails);
+            }
+            catch
+            {
+
+                Console.WriteLine("expired:" + device.Name + "with ID: " + device.Id);
+                _context.Devices!.Remove(device);
+            }
+
+        }
+        await _context.SaveChangesAsync();
 
         return Ok();
     }

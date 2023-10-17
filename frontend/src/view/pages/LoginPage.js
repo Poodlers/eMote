@@ -6,6 +6,16 @@ import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field} from 'formik';
 import TermsOfService from '../widgets/TermsOfService';
 
+
+const newEvent = new MouseEvent("user-login", {
+  view: window,
+  bubbles: true,
+  cancelable: true,
+});
+
+   
+const cb = document.getElementById("main-body");
+
 function LoginPage() {
   const repository = RepositorySingleton.getInstance().injectRepository();
   const navigate = useNavigate();
@@ -17,11 +27,19 @@ function LoginPage() {
 
   useEffect(() => {
     
-    const loggedUser = JSON.parse(localStorage.getItem('user'));
+    let loggedUser = JSON.parse(localStorage.getItem('user'));
     if(loggedUser === null) return;
     repository.loginUser(loggedUser.code, loggedUser.password).then((response) => {
+      if (!response.hasAccessToApp) {
+        alert('O seu periodo de acesso à emotE terminou, esperamos que tenha gostado da experiência!');
+        return;
+      }
+      loggedUser.role = response.role;
+      localStorage.setItem('user', JSON.stringify(loggedUser));
+
       repository.updateUser();
       repository.logTimeStampOnAppLogin();
+      cb?.dispatchEvent(newEvent);
       
       if(loggedUser.role === 3){
         navigate('/admin', { replace: true });
@@ -54,6 +72,10 @@ function LoginPage() {
         localStorage.setItem('user', JSON.stringify(loggedUser));
         repository.updateUser();
         repository.logTimeStampOnAppLogin();
+
+   
+        cb?.dispatchEvent(newEvent);
+        
         
         //setHasSeenTermsOfService(response.accesses.length > 0);
 

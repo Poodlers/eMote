@@ -36,16 +36,30 @@ class SubModulePage extends React.Component {
 
     }
     togglePlay = (audioFile) => {
+
         let audioRefsCopy = this.state.audioRefs;
+        
         for(let i = 0; i < audioRefsCopy.length; i++){
+          
             if(audioRefsCopy[i].audioFile == audioFile){
                 audioRefsCopy[i].isPlaying = !audioRefsCopy[i].isPlaying;
+                if(audioRefsCopy[i].isPlaying){ 
+                    // pause the other audios
+                    for(let j = 0; j < audioRefsCopy.length; j++){
+                        if(audioRefsCopy[j].audioFile !== audioFile){
+                            audioRefsCopy[j].isPlaying = false;
+                            
+                        }
+                    } 
+                      
+                }
                 break;
             }
-        }
+        }    
         this.setState({audioRefs : [...audioRefsCopy]});
       
-    }
+    
+}
 
     componentWillUnmount() {
         for(let i = 0; i < this.state.audioRefs.length; i++){
@@ -72,6 +86,7 @@ class SubModulePage extends React.Component {
               break;
             }
           }
+        
           this.setState(
                 {pageContent: response});
           
@@ -138,7 +153,7 @@ class SubModulePage extends React.Component {
                             });
                         exercises[response.exerciciosFavoritos[i].exercicioFile] = response.exerciciosFavoritos[i].exercicioIsFavorite;
                     }
-                    console.log('setting new state ');
+                    
                   this.setState(
                         {audioRefs: [...audioRefs],
                         objModule: objModule,
@@ -179,7 +194,7 @@ class SubModulePage extends React.Component {
         }
         if(prevState.audioRefs != this.state.audioRefs){
             if(this.state.audioRefs.length == 0) return;
-        
+            
             for(let i = 0; i < this.state.audioRefs.length; i++){
                 
                 this.state.audioRefs[i].audioRef.addEventListener('ended', () => this.togglePlay(this.state.audioRefs[i].audioFile));
@@ -218,17 +233,8 @@ class SubModulePage extends React.Component {
             repository.registerSubModuloTimeStamps(this.state.moduleNumber, this.state.submoduleNumber, undefined,
             dataFim
             ).then((response) => {
+                this.props.router.navigate(nextPageLink, { replace: true });
                 
-                if(this.state.pageContent.isLastPageInModulo){
-                    repository.registerModuloTimeStamps(this.state.moduleNumber, undefined,dataFim).then((response) => {
-                       
-                        this.props.router.navigate(nextPageLink, { replace: true });
-                    }).catch((error) => {
-                        console.log(error);
-                    });
-                }else{
-                    this.props.router.navigate(nextPageLink, { replace: true });
-                }
             }).catch((error) => {
                 console.log(error);
             });

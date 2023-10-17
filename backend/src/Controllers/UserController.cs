@@ -42,7 +42,11 @@ public class UserController : ControllerBase
         foreach (var user in users)
         {
             var timeSpan = TimeSpan.FromDays(60) - DateTime.Now.Subtract((DateTime)user.CreatedAt!);
-            user.TimeLeftInApp = user.HasAccessToApp && timeSpan > TimeSpan.Zero ? timeSpan.ToString("%d") + " days " + timeSpan.ToString("%h") + " hours" : "";
+            user.TimeLeftInApp = user.HasAccessToApp ? timeSpan.ToString("%d") + " days " + timeSpan.ToString("%h") + " hours" : "";
+            if (user.Role == 3)
+            {
+                user.TimeLeftInApp = "Forever";
+            }
 
         }
 
@@ -81,7 +85,8 @@ public class UserController : ControllerBase
         .Include(user => user.FoodDiaryEntries)
         .Include(user => user.EmotionDiaryEntries)
         .Include(user => user.ModulosProgress)
-        .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses)
+        .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses
+        .OrderBy(submodulo => submodulo.SubModule!.SubModuleNumberOrder))
         .FirstOrDefault();
 
         if (user == null)
@@ -123,7 +128,47 @@ public class UserController : ControllerBase
             );
         }
 
+        if (userToUpdate.Role != user.Role)
+        {
+            var userToUpdateEnhanced = _dbUserSet.Include(user => user.ModulosProgress
+                .Where(modulo => modulo.ModuloContent!.ModuleNumberOrder == 1))
+                .ThenInclude(moduloProgress => moduloProgress.SubModuleUserProgresses.OrderBy(
+                    submodulo => submodulo.SubModule!.SubModuleNumberOrder
+                ))
+                .ThenInclude(submoduloProgress => submoduloProgress.SubModule)
+                .Where(user => user.Code == user_code).FirstOrDefault();
+            if (user.Role == 2)
+            {
+                userToUpdateEnhanced!.ModulosProgress[0].SubModuleUserProgresses.Add(new SubModuleUserProgress
+                {
+                    SubModule = new SubModule
+                    {
+                        SubModuleNumberOrder = 2,
+                        Title = "O que são comportamentos compensatórios inapropriados?",
+                        SubModulePages =
+                    new List<SubModulePage>
+                    {
+                        new SubModulePage
+                        {
+                            PageNumber = 1,
+                            VideoFile = "submod2_ativ1.mp4",
+                        }
+                    }
 
+                    },
+                    DataInicio = null,
+                    DataFim = null
+                });
+            }
+            else
+            {
+                userToUpdateEnhanced!.ModulosProgress[0]
+                .SubModuleUserProgresses.Remove(userToUpdateEnhanced!.ModulosProgress[0].SubModuleUserProgresses.Where(
+                    submodulo => submodulo.SubModule!.SubModuleNumberOrder == 2
+                ).FirstOrDefault()!
+                );
+            }
+        }
         userToUpdate.Code = user.Code;
         userToUpdate.Password = user.Password;
         userToUpdate.Role = user.Role;
@@ -140,6 +185,8 @@ public class UserController : ControllerBase
         {
             return StatusCode(401, "Invalid dateOfCreation");
         }
+
+
 
         await _context.SaveChangesAsync();
 
@@ -232,7 +279,8 @@ public class UserController : ControllerBase
         var user = _dbUserSet.Where(user => user.Code == user_code)
         .Include(user => user.FoodDiaryEntries)
         .Include(user => user.ModulosProgress)
-        .ThenInclude(user => user.SubModuleUserProgresses)
+        .ThenInclude(user => user.SubModuleUserProgresses
+        .OrderBy(submodulo => submodulo.SubModule!.SubModuleNumberOrder))
         .Include(user => user.ModulosProgress)
         .ThenInclude(moduloProgress => moduloProgress.ModuloContent)
         .FirstOrDefault();
@@ -428,6 +476,23 @@ public class UserController : ControllerBase
         return Ok();
     }
 
+    [HttpGet("{user_code}/notifs", Name = "GetNotifs")]
+    public ActionResult<int> GetNotifs(String user_code)
+    {
+        var user = _dbUserSet.Where(user => user.Code == user_code)
+        .FirstOrDefault();
+
+        if (user == null)
+        {
+            return StatusCode(
+                404,
+                "User not found"
+            );
+        }
+
+        return Ok(user.NotifsPerDay);
+    }
+
 
     [HttpPost(Name = "CreateUser")]
     public async Task<ActionResult<User>> CreateUser([FromBody] UserDTO user)
@@ -469,6 +534,10 @@ public class UserController : ControllerBase
 
         foreach (SubModule subModule in modulo1Content.SubModules)
         {
+            if (subModule.SubModuleNumberOrder == 2)
+            {
+                continue;
+            }
             var subModuleUserProgress = new SubModuleUserProgress
             {
                 SubModule = subModule,

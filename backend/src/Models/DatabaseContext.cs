@@ -20,7 +20,8 @@ public class DatabaseContext : DbContext
         var configuration = new ConfigurationBuilder()
             .AddJsonFile("appsettings.local.json", optional: true)
             .Build();
-        var databaseFilePath = configuration.GetSection("DatabaseFilePath").Value ?? "./db.sqlite";
+
+        var databaseFilePath = Environment.GetEnvironmentVariable("DATABASE_URL") ?? "./db.sqlite";
         optionsBuilder.UseSqlite(@"Data Source=" + databaseFilePath + @";foreign keys=true;",
          o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
     }

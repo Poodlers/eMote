@@ -33,9 +33,15 @@ function FeedbackPage(props) {
     const [module, setModule] = React.useState({});
 
     const onSubmit = () => {
-        
+        const dataFim = new Date().toLocaleString().replace(',', '');
         repository.sendFeedback(moduleNumber, 
             usefelnessScore, satisfactionScore).then((response) => {
+                repository.registerModuloTimeStamps(moduleNumber, undefined,dataFim).then((response) => {
+                       
+                    navigate('/home', { replace: true });
+                }).catch((error) => {
+                    console.log(error);
+                });
             navigate('/home', { replace: true });
         }).catch((error) => {
             console.log(error);
@@ -51,7 +57,15 @@ function FeedbackPage(props) {
             }
         }
         repository.hasCompletedModulo(moduleNumber).then((response) => {
-            setComponentState(ComponentState.LOADED);
+            repository.getFeedback(moduleNumber).then((response) => {
+                setUsefulnessScore(response.utilidade);
+                setSatisfactionScore(response.satisfacao);
+                setComponentState(ComponentState.LOADED);
+            }).catch((error) => {
+                setComponentState(ComponentState.ERROR);
+                console.log(error);
+            });
+            
             console.log(response);
         }).catch((error) => {
             console.log(error);

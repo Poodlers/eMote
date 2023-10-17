@@ -9,12 +9,17 @@ kill_signal = "SIGINT"
 kill_timeout = "5s"
 
 [env]
+  DATABASE_URL="file:///data/db.sqlite"
   ASPNETCORE_ENVIRONMENT = "Development"
   ASPNETCORE_Kestrel__Certificates__Default__Path = "backend.pfx"
   ASPNETCORE_Kestrel__Certificates__Default__Password = "crypticpassword"
 
 [experimental]
   auto_rollback = true
+
+[mounts]
+ source="myapp_data"
+ destination="/data"
 
 [build]
 

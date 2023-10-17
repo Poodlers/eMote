@@ -24,6 +24,7 @@ import { Box, Chip, Input, MenuItem, Select, Typography } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
+import 'dayjs/locale/pt';
 
 const BooleanFormatter = ({ value }) => <Chip label={value ? 'Yes' : 'No'} />;
 
@@ -130,7 +131,7 @@ const Popup = ({
                 
             </Select>
             
-            <LocalizationProvider  dateAdapter={AdapterDayjs}>
+            <LocalizationProvider  dateAdapter={AdapterDayjs}  adapterLocale="pt">
               <DatePicker
                 sx = {{marginTop: '20px', input: { color: 'black'},  svg: { color : 'black' }}}
                 renderInput={props => <TextField  sx={{
@@ -139,7 +140,7 @@ const Popup = ({
                   label: { color : 'black'}
                 }} margin="normal" {...props} />}
                 label="Data de Registo"
-                value={ dayjs(row.createdAt)}
+                value={ dayjs(row.createdAt, 'DD-MM-YYYY')}
                 onChange={value => onChange({
                   target: { name: 'createdAt', value: value.format('DD-MM-YYYY')  },
                 })}
@@ -288,6 +289,7 @@ export default () => {
   const fetchInfo = () => {
       return repository.fetchAllUsers().then((response) => {
           setRows(response);
+          console.log(response);
         
           setComponentState(ComponentState.LOADED);
       }).catch((error) => {

@@ -43,6 +43,67 @@ public class ModuloController : ControllerBase
         return Ok(modulo);
     }
 
+    [HttpPost("{modulo_id}", Name = "AddSubModule")]
+    public ActionResult<SubModule> AddSubModule(int modulo_id, [FromBody] SubModule subModule)
+    {
+        var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules)
+        .Where(u => u.ModuleNumberOrder == modulo_id)
+        .FirstOrDefault();
+        if (modulo == null)
+        {
+            return StatusCode(
+                404,
+                "Modulo not found"
+
+            );
+        }
+        modulo.SubModules.Add(subModule);
+        _context.SaveChanges();
+        return Ok(subModule);
+    }
+
+    [HttpPost("{modulo_id}/{submodule_id}/{page_number}", Name = "FixSubModulePage")]
+    public ActionResult<SubModulePage> FixSubModulePage(int modulo_id, int submodule_id,
+    int page_number, [FromBody] SubModulePage subModulePage)
+    {
+        var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules)
+        .ThenInclude(submodulo => submodulo.SubModulePages)
+        .ThenInclude(submodulopage => submodulopage.Exercicios)
+        .Where(u => u.ModuleNumberOrder == modulo_id)
+        .FirstOrDefault();
+        if (modulo == null)
+        {
+            return StatusCode(
+                404,
+                "Modulo not found"
+
+            );
+        }
+        var subModule = modulo.SubModules.Where(s => s.SubModuleNumberOrder == submodule_id).FirstOrDefault();
+        if (subModule == null)
+        {
+            return StatusCode(
+                404,
+                "SubModule not found"
+
+            );
+        }
+        var subModulePageToFix = subModule.SubModulePages
+        .Where(s => s.PageNumber == page_number).FirstOrDefault();
+        if (subModulePageToFix == null)
+        {
+            return StatusCode(
+                404,
+                "SubModulePage not found"
+
+            );
+        }
+        subModulePageToFix.Exercicios = subModulePage.Exercicios;
+        _context.SaveChanges();
+        return Ok(subModulePageToFix);
+    }
+
+
     [HttpGet("{user_code}/modulo-blocked", Name = "GetModuloBlockInfo")]
     public ActionResult<List<ModuloBlockInfo>> GetModuloBlockInfo(string user_code)
     {
@@ -69,11 +130,13 @@ public class ModuloController : ControllerBase
             {
                 isBlocked = !previousModulo.IsCompleted;
             }
+            var isStarted = moduloProgress.DataInicio != null;
             moduloBlockInfo.Add(new ModuloBlockInfo
             {
                 ModuloNumberOrder = moduloProgress.ModuloContent!.ModuleNumberOrder,
                 ModuloTitle = moduloProgress.ModuloContent!.Title,
-                IsBlocked = isBlocked
+                IsBlocked = isBlocked,
+                IsStarted = isStarted,
             });
         }
 
@@ -106,7 +169,8 @@ public class ModuloController : ControllerBase
     {
         var subModuleUserProgress = _dbUserSet.Include(user =>
          user.ModulosProgress.Where(m => m.ModuloContent!.ModuleNumberOrder == id))
-        .ThenInclude(modulo => modulo.SubModuleUserProgresses)
+        .ThenInclude(modulo => modulo.SubModuleUserProgresses
+        .OrderBy(s => s.SubModule!.SubModuleNumberOrder))
         .ThenInclude(submodulo => submodulo.SubModule)
         .ThenInclude(submodulopage => submodulopage!.SubModulePages)
         .ThenInclude(submodulepage => submodulepage.Exercicios)
@@ -124,9 +188,7 @@ public class ModuloController : ControllerBase
             );
         }
         var subModule = subModuleUserProgress.ModulosProgress[0]
-            .SubModuleUserProgresses
-            .Where(s => s.SubModule!.SubModuleNumberOrder == submodule_id).FirstOrDefault();
-
+            .SubModuleUserProgresses[submodule_id - 1];
         if (subModule == null)
         {
             return StatusCode(
@@ -151,7 +213,7 @@ public class ModuloController : ControllerBase
         if (subModulePage.PageNumber == subModule.SubModule!.SubModulePages.Count)
         {
             isLastPage = true;
-            if (subModule.SubModule!.SubModuleNumberOrder
+            if (submodule_id
             == subModuleUserProgress.ModulosProgress[0].SubModuleUserProgresses.Count)
             {
                 isLastPageInModulo = true;
@@ -161,12 +223,18 @@ public class ModuloController : ControllerBase
 
 
         var isBlocked = false;
-        var previousSubModule = subModuleUserProgress.ModulosProgress[0]
-            .SubModuleUserProgresses
-            .Where(s => s.SubModule!.SubModuleNumberOrder == submodule_id - 1).FirstOrDefault();
-        if (previousSubModule != null)
+        try
         {
-            isBlocked = !previousSubModule.IsCompleted;
+            var previousSubModule = subModuleUserProgress.ModulosProgress[0]
+            .SubModuleUserProgresses.ElementAt(submodule_id - 2);
+            if (previousSubModule != null)
+            {
+                isBlocked = !previousSubModule.IsCompleted;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
         }
 
         var exerciciosFavoritos = new List<ExercicioDTO>();

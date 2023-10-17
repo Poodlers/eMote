@@ -2,6 +2,14 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0.306-alpine3.18 as build
 
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
+RUN mkdir /data
+
+RUN touch /data/db.sqlite
+
+VOLUME [ "/data" ]
+
+ENV DATABASE_URL="/data/db.sqlite"
+
 WORKDIR /usr/src/app
 
 RUN dotnet --info
@@ -26,9 +34,9 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0.306-alpine3.18
 WORKDIR /usr/src/app
 
 COPY --from=build /usr/src/app/build .
-COPY --from=build /usr/src/app/src/db.sqlite .
 
 EXPOSE 8080
 EXPOSE 443
+
 
 CMD ["dotnet", "backend.dll", "--urls", "http://0.0.0.0:8080"]

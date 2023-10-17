@@ -39,10 +39,10 @@ class NotificationPeriodicService : BackgroundService
         string[] formats = { @"hh\:mm\:ss", "hh\\:mm" };
         TimeOnly[] jobStartTimes = refeicaoTimes.Keys.ToArray();
         // gett the timeSpan between now and the next job start time
-
+        var UTCTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
         var closestTime = jobStartTimes.MinBy(t => Math.Abs((
             t -
-             new TimeOnly(DateTime.Now.TimeOfDay.Hours, DateTime.Now.TimeOfDay.Minutes, DateTime.Now.TimeOfDay.Seconds)
+             new TimeOnly(UTCTime.TimeOfDay.Hours, UTCTime.TimeOfDay.Minutes, UTCTime.TimeOfDay.Seconds)
             ).Ticks));
 
         var ScheduledTimespan = new TimeSpan(closestTime.Hour, closestTime.Minute, closestTime.Second);
@@ -53,8 +53,8 @@ class NotificationPeriodicService : BackgroundService
     private Tuple<TimeSpan, Refeicao> GetJobRunDelay()
     {
         Tuple<TimeSpan, Refeicao> scheduledParsedTime = GetScheduledParsedTime();
-
-        TimeSpan curentTimeOftheDay = DateTime.Now.TimeOfDay;
+        var UTCTime = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
+        TimeSpan curentTimeOftheDay = UTCTime.TimeOfDay;
         TimeSpan delayTime = scheduledParsedTime.Item1 >= curentTimeOftheDay
             ? scheduledParsedTime.Item1 - curentTimeOftheDay     // Initial Run, when ETA is within 24 hours
             : new TimeSpan(24, 0, 0) - curentTimeOftheDay + scheduledParsedTime.Item1;   // For every other subsequent runs
@@ -80,7 +80,7 @@ class NotificationPeriodicService : BackgroundService
                 {
                     await using AsyncServiceScope asyncScope = _factory.CreateAsyncScope();
                     UserNotificationService sampleService = asyncScope.ServiceProvider.GetRequiredService<UserNotificationService>();
-                    sampleService.SendOutNotifications(nextMeal);
+                    await sampleService.SendOutNotifications(nextMeal);
                     jobDelay = GetJobRunDelay();
                     nextMeal = jobDelay.Item2;
                     timer = new PeriodicTimer(jobDelay.Item1);

@@ -3,14 +3,20 @@ import { Box, Button, Checkbox, Grid, Slider, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
+import { useEffect } from 'react';
+
+import { ComponentState } from '../../models/ComponentState';
+import { useNavigate } from 'react-router-dom';
 
 
 function NotificationsPage() {
+    const navigate = useNavigate();
     const repository = RepositorySingleton.getInstance().injectRepository();
 
     const onConfirm = () => {
         repository.changeRateOfNotifsPerDay(amountOfNotifs).then(() => {
             console.log("Rate of notifs changed");
+            navigate('/profile', { replace: true })
         }
         ).catch((error) => {
             console.log("Error changing rate of notifs: " + error);
@@ -19,6 +25,7 @@ function NotificationsPage() {
     }
 
     const [checked, setChecked] = React.useState(false);
+    const [componentState, setComponentState] = React.useState(ComponentState.LOADING);
     const [amountOfNotifs, setAmountOfNotifs] = React.useState(3);
     const handleChange = () => {
         if(!checked) setAmountOfNotifs(0);
@@ -27,11 +34,44 @@ function NotificationsPage() {
 
         
     };
+
+    useEffect(() => {
+        if(Notification.permission === 'granted'){
+            repository.getRateOfNotifsPerDay().then((response) => {
+                setAmountOfNotifs(response);
+
+                if(response === 0) setChecked(true);
+                setComponentState(ComponentState.LOADED);
+            }).catch((error) => {
+                console.log(error);
+                setComponentState(ComponentState.ERROR);
+            });
+        }else{
+            setAmountOfNotifs(0);
+            setChecked(true);
+            setComponentState(ComponentState.LOADED);
+        }
+    }
+    , []);
+
     return (
         
         <>
+
         <LogoAppBar/>
-        <Box sx={{mt:'60px', mb:'70px'}}>
+
+            {
+                componentState === ComponentState.ERROR ?
+                    <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5, mt:'70px' }} variant="h4" align='center' color="text.secondary">
+                        Erro ao carregar os dados
+                    </Typography>
+                    : 
+                    componentState === ComponentState.LOADING ?
+                    <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5, mt:'70px' }} variant="h4" align='center' color="text.secondary">
+                        Carregando...
+                    </Typography>
+                    : <Box sx={{mt:'60px', mb:'70px'}}>
+            
             <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5, mt:'70px' }} variant="h4" align='center' color="text.secondary">
               Editar Lembretes
             </Typography>
@@ -85,6 +125,7 @@ function NotificationsPage() {
                     </Button>
                 </Box>
         </Box>
+    }
         <NavBar/>
         </>
   );

@@ -40,10 +40,37 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
+
+
   
  
   user = JSON.parse(localStorage.getItem('user') || '{}');
   completedLogin : boolean = false;
+
+  async getFeedback(moduloId: Number): Promise<{ utilidade: Number; satisfacao: Number; }> {
+    const instance = this.createInstance();
+
+    try{
+      const result = await instance.get(`${BASE_URL}/modulo-rating/${this.user.code}/${moduloId}`).then(transform);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+  async getRateOfNotifsPerDay(): Promise<number> {
+    const instance = this.createInstance();
+
+    try{
+      const result = await instance.get(`${BASE_URL}/user/${this.user.code}/notifs`).then(transform);
+      return result.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
 
   async changeRateOfNotifsPerDay(notifsPerDay: Number): Promise<void> {
     const instance = this.createInstance();
@@ -498,6 +525,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
       result.data.users.forEach(user => {
         let newUser: User = user;
         newUser.createdAt = user.createdAt.slice(0,10);
+        newUser.createdAt = newUser.createdAt.split('-').reverse().join('-');
         users.push(newUser);
       });
      
@@ -515,7 +543,8 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
             code: code,
             password: password,
           }).then(transform);
-          
+
+    
           return result.data;
         }
         catch(error){

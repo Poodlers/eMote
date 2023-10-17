@@ -28,6 +28,8 @@ export interface IDataRepository {
 
     sendFeedback(moduloId: Number, usefulnessScore: Number, satisfactionScore: Number): Promise<void>;
 
+    getFeedback(moduloId: Number): Promise<{utilidade: Number, satisfacao: Number}>;
+
     hasCompletedModulo(moduloId: Number): Promise<boolean>;
 
     getSubmoduleList(moduloId: Number): Promise<Array<SubModuleInfo>>;
@@ -65,6 +67,8 @@ export interface IDataRepository {
     addFoodDiaryEntry(foodDiary : FoodDiaryEntry): Promise<void>;
 
     logAccessToApp(): Promise<void>;
+
+    getRateOfNotifsPerDay(): Promise<number>;
 
     logTimeStampOnAppLogin() : void;
 

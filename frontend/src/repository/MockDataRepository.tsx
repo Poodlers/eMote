@@ -11,6 +11,12 @@ import { User } from "../models/User";
 import { IDataRepository } from "./IDataRepository";
 
 export class MockDataRepository implements IDataRepository {
+    getFeedback(moduloId: Number): Promise<{ utilidade: Number; satisfacao: Number; }> {
+        throw new Error("Method not implemented.");
+    }
+    getRateOfNotifsPerDay(): Promise<number> {
+        throw new Error("Method not implemented.");
+    }
     changeRateOfNotifsPerDay(notifsPerDay: Number): Promise<void> {
         throw new Error("Method not implemented.");
     }

@@ -111,14 +111,14 @@ function MealTemplatePage() {
                 plainAttention : plainAttention,
                 restrainedConsumption : restrainedConsumption,
                 hadAnEpisode : hadAnEpisode,
-                hadCompensatoryBehaviour : user.role == 2 ? hadCompensatoryBehaviour : null,
-                compensatoryBehaviors : user.role == 2 ? compensatoryBehaviors : null,
+                hadCompensatoryBehaviour : user.role == 2 ? hadCompensatoryBehaviour : false,
+                compensatoryBehaviors : user.role == 2 ? compensatoryBehaviors : [],
                 reflexao : reflexao,
             }
 
-       
+            
         setErrorMessages('');
-
+        console.log(foodDiary); 
         repository.addFoodDiaryEntry(foodDiary).then((response) => {
             console.log(response);
             navigate('/mealdiary');
@@ -188,7 +188,7 @@ function MealTemplatePage() {
 
   return (
 
-        <Box sx= {{backgroundColor: '#01698b', width:'100vw', height:'100vh' }}>
+        <Box sx= {{backgroundColor: '#01698b', height:'100vh', mt:0}}>
             {
             componentState == ComponentState.LOADING ?
             <Typography color="primary" sx={{ fontWeight: "bold", p: 0.5, ml: '10px' }} >
@@ -200,7 +200,7 @@ function MealTemplatePage() {
                 Erro ao carregar página
             </Typography>    
             :
-            <Box sx={{mt:'10px', mb:'10px', backgroundColor: '#01698b'}}>
+            <Box sx={{ mb:'10px', backgroundColor: '#01698b'}}>
             <Box sx ={{p:1, bgcolor: '#349db7', alignContent: 'center', width: '80%', m: '0 auto'}}>
                 <Grid container spacing={2}>
                     <Grid item >
@@ -223,7 +223,7 @@ function MealTemplatePage() {
                 <SkipMeal initialValue = {skippedMeal} readOnly={hasAlreadyFilled} setSkippedMeal = {setSkippedMeal}/>
                 {skippedMeal ? null : <div> 
                     <TimeMeal  initialValue = {timeOfMeal} readOnly={hasAlreadyFilled} setTimeOfMeal = {setTimeOfMeal}/>
-                    <FeelingMeal  initialValue = {feelingsAroundMeal} readOnly={hasAlreadyFilled} setFeelings = {setFeelingsAroundMeal}/>
+                    <FeelingMeal initialValue = {feelingsAroundMeal} canEdit={!hasAlreadyFilled} setEmotions={setFeelingsAroundMeal}/>
                     <DescriptionMeal initialValue = {contentsOfMeal} readOnly={hasAlreadyFilled} setContentsOfMeal = {setContentsOfMeal}/>
                     <CheckboxTemplate initialValue = {plainAttention} readOnly={hasAlreadyFilled} setCheck = {setPlainAttention} text="Comi com atenção plena" id='attention' />
                     <CheckboxTemplate initialValue = {restrainedConsumption} readOnly={hasAlreadyFilled} setCheck = {setRestrainedConsumption} text="Restringi propositadamente a quantidade de alimentos" id='restriction'/>

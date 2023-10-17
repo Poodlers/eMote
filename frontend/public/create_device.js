@@ -1,19 +1,25 @@
+// http://localhost:8080, https://emote-dev-api.fly.dev
 
-const BASE_URL = 'http://localhost:8080'; 
+const BASE_URL = 'https://emote-dev-api.fly.dev';   
 var applicationServerPublicKey = 'BJoBWVlRziIyn-vD3BRXrfMlzqiOTIc_XxqaCRO5O3MT0tXr1oEdfGakUeRkPKy2SCxN7OimPxc8tKJJOkRqOKA';
 var serviceWorker = '/serviceWorker.js';
 var isSubscribed = false;
 
-document.addEventListener("DOMContentLoaded", function () {
+const event = new Event("user-login");
+document.addEventListener("user-login", function () {
     // Application Server Public Key defined in Views/Device/Create.cshtml
+
     if (typeof applicationServerPublicKey === 'undefined') {
         errorHandler('Vapid public key is undefined.');
         return;
     }
-
+    if(localStorage.getItem('user') === null) {
+        errorHandler('User is not logged in.');
+        return; 
+    }
     Notification.requestPermission().then(function (status) {
         if (status === 'denied') {
-            //ask user to allow notifications
+            
             errorHandler('[Notification.requestPermission] The user has blocked notifications.');
             
         } else if (status === 'granted') {
@@ -23,7 +29,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     subscribe();
+
+    
 });
+
 
 function initialiseServiceWorker() {
     if ('serviceWorker' in navigator) {
@@ -68,6 +77,7 @@ function initialiseState(reg) {
                 if (isSubscribed) {
                     console.log('User is already subscribed to push notifications');
                 } else {
+                    
                     console.log('User is not yet subscribed to push notifications');
                 }
             })
