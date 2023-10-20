@@ -267,7 +267,7 @@ class SubModulePage extends React.Component {
                     </Typography>
                     :
                     <>
-
+        <Box sx={{backgroundColor: this.state.module.color2, height:'100vh'}}>
             <LogoAppBar color={this.state.module.theme} goBack={true}/>
             <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: this.state.module.color1 }} >
                 <Box sx ={{p:5, pt:2, pb:2, alignContent: 'center', width: '80%', m:'0 auto'}}>
@@ -277,7 +277,7 @@ class SubModulePage extends React.Component {
                 </Box>
             </AppBar>
 
-            <Box sx={{mt:'120px', mb:'70px'}}>
+            <Box sx={{mt:'150px', mb:'70px'}}>
 
             <Box sx= {{pt:1}} textAlign='center'>
                 <SubmoduleContentPage 
@@ -323,12 +323,17 @@ class SubModulePage extends React.Component {
 
 
             </Box>
-            
+            {
+                this.state.pageContent.subModulePage.text ? 
+                null :
                 <IconButton onClick={this.handleEndOfPage} sx={{ bottom:"5%", left:"70%" }}>
                     <img alt='check' src={this.state.module.check}/>
                 </IconButton>
+            }
+                
             </Box>
             <NavBar color={this.state.module.theme}/>
+            </Box>
         
             </>
                     

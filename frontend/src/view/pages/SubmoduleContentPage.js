@@ -31,7 +31,7 @@ function SubmoduleContentPage(props) {
       
           {submodulesContent.text ?
             <>
-              <Typography color={module.theme === "blue" ? module.color1 : "black" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
+              <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
                     {submodulesContent.text}
               </Typography>
               {pageNumber == 1 && !isLastPage ?
