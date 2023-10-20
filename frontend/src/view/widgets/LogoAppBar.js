@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 import Logo from '../../assets/images/icon.png';
-import LogoBlue from '../../assets/images/icon_azul.png';
+import LogoBlue from '../../assets/images/icon_azul2.png';
 import LogoOrange from '../../assets/images/icon_laranja.png';
 import LogoGreen from '../../assets/images/icon_verde.png';
 import LogoPurple from '../../assets/images/icon_rosa.png';
