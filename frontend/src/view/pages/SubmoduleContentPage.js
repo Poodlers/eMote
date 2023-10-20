@@ -28,7 +28,7 @@ function SubmoduleContentPage(props) {
 
   return (
         <>
-        <Box sx={{backgroundColor: module.color2, height:'100vh'}}>
+        <Box sx={{backgroundColor: module.color2}}>
           {submodulesContent.text ?
             <>
               <Box sx={{ width: '80%', alignContent: 'center', m: '0 auto'}}>
