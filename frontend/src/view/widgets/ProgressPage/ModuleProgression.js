@@ -9,10 +9,10 @@ function ModuleProgression(props) {
 
 
     const colorModules = {
-        0: [colors.deepOrange[100], colors.deepOrange[500]],
-        1: [colors.indigo[100], colors.indigo[500]],
-        2: [colors.deepPurple[100], colors.deepPurple[500]],
-        3: [colors.cyan[100], colors.cyan[500]],
+        0: ['#E9C9BC', '#F18700'],
+        1: ['#D3E6DA', '#346F6F'],
+        2: ['#CFC5CB', '#7A5C6C'],
+        3: ['#D6E1E5', '#53B8C4'],
     }
 
 

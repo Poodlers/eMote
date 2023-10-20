@@ -75,31 +75,47 @@ function SubmoduleListPage() {
             <LogoAppBar color={module.theme}/>
 
             <Box sx={{mt:'60px', backgroundColor: module.color2, height: '100vh'}}>
-            <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: module.color1 }} >
-            <Box sx ={{p:5, pt:2, pb:2, alignContent: 'center', width: '80%', m:'0 auto'}}>
-                <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
-                    {module.name}
-                </Typography>
-            </Box>
-            </AppBar>
+                
+                <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: module.color1, height:'100px' }} >
+                    <Box sx ={{ alignContent: 'center', m: 'auto',}}>
+                        <Typography align= 'center' sx={{ fontSize: 30, fontWeight: 500 }} variant='body1' color={"white"}>
+                            {module.name}
+                        </Typography>
+                    </Box>
+                </AppBar>
 
-                <Box sx= {{pt:10, pb:10, backgroundColor: module.color2}} textAlign='center'>
+                <Box sx= {{position:'relative', top:'100px', pb:7.5,}} textAlign='center'>
                 {submodules.map((obj, index) => (
-                    <Box key={index} sx ={{ p:5, pt:2, pb:2, bgcolor: index%2===0? module.color3 : module.color1 , alignContent: 'center', width: '80%', m:'0 auto'}}>
-                    <Button  onClick={() => onSubModuleClick(obj.isBlocked, index + 1)} 
-                        sx ={{ width:'100%', p:1, bgcolor: index%2===0? module.color3 : module.color1 }} >
-                        <Grid direction='row' container spacing={3}>
-                            <Grid item xs={1}>
-                                {obj.isBlocked ? <Lock htmlColor={'white'}/> : <LockOpen htmlColor={'white'}/>}
+                    <Box key={index} sx ={{p:2, height: '85px', bgcolor: index%2===0? module.color3 : module.color4}} textAlign='center'>
+                        <Button onClick={() => onSubModuleClick(obj.isBlocked, index + 1)} 
+                            sx ={{ width:'100%'}} >
+                            <Grid direction='row' container>
+                                <Grid item xs={1}>
+                                    {obj.isBlocked ? <Lock htmlColor={
+                                        module.theme === 'blue' || module.theme === 'green' ?
+                                        index%2===0 ?
+                                        module.color1 :
+                                        "white" :
+                                        "white"}
+                                        /> : <LockOpen htmlColor={
+                                            module.theme === 'blue' || module.theme === 'green' ?
+                                            index%2===0 ?
+                                            module.color1 :
+                                            "white" :
+                                            "white"}/>}
+                                </Grid>
+                                <Grid item xs={11}>
+                                    <Typography sx={{ fontSize: 18, textAlign:'start', textTransform:'none', pl: 0.5, fontWeight:500}} variant='body1' color={
+                                        module.theme === 'blue' || module.theme === 'green' ?
+                                        index%2===0 ?
+                                        module.color1 :
+                                        "white" :
+                                        "white"}>
+                                        {obj.title}
+                                    </Typography>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={11} sx={{ display:'flex', alignItems:'center', }}>
-                                <Typography sx={{ fontSize: 18, textAlign:'center', textTransform:'none' }} variant='body1' color={"white"}>
-                                    {obj.title}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </Button>
-
+                        </Button>
                     </Box>
                 ))}
                 </Box>

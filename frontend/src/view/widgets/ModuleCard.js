@@ -8,10 +8,10 @@ import Lock from '@mui/icons-material/Lock';
 import LockOpen from '@mui/icons-material/LockOpen';
 
 const colorCards = [
-    [colors.deepOrange[100], colors.deepOrange[500]],
-    [colors.indigo[100], colors.indigo[500]],
-    [colors.deepPurple[100], colors.deepPurple[500]],
-    [colors.cyan[100], colors.cyan[500]],
+    ['#E9C9BC', '#F18700'],
+    ['#D3E6DA', '#346F6F'],
+    ['#CFC5CB', '#7A5C6C'],
+    ['#D6E1E5', '#53B8C4'],
 ]
 
 const links = [
