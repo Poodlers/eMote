@@ -79,18 +79,19 @@ function ModuleIntroductionPage(props) {
             :
             <>
             <LogoAppBar color={module.theme}/>
-            <Box sx={{mt:'60px', backgroundColor: module.color2, height: '95vh'}}>
-            
-            <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: module.color1 }} >
-              <Box sx ={{p:5, pt:2, pb:2, alignContent: 'center', width: '80%', m:'0 auto'}}>
-                  <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
-                      {moduloName}
-                  </Typography>
-              </Box>
-            </AppBar>
 
-            <Box sx ={{ p:3}} textAlign='center'>
-                </Box>
+              <Box sx={{mt:'60px', backgroundColor: module.color2, height: '95vh'}}>
+              
+                <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: module.color1, height:'100px' }} >
+                    <Box sx ={{ alignContent: 'center', m: 'auto',}}>
+                      <Typography align= 'center' sx={{ fontSize: 30, fontWeight: 500 }} variant='body1' color={"white"}>
+                          {moduloName}
+                      </Typography>
+                  </Box>
+                </AppBar>
+
+                <Box sx ={{ p:5 }} textAlign='center'/>
+                    
                 <Box sx={{pt:5, width: '80%', alignContent: 'center', m: '0 auto'}}>
                 <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
                       {moduloIntroText}
@@ -103,8 +104,8 @@ function ModuleIntroductionPage(props) {
                       </Typography>
                   </Button>
                 </Box>
-            </Box>
-          <NavBar color={module.theme}/>
+              </Box>
+            <NavBar color={module.theme}/>
           </>
         }
 

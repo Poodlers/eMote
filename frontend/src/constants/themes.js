@@ -1,6 +1,6 @@
 import checkOrange from "../assets/images/avancar_laranja.png"
 import checkPurple from "../assets/images/avancar_rosa.png"
-import checkGreen from "../assets/images/avancar_verde.png"
+import checkGreen from "../assets/images/avancar_verde2.png"
 import checkBlue from "../assets/images/avancar.png"
 
 export let modulesThemes = [

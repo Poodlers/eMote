@@ -1,6 +1,6 @@
 import React from 'react';
-import { AppBar, Box, Button, Grid, Typography } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import DownloadIcon from '@mui/icons-material/Download';
 import ReactPlayer from 'react-player';
 import { saveAs } from 'file-saver';
@@ -28,30 +28,32 @@ function SubmoduleContentPage(props) {
 
   return (
         <>
-      
+        <Box sx={{backgroundColor: module.color2, height:'100vh'}}>
           {submodulesContent.text ?
             <>
-              <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
-                    {submodulesContent.text}
-              </Typography>
-              {pageNumber == 1 && !isLastPage ?
-              <Box sx ={{ p:3}} textAlign='center'>
-                <Button  onClick={() =>{
-                   navigate(
-                    isLastPage ? (isModuleEnd ? `/feedback/${module.moduloId}`:
-                     `/submodulelist/${module.moduloId}/`)
-                     : `/submodulepage/${module.moduloId}/${subModuleNumber}/${parseInt(pageNumber) + 1}`,
-            
-                   {replace: true}
-                   )
-                }} sx ={{ p:1, bgcolor: module.color1 }}>
-                    <Typography gutterBottom color={"white"} sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' >
-                        Preparada?
-                    </Typography>
-                </Button>
-              </Box> 
-            : null}
-            
+              <Box sx={{ width: '80%', alignContent: 'center', m: '0 auto'}}>
+                <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
+                      {submodulesContent.text}
+                </Typography>
+                
+                {pageNumber == 1 && !isLastPage ?
+                  <Box sx ={{ p:3}} textAlign='center'>
+                    <Button  onClick={() =>{
+                      navigate(
+                        isLastPage ? (isModuleEnd ? `/feedback/${module.moduloId}`:
+                        `/submodulelist/${module.moduloId}/`)
+                        : `/submodulepage/${module.moduloId}/${subModuleNumber}/${parseInt(pageNumber) + 1}`,
+                
+                      {replace: true}
+                      )
+                    }} sx ={{ p:1, bgcolor: module.color1 }}>
+                        <Typography gutterBottom color={"white"} sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' >
+                            Preparada?
+                        </Typography>
+                    </Button>
+                  </Box> 
+                : null}
+              </Box>
             </> : null}
           <Box sx= {{pt:1}} textAlign='center'>
             <Box sx= {{p:3}}>
@@ -100,7 +102,7 @@ function SubmoduleContentPage(props) {
                           <DownloadIcon sx={{ fontSize: 60 }} htmlColor='#f58d0c' />
                       </Grid>
                       <Grid item >
-                        Download PDF
+                        Descarregar Modelo
                       </Grid>
                     </Button>
                       
@@ -108,7 +110,7 @@ function SubmoduleContentPage(props) {
 
             </Box>
           </Box>
-
+        </Box>
         </>
   );
 }

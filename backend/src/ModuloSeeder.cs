@@ -13,8 +13,7 @@ public class ModuloSeeder
             ModuleNumberOrder = 1,
             Title = "Psicoeducação",
             IntroText = @"Neste módulo 
-                            iremos explicar a ingestão alimentar compulsiva, os mecanismos que a mantêm e o papel da regulação emocional para que possa entender melhor as suas dificuldades e sintomas. 
-                            Vamos começar?",
+                            iremos explicar a ingestão alimentar compulsiva, os mecanismos que a mantêm e o papel da regulação emocional para que possa entender melhor as suas dificuldades e sintomas.",
             SubModules = new List<SubModule>
             {
 
@@ -149,8 +148,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
             Title = "Mindfulness",
             IntroText = @"Mindfulness, 
                             ou atenção plena, 
-                            é a capacidade de estar no momento presente sem julgamento. Esta capacidade permite-nos estar menos reativas ao que acontece a cada momento, seja essa experiência positiva, negativa ou neutra, diminuindo o sofrimento e aumentando a sensação de bem-estar. 
-Vamos começar?",
+                            é a capacidade de estar no momento presente sem julgamento. Esta capacidade permite-nos estar menos reativas ao que acontece a cada momento, seja essa experiência positiva, negativa ou neutra, diminuindo o sofrimento e aumentando a sensação de bem-estar.",
             SubModules = new List<SubModule>
             {
                 new SubModule
@@ -164,8 +162,7 @@ Vamos começar?",
                             PageNumber = 1,
                             Text = @"Quando 
                             praticamos mindfulness somos capazes de nos 
-                            aceitarmos tal como somos e de aceitarmos a situação em que nos encontramos. Esta é a base para gerirmos as nossas emoções sem recorrermos à comida.
-Preparada?"
+                            aceitarmos tal como somos e de aceitarmos a situação em que nos encontramos. Esta é a base para gerirmos as nossas emoções sem recorrermos à comida."
                         },
                         new SubModulePage
                         {
@@ -198,17 +195,14 @@ Preparada?"
                          {
                             PageNumber = 1,
                             Text = @"Existem três estados mentais que influenciam o nosso comportamento: a mente racional, a mente emocional e a mente sábia.
-Mente Racional
+\nMente Racional
 Na nossa mente racional, os nossos comportamentos são controlados pela razão e pela lógica. Esta mente poderá ser muito benéfica, mas poderá também levar-nos a ignorar a influência das nossas emoções.
 
-Mente Emocional
+\nMente Emocional
 As emoções são essenciais para vivermos uma vida rica e valorizada e para nos sentirmos motivadas. No entanto, quando os nossos comportamentos são decididos apenas pelo que estamos a sentir, podemos não os conseguir controlar. 
 
-Mente Sábia
-A mente sábia integra a mente racional e a mente emocional. Quando usamos a nossa mente sábia, é o nosso melhor eu que assume o controlo. Aqui encontramo-nos conscientes das nossas emoções e do nosso pensamento, mas não nos deixamos controlar por nenhum deles.
-
-Preparada?
-"
+\nMente Sábia
+A mente sábia integra a mente racional e a mente emocional. Quando usamos a nossa mente sábia, é o nosso melhor eu que assume o controlo. Aqui encontramo-nos conscientes das nossas emoções e do nosso pensamento, mas não nos deixamos controlar por nenhum deles."
                          },
                          new SubModulePage{
                             PageNumber = 2,
@@ -235,8 +229,7 @@ Preparada?
                         new SubModulePage
                         {
                             PageNumber = 1,
-                            Text = @"Observar ensina-nos a notar uma experiência/situação sem reagirmos ou ficarmos presos a essa mesma experiência. A ingestão compulsiva acontece quando estamos na nossa mente emocional e este exercício ajuda-nos a aceder à nossa mente sábia. 
-                            Preparada?"
+                            Text = @"Observar ensina-nos a notar uma experiência/situação sem reagirmos ou ficarmos presos a essa mesma experiência. A ingestão compulsiva acontece quando estamos na nossa mente emocional e este exercício ajuda-nos a aceder à nossa mente sábia. "
                         },
                         new SubModulePage
                         {
@@ -263,8 +256,7 @@ Preparada?
                     new SubModulePage
                     {
                         PageNumber = 1,
-                        Text = @"Descrever implica que utilizemos as palavras para representar o que observamos. Os exercícios de observar e descrever são muito eficazes quando sentimos que a nossa mente emocional a ficar mais agitada e surge o impulso para comer compulsivamente.
-                        Preparada?"
+                        Text = @"Descrever implica que utilizemos as palavras para representar o que observamos. Os exercícios de observar e descrever são muito eficazes quando sentimos que a nossa mente emocional a ficar mais agitada e surge o impulso para comer compulsivamente."
                     },
                     new SubModulePage
                     {
@@ -293,9 +285,7 @@ Preparada?
                     PageNumber = 1,
                     Text = @"Mindful eating consiste em focarmos a nossa atenção no que estamos a comer. Este exercício permite-nos ouvir melhor o nosso corpo e perceber quando temos fome ou quando estamos saciadas. Aqui comemos com consciência a cada momento, a cada sabor, a cada textura. 
 
-Para este exercício, convidamo-la a usar uma passa de uva.
-
-Preparada?"
+Para este exercício, convidamo-la a usar uma passa de uva."
                 },
                 new SubModulePage
                 {
@@ -323,8 +313,7 @@ Preparada?"
                 new SubModulePage
                 {
                     PageNumber = 1,
-                    Text = @"Aqui vamos explicar-lhe como praticar o não julgamento. Sugerimos que ouça atentamente a nossa explicação.  
-Preparada?"
+                    Text = @"Aqui vamos explicar-lhe como praticar o não julgamento. Sugerimos que ouça atentamente a nossa explicação."
                 },
                 new SubModulePage
                 {
@@ -352,8 +341,7 @@ Preparada?"
                 {
                     PageNumber = 1,
                     Text = @"Com este exercício 
-                    aprendemos a controlar a nossa atenção, permitindo que a mente esteja concentrada num momento de cada vez, quer seja a comer, a conduzir ou a pensar num problema.
-Preparada?"
+                    aprendemos a controlar a nossa atenção, permitindo que a mente esteja concentrada num momento de cada vez, quer seja a comer, a conduzir ou a pensar num problema."
                 },
                 new SubModulePage
                 {
@@ -382,8 +370,7 @@ Preparada?"
                     PageNumber = 1,
                     Text = @"Este exercício dá-nos a possibilidade de
                      praticar mindful eating em imaginação com uma 
-                     comida “gatilho” associada aos episódios de ingestão compulsiva.
-Preparada?"
+                     comida “gatilho” associada aos episódios de ingestão compulsiva."
                 },
                 new SubModulePage
                 {
@@ -411,8 +398,7 @@ Preparada?"
                 {
                     PageNumber = 1,
                     Text = @"Surfar o impulso implica visualizarmos os nossos impulsos para comer compulsivamente como se fossem uma onda no oceano e aprendermos a “surfá-los”. Quando observamos os impulsos como se fossem uma onda não os intensificamos e percebemos que diminuem com o tempo.
-Para fazer o exercício, sugerimos que use um alimento que considera tentador.
-Preparada?"
+Para fazer o exercício, sugerimos que use um alimento que considera tentador."
                 },
                 new SubModulePage
                 {
@@ -442,8 +428,7 @@ Preparada?"
         {
             ModuleNumberOrder = 3,
             Title = "Regulação Emocional",
-            IntroText = @"Este módulo ajuda-nos a lidar habilmente com as nossas emoções. As emoções dolorosas e difíceis fazem parte da vida e não podem ser totalmente evitadas, mas podemos mudar a forma como nos relacionamos com o sofrimento emocional.
-Vamos começar?",
+            IntroText = @"Este módulo ajuda-nos a lidar habilmente com as nossas emoções. As emoções dolorosas e difíceis fazem parte da vida e não podem ser totalmente evitadas, mas podemos mudar a forma como nos relacionamos com o sofrimento emocional.",
             SubModules = new List<SubModule>
             {
 
@@ -455,8 +440,7 @@ Vamos começar?",
                         new SubModulePage
                         {
                             PageNumber = 1,
-                            Text = @"As emoções dolorosas fazem parte da condição humana e todos temos de as enfrentar por mais que as tentemos não sentir ou controlar. A aceitação das nossas emoções permite-nos deixar ir/largar o sofrimento emocional sem o aumentarmos.
-Preparada?"
+                            Text = @"As emoções dolorosas fazem parte da condição humana e todos temos de as enfrentar por mais que as tentemos não sentir ou controlar. A aceitação das nossas emoções permite-nos deixar ir/largar o sofrimento emocional sem o aumentarmos."
                         },
                         new SubModulePage
                         {
@@ -483,8 +467,7 @@ Preparada?"
                         new SubModulePage
                         {
                             PageNumber = 1,
-                            Text =@"A aceitação radical da emoção envolve aceitar profundamente todas as nossas emoções, incluindo aquelas que são dolorosas, desconfortáveis e/ou desagradáveis.
-Preparada?"
+                            Text =@"A aceitação radical da emoção envolve aceitar profundamente todas as nossas emoções, incluindo aquelas que são dolorosas, desconfortáveis e/ou desagradáveis."
                         },
                         new SubModulePage{
                             PageNumber = 2,
@@ -510,8 +493,7 @@ Preparada?"
                     new SubModulePage{
                         PageNumber = 1,
                         Text = @"É mais provável que a ingestão alimentar compulsiva ocorra quando as nossas emoções estão desreguladas. Assim, aprendermos a identificar e a alterar o que nos deixa mais vulnerável é fundamental. 
-Sugerimos que ouça com atenção as nossas estratégias.
-Preparada?"
+Sugerimos que ouça com atenção as nossas estratégias."
                     },
 
                     new SubModulePage{
@@ -541,8 +523,7 @@ Preparada?"
                     new SubModulePage{
                         PageNumber = 1,
                         Text = @"Este exercício ajuda-nos
-                         a permanecer mais tempo com as emoções positivas. Quando sentimos dificuldades em controlar a alimentação, tendemos a dedicar pouco tempo a eventos positivos e a anularmos as emoções positivas com preocupações, culpa e autopunições.
-Preparada?"
+                         a permanecer mais tempo com as emoções positivas. Quando sentimos dificuldades em controlar a alimentação, tendemos a dedicar pouco tempo a eventos positivos e a anularmos as emoções positivas com preocupações, culpa e autopunições."
                     },
                     new SubModulePage {
                         PageNumber = 2,
@@ -568,8 +549,7 @@ Preparada?"
                     new SubModulePage{
                         PageNumber = 1,
                         Text = @"Este exercício possibilita mudar ou gerir melhor as nossas emoções, agindo de forma oposta ao que estamos a sentir. 
-Convidamo-la a ouvir os nossos exemplos.
-Preparada?"
+Convidamo-la a ouvir os nossos exemplos."
                     },
                     new SubModulePage{
                         PageNumber = 2,
@@ -594,8 +574,7 @@ Preparada?"
         {
             ModuleNumberOrder = 4,
             Title = "Tolerância a estados emocionais dolorosos",
-            IntroText = @"Os exercícios deste módulo são úteis quando estamos a sentir emoções dolorosas, angustiantes ou desconfortáveis em situações que não podemos controlar ou em situações que nos sentimos emocionalmente sobrecarregadas e mais nada parece resultar.
-Vamos começar?",
+            IntroText = @"Os exercícios deste módulo são úteis quando estamos a sentir emoções dolorosas, angustiantes ou desconfortáveis em situações que não podemos controlar ou em situações que nos sentimos emocionalmente sobrecarregadas e mais nada parece resultar.",
             SubModules = new List<SubModule>
             {
                 new SubModule{
@@ -605,8 +584,7 @@ Vamos começar?",
                     {
                         new SubModulePage{
                             PageNumber = 1,
-                            Text = @"A respiração ajuda-nos a estar concentradas, acalmando a mente. É particularmente útil quando nos sentimos agitadas, distraídas e/ou preocupadas.
-Preparada?"
+                            Text = @"A respiração ajuda-nos a estar concentradas, acalmando a mente. É particularmente útil quando nos sentimos agitadas, distraídas e/ou preocupadas."
                         },
 
                         new SubModulePage{
@@ -633,8 +611,7 @@ Preparada?"
                         new SubModulePage{
                             PageNumber = 1,
                             Text = @"Este exercício ajuda-nos a desenvolver
-                             uma atitude de aceitação interna. Quando os músculos faciais estão tensos é muito difícil aceitarmos algo, mas quando assumimos um sorriso calmo, aumentamos a nossa disponibilidade para aceitar o que sentimos. 
-Preparada?"
+                             uma atitude de aceitação interna. Quando os músculos faciais estão tensos é muito difícil aceitarmos algo, mas quando assumimos um sorriso calmo, aumentamos a nossa disponibilidade para aceitar o que sentimos. "
                         },
                         new SubModulePage{
                             PageNumber = 2,
@@ -661,8 +638,7 @@ Preparada?"
                         new SubModulePage{
                             PageNumber = 1,
                             Text = @"Quando aceitamos radicalmente, 
-                            aceitamos as coisas tal como elas são. Existem circunstâncias que nos causam dor e que, não podendo modificá-las, podemos tentar aceitá-las, em vez de lutarmos contra esses sentimentos dolorosos.
-                            Preparada?"
+                            aceitamos as coisas tal como elas são. Existem circunstâncias que nos causam dor e que, não podendo modificá-las, podemos tentar aceitá-las, em vez de lutarmos contra esses sentimentos dolorosos."
                         },
                         new SubModulePage{
                             PageNumber = 2,
@@ -689,8 +665,7 @@ Preparada?"
                     {
                         new SubModulePage{
                             PageNumber = 1,
-                            Text = @"Quando nos esforçamos para evitar ou negar a dor, estamos apenas a aumentar o nosso sofrimento. A aceitação não significa que a dor vai desaparecer, mas que sofremos menos quando a aceitamos.
-Preparada?"
+                            Text = @"Quando nos esforçamos para evitar ou negar a dor, estamos apenas a aumentar o nosso sofrimento. A aceitação não significa que a dor vai desaparecer, mas que sofremos menos quando a aceitamos."
                         },
                         new SubModulePage{
                             PageNumber = 2,
@@ -718,8 +693,7 @@ Preparada?"
                         new SubModulePage{
                             PageNumber = 1,
                             Text = @"Estas atividades podem ser muito úteis em momentos dolorosos sobre os quais nada podemos fazer ou nada podemos fazer naquele momento.
-Sugerimos que ouça com atenção as atividades que propomos.
-Preparada?"
+Sugerimos que ouça com atenção as atividades que propomos."
                          },
 
                         new SubModulePage{

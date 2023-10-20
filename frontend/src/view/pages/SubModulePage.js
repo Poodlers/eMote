@@ -4,7 +4,8 @@ import { LogoAppBar } from '../widgets/LogoAppBar';
 
 import { modulesThemes } from '../../constants/themes.js';
 import phonesPurple from '../../assets/images/phones_rosa.png';
-import phonesGreen from '../../assets/images/phones.png';
+import phonesGreen from '../../assets/images/phones_verdes.png';
+import phonesBlue from '../../assets/images/phones.png';
 
 import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
@@ -269,9 +270,9 @@ class SubModulePage extends React.Component {
                     <>
         <Box sx={{backgroundColor: this.state.module.color2, height:'100vh'}}>
             <LogoAppBar color={this.state.module.theme} goBack={true}/>
-            <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: this.state.module.color1 }} >
-                <Box sx ={{p:5, pt:2, pb:2, alignContent: 'center', width: '80%', m:'0 auto'}}>
-                    <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
+            <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: this.state.module.color1, height:'100px' }} >
+                <Box sx ={{ alignContent: 'center', m: 'auto',}}>
+                    <Typography align= 'center' sx={{ fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
                         {this.state.pageContent.subModuleTitle}
                     </Typography>
                 </Box>
@@ -288,17 +289,20 @@ class SubModulePage extends React.Component {
                 
                     return (
                     <div key={index}>
-                        <Box sx= {{pt:3}}> 
+                        <Box sx= {{pt:1}}> 
                             <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 22, fontWeight: 500 }} variant='body1' color={"white"}>
                                 {data.exercicioName}
                             </Typography>
                         </Box>
                         <Box sx= {{p:3}}>
                             <Grid container direction='row'>
-                                <Grid item xs={9}>
-                                    <img alt='phones' src={module.name == 'Regulação emocional'? phonesPurple : phonesGreen}/>
+                                <Grid item xs={8}>
+                                    <img alt='phones' src={
+                                        this.state.module.theme === 'green'? phonesGreen 
+                                        : this.state.module.theme === 'purple' ? phonesPurple 
+                                        : phonesBlue}/>
                                 </Grid>
-                                <Grid item alignSelf='end' xs={3}>
+                                <Grid item alignSelf='end' xs={4}>
                                     <IconButton size='large' onClick={()=>{this.togglePlay(data.exercicioFile)}} >
                                         {
                                         this.state.audioRefs.find(audioRef => audioRef.audioFile == data.exercicioFile).isPlaying ? 
@@ -309,7 +313,7 @@ class SubModulePage extends React.Component {
                                 </Grid>
                             </Grid>
 
-                            <IconButton sx={{p:3}} size='large' onClick={()=>{this.setFavorite(data.exercicioFile)}} >
+                            <IconButton sx={{p:4}} size='large' onClick={()=>{this.setFavorite(data.exercicioFile)}} >
                                 
                                 {this.state.exercisesObj[data.exercicioFile] ? 
                                 <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1} />
@@ -324,11 +328,13 @@ class SubModulePage extends React.Component {
 
             </Box>
             {
-                this.state.pageContent.subModulePage.text ? 
-                null :
+                this.state.pageContent.subModulePage.imageFile || 
+                this.state.pageContent.subModulePage.otherFile || 
+                this.state.pageContent.subModulePage.videoFile ||
+                this.state.pageContent.isLastPage ?
                 <IconButton onClick={this.handleEndOfPage} sx={{ bottom:"5%", left:"70%" }}>
                     <img alt='check' src={this.state.module.check}/>
-                </IconButton>
+                </IconButton> : null
             }
                 
             </Box>

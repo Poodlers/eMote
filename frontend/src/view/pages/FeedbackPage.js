@@ -100,7 +100,7 @@ function FeedbackPage(props) {
                 Parabéns!
             </Typography>
 
-            <Box sx={{ p:10 }}/>
+            <Box sx={{ p:5 }}/>
                 <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5,
                      pt:2.5, fontSize: 20, textAlign:'center' }} variant='body1'>
                     Considera que este Módulo foi útil para si?
