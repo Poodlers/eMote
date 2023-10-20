@@ -268,7 +268,7 @@ class SubModulePage extends React.Component {
                     </Typography>
                     :
                     <>
-        <Box sx={{backgroundColor: this.state.module.color2, height:'100vh'}}>
+        <Box sx={{backgroundColor: this.state.module.color2, height:'100vh' }}>
             <LogoAppBar color={this.state.module.theme} goBack={true}/>
             <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: this.state.module.color1, height:'100px' }} >
                 <Box sx ={{ alignContent: 'center', m: 'auto',}}>

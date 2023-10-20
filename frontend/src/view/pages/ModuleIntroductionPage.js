@@ -90,12 +90,12 @@ function ModuleIntroductionPage(props) {
                   </Box>
                 </AppBar>
 
-                <Box sx ={{ p:5 }} textAlign='center'/>
+                <Box sx ={{ p:5 }} />
                     
                 <Box sx={{pt:5, width: '80%', alignContent: 'center', m: '0 auto'}}>
-                <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
-                      {moduloIntroText}
-                  </Typography>
+                  <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
+                        {moduloIntroText}
+                    </Typography>
                 </Box>
                 <Box sx ={{ p:3}} textAlign='center'>
                   <Button onClick={onSubmit} sx ={{ p:1, bgcolor: module.color1 }}>
