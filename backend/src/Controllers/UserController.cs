@@ -300,6 +300,7 @@ public class UserController : ControllerBase
         .Where(food_diary =>
         food_diary.Date >= DateOnly.FromDateTime(DateTime.Now.AddDays(-last_x_days))).ToList();
 
+
         var episodes = new List<EpisodesInfo>();
 
         var feelings = new List<SentimentosInfo>();
@@ -309,7 +310,7 @@ public class UserController : ControllerBase
         var grouped_food_diary = last_x_days_food_diary.GroupBy(food_diary => food_diary.Date)
         .OrderBy(group => group.Key);
         //for each group,  add up the number of episodes
-        var last_date = DateOnly.FromDateTime(DateTime.Now.AddDays(-last_x_days));
+        var last_date = DateOnly.FromDateTime(DateTime.Now.AddDays(-last_x_days + 1));
         for (int i = 0; i < last_x_days; i++)
         {
             var group = grouped_food_diary.Where(group => group.Key == last_date).FirstOrDefault();
@@ -348,7 +349,8 @@ public class UserController : ControllerBase
 
                 }
 
-                var total_episodes = group.Sum(food_diary => (bool)food_diary.HadAnEpisode! ? 1 : 0);
+                var total_episodes = group.Sum(food_diary => food_diary.HadAnEpisode == null
+                ? 0 : (bool)food_diary.HadAnEpisode ? 1 : 0);
                 episodes.Add(
                     new EpisodesInfo
                     {
@@ -534,7 +536,7 @@ public class UserController : ControllerBase
 
         foreach (SubModule subModule in modulo1Content.SubModules)
         {
-            if (subModule.SubModuleNumberOrder == 2)
+            if (subModule.SubModuleNumberOrder == 2 && user.Role == 1)
             {
                 continue;
             }

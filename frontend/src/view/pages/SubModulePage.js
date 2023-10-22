@@ -268,7 +268,7 @@ class SubModulePage extends React.Component {
                     </Typography>
                     :
                     <>
-        <Box sx={{backgroundColor: this.state.module.color2, height:'100vh' }}>
+        <Box sx={{backgroundColor: this.state.module.color2, height : '100vh'}}>
             <LogoAppBar color={this.state.module.theme} goBack={true}/>
             <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: this.state.module.color1, height:'100px' }} >
                 <Box sx ={{ alignContent: 'center', m: 'auto',}}>
@@ -278,9 +278,10 @@ class SubModulePage extends React.Component {
                 </Box>
             </AppBar>
 
-            <Box sx={{mt:'150px', mb:'70px'}}>
+            <Box sx={{mt:'150px', pb: 5, backgroundColor: this.state.module.color2,
+        }}>
 
-            <Box sx= {{pt:1}} textAlign='center'>
+            <Box sx= {{pt:1, backgroundColor: this.state.module.color2 }} textAlign='center'>
                 <SubmoduleContentPage 
                 isLastPage={this.state.pageContent.isLastPage} isModuleEnd = {this.state.pageContent.isLastPageInModulo}
                 module={this.state.module} pageNumber={this.state.pageNumber} subModuleNumber={this.state.submoduleNumber} 

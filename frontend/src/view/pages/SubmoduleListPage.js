@@ -84,7 +84,7 @@ function SubmoduleListPage() {
                     </Box>
                 </AppBar>
 
-                <Box sx= {{position:'relative', top:'100px', pb:7.5,}} textAlign='center'>
+                <Box sx= {{position:'relative', top:'100px', pb:5,}} textAlign='center'>
                 {submodules.map((obj, index) => (
                     <Box key={index} sx ={{p:2, height: '85px', bgcolor: index%2===0? module.color3 : module.color4}} textAlign='center'>
                         <Button onClick={() => onSubModuleClick(obj.isBlocked, index + 1)} 

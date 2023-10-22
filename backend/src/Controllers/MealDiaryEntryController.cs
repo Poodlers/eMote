@@ -87,6 +87,8 @@ public class MealDiaryEntryController : ControllerBase
             return StatusCode(401, "User not found");
         }
 
+
+
         DateOnly data;
         TimeOnly hora;
         TimeOnly hora_refeicao;
@@ -113,6 +115,10 @@ public class MealDiaryEntryController : ControllerBase
         {
             hora_refeicao = timeOfMealOut;
         }
+        else if (dto.SkippedMeal)
+        {
+            hora_refeicao = new TimeOnly(0, 0, 0);
+        }
         else
         {
             return StatusCode(401, "Invalid hora_refeicao");
@@ -124,7 +130,7 @@ public class MealDiaryEntryController : ControllerBase
             Hour = hora,
             TipoRefeicao = dto.TipoRefeicao,
             SkippedMeal = dto.SkippedMeal,
-            TimeOfMeal = hora_refeicao,
+            TimeOfMeal = hora_refeicao == new TimeOnly(0, 0, 0) ? null : hora_refeicao,
             FeelingsAroundMeal = dto.FeelingsAroundMeal,
             ContentsOfMeal = dto.ContentsOfMeal,
             PlainAttention = dto.PlainAttention,
