@@ -416,11 +416,13 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
   async logAccessToApp(): Promise<void> {
     if(!this.completedLogin) return;
     const instance = this.createInstance();
+
     if (localStorage.getItem('dataInicio') === null) {
       return;
     }
     const dataInicio = JSON.parse(localStorage.getItem('dataInicio') || '{}');
     const dataFim = new Date().toLocaleString().replace(',','');
+    
     try{
       const result = await instance.post(`${BASE_URL}/access/`,
       {
@@ -428,8 +430,6 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
         dataInicio: dataInicio,
         dataFim: dataFim,
       }).then(transform);
-      
-  
      
     }
     catch(error){

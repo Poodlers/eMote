@@ -26,16 +26,17 @@ import SubModulePage from './view/pages/SubModulePage';
 import NotificationsPage from './view/pages/NotificationsPage';
 
 
-const repository = RepositorySingleton.getInstance().injectRepository();
 const theme = myTheme;
 
 
 function App() {
-  //ping backend every 30 seconds to log user access
-  const pingInterval = 30;
+  const repository = RepositorySingleton.getInstance().injectRepository();
+  //ping backend every 20 seconds to log user access
+  const pingInterval = 20;
   useEffect(() => {
     
     const interval = setInterval(() => {
+
       repository.logAccessToApp().catch((error) => {
           console.log(error);
       });

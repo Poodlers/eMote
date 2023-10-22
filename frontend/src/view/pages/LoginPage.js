@@ -39,6 +39,7 @@ function LoginPage() {
 
       repository.updateUser();
       repository.logTimeStampOnAppLogin();
+      repository.setUserCompletedLogin(true);
       cb?.dispatchEvent(newEvent);
       
       if(loggedUser.role === 3){
@@ -83,6 +84,7 @@ function LoginPage() {
         setHasSeenTermsOfService(hasAccessedOnce);
        
         if(repository.userCompletedLogin() || hasAccessedOnce){
+          repository.setUserCompletedLogin(true);
           if(response.role === 3){
             navigate('/admin', { replace: true });
           }else if(response.hasAccessToApp){
