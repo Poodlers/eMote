@@ -225,8 +225,8 @@ function MealTemplatePage() {
                     <TimeMeal  initialValue = {timeOfMeal} readOnly={hasAlreadyFilled} setTimeOfMeal = {setTimeOfMeal}/>
                     <FeelingMeal initialValue = {feelingsAroundMeal} canEdit={!hasAlreadyFilled} setEmotions={setFeelingsAroundMeal}/>
                     <DescriptionMeal initialValue = {contentsOfMeal} readOnly={hasAlreadyFilled} setContentsOfMeal = {setContentsOfMeal}/>
-                    <CheckboxTemplate initialValue = {plainAttention} readOnly={hasAlreadyFilled} setCheck = {setPlainAttention} text="Comi com atenção plena" id='attention' />
-                    <CheckboxTemplate initialValue = {restrainedConsumption} readOnly={hasAlreadyFilled} setCheck = {setRestrainedConsumption} text="Restringi propositadamente a quantidade de alimentos" note="ou seja, mindful eating" id='restriction'/>
+                    <CheckboxTemplate initialValue = {plainAttention} readOnly={hasAlreadyFilled} setCheck = {setPlainAttention} text="Comi com atenção plena" note="ou seja, mindful eating" id='attention' />
+                    <CheckboxTemplate initialValue = {restrainedConsumption} readOnly={hasAlreadyFilled} setCheck = {setRestrainedConsumption} text="Restringi propositadamente a quantidade de alimentos" id='restriction'/>
                     <CheckboxTemplate initialValue = {hadAnEpisode} readOnly={hasAlreadyFilled} setCheck={setHadAnEpisode} text="Tive um episódio de ingestão compulsiva" note="i.e., comer uma grande quantidade de comida e perda de controlo" id='episode'/>                    
                     {
                         user.role == 2 ?

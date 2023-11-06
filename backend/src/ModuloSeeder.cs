@@ -194,15 +194,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
                         new SubModulePage
                          {
                             PageNumber = 1,
-                            Text = @"Existem três estados mentais que influenciam o nosso comportamento: a mente racional, a mente emocional e a mente sábia.
-\nMente Racional
-Na nossa mente racional, os nossos comportamentos são controlados pela razão e pela lógica. Esta mente poderá ser muito benéfica, mas poderá também levar-nos a ignorar a influência das nossas emoções.
-
-\nMente Emocional
-As emoções são essenciais para vivermos uma vida rica e valorizada e para nos sentirmos motivadas. No entanto, quando os nossos comportamentos são decididos apenas pelo que estamos a sentir, podemos não os conseguir controlar. 
-
-\nMente Sábia
-A mente sábia integra a mente racional e a mente emocional. Quando usamos a nossa mente sábia, é o nosso melhor eu que assume o controlo. Aqui encontramo-nos conscientes das nossas emoções e do nosso pensamento, mas não nos deixamos controlar por nenhum deles."
+                            Text = "Existem três estados mentais que influenciam o nosso comportamento: a mente racional, a mente emocional e a mente sábia.\r\nMente Racional \r\nNa nossa mente racional, os nossos comportamentos são controlados pela razão e pela lógica. Esta mente poderá ser muito benéfica, mas poderá também levar-nos a ignorar a influência das nossas emoções.\r\nMente Emocional\r\nAs emoções são essenciais para vivermos uma vida rica e valorizada e para nos sentirmos motivadas. No entanto, quando os nossos comportamentos são decididos apenas pelo que estamos a sentir, podemos não os conseguir controlar.\r\nMente Sábia\r\nA mente sábia integra a mente racional e a mente emocional. Quando usamos a nossa mente sábia, é o nosso melhor eu que assume o controlo. Aqui encontramo-nos conscientes das nossas emoções e do nosso pensamento, mas não nos deixamos controlar por nenhum deles."
                          },
                          new SubModulePage{
                             PageNumber = 2,
