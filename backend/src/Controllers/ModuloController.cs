@@ -98,6 +98,10 @@ public class ModuloController : ControllerBase
 
             );
         }
+        if (subModulePage.Text != null)
+        {
+            subModulePageToFix.Text = subModulePage.Text;
+        }
         subModulePageToFix.Exercicios = subModulePage.Exercicios;
         _context.SaveChanges();
         return Ok(subModulePageToFix);

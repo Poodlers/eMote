@@ -172,7 +172,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
                                 new Exercicio
                                 {
 
-                                    ExercicioName = @"Exercício 1 - Respiração diafragmática",
+                                    ExercicioName = @"Respiração diafragmática",
                                     ExercicioFile = "submod2.1_ativ1.mp3",
                                     ModuloNumberOrder = 2,
                                     SubModuleNumberOrder = 1,
@@ -194,7 +194,17 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
                         new SubModulePage
                          {
                             PageNumber = 1,
-                            Text = "Existem três estados mentais que influenciam o nosso comportamento: a mente racional, a mente emocional e a mente sábia.\r\nMente Racional \r\nNa nossa mente racional, os nossos comportamentos são controlados pela razão e pela lógica. Esta mente poderá ser muito benéfica, mas poderá também levar-nos a ignorar a influência das nossas emoções.\r\nMente Emocional\r\nAs emoções são essenciais para vivermos uma vida rica e valorizada e para nos sentirmos motivadas. No entanto, quando os nossos comportamentos são decididos apenas pelo que estamos a sentir, podemos não os conseguir controlar.\r\nMente Sábia\r\nA mente sábia integra a mente racional e a mente emocional. Quando usamos a nossa mente sábia, é o nosso melhor eu que assume o controlo. Aqui encontramo-nos conscientes das nossas emoções e do nosso pensamento, mas não nos deixamos controlar por nenhum deles."
+                            Text = @"Existem três estados mentais 
+                            que influenciam o nosso comportamento: a mente racional, 
+                            a mente emocional e a mente sábia.\r\nMente Racional \r\nNa nossa mente racional,
+                             os nossos comportamentos são controlados pela razão e pela lógica. Esta mente poderá 
+                             ser muito benéfica, mas poderá também levar-nos a ignorar a influência das nossas emoções.
+                             \r\nMente Emocional\r\nAs emoções são essenciais para vivermos uma vida rica e valorizada e 
+                             para nos sentirmos motivadas. No entanto, quando os nossos comportamentos são decididos apenas 
+                             pelo que estamos a sentir, podemos não os conseguir controlar.\r\nMente Sábia\r\nA mente sábia 
+                             integra a mente racional e a mente emocional. Quando usamos a nossa mente sábia,
+                              é o nosso melhor eu que assume o controlo. Aqui encontramo-nos conscientes das nossas emoções
+                               e do nosso pensamento, mas não nos deixamos controlar por nenhum deles."
                          },
                          new SubModulePage{
                             PageNumber = 2,
@@ -205,7 +215,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
                                     ModuloNumberOrder = 2,
                                     SubModuleNumberOrder = 2,
                                     PageNumber = 2,
-                                    ExercicioName = @"Exercício 2 - Encontre a sua mente sábia",
+                                    ExercicioName = @"Encontre a sua mente sábia",
                                     ExercicioFile = "submod2.2_ativ1.mp3"
                                 }
                             }
@@ -233,7 +243,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
                                     ModuloNumberOrder = 2,
                                     SubModuleNumberOrder = 3,
                                     PageNumber = 2,
-                                    ExercicioName = @"Exercício 3 - Observar",
+                                    ExercicioName = @"Observar",
                                     ExercicioFile = "submod2.3_ativ1.mp3"
                                 }
                             }
@@ -260,7 +270,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
                                 ModuloNumberOrder = 2,
                                 SubModuleNumberOrder = 4,
                                 PageNumber = 2,
-                                ExercicioName = @"Exercício 4 - Observar e descrever com um tapete rolante",
+                                ExercicioName = @"Observar e descrever com um tapete rolante",
                                 ExercicioFile = "submod2.4_ativ1.mp3"
                             }
                         }
@@ -289,7 +299,7 @@ Para este exercício, convidamo-la a usar uma passa de uva."
                             ModuloNumberOrder = 2,
                             SubModuleNumberOrder = 5,
                             PageNumber = 2,
-                            ExercicioName = "Exercício 5 - Meditação da passa de uva",
+                            ExercicioName = "Meditação da passa de uva",
                             ExercicioFile = "submod2.5_ativ1.mp3"
                         }
                     }
@@ -317,7 +327,7 @@ Para este exercício, convidamo-la a usar uma passa de uva."
                             ModuloNumberOrder = 2,
                             SubModuleNumberOrder = 6,
                             PageNumber = 2,
-                            ExercicioName = "Exercício 6 - Não julgar",
+                            ExercicioName = "Não julgar",
                             ExercicioFile = "submod2.6_ativ1.mp3"
                         }
                     }
@@ -345,7 +355,7 @@ Para este exercício, convidamo-la a usar uma passa de uva."
                             ModuloNumberOrder = 2,
                             SubModuleNumberOrder = 7,
                             PageNumber = 2,
-                            ExercicioName = "Exercício 7 - Focar num momento de cada vez",
+                            ExercicioName = "Focar num momento de cada vez",
                             ExercicioFile = "submod2.7_ativ1.mp3"
                         }
                     }
@@ -374,7 +384,7 @@ Para este exercício, convidamo-la a usar uma passa de uva."
                             ModuloNumberOrder = 2,
                             SubModuleNumberOrder = 8,
                             PageNumber = 2,
-                            ExercicioName = "Exercício 8 - Mindful eating em imaginação",
+                            ExercicioName = "Mindful eating em imaginação",
                             ExercicioFile = "submod2.8_ativ1.mp3"
                         }
                     }
@@ -402,7 +412,7 @@ Para fazer o exercício, sugerimos que use um alimento que considera tentador."
                             ModuloNumberOrder = 2,
                             SubModuleNumberOrder = 9,
                             PageNumber = 2,
-                            ExercicioName = "Exercício 9 - Surfar o Impulso",
+                            ExercicioName = "Surfar o Impulso",
                             ExercicioFile = "submod2.9_ativ1.mp3"
                         }
                     }
@@ -444,7 +454,7 @@ Para fazer o exercício, sugerimos que use um alimento que considera tentador."
                                     ModuloNumberOrder = 3,
                                     SubModuleNumberOrder = 1,
                                     PageNumber = 2,
-                                    ExercicioName = "Exercício 1 - Mindfulness da emoção presente",
+                                    ExercicioName = "Mindfulness da emoção presente",
                                     ExercicioFile = "submod3.1_ativ1.mp3"
                                 }
                             }
@@ -470,7 +480,7 @@ Para fazer o exercício, sugerimos que use um alimento que considera tentador."
                                     ModuloNumberOrder = 3,
                                     SubModuleNumberOrder = 2,
                                     PageNumber = 2,
-                                    ExercicioName = "Exercício 2 - Aceitar radicalmente a nossa emoção",
+                                    ExercicioName = "Aceitar radicalmente a nossa emoção",
                                     ExercicioFile = "submod3.2_ativ1.mp3"
                                 }
                             }
@@ -497,7 +507,7 @@ Sugerimos que ouça com atenção as nossas estratégias."
                                 ModuloNumberOrder = 3,
                                 SubModuleNumberOrder = 3,
                                 PageNumber = 2,
-                                ExercicioName = "Exercício 3 - Como reduzir a vulnerabilidade?",
+                                ExercicioName = "Como reduzir a vulnerabilidade?",
                                 ExercicioFile = "submod3.3_ativ1.mp3"
                             }
                         }
@@ -526,7 +536,7 @@ Sugerimos que ouça com atenção as nossas estratégias."
                                 ModuloNumberOrder = 3,
                                 SubModuleNumberOrder = 4,
                                 PageNumber = 2,
-                                ExercicioName = "Exercício 4 - Mindfulness das experiências positivas",
+                                ExercicioName = "Mindfulness das experiências positivas",
                                 ExercicioFile = "submod3.4_ativ1.mp3"
                             }
                         }
@@ -552,7 +562,7 @@ Convidamo-la a ouvir os nossos exemplos."
                                 ModuloNumberOrder = 3,
                                 SubModuleNumberOrder = 5,
                                 PageNumber = 2,
-                                ExercicioName = "Exercício 5 - Agir de forma oposta à emoção presente",
+                                ExercicioName = "Agir de forma oposta à emoção presente",
                                 ExercicioFile = "submod3.5_ativ1.mp3"
                             }
                         }
@@ -588,7 +598,7 @@ Convidamo-la a ouvir os nossos exemplos."
                                     ModuloNumberOrder = 4,
                                     SubModuleNumberOrder = 1,
                                     PageNumber = 2,
-                                    ExercicioName = "Exercício 1 - Observar a respiração",
+                                    ExercicioName = "Observar a respiração",
                                     ExercicioFile = "submod4.1_ativ1.mp3"
                                 }
                             }
@@ -614,7 +624,7 @@ Convidamo-la a ouvir os nossos exemplos."
                                     ModuloNumberOrder = 4,
                                     SubModuleNumberOrder = 2,
                                     PageNumber = 2,
-                                    ExercicioName = "Exercício 2 - Meio sorriso",
+                                    ExercicioName = "Meio sorriso",
                                     ExercicioFile = "submod4.2_ativ1.mp3"
                                 }
                             }
@@ -642,7 +652,7 @@ Convidamo-la a ouvir os nossos exemplos."
                                     ModuloNumberOrder = 4,
                                     SubModuleNumberOrder = 3,
                                     PageNumber = 2,
-                                    ExercicioName = "Exercício 3 - Aceitação radical",
+                                    ExercicioName = "Aceitação radical",
                                     ExercicioFile = "submod4.3_ativ1.mp3"
                                 }
                             }
@@ -668,7 +678,7 @@ Convidamo-la a ouvir os nossos exemplos."
                                     ModuloNumberOrder = 4,
                                     SubModuleNumberOrder = 4,
                                     PageNumber = 2,
-                                    ExercicioName = "Exercício 4 - Aceitar a dor de uma situação atual",
+                                    ExercicioName = "Aceitar a dor de uma situação atual",
                                     ExercicioFile = "submod4.4_ativ1.mp3"
                                 }
                             }
@@ -697,7 +707,7 @@ Sugerimos que ouça com atenção as atividades que propomos."
                                     ModuloNumberOrder = 4,
                                     SubModuleNumberOrder = 5,
                                     PageNumber = 2,
-                                    ExercicioName = "Exercício 5 - Sobrevivência às crises - Parte 1",
+                                    ExercicioName = "Sobrevivência às crises - Parte 1",
                                     ExercicioFile = "submod4.5_ativ1.mp3"
                                 },
                                 new Exercicio
@@ -705,7 +715,7 @@ Sugerimos que ouça com atenção as atividades que propomos."
                                     ModuloNumberOrder = 4,
                                     SubModuleNumberOrder = 5,
                                     PageNumber = 2,
-                                    ExercicioName = "Exercício 5 - Sobrevivência às crises - Parte 2",
+                                    ExercicioName = "Sobrevivência às crises - Parte 2",
                                     ExercicioFile = "submod4.5_ativ2.mp3"
                                 },
                                 new Exercicio
@@ -713,7 +723,7 @@ Sugerimos que ouça com atenção as atividades que propomos."
                                     ModuloNumberOrder = 4,
                                     SubModuleNumberOrder = 5,
                                     PageNumber = 2,
-                                    ExercicioName = "Exercício 5 - Sobrevivência às crises - Parte 3",
+                                    ExercicioName = "Sobrevivência às crises - Parte 3",
                                     ExercicioFile = "submod4.5_ativ3.mp3"
                                 }
 
