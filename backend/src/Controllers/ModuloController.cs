@@ -43,12 +43,11 @@ public class ModuloController : ControllerBase
         return Ok(modulo);
     }
 
-    [HttpPost("{modulo_id}", Name = "AddSubModule")]
-    public ActionResult<SubModule> AddSubModule(int modulo_id, [FromBody] SubModule subModule)
+    //edit modulo content
+    [HttpPost("{modulo_id}", Name = "EditModulo")]
+    public ActionResult<ModuloContent> EditModulo(int modulo_id, [FromBody] ModuloContent moduloContent)
     {
-        var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules)
-        .Where(u => u.ModuleNumberOrder == modulo_id)
-        .FirstOrDefault();
+        var modulo = _dbModuloContentSet.Where(u => u.ModuleNumberOrder == modulo_id).FirstOrDefault();
         if (modulo == null)
         {
             return StatusCode(
@@ -57,9 +56,20 @@ public class ModuloController : ControllerBase
 
             );
         }
-        modulo.SubModules.Add(subModule);
+        if (moduloContent.Title != null)
+        {
+            modulo.Title = moduloContent.Title;
+        }
+        if (moduloContent.IntroText != null)
+        {
+            modulo.IntroText = moduloContent.IntroText;
+        }
+        if (moduloContent.SubModules != null)
+        {
+            modulo.SubModules = moduloContent.SubModules;
+        }
         _context.SaveChanges();
-        return Ok(subModule);
+        return Ok(modulo);
     }
 
     [HttpPost("{modulo_id}/{submodule_id}/{page_number}", Name = "FixSubModulePage")]
