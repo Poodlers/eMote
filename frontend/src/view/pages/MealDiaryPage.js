@@ -15,7 +15,7 @@ function MealDiaryPage() {
 
   useEffect(() => {
     repository.hasAccessToDiaries().then((response) => {
-      setHasAccess(response);
+      setHasAccess(true); // setHasAccess(response); if we want to go back to the original logic
       setComponentState(ComponentState.LOADED);
     }).catch((error) => {
       console.log(error);

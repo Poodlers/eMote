@@ -55,7 +55,7 @@ function LandingPage() {
           variant="h4" align='center' color="primary">Bem-vinda à eMOTE!</Typography>
           <Box sx={{p:2}}>
             <Modules modulesList = {modulesList}/>
-            <Diaries isBlocked={areDiariesBlocked}/>
+            <Diaries isBlocked={false} /* isBlocked = {areDiariesBlocked} */ /> 
           </Box>
         </Box>
         <NavBar/>

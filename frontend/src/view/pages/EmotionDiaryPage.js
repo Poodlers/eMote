@@ -32,7 +32,7 @@ function EmotionDiaryPage() {
 
   useEffect(() => {
     repository.hasAccessToDiaries().then((response) => {
-      setHasAccess(response);
+      setHasAccess(true); // setHasAccess(response); if we want to go back to the original logic
       repository.checkIfEmotionDiaryIsAlreadyAdded().then((response) => {
         if(!response){
           setHasAlreadyFilled(false);
