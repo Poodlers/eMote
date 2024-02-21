@@ -4,7 +4,7 @@ import { LogoAppBar } from '../widgets/LogoAppBar';
 import { NavBar } from '../widgets/NavBar';
 
 import Lock from '@mui/icons-material/Lock';
-import LockOpen from '@mui/icons-material/LockOpen';
+import Check from '@mui/icons-material/Check';
 import { modulesThemes } from '../../constants/themes.js'
 import { useNavigate, useParams } from 'react-router-dom';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
@@ -97,7 +97,7 @@ function SubmoduleListPage() {
                                         module.color1 :
                                         "white" :
                                         "white"}
-                                        /> : <LockOpen htmlColor={
+                                        /> : <Check htmlColor={
                                             module.theme === 'blue' || module.theme === 'green' ?
                                             index%2===0 ?
                                             module.color1 :
