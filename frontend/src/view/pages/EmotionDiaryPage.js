@@ -4,7 +4,7 @@ import DiaryLogo from '../../assets/images/diario_emocoes.png'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link, useNavigate } from 'react-router-dom';
 import ReflexionForm from '../widgets/EmotionsDiary/ReflexionForm';
-import EmotionsDialog from '../widgets/EmotionsDiary/EmotionsDialog';
+import EmotionsDialog from '../widgets/EmotionsDiary/EmotionsPrompt';
 import ExercisesDialog from '../widgets/EmotionsDiary/ExercisesDialog';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { ComponentState } from '../../models/ComponentState';

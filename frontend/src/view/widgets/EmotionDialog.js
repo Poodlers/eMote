@@ -89,9 +89,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+function useForceUpdate() {
+  const [, setToggle] = React.useState(false);
+  return () => setToggle(toggle => !toggle);
+}
+
 export default function EmotionsDialog(props) {
   
-
+  const forceUpdate = useForceUpdate();
   const emotionsSelected = props.emotionsSelected;
   const open = props.isOpen;
   const mainColor = props.mainColor;
@@ -100,9 +105,11 @@ export default function EmotionsDialog(props) {
   const setEmotionsSelected = props.setEmotions;
   const canEdit = props.canEdit;
 
+  
   const handleEmotionClick = (emotion) => {
     if (emotionsSelected.includes(emotion)) {
         setEmotionsSelected(emotionsSelected.filter((e) => e !== emotion));
+        forceUpdate();
 
     } else {
         setEmotionsSelected([...emotionsSelected, emotion]);
@@ -157,9 +164,11 @@ export default function EmotionsDialog(props) {
                         disabled={!canEdit}
                         sx ={{
                           ':disabled': { opacity: '50%',
-                           backgroundColor: emotionsSelected.includes(index) ? mainColor : '#fff' },
+                          
+                          },
                           backgroundColor: emotionsSelected.includes(index) ? mainColor : '#fff' ,
-                        '&:hover': {backgroundColor: mainColor }}}
+                          '&:hover': {backgroundColor: emotionsSelected.includes(index) ? mainColor : '#fff'}
+                        }}
                         onClick={() => canEdit ? handleEmotionClick(index): null}
                         size="large"
                         >
