@@ -291,7 +291,8 @@ class SubModulePage extends React.Component {
                     return (
                     <div key={index}>
                         <Box sx= {{pt:1}}> 
-                            <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 22, fontWeight: 500 }} variant='body1' color={"white"}>
+                            <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 22, fontWeight: 500 }} variant='body1' 
+                            color={this.state.module.moduloId == 4 ? this.state.module.color1 : "white"}>
                                 {data.exercicioName}
                             </Typography>
                         </Box>
