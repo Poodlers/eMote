@@ -1,12 +1,6 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import CloseIcon from '@mui/icons-material/Close';
-import Slide from '@mui/material/Slide';
 import { Box, Grid } from '@mui/material';
 
 import imgParceiroa from '../../../assets/images/parceiroa.png';
@@ -50,7 +44,7 @@ const imageList = [
     ];
 
 
-export default function CompanySlider(props) {
+export default function CompanyMeal(props) {
   
   const companySelected = props.initialValue;
   const mainColor = props.mainColor;
@@ -72,12 +66,12 @@ export default function CompanySlider(props) {
     <div>
         <Box >
             <Grid container sx={{ p: 0.5, placeItems:"center" }} direction="row" >
-                <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
-                Com quem comi e bebi?
+                <Typography gutterBottom sx={{ pt:1, pl:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
+                Com quem partilhei a refeição?
                 </Typography>
             </Grid>
         </Box>
-        <Box display="flex" alignItems='center' justifyContent='center' sx={{ p:2 }}>
+        <Box display="flex" alignItems='center' justifyContent='center'>
           <Grid container textAlign={'center'}>
             {imageList.map(function(data, index) {
                 return (
@@ -89,7 +83,7 @@ export default function CompanySlider(props) {
                           ':disabled': { opacity: '50%',
                            backgroundColor: companySelected.includes(index) ? '#fff' : mainColor },
                           backgroundColor: companySelected.includes(index) ? '#fff' : mainColor  ,
-                        '&:hover': {backgroundColor: mainColor },
+                        '&:hover': {backgroundColor: companySelected.includes(index) ? '#fff' : mainColor },
                         p:0.5}}
                         onClick={() => canEdit ? handleEmotionClick(index): null}
                         >
