@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Box, Grid, IconButton, Typography } from '@mui/material';
+import { AppBar, Box, Button, Grid, IconButton, Typography } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar';
 
 import { modulesThemes } from '../../constants/themes.js';
@@ -11,6 +11,8 @@ import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import DoneIcon from '@mui/icons-material/Done';
 import { ComponentState } from '../../models/ComponentState';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { NavBar } from '../widgets/NavBar';
@@ -248,6 +250,7 @@ class SubModulePage extends React.Component {
 
     }
     render() {
+        console.log(this.state.pageContent.isLastPage)
 
         return (
             <>
@@ -329,13 +332,22 @@ class SubModulePage extends React.Component {
 
             </Box>
             {
-                this.state.pageContent.subModulePage.imageFile || 
+                (this.state.pageContent.subModulePage.imageFile || 
                 this.state.pageContent.subModulePage.otherFile || 
-                this.state.pageContent.subModulePage.videoFile ||
-                this.state.pageContent.isLastPage ?
-                <IconButton onClick={this.handleEndOfPage} sx={{ bottom:"5%", left:"70%" }}>
-                    <img alt='check' src={this.state.module.check}/>
-                </IconButton> : null
+                this.state.pageContent.subModulePage.videoFile) &&
+                !this.state.pageContent.isLastPage ?
+                    <Button onClick={this.handleEndOfPage} 
+                    sx={{ bottom:"5%", left:"70%", backgroundColor: this.state.module.color1, 
+                    "&:hover": {backgroundColor: this.state.module.color3} }} variant="contained" endIcon={< ArrowForwardIosIcon/>}>
+                    Próximo
+                    </Button>
+                : this.state.pageContent.isLastPage ?
+                    <Button onClick={this.handleEndOfPage} 
+                    sx={{ bottom:"5%", left:"70%", backgroundColor: this.state.module.color1, 
+                    "&:hover": {backgroundColor: this.state.module.color3} }} variant="contained" endIcon={< DoneIcon/>}>
+                    Concluir
+                    </Button>
+                : null
             }
                 
             </Box>

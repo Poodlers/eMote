@@ -7,14 +7,14 @@ import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { useEffect } from 'react';
 import { ComponentState } from '../../models/ComponentState';
 
+import DoneIcon from '@mui/icons-material/Done';
+
 const marks = {
         1: 'Nada',
         2: 'Pouco',
         3: 'Mais ou menos',
         4: 'Muito',
         5: 'Extremamente',
-
-
     };
 
 function getLabelText(value) {
@@ -154,13 +154,13 @@ function FeedbackPage(props) {
                     )}
                     </Box>
                 </Box>
-                <IconButton onClick={onSubmit}
+                <Button onClick={onSubmit}
                     sx={{ bottom: "5%",
                         left: "70%",
-                        position: "absolute" }} >
-                    <img alt='check' src={module.check}/>
-
-                </IconButton>
+                        position: "absolute", backgroundColor: module.color1, 
+                    "&:hover": {backgroundColor: module.color3} }} variant="contained" endIcon={< DoneIcon/>}>
+                    Concluir
+                    </Button>
                 </Box>
             </>
         }
