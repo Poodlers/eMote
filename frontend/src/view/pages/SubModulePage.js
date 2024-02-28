@@ -283,6 +283,7 @@ class SubModulePage extends React.Component {
 
             <Box sx= {{pt:1, backgroundColor: this.state.module.color2 }} textAlign='center'>
                 <SubmoduleContentPage 
+                isLastPageInModulo={this.state.pageContent.isLastPageInModulo}
                 isLastPage={this.state.pageContent.isLastPage} isModuleEnd = {this.state.pageContent.isLastPageInModulo}
                 module={this.state.module} pageNumber={this.state.pageNumber} subModuleNumber={this.state.submoduleNumber} 
                 submodulesContent={this.state.pageContent.subModulePage}/>

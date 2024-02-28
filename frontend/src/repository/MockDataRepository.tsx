@@ -20,6 +20,7 @@ export class MockDataRepository implements IDataRepository {
     changeRateOfNotifsPerDay(notifsPerDay: Number): Promise<void> {
         throw new Error("Method not implemented.");
     }
+    /* no  need to implement this method */
     checkIfEmotionDiaryIsAlreadyAdded(): Promise<EmotionDiaryEntry> {
         throw new Error("Method not implemented.");
     }

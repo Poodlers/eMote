@@ -92,7 +92,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export default function EmotionsDialog(props) {
-  console.log(props.emotionsSelected);
+
   const emotionsSelected = props.emotionsSelected;
   const open = props.isOpen;
   const mainColor = props.mainColor;
