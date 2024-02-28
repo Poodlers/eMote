@@ -1,13 +1,15 @@
 import React from 'react';
-import { Box, Button, Checkbox, Grid, Slider, Typography } from '@mui/material';
+import { Box, Button, Checkbox, Grid, Slider, Typography, IconButton } from '@mui/material';
 import { LogoAppBar } from '../widgets/LogoAppBar.js';
 import { NavBar } from '../widgets/NavBar.js';
+import { Link } from 'react-router-dom';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { useEffect } from 'react';
 
 import { ComponentState } from '../../models/ComponentState';
 import { useNavigate } from 'react-router-dom';
 
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 function NotificationsPage() {
     const navigate = useNavigate();
@@ -71,8 +73,10 @@ function NotificationsPage() {
                         Carregando...
                     </Typography>
                     : <Box sx={{mt:'60px', mb:'70px'}}>
-            
-            <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5, mt:'70px' }} variant="h4" align='center' color="text.secondary">
+            <IconButton component={Link} to="/profile" aria-label="back" size="large">
+            <ArrowBackIosIcon color= "primary" fontSize="inherit" />
+            </IconButton>
+            <Typography sx={{ fontWeight: 'bold', fontSize: 28, pb:2.5 }} variant="h4" align='center' color="text.secondary">
               Editar Lembretes
             </Typography>
             <Box sx ={{p: 0.5 }}>

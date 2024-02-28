@@ -15,7 +15,7 @@ export default function TimeMeal(props) {
     <Box sx ={{p: 0.5 }}>
         <Grid container sx={{ p: 0.5, placeItems:"center" }} direction="row" >
             <Typography sx={{ textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
-                Quando comi
+                Quando comi?
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer sx= {{color: 'black'}} components={['TimePicker']}>

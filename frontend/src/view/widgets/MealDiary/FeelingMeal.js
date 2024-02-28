@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Slide from '@mui/material/Slide';
 import { Box, Grid } from '@mui/material';
 
-import button from '../../../assets/images/botao_comosenti.png';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import EmotionsDialog from '../EmotionDialog';
 
 
@@ -35,11 +35,9 @@ export default function FeelingMeal(props) {
         <Grid container sx={{ p: 0.5, placeItems:"center" }} direction="row" >
           <Button sx={{textTransform: 'none'}} onClick={handleClickOpen}>
             <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
-              Como me senti
+              Como me senti? 
             </Typography>
-            <Box sx ={{pl: 1 }}>
-              <img alt='button' height='30px' src={button}/>
-            </Box>
+            <KeyboardArrowRightIcon fontSize='large' htmlColor='#fff'/>
           </Button>
         </Grid>
     </Box>

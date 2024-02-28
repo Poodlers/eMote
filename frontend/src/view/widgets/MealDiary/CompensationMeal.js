@@ -119,7 +119,7 @@ export default function CompensationMeal(props) {
         <Grid container spacing={2} sx={{ p: 0.5 }} direction="row" >
             <Grid item xs={10}>
                 <Typography gutterBottom sx={{ pt:1, fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
-                    Recorri a algum comportamento compensatório inapropriado
+                    Recorri a algum comportamento compensatório?
                 </Typography>
             </Grid>
             <Grid item xs={2}>
