@@ -116,8 +116,7 @@ function SubmoduleContentPage(props) {
                               controls={true}
                               playing={false}
                               muted={false}
-                              onEnded={() => {handleEndOfPage()
-                            }}
+                              onEnded={() => {  handleEndOfPage()  }}
 
                               />
                           
