@@ -108,7 +108,6 @@ export default function EmotionsDialog(props) {
     } else {
         setEmotionsSelected([...emotionsSelected, emotion]);
     }
-    console.log(emotionsSelected);
   }
 
   const handleClickOpenPopUp = () => {
@@ -207,9 +206,9 @@ export default function EmotionsDialog(props) {
                 disabled={!canEdit}
                 sx ={{
                   ':disabled': { opacity: '50%',
-                  borderColor: outroFilled ? mainColor : '#fff' },
-                  borderColor: outroFilled ? mainColor : '#fff' ,
-                '&:hover': {borderColor: outroFilled ? mainColor : '#fff' }}}
+                    backgroundColor: outroFilled ? mainColor : '#fff' },
+                  backgroundColor: outroFilled ? mainColor : '#fff' ,
+                '&:hover': {backgroundColor: outroFilled ? mainColor : '#fff' }}}
                 onClick={() => canEdit ? handleClickOpenPopUp() : null}
                 size="medium"
                 >
