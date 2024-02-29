@@ -7,9 +7,9 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Stack, TextField } from '@mui/material';
 
-import DiaryLogo from '../../assets/images/diario_emocoes_icon.png'
+import imgOutro from '../../assets/images/outro_.png'
 import imgAborrecida from '../../assets/images/aborrecida.png';
 import imgAnsiosa from '../../assets/images/ansiosa.png';
 import imgCulpada from '../../assets/images/culpada.png';
@@ -90,8 +90,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function EmotionsDialog(props) {
-  
-
+  const [openPopUp, setOpenPopUp] = React.useState(false);
+  const [outroFilled, setOutroFilled] = React.useState(false);
+  const [outroValue, setOutroValue] = React.useState("");
   const emotionsSelected = props.emotionsSelected;
   const open = props.isOpen;
   const mainColor = props.mainColor;
@@ -107,8 +108,29 @@ export default function EmotionsDialog(props) {
     } else {
         setEmotionsSelected([...emotionsSelected, emotion]);
     }
+    console.log(emotionsSelected);
   }
 
+  const handleClickOpenPopUp = () => {
+    if (outroFilled){
+      setOutroFilled(false);
+      handleEmotionClick(outroValue);
+      setOutroValue("");
+    }
+    else {
+      setOpenPopUp(true);
+    }
+  };
+
+  const handleClosePopUp = () => {
+    setOpenPopUp(false);
+  };
+
+  const handleAddOutro = (emotion) => {
+      setOutroFilled(true);
+      handleEmotionClick(emotion);
+      setOpenPopUp(false);
+  };
 
   return (
     <div>
@@ -138,15 +160,60 @@ export default function EmotionsDialog(props) {
           </Toolbar>
         </AppBar>
 
-        <Box display="flex" alignItems='center' justifyContent='center' sx={{ p:2 }}>
+        <Dialog
+        open={openPopUp}
+        onClose={handleClosePopUp}
+        >
+        <AppBar sx={{ position: 'relative' }} color='secondary'>
+          <Toolbar color='#ec6fa7' sx={{ minHeight: '80px' }}>
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={() => handleClosePopUp()}
+              aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1, textAlign: 'center', fontSize:17 }} variant="h6" component="div">
+              Complete com o sentimento:
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Stack display="flex" direction="column" alignItems='center' justifyContent='center' sx={{ p:2 }}>
+        <TextField
+            id='outro'
+            color='info'
+            value={outroValue}
+            fullWidth
+            onChange={
+              (event) => {
+                  setOutroValue(event.target.value);
+                }
+              }
+          />
+          <Button color='secondary' 
+          variant="contained" 
+          onClick={() => handleAddOutro(outroValue)}>
+              Salvar
+          </Button>
+        </Stack>
+        </Dialog>
+
+        <Box display="flex" alignItems='center' justifyContent='center' sx={{ m:2 }}>
           <Grid container spacing={1} textAlign={'center'}>
-            <Grid item xs={4} key="diarylogo">
+            <Grid item xs={4} key="outro">
               <IconButton
                 color="info"
-                size="large"
-                disabled={true}
+                disabled={!canEdit}
+                sx ={{
+                  ':disabled': { opacity: '50%',
+                  borderColor: outroFilled ? mainColor : '#fff' },
+                  borderColor: outroFilled ? mainColor : '#fff' ,
+                '&:hover': {borderColor: outroFilled ? mainColor : '#fff' }}}
+                onClick={() => canEdit ? handleClickOpenPopUp() : null}
+                size="medium"
                 >
-                <img alt='logo' style={{ opacity: '25%'}} src={DiaryLogo}/>
+                <img alt='outro' src={imgOutro}/>
               </IconButton>
             </Grid>
             {imageList.map(function(data, index) {
@@ -157,11 +224,11 @@ export default function EmotionsDialog(props) {
                         disabled={!canEdit}
                         sx ={{
                           ':disabled': { opacity: '50%',
-                           backgroundColor: emotionsSelected.includes(index) ? mainColor : '#fff' },
-                          backgroundColor: emotionsSelected.includes(index) ? mainColor : '#fff' ,
-                        '&:hover': {backgroundColor: mainColor }}}
-                        onClick={() => canEdit ? handleEmotionClick(index): null}
-                        size="large"
+                           backgroundColor: emotionsSelected.includes(data.feeling) ? mainColor : '#fff' },
+                          backgroundColor: emotionsSelected.includes(data.feeling) ? mainColor : '#fff' ,
+                        '&:hover': {backgroundColor: emotionsSelected.includes(data.feeling) ? mainColor : '#fff' }}}
+                        onClick={() => canEdit ? handleEmotionClick(data.feeling) : null}
+                        size="medium"
                         >
                         <img alt='logo' src={data.image}/>
                         </IconButton>
