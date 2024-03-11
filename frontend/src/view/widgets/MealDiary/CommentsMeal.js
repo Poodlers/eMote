@@ -9,7 +9,7 @@ export default function CommentsMeal(props) {
         <Link href={props.href} underline='none'>
             <Box sx ={{ p:1, bgcolor: '#349db7' }}>
                 <Typography gutterBottom sx={{ pt:1, pl:1, fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
-                    Contexto/comentários
+                    Comentários
                 </Typography>
                 <TextField
                         id='comments'

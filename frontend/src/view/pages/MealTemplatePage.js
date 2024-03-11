@@ -20,10 +20,14 @@ import CheckboxTemplate from '../widgets/MealDiary/CheckboxTemplate';
 import { TipoRefeicao } from '../../models/TipoRefeicao';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { ComponentState } from '../../models/ComponentState';
+import CompanyMeal from '../widgets/MealDiary/CompanyMeal';
+import LocationMeal from '../widgets/MealDiary/LocationMeal';
 
 const errorMessagesText = {
     TimeOfMeal: 'Por favor, indique a hora da refeição',
     FeelingsAroundMeal: 'Por favor, indique os sentimentos em torno da refeição',
+    LocationOfMeal: 'Por favor, indique onde fizeste esta refeição',
+    CompanyOverMeal: 'Por favor, indique a companhia que tiveste durante esta refeição',
     ContentsOfMeal: 'Por favor, indique o que comeu',
     Reflexao: 'Por favor, preencha a reflexão',
 }
@@ -107,6 +111,8 @@ function MealTemplatePage() {
                 skippedMeal : skippedMeal,
                 timeOfMeal : timeOfMeal,
                 feelingsAroundMeal : feelingsAroundMeal,
+                companyOverMeal : companyOverMeal,
+                locationOfMeal : locationOfMeal,
                 contentsOfMeal : contentsOfMeal,
                 plainAttention : plainAttention,
                 restrainedConsumption : restrainedConsumption,
@@ -144,6 +150,8 @@ function MealTemplatePage() {
    
     const [timeOfMeal, setTimeOfMeal] = React.useState(new Date().toLocaleString().split(',')[1].trimStart());
     const [feelingsAroundMeal, setFeelingsAroundMeal] = React.useState([]);
+    const [companyOverMeal, setcompanyOverMeal] = React.useState([]);
+    const [locationOfMeal, setLocationOfMeal] = React.useState(-1);
     const [contentsOfMeal, setContentsOfMeal] = React.useState('');
     const [plainAttention, setPlainAttention] = React.useState(false);
     const [restrainedConsumption, setRestrainedConsumption] = React.useState(false);
@@ -163,6 +171,8 @@ function MealTemplatePage() {
                 setSkippedMeal(response.skippedMeal);
                 setTimeOfMeal(response.timeOfMeal);
                 setFeelingsAroundMeal(response.feelingsAroundMeal);
+                setcompanyOverMeal(response.companyOverMeal);
+                setLocationOfMeal(response.locationOfMeal);
                 setContentsOfMeal(response.contentsOfMeal);
                 setPlainAttention(response.plainAttention);
                 setRestrainedConsumption(response.restrainedConsumption);
@@ -225,6 +235,8 @@ function MealTemplatePage() {
                     <TimeMeal  initialValue = {timeOfMeal} readOnly={hasAlreadyFilled} setTimeOfMeal = {setTimeOfMeal}/>
                     <FeelingMeal initialValue = {feelingsAroundMeal} canEdit={!hasAlreadyFilled} setEmotions={setFeelingsAroundMeal}/>
                     <DescriptionMeal initialValue = {contentsOfMeal} readOnly={hasAlreadyFilled} setContentsOfMeal = {setContentsOfMeal}/>
+                    <CompanyMeal initialValue = {companyOverMeal} canEdit={!hasAlreadyFilled} setCompany={setcompanyOverMeal} mainColor = '#01688a' />
+                    <LocationMeal initialValue = {locationOfMeal} canEdit={!hasAlreadyFilled} setLocation={setLocationOfMeal} mainColor = '#01688a' />
                     <CheckboxTemplate initialValue = {plainAttention} readOnly={hasAlreadyFilled} setCheck = {setPlainAttention} text="Comi com atenção plena?" note="ou seja, mindful eating" id='attention' />
                     <CheckboxTemplate initialValue = {restrainedConsumption} readOnly={hasAlreadyFilled} setCheck = {setRestrainedConsumption} text="Restringi propositadamente a quantidade de alimentos?" id='restriction'/>
                     <CheckboxTemplate initialValue = {hadAnEpisode} readOnly={hasAlreadyFilled} setCheck={setHadAnEpisode} text="Tive um episódio de ingestão compulsiva?" note="i.e., comer uma grande quantidade de comida e perda de controlo" id='episode'/>                    

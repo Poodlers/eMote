@@ -41,7 +41,7 @@ export default function EmotionDiaryEmotions(props) {
     </Box>
 
     <EmotionsDialog 
-    isOpen = {open} 
+    isOpen = {open}
     mainColor = '#ec6fa7' 
     handleClickClose = {handleClose}
     canEdit={canEdit} 
