@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import DownloadIcon from '@mui/icons-material/Download';
 import ReactPlayer from 'react-player';
 import { saveAs } from 'file-saver';
+import { RepositorySingleton } from '../../repository/RepositoryInjector';
 
 
 
@@ -11,13 +12,40 @@ function SubmoduleContentPage(props) {
     const navigate = useNavigate();
     const [videoLoading, setVideoLoading] = React.useState(true);
     const module = props.module;
+    const isLastPageInModulo = props.isLastPageInModulo;
     const submodulesContent = props.submodulesContent;
     const subModuleNumber = props.subModuleNumber;
     const pageNumber = props.pageNumber;
     const isLastPage = props.isLastPage;
     const isModuleEnd = props.isModuleEnd;
 
+    const handleEndOfPage = () => {
+      const repository = RepositorySingleton.getInstance().injectRepository();
+      const nextPageLink =
+      isLastPageInModulo ?
+      module.feedbacklink :
+      isLastPage ? 
+      `/submodulelist/${module.moduloId}` :
+      `/submodulepage/${module.moduloId}/${subModuleNumber}/${parseInt(pageNumber) + 1}`;
+      
+      const dataFim = new Date().toLocaleString().replace(',', '');
+      
+      if(isLastPage){
+          repository.registerSubModuloTimeStamps(module.moduloId, subModuleNumber, undefined,
+          dataFim
+          ).then((response) => {
+              navigate(nextPageLink, { replace: true });
+              
+          }).catch((error) => {
+              console.log(error);
+          });
 
+          
+      }else{
+          navigate(nextPageLink, { replace: true });
+      }   
+
+  }
     const saveFile = (file) => {
       console.log('saving!');
       saveAs(
@@ -88,6 +116,8 @@ function SubmoduleContentPage(props) {
                               controls={true}
                               playing={false}
                               muted={false}
+                              onEnded={() => {  handleEndOfPage()  }}
+
                               />
                           
                       </Grid>

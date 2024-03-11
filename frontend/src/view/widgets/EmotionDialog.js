@@ -89,6 +89,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+
+
 export default function EmotionsDialog(props) {
   const [openPopUp, setOpenPopUp] = React.useState(false);
   const [outroFilled, setOutroFilled] = React.useState(false);
@@ -101,9 +103,11 @@ export default function EmotionsDialog(props) {
   const setEmotionsSelected = props.setEmotions;
   const canEdit = props.canEdit;
 
+  
   const handleEmotionClick = (emotion) => {
     if (emotionsSelected.includes(emotion)) {
         setEmotionsSelected(emotionsSelected.filter((e) => e !== emotion));
+   
 
     } else {
         setEmotionsSelected([...emotionsSelected, emotion]);

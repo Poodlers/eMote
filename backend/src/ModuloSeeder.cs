@@ -49,6 +49,20 @@ public class ModuloSeeder
             new SubModule
             {
                 SubModuleNumberOrder = 3,
+                Title = "O papel da restrição alimentar",
+                SubModulePages =
+                    new List<SubModulePage>
+                    {
+                        new SubModulePage
+                        {
+                            PageNumber = 1,
+                            VideoFile = "new_vid.mp4",
+                        }
+                    }
+            },
+            new SubModule
+            {
+                SubModuleNumberOrder = 4,
                 Title = "Regulação emocional e ingestão alimentar compulsiva",
 
                 SubModulePages =
@@ -63,7 +77,7 @@ public class ModuloSeeder
             },
             new SubModule
             {
-                SubModuleNumberOrder = 4,
+                SubModuleNumberOrder = 5,
                 Title = "A história da Ângela",
                 SubModulePages =
                     new List<SubModulePage>
@@ -80,13 +94,15 @@ public class ModuloSeeder
 
                             ImageFile = "submod4_ativ2.png",
                         },
+                        new SubModulePage{
+                            PageNumber = 3,
+                            Text = @"string"
+
+                        },
                         new SubModulePage
                         {
-                            PageNumber = 3,
-                            Text = @"Gostaríamos de lhe lançar um desafio! 
-Convidamo-la a descarregar o modelo de regulação de emocional e
- a tirar uns minutos do seu tempo para fazer o seu
-  próprio modelo recorrendo a um episódio recente que tenha tido",
+                            PageNumber = 4,
+                            Text = @"Gostaríamos de lhe lançar um desafio! Convidamo-la a descarregar o modelo de regulação de emocional e a tirar uns minutos do seu tempo para fazer o seu próprio modelo recorrendo a um episódio recente que tenha tido",
                         OtherFile = "submod4_ativ3.pdf"
 
                         }
@@ -96,7 +112,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
                     },
             new SubModule
             {
-                SubModuleNumberOrder = 5,
+                SubModuleNumberOrder = 6,
                 Title = "A teoria biossocial para a regulação emocional",
                 SubModulePages =
                     new List<SubModulePage>
@@ -111,7 +127,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
 
             new SubModule
             {
-                SubModuleNumberOrder = 6,
+                SubModuleNumberOrder = 7,
                 Title = "O diário das refeições e o diário das emoções",
                 SubModulePages =
                     new List<SubModulePage>
@@ -126,7 +142,7 @@ Convidamo-la a descarregar o modelo de regulação de emocional e
 
             new SubModule
             {
-                SubModuleNumberOrder = 7,
+                SubModuleNumberOrder = 8,
                 Title = "Recapitulando...",
                 SubModulePages =
                     new List<SubModulePage>

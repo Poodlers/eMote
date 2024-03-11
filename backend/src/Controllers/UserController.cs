@@ -298,7 +298,7 @@ public class UserController : ControllerBase
         //get the last x days of FoodDiaryEntries
         var last_x_days_food_diary = user_food_diary
         .Where(food_diary =>
-        food_diary.Date >= DateOnly.FromDateTime(DateTime.Now.AddDays(-last_x_days))).ToList();
+        food_diary.Date >= DateOnly.FromDateTime(DateTime.Now.AddDays(-last_x_days)) && food_diary.HadAnEpisode == true).ToList();
 
 
         var episodes = new List<EpisodesInfo>();

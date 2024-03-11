@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { modulesThemes } from '../../constants/themes.js';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { useEffect } from 'react';
+import { useReward } from 'react-rewards';
 import { ComponentState } from '../../models/ComponentState';
 
 import DoneIcon from '@mui/icons-material/Done';
@@ -24,6 +25,8 @@ function getLabelText(value) {
 function FeedbackPage(props) {
     const repository = RepositorySingleton.getInstance().injectRepository();
     const navigate = useNavigate();
+
+
     let { moduleNumber } = useParams();
     const [hoverSatisfaction, setHoverSatisfaction] = React.useState(-1);
     const [hoverUsefulness, setHoverUsefulness] = React.useState(-1);
@@ -34,6 +37,10 @@ function FeedbackPage(props) {
 
     const onSubmit = () => {
         const dataFim = new Date().toLocaleString().replace(',', '');
+    
+        while(isConfettiAnimating || isBalloonsAnimating) {
+            console.log('animating');
+        }
         repository.sendFeedback(moduleNumber, 
             usefelnessScore, satisfactionScore).then((response) => {
                 repository.registerModuloTimeStamps(moduleNumber, undefined,dataFim).then((response) => {
@@ -46,6 +53,16 @@ function FeedbackPage(props) {
         }).catch((error) => {
             console.log(error);
         });
+    }
+
+    const {reward: confettiReward, isAnimating: isConfettiAnimating}
+     = useReward('confettiReward', 'confetti', {onAnimationComplete: () => onSubmit(), elementSize: 20, elementCount: 15 });
+    const {reward: balloonsReward, isAnimating: isBalloonsAnimating} = useReward('balloonsReward', 'balloons',
+     {elementSize: 50, elementCount: 15, startVelocity: 10});
+
+    const triggerAnimations = () => {
+        confettiReward();
+        balloonsReward();
     }
 
     useEffect(() => {
@@ -99,8 +116,9 @@ function FeedbackPage(props) {
             <Typography align= 'center' sx={{ pt:5, alignSelf:'center', fontSize: 50, fontWeight: 500 }} variant='body1' color={module.theme == 'blue'? module.color1: 'white'}>
                 Parabéns!
             </Typography>
-
+           
             <Box sx={{ p:5 }}/>
+               
                 <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5,
                      pt:2.5, fontSize: 20, textAlign:'center' }} variant='body1'>
                     Considera que este Módulo foi útil para si?
@@ -108,6 +126,7 @@ function FeedbackPage(props) {
                 <Box sx={{ display:"flex", alignItems: 'center', justifyContent: 'center' }}>
                     <Box sx={{ width: '70%', m: '0 auto', textAlign:'center'}}>
                     <Rating
+                        disabled={isConfettiAnimating || isBalloonsAnimating}
                         sx ={{ scale:'1.5'}}
                         name="hover-feedback"
                         value={usefelnessScore}
@@ -134,6 +153,7 @@ function FeedbackPage(props) {
                 <Box sx={{ display:"flex", alignItems: 'center', justifyContent: 'center', width:'100%'}}>
                     <Box sx={{ width: '70%', m: '0 auto', textAlign:'center'}}>
                     <Rating
+                        disabled={isConfettiAnimating || isBalloonsAnimating}
                         sx ={{ scale:'1.5'}}
                         name="hover-feedback"
                         value={satisfactionScore}
@@ -152,15 +172,20 @@ function FeedbackPage(props) {
                             <Box sx={{ ml: 2 }}>{marks[hoverSatisfaction !== -1 ? hoverSatisfaction : satisfactionScore]}</Box>
                         </Typography>
                     )}
+
+                    <div id="confettiReward" style={{margin:'0 auto'}} />
+                    <div id="balloonsReward" style={{margin:'0 auto'}} />
                     </Box>
+                    
                 </Box>
-                <Button onClick={onSubmit}
+                
+                <IconButton onClick={triggerAnimations}
                     sx={{ bottom: "5%",
                         left: "70%",
                         position: "absolute", backgroundColor: module.color1, 
                     "&:hover": {backgroundColor: module.color3} }} variant="contained" endIcon={< DoneIcon/>}>
                     Concluir
-                    </Button>
+                    </IconButton>
                 </Box>
             </>
         }

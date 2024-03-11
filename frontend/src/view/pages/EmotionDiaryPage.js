@@ -4,7 +4,7 @@ import DiaryLogo from '../../assets/images/diario_emocoes.png'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link, useNavigate } from 'react-router-dom';
 import ReflexionForm from '../widgets/EmotionsDiary/ReflexionForm';
-import EmotionsDialog from '../widgets/EmotionsDiary/EmotionsDialog';
+import EmotionsDialog from '../widgets/EmotionsDiary/EmotionsPrompt';
 import ExercisesDialog from '../widgets/EmotionsDiary/ExercisesDialog';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { ComponentState } from '../../models/ComponentState';
@@ -14,7 +14,6 @@ function EmotionDiaryPage() {
   const navigate = useNavigate();
   const repository = RepositorySingleton.getInstance().injectRepository();
   const [hasAccess, setHasAccess] = React.useState(false);
-  const [hasAlreadyFilled, setHasAlreadyFilled] = React.useState(false);
   const [componentState, setComponentState] = React.useState(ComponentState.LOADING);
   const [emotionsSelected, setEmotionsSelected] = React.useState([]);
   const [exercisesSelected, setExercisesSelected] = React.useState([]);
@@ -32,33 +31,7 @@ function EmotionDiaryPage() {
 
   useEffect(() => {
     repository.hasAccessToDiaries().then((response) => {
-      setHasAccess(response);
-      repository.checkIfEmotionDiaryIsAlreadyAdded().then((response) => {
-        if(!response){
-          setHasAlreadyFilled(false);
-        }else{
-          setHasAlreadyFilled(true);
-          setDayReflection(response.reflexaoEmotion);
-          setEmotionsSelected(response.sentimentos);
-          setExercisesSelected(response.exercicios);       
-        }
-        
-
-        repository.fetchAllSeenExercises().then((response) => {
-          setExercisesContent({...response});
-          
-        }
-        ).catch((error) => {
-          throw error;
-        });
-
-
-      }).catch((error) => {
-        throw error;
-      });
-
-
-      
+      setHasAccess(true); // setHasAccess(response); if we want to go back to the original logic   
       repository.fetchAllSeenExercises().then((response) => {
         setExercisesContent({...response});
         setComponentState(ComponentState.LOADED);
@@ -102,21 +75,18 @@ function EmotionDiaryPage() {
               </Typography>
             <Box sx={{p:2 , backgroundColor: '#e6d4e0'}}>
               <EmotionsDialog 
-              canEdit={!hasAlreadyFilled} emotionsSelected={emotionsSelected} setEmotions= {setEmotionsSelected}/>
-              <ExercisesDialog canEdit={!hasAlreadyFilled} possibleExercises={exercisesContent} exercisesSelected={exercisesSelected} setExercises = {setExercisesSelected} />
-              <ReflexionForm canEdit={!hasAlreadyFilled} dayReflection={dayReflection} setDayReflection={setDayReflection}/>
-
-           
-                {
-                  hasAlreadyFilled ? null :
-                  <Box sx ={{ p:3 }} textAlign='center'>
-                  <Button onClick={handleSubmit} sx ={{ p:1, bgcolor: '#ec6fa7' }}>
-                    <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
-                        Confirmar
-                    </Typography>
-                  </Button>
-                  </Box>
-                }
+              canEdit={true} emotionsSelected={emotionsSelected} setEmotions= {setEmotionsSelected}/>
+              <ExercisesDialog canEdit={true} possibleExercises={exercisesContent} exercisesSelected={exercisesSelected} setExercises = {setExercisesSelected} />
+              <ReflexionForm canEdit={true} dayReflection={dayReflection} setDayReflection={setDayReflection}/>
+                
+              <Box sx ={{ p:3 }} textAlign='center'>
+              <Button onClick={handleSubmit} sx ={{ p:1, bgcolor: '#ec6fa7' }}>
+                <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' color={"white"}>
+                    Confirmar
+                </Typography>
+              </Button>
+              </Box>
+                
               
               
             </Box>
