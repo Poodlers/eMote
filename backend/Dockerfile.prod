@@ -14,7 +14,7 @@ WORKDIR /usr/src/app
 
 RUN dotnet --info
 
-RUN dotnet tool install --global dotnet-ef
+RUN dotnet tool install --global dotnet-ef --version 7.0.8
 
 # Copy csproj and restore as distinct layers
 COPY src/backend.csproj src/backend.csproj
