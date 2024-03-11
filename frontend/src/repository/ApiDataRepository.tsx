@@ -366,6 +366,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
   }
   async addFoodDiaryEntry(foodDiary: FoodDiaryEntry): Promise<void> {
     const instance = this.createInstance();
+    console.log(foodDiary);
     const dataFim = new Date().toLocaleString().replace(',','');
     try{
       const result = await instance.post(`${BASE_URL}/meal-diary/${this.user.code}`,

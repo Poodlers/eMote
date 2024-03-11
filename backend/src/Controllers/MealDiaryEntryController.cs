@@ -134,6 +134,8 @@ public class MealDiaryEntryController : ControllerBase
             FeelingsAroundMeal = dto.FeelingsAroundMeal,
             ContentsOfMeal = dto.ContentsOfMeal,
             PlainAttention = dto.PlainAttention,
+            Location = dto.Location,
+            MealCompany = dto.MealCompany,
             RestrainedConsumption = dto.RestrainedConsumption,
             HadAnEpisode = dto.HadAnEpisode,
             HadCompensatoryBehaviour = dto.HadCompensatoryBehaviour,

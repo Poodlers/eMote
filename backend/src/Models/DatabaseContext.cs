@@ -32,11 +32,20 @@ public class DatabaseContext : DbContext
         base.OnModelCreating(modelBuilder);
 
 
-        var SentimentoConverter = new EnumCollectionJsonValueConverter<Sentimento>();
-        var SentimentoComparer = new CollectionValueComparer<Sentimento>();
+
+        var SentimentoConverter = new StringListToStringValueConverter();
+        var SentimentoComparer = new CollectionValueComparer<string>();
 
         var CompensatoryConverter = new EnumCollectionJsonValueConverter<CompensatoryBehavior>();
         var CompensatoryComparer = new CollectionValueComparer<CompensatoryBehavior>();
+
+        var CompanyConverter = new EnumCollectionJsonValueConverter<Company>();
+        var CompanyComparer = new CollectionValueComparer<Company>();
+
+        modelBuilder.Entity<MealDiaryEntry>()
+        .Property(e => e.MealCompany)
+        .HasConversion(CompanyConverter!)
+        .Metadata.SetValueComparer(CompanyComparer);
 
         modelBuilder.Entity<EmotionDiaryEntry>()
         .Property(e => e.Sentimentos)

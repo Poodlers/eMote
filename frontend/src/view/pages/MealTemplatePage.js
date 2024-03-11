@@ -111,8 +111,8 @@ function MealTemplatePage() {
                 skippedMeal : skippedMeal,
                 timeOfMeal : timeOfMeal,
                 feelingsAroundMeal : feelingsAroundMeal,
-                companyOverMeal : companyOverMeal,
-                locationOfMeal : locationOfMeal,
+                mealCompany : companyOverMeal,
+                location : locationOfMeal,
                 contentsOfMeal : contentsOfMeal,
                 plainAttention : plainAttention,
                 restrainedConsumption : restrainedConsumption,
@@ -171,8 +171,8 @@ function MealTemplatePage() {
                 setSkippedMeal(response.skippedMeal);
                 setTimeOfMeal(response.timeOfMeal);
                 setFeelingsAroundMeal(response.feelingsAroundMeal);
-                setcompanyOverMeal(response.companyOverMeal);
-                setLocationOfMeal(response.locationOfMeal);
+                setcompanyOverMeal(response.mealCompany);
+                setLocationOfMeal(response.location);
                 setContentsOfMeal(response.contentsOfMeal);
                 setPlainAttention(response.plainAttention);
                 setRestrainedConsumption(response.restrainedConsumption);

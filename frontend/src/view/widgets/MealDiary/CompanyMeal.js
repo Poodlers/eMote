@@ -61,7 +61,6 @@ export default function CompanyMeal(props) {
     }
   }
 
-
   return (
     <div>
         <Box >

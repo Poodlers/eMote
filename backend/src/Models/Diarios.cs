@@ -6,23 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.Models;
 
-public enum Sentimento
-{
-    Ansiosa,
-    Aborrecida,
-    Culpada,
-    Entusiasmada,
-    Envergonhada,
-    Feliz,
-    Frustrada,
-    Furiosa,
-    Irritada,
-    Motivada,
-    Orgulhosa,
-    Sozinha,
-    Tranquila,
-    Triste
-}
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Refeicao
 {
@@ -33,6 +16,29 @@ public enum Refeicao
     Jantar,
     Ceia,
     Outra
+}
+
+
+
+public enum Location
+{
+    Casa,
+    Restaurante_Café,
+    Faculdade_Escola,
+    Trabalho,
+    Casa_de_amigos,
+    Outra
+}
+
+public enum Company
+{
+    Sozinha,
+    Com_pais,
+    Com_filhos,
+    Com_amigos,
+    Com_parceiro,
+    Com_colegas,
+    Outro
 }
 
 
@@ -60,7 +66,7 @@ public class EmotionDiaryEntryDTO
     public String? ReflexaoEmotion { get; set; }
 
     [Required]
-    public ICollection<Sentimento> Sentimentos { get; set; } = new List<Sentimento>();
+    public ICollection<String> Sentimentos { get; set; } = new List<String>();
 
     [Required]
     public List<ExercicioDTO> Exercicios { get; set; } = new List<ExercicioDTO>();
@@ -84,7 +90,7 @@ public class EmotionDiaryEntry
     public String? ReflexaoEmotion { get; set; }
 
     [Required]
-    public ICollection<Sentimento> Sentimentos { get; set; } = new List<Sentimento>();
+    public ICollection<String> Sentimentos { get; set; } = new List<String>();
 
     [Required]
     public List<Exercicio> Exercicios { get; set; } = new List<Exercicio>();
@@ -109,7 +115,10 @@ public class MealDiaryEntryDTO
 
     public String? TimeOfMeal { get; set; } // perg2
 
-    public ICollection<Sentimento> FeelingsAroundMeal { get; set; } = new List<Sentimento>(); //perg3
+    public ICollection<String>? FeelingsAroundMeal { get; set; } = new List<String>(); //perg3
+    public ICollection<Company>? MealCompany { get; set; } = new List<Company>();
+
+    public Location Location { get; set; }
 
     public String? ContentsOfMeal { get; set; } //perg4
 
@@ -141,10 +150,13 @@ public class MealDiaryEntry
 
     public TimeOnly? TimeOfMeal { get; set; } // perg2
 
-    public ICollection<Sentimento> FeelingsAroundMeal { get; set; } = new List<Sentimento>(); //perg3
+    public ICollection<String>? FeelingsAroundMeal { get; set; } = new List<String>(); //perg3
 
     public String? ContentsOfMeal { get; set; } //perg4
 
+    public Location Location { get; set; }
+
+    public ICollection<Company>? MealCompany { get; set; } = new List<Company>();
     public bool? PlainAttention { get; set; } //perg5
 
     public bool? RestrainedConsumption { get; set; } //perg6
@@ -191,7 +203,7 @@ public class ProgressInfo
 
 public class SentimentosInfo
 {
-    public Sentimento? Sentimento { get; set; }
+    public String? Sentimento { get; set; }
 
     public int? Count { get; set; }
 }

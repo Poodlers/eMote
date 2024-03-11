@@ -77,7 +77,7 @@ public class ExcelExportController : ControllerBase
 
         DataTable dataTableMealDiary = new DataTable("MealDiary");
 
-        dataTableMealDiary.Columns.AddRange(new DataColumn[15] {
+        dataTableMealDiary.Columns.AddRange(new DataColumn[17] {
             new DataColumn("cod_user", typeof(string)),
             new DataColumn("data", typeof(DateOnly)),
             new DataColumn("hora_sistema", typeof(TimeOnly)),
@@ -87,18 +87,20 @@ public class ExcelExportController : ControllerBase
             new DataColumn("perg2", typeof(TimeOnly)),
             new DataColumn("perg3", typeof(string)),
             new DataColumn("perg4", typeof(string)),
-            new DataColumn("perg5", typeof(bool)),
-            new DataColumn("perg6", typeof(bool)),
+            new DataColumn("perg5", typeof(string)),
+            new DataColumn("perg6", typeof(string)),
             new DataColumn("perg7", typeof(bool)),
             new DataColumn("perg8", typeof(bool)),
-            new DataColumn("perg8_opcoes", typeof(string)),
-            new DataColumn("perg9", typeof(string)),
+            new DataColumn("perg9", typeof(bool)),
+            new DataColumn("perg10", typeof(bool)),
+            new DataColumn("perg10_opcoes", typeof(string)),
+            new DataColumn("perg11", typeof(string)),
 
         });
 
         DataTable dataTableModulo1UserProgress = new DataTable("Modulo 1 - Progresso");
 
-        dataTableModulo1UserProgress.Columns.AddRange(new DataColumn[21] {
+        dataTableModulo1UserProgress.Columns.AddRange(new DataColumn[23] {
             new DataColumn("cod_user", typeof(string)),
             new DataColumn("data_inicio", typeof(DateTime)),
             new DataColumn("data_fim", typeof(DateTime)),
@@ -116,6 +118,8 @@ public class ExcelExportController : ControllerBase
             new DataColumn("sub_mod6_fim", typeof(DateTime)),
             new DataColumn("sub_mod7_inicio", typeof(DateTime)),
             new DataColumn("sub_mod7_fim", typeof(DateTime)),
+             new DataColumn("sub_mod8_inicio", typeof(DateTime)),
+            new DataColumn("sub_mod8_fim", typeof(DateTime)),
             new DataColumn("favorito", typeof(string)),
             new DataColumn("recompensa", typeof(string)),
             new DataColumn("class_utilidade", typeof(int)),
@@ -247,10 +251,73 @@ public class ExcelExportController : ControllerBase
 
             foreach (var mealDiary in user.FoodDiaryEntries!)
             {
+
                 var feelingsAroundMealString = "";
-                foreach (var feeling in mealDiary.FeelingsAroundMeal)
+                var locationString = "";
+                var companyString = "";
+
+                if (mealDiary.MealCompany != null)
                 {
-                    feelingsAroundMealString = feelingsAroundMealString + feeling.ToString() + ", \n ";
+                    foreach (var company in mealDiary.MealCompany)
+                    {
+                        switch (company)
+                        {
+                            case Company.Com_pais:
+                                companyString = companyString + "Com pais, \n ";
+                                break;
+                            case Company.Outro:
+                                companyString = companyString + "Outro, \n ";
+                                break;
+                            case Company.Com_parceiro:
+                                companyString = companyString + "Com parceiro, \n ";
+                                break;
+                            case Company.Com_colegas:
+                                companyString = companyString + "Com colegas, \n ";
+                                break;
+                            case Company.Com_filhos:
+                                companyString = companyString + "Com filhos, \n ";
+                                break;
+                            case Company.Com_amigos:
+                                companyString = companyString + "Com amigos, \n ";
+                                break;
+                            case Company.Sozinha:
+                                companyString = companyString + "Sozinha, \n ";
+                                break;
+
+                        }
+                    }
+                }
+
+                switch (mealDiary.Location)
+                {
+                    case Location.Outra:
+                        locationString = "Outra";
+                        break;
+                    case Location.Casa:
+                        locationString = "Casa";
+                        break;
+                    case Location.Casa_de_amigos:
+                        locationString = "Casa de amigos";
+                        break;
+                    case Location.Restaurante_Café:
+                        locationString = "Restaurante/Café";
+                        break;
+                    case Location.Trabalho:
+                        locationString = "Trabalho";
+                        break;
+                    case Location.Faculdade_Escola:
+                        locationString = "Faculdade/Escola";
+                        break;
+
+                }
+
+                if (mealDiary.FeelingsAroundMeal != null)
+                {
+
+                    foreach (var feeling in mealDiary.FeelingsAroundMeal)
+                    {
+                        feelingsAroundMealString = feelingsAroundMealString + feeling.ToString() + ", \n ";
+                    }
                 }
 
                 var compensatoryBehaviorsString = "";
@@ -266,6 +333,8 @@ public class ExcelExportController : ControllerBase
                     mealDiary.SkippedMeal,
                     mealDiary.TimeOfMeal,
                     feelingsAroundMealString,
+                    locationString,
+                    companyString,
                     mealDiary.ContentsOfMeal,
                     mealDiary.PlainAttention,
                     mealDiary.RestrainedConsumption,
@@ -341,6 +410,7 @@ public class ExcelExportController : ControllerBase
 
             }
         }
+
 
     }
 
