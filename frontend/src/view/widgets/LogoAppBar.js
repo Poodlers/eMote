@@ -9,7 +9,7 @@ import LogoBlue from '../../assets/images/icon_azul2.png';
 import LogoOrange from '../../assets/images/icon_laranja.png';
 import LogoGreen from '../../assets/images/icon_verde.png';
 import LogoPurple from '../../assets/images/icon_rosa.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { IconButton, Link as MUILink } from '@mui/material';
 import LogoutButton from './LogoutButton';
@@ -20,26 +20,26 @@ const themes = [
       name: "orange",
       logo: LogoOrange,
       color: "#f48d0d",
-      link: "/moduleintro/1"
+      link: "/submodulelist/1"
   },
   {
       name: "green",
       logo: LogoGreen,
       color: "#519a96",
-      link: "/moduleintro/2"
+      link: "/submodulelist/2"
   },
   
   {
       name: "purple",
       logo: LogoPurple,
       color: "#a87e95",
-      link: "/moduleintro/3"
+      link: "/submodulelist/3"
   },
   {
       name: "blue",
       logo: LogoBlue,
       color: "#52b9c4",
-      link: "/moduleintro/4"
+      link: "/submodulelist/4"
   },
 ]
 

@@ -9,6 +9,7 @@ import phonesBlue from '../../assets/images/phones.png';
 
 import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
+import MuiAudioPlayer from "mui-audio-player-plus";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { ComponentState } from '../../models/ComponentState';
@@ -60,8 +61,8 @@ class SubModulePage extends React.Component {
         this.setState({audioRefs : [...audioRefsCopy]});
       
     
-}
-
+    }
+    /*
     componentWillUnmount() {
         for(let i = 0; i < this.state.audioRefs.length; i++){
             this.state.audioRefs[i].audioRef.pause();
@@ -72,7 +73,7 @@ class SubModulePage extends React.Component {
             audioTags[i].remove();
         }
     }
-
+    */
     componentDidMount() {
         const repository = RepositorySingleton.getInstance().injectRepository();
         repository.getPageContent(this.props.router.params.moduleNumber, this.props.router.params.submoduleNumber,this.props.router.params.pageNumber).then((response) => {
@@ -95,7 +96,7 @@ class SubModulePage extends React.Component {
           let audioRefs = [];
           for(let i = 0; i < response.exerciciosFavoritos.length; i++){
                 audioRefs.push({    
-                     audioRef : new Audio( `/audios/${response.exerciciosFavoritos[i].exercicioFile}`),
+                     mp3: require(`../../assets/audios/${response.exerciciosFavoritos[i].exercicioFile}`),
                      isPlaying : false,
                      audioFile: response.exerciciosFavoritos[i].exercicioFile
                     });
@@ -148,10 +149,10 @@ class SubModulePage extends React.Component {
                   let audioRefs = [];
                   for(let i = 0; i < response.exerciciosFavoritos.length; i++){
                         audioRefs.push({    
-                             audioRef : new Audio( `/audios/${response.exerciciosFavoritos[i].exercicioFile}`),
+                             mp3: require(`../../assets/audios/${response.exerciciosFavoritos[i].exercicioFile}`),
                              isPlaying : false,
                              audioFile: response.exerciciosFavoritos[i].exercicioFile
-                            });
+                            } );
                         exercises[response.exerciciosFavoritos[i].exercicioFile] = response.exerciciosFavoritos[i].exercicioIsFavorite;
                     }
                     
@@ -193,6 +194,8 @@ class SubModulePage extends React.Component {
                 console.log(error);
             });
         }
+
+        /*
         if(prevState.audioRefs != this.state.audioRefs){
             if(this.state.audioRefs.length == 0) return;
             
@@ -206,6 +209,7 @@ class SubModulePage extends React.Component {
                 }
             }
         }
+        */
         
     }
 
@@ -248,7 +252,7 @@ class SubModulePage extends React.Component {
 
     }
     render() {
-
+        
         return (
             <>
             {
@@ -270,7 +274,7 @@ class SubModulePage extends React.Component {
                     <>
         <Box sx={{backgroundColor: this.state.module.color2, height : '100vh'}}>
             <LogoAppBar color={this.state.module.theme} goBack={true}/>
-            <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: this.state.module.color1, height:'100px' }} >
+            <AppBar sx ={{boxShadow: 'none', top: '60px', height:'100px' , backgroundColor: this.state.module.color1}} >
                 <Box sx ={{ alignContent: 'center', m: 'auto',}}>
                     <Typography align= 'center' sx={{ fontSize: 20, fontWeight: 500 }} variant='body1' color={"white"}>
                         {this.state.pageContent.subModuleTitle}
@@ -278,11 +282,11 @@ class SubModulePage extends React.Component {
                 </Box>
             </AppBar>
 
-            <Box sx={{mt:'150px', pb: 5, backgroundColor: this.state.module.color2,
-        }}>
+            <Box sx={{mt:'140px', pb:10, backgroundColor: this.state.module.color2}}>
 
             <Box sx= {{pt:1, backgroundColor: this.state.module.color2 }} textAlign='center'>
                 <SubmoduleContentPage 
+                isLastPageInModulo={this.state.pageContent.isLastPageInModulo}
                 isLastPage={this.state.pageContent.isLastPage} isModuleEnd = {this.state.pageContent.isLastPageInModulo}
                 module={this.state.module} pageNumber={this.state.pageNumber} subModuleNumber={this.state.submoduleNumber} 
                 submodulesContent={this.state.pageContent.subModulePage}/>
@@ -291,36 +295,39 @@ class SubModulePage extends React.Component {
                     return (
                     <div key={index}>
                         <Box sx= {{pt:1}}> 
-                            <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 22, fontWeight: 500 }} variant='body1' color={"white"}>
+                            <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 22, fontWeight: 500 }} variant='body1' 
+                            color={this.state.module.moduloId == 4 ? this.state.module.color1 : "white"}>
                                 {data.exercicioName}
                             </Typography>
                         </Box>
                         <Box sx= {{p:3}}>
-                            <Grid container direction='row'>
-                                <Grid item xs={8}>
+                            <Grid container direction='column'>
+                                <Grid item alignSelf={'center'}>
                                     <img alt='phones' src={
                                         this.state.module.theme === 'green'? phonesGreen 
                                         : this.state.module.theme === 'purple' ? phonesPurple 
                                         : phonesBlue}/>
                                 </Grid>
-                                <Grid item alignSelf='end' xs={4}>
-                                    <IconButton size='large' onClick={()=>{this.togglePlay(data.exercicioFile)}} >
-                                        {
-                                        this.state.audioRefs.find(audioRef => audioRef.audioFile == data.exercicioFile).isPlaying ? 
-                                        <PauseCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1} />
-                                        : 
-                                        <PlayCircleFilledIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1} /> }
-                                    </IconButton>
+                                <Grid item m={2} alignSelf={'center'} >
+                                
+                                <MuiAudioPlayer 
+                                containerSx = {{textAlign:'center', backgroundColor: this.state.module.color1, borderRadius: 10, p:1}}
+                                id="inline-timeline" display="timeline" inline paperize size='medium'
+                                src={this.state.audioRefs.find(audioRef => audioRef.audioFile == data.exercicioFile).mp3} 
+                                />
+
+                                <IconButton sx={{p:4}} size='large' onClick={()=>{this.setFavorite(data.exercicioFile)}} >
+                                
+                                    {this.state.exercisesObj[data.exercicioFile] ? 
+                                    <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1} />
+                                    :
+                                    <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1 } /> }
+                                </IconButton>
+                        
                                 </Grid>
                             </Grid>
 
-                            <IconButton sx={{p:4}} size='large' onClick={()=>{this.setFavorite(data.exercicioFile)}} >
-                                
-                                {this.state.exercisesObj[data.exercicioFile] ? 
-                                <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1} />
-                                :
-                                <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1 } /> }
-                            </IconButton>
+                            
                         </Box>
                     </div>
                     )

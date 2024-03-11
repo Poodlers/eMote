@@ -41,9 +41,6 @@ const transform = (response: AxiosResponse): Promise<ApiResponse<any>> => {
 
 export class ApiDataRepository extends HttpClient implements IDataRepository  {
 
-
-  
- 
   user = JSON.parse(localStorage.getItem('user') || '{}');
   completedLogin : boolean = false;
 
@@ -89,6 +86,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
 
   }
 
+  /* no need to implement this method */
   async checkIfEmotionDiaryIsAlreadyAdded(): Promise<EmotionDiaryEntry> {
     const instance = this.createInstance();
     const data = new  Date().toLocaleString().split(',')[0].replace('/','-').replace('/','-');
@@ -414,15 +412,14 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
   }
 
   async logAccessToApp(): Promise<void> {
-    if(!this.completedLogin) return;
+    if(this.user.code == undefined) return;
     const instance = this.createInstance();
 
     if (localStorage.getItem('dataInicio') === null) {
-      return;
+       return;
     }
     const dataInicio = JSON.parse(localStorage.getItem('dataInicio') || '{}');
     const dataFim = new Date().toLocaleString().replace(',','');
-    
     try{
       const result = await instance.post(`${BASE_URL}/access/`,
       {

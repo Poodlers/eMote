@@ -60,6 +60,7 @@ export interface IDataRepository {
 
     checkIfMealDiaryIsAlreadyAdded(refeicao : TipoRefeicao): Promise<FoodDiaryEntry>;
 
+    /* no  need to implement this method, no longer needed, since emotion diaries arent limited to 1 per day */
     checkIfEmotionDiaryIsAlreadyAdded(): Promise<EmotionDiaryEntry>;
 
     createUser(code: string, password: string, role: number, createdAt: string, hasAccessToApp: boolean): Promise<void>;

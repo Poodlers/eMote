@@ -49,12 +49,13 @@ function SubmoduleListPage() {
         repository.registerSubModuloTimeStamps(moduleNumber, index, dataInicio,
             undefined
             ).then((response) => {
+                navigate(`/submodulepage/${moduleNumber}/${index}/1`);
                 console.log(response);
             }).catch((error) => {
                 console.log(error);
             });   
 
-        navigate(`/submodulepage/${moduleNumber}/${index}/1`);
+        
     }
 
   return (

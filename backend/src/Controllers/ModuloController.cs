@@ -72,6 +72,98 @@ public class ModuloController : ControllerBase
         return Ok(modulo);
     }
 
+    [HttpPost("submodule_add/{modulo_id}", Name = "AddSubModule")]
+    public ActionResult<ModuloContent> AddSubModule(int modulo_id, [FromBody] SubModule subModule)
+    {
+        var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules)
+        .ThenInclude(submodulo => submodulo.SubModulePages)
+        .ThenInclude(submodulopage => submodulopage.Exercicios)
+        .Where(u => u.ModuleNumberOrder == modulo_id)
+        .FirstOrDefault();
+        if (modulo == null)
+        {
+            return StatusCode(
+                404,
+                "Modulo not found"
+
+            );
+        }
+
+        var subModuleNumber = subModule.SubModuleNumberOrder;
+
+        foreach (var subMod in modulo.SubModules)
+        {
+            if (subMod.SubModuleNumberOrder >= subModuleNumber)
+            {
+                subMod.SubModuleNumberOrder = subMod.SubModuleNumberOrder + 1;
+            }
+        }
+
+        modulo.SubModules.Add(subModule);
+
+        //add subModule to all users
+        var users = _dbUserSet.Include(user => user.ModulosProgress.Where(moduloProg =>
+         moduloProg.ModuloContent!.ModuleNumberOrder == modulo_id))
+        .ThenInclude(modulo => modulo.SubModuleUserProgresses)
+        .ToList();
+        foreach (var user in users)
+        {
+            if (user.Role == 3)
+            {
+                continue;
+            }
+            var subModuleUserProgress = new SubModuleUserProgress
+            {
+                SubModule = subModule,
+            };
+            user.ModulosProgress[0].SubModuleUserProgresses.Add(subModuleUserProgress);
+        }
+
+
+        _context.SaveChanges();
+        return Ok(modulo);
+    }
+
+    [HttpPost("{modulo_id}/{submodule_id}", Name = "AddPageToSubModule")]
+    public ActionResult<SubModule> AddPageToSubModule(int modulo_id, int submodule_id, [FromBody] SubModulePage subModulePage)
+    {
+        var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules)
+        .ThenInclude(submodulo => submodulo.SubModulePages)
+        .ThenInclude(submodulopage => submodulopage.Exercicios)
+        .Where(u => u.ModuleNumberOrder == modulo_id)
+        .FirstOrDefault();
+        if (modulo == null)
+        {
+            return StatusCode(
+                404,
+                "Modulo not found"
+
+            );
+        }
+        var subModule = modulo.SubModules.Where(s => s.SubModuleNumberOrder == submodule_id).FirstOrDefault();
+        if (subModule == null)
+        {
+            return StatusCode(
+                404,
+                "SubModule not found"
+            );
+        }
+        var pageNumber = subModulePage.PageNumber;
+        foreach (var page in subModule.SubModulePages)
+        {
+            if (page.PageNumber >= pageNumber)
+            {
+                page.PageNumber = page.PageNumber + 1;
+            }
+        }
+        subModule.SubModulePages.Add(subModulePage);
+        // 
+        // adjust page numbers
+
+        _context.SaveChanges();
+        return Ok(subModule);
+    }
+
     [HttpPost("{modulo_id}/{submodule_id}/{page_number}", Name = "FixSubModulePage")]
     public ActionResult<SubModulePage> FixSubModulePage(int modulo_id, int submodule_id,
     int page_number, [FromBody] SubModulePage subModulePage)
@@ -95,7 +187,6 @@ public class ModuloController : ControllerBase
             return StatusCode(
                 404,
                 "SubModule not found"
-
             );
         }
         var subModulePageToFix = subModule.SubModulePages
@@ -105,12 +196,23 @@ public class ModuloController : ControllerBase
             return StatusCode(
                 404,
                 "SubModulePage not found"
-
             );
         }
         if (subModulePage.Text != null)
         {
             subModulePageToFix.Text = subModulePage.Text;
+        }
+        if (subModulePage.VideoFile != null)
+        {
+            subModulePageToFix.VideoFile = subModulePage.VideoFile;
+        }
+        if (subModulePage.ImageFile != null)
+        {
+            subModulePageToFix.ImageFile = subModulePage.ImageFile;
+        }
+        if (subModulePage.OtherFile != null)
+        {
+            subModulePageToFix.OtherFile = subModulePage.OtherFile;
         }
         subModulePageToFix.Exercicios = subModulePage.Exercicios;
         _context.SaveChanges();

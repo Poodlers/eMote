@@ -32,11 +32,11 @@ const theme = myTheme;
 function App() {
   const repository = RepositorySingleton.getInstance().injectRepository();
   //ping backend every 20 seconds to log user access
-  const pingInterval = 20;
+  const pingInterval = 30;
   useEffect(() => {
     
     const interval = setInterval(() => {
-
+    
       repository.logAccessToApp().catch((error) => {
           console.log(error);
       });
