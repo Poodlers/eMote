@@ -180,6 +180,7 @@ function FeedbackPage(props) {
                 </Box>
                 
                     <Button onClick={triggerAnimations}
+                    disabled={isConfettiAnimating || isBalloonsAnimating}
                     sx={{ bottom: "5%",
                         left: "70%",
                         position: "absolute", backgroundColor: module.color1, 

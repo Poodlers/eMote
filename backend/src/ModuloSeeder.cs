@@ -486,7 +486,8 @@ Para fazer o exercício, sugerimos que use um alimento que considera tentador."
                         new SubModulePage
                         {
                             PageNumber = 1,
-                            Text =@"A aceitação radical da emoção envolve aceitar profundamente todas as nossas emoções, incluindo aquelas que são dolorosas, desconfortáveis e/ou desagradáveis."
+                            Text =@"A aceitação radical da emoção envolve aceitar profundamente todas as nossas emoções,
+                            incluindo aquelas que são dolorosas, desconfortáveis e/ou desagradáveis."
                         },
                         new SubModulePage{
                             PageNumber = 2,
