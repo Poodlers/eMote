@@ -64,18 +64,7 @@ class SubModulePage extends React.Component {
       
     
     }
-    /*
-    componentWillUnmount() {
-        for(let i = 0; i < this.state.audioRefs.length; i++){
-            this.state.audioRefs[i].audioRef.pause();
-        }
-        //remove all audio tags from the DOM
-        let audioTags = document.getElementsByTagName('audio');
-        for(let i = 0; i < audioTags.length; i++){
-            audioTags[i].remove();
-        }
-    }
-    */
+
     componentDidMount() {
         const repository = RepositorySingleton.getInstance().injectRepository();
         repository.getPageContent(this.props.router.params.moduleNumber, this.props.router.params.submoduleNumber,this.props.router.params.pageNumber).then((response) => {
@@ -197,21 +186,7 @@ class SubModulePage extends React.Component {
             });
         }
 
-        /*
-        if(prevState.audioRefs != this.state.audioRefs){
-            if(this.state.audioRefs.length == 0) return;
-            
-            for(let i = 0; i < this.state.audioRefs.length; i++){
-                
-                this.state.audioRefs[i].audioRef.addEventListener('ended', () => this.togglePlay(this.state.audioRefs[i].audioFile));
-                if(this.state.audioRefs[i].isPlaying){
-                    this.state.audioRefs[i].audioRef.play();
-                }else{
-                    this.state.audioRefs[i].audioRef.pause();
-                }
-            }
-        }
-        */
+        
         
     }
 

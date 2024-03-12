@@ -66,7 +66,8 @@ function SubmoduleContentPage(props) {
                       {submodulesContent.text}
                 </Typography>
                 
-                {pageNumber == 1 && !isLastPage ?
+                   
+                {pageNumber == 1 && !isLastPage && !submodulesContent.videoFile  ?
                   <Box sx ={{ p:3}} textAlign='center'>
                     <Button  onClick={() =>{
                       navigate(

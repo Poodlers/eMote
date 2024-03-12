@@ -56,7 +56,7 @@ public class ModuloSeeder
                         new SubModulePage
                         {
                             PageNumber = 1,
-                            VideoFile = "new_vid.mp4",
+                            VideoFile = "submod7_ativ1.mp4",
                         }
                     }
             },
@@ -96,7 +96,7 @@ public class ModuloSeeder
                         },
                         new SubModulePage{
                             PageNumber = 3,
-                            Text = @"string"
+                            VideoFile="submod4_ativ2.mp4"
 
                         },
                         new SubModulePage
@@ -331,7 +331,8 @@ Para este exercício, convidamo-la a usar uma passa de uva."
                 new SubModulePage
                 {
                     PageNumber = 1,
-                    Text = @"Aqui vamos explicar-lhe como praticar o não julgamento. Sugerimos que ouça atentamente a nossa explicação."
+                    Text = @"Aqui vamos explicar-lhe como praticar o não julgamento. Sugerimos que ouça atentamente a nossa explicação.",
+                    VideoFile = "mod_2_submod6.mp4"
                 },
                 new SubModulePage
                 {
@@ -511,7 +512,8 @@ Para fazer o exercício, sugerimos que use um alimento que considera tentador."
                     new SubModulePage{
                         PageNumber = 1,
                         Text = @"É mais provável que a ingestão alimentar compulsiva ocorra quando as nossas emoções estão desreguladas. Assim, aprendermos a identificar e a alterar o que nos deixa mais vulnerável é fundamental. 
-Sugerimos que ouça com atenção as nossas estratégias."
+Sugerimos que ouça com atenção as nossas estratégias.",
+                        VideoFile = "mod3_submod3.mp4"
                     },
 
                     new SubModulePage{
@@ -567,7 +569,8 @@ Sugerimos que ouça com atenção as nossas estratégias."
                     new SubModulePage{
                         PageNumber = 1,
                         Text = @"Este exercício possibilita mudar ou gerir melhor as nossas emoções, agindo de forma oposta ao que estamos a sentir. 
-Convidamo-la a ouvir os nossos exemplos."
+Convidamo-la a ouvir os nossos exemplos.",
+                        VideoFile = "mod3_submod5.mp4"
                     },
                     new SubModulePage{
                         PageNumber = 2,
@@ -756,8 +759,8 @@ Sugerimos que ouça com atenção as atividades que propomos."
                     new SubModulePage{
                         PageNumber = 1,
                         Text = @"Parabéns por terminar esta viagem que certamente não foi fácil nem simples, mas ainda assim persistiu na sua recuperação. Agora que já conhece e praticou os exercícios de mindfulness, 
-regulação emocional e de tolerância a estados emocionais negativos, o objetivo é que tente continuar a realizá-los com frequência e sempre que sentir que são necessários, integrando-os na sua vida."
-
+regulação emocional e de tolerância a estados emocionais negativos, o objetivo é que tente continuar a realizá-los com frequência e sempre que sentir que são necessários, integrando-os na sua vida.",
+                        VideoFile = "mod4_submod6.mp4"
                 }
                 }
             }

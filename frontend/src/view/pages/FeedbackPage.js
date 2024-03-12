@@ -179,13 +179,13 @@ function FeedbackPage(props) {
                     
                 </Box>
                 
-                <IconButton onClick={triggerAnimations}
+                    <Button onClick={triggerAnimations}
                     sx={{ bottom: "5%",
                         left: "70%",
                         position: "absolute", backgroundColor: module.color1, 
                     "&:hover": {backgroundColor: module.color3} }} variant="contained" endIcon={< DoneIcon/>}>
-                    Concluir
-                    </IconButton>
+                        Concluir
+                    </Button>
                 </Box>
             </>
         }

@@ -15,7 +15,9 @@ function TermsOfService(props) {
                 maxHeight: '70vh'}}>
             <Typography variant="body1" align="justify" color="primary" sx={{marginTop: '20px', p: 2}}>  
                 <p>
-                Estes termos de utilização regem o uso da aplicação eMOTE e foram elaborados ao abrigo do novo Regulamento Geral de Proteção de Dados (RGPD), que entrou em vigor a 25 de maio de 2018. Ao utilizar a eMOTE está a aceitar os presentes termos de utilização. Caso não concorde com estes termos, por favor, não utilize esta aplicação.
+                Estes termos de utilização regem o uso da aplicação eMOTE e foram elaborados ao abrigo do novo Regulamento Geral sobre a Proteção de Dados (RGPD), que entrou em vigor a 25 de maio de 2018. Ao utilizar a eMOTE está a aceitar os presentes termos de utilização.
+                 Caso não concorde com estes termos, por favor, não utilize esta aplicação. 
+
                 </p>
                 <ol>
                 <li style={ 
@@ -24,8 +26,17 @@ function TermsOfService(props) {
                     }
                 
                 }>
-                
-                A eMOTE é uma aplicação de autoajuda para mulheres que apresentem episódios de ingestão alimentar compulsiva. A aplicação foi desenvolvida no âmbito de um projeto de doutoramento da Faculdade de Psicologia e de Ciências da Educação da Universidade do Porto (FPCEUP), financiado pela Fundação para a Ciência e a Tecnologia com a referência 2021.08470.BD. Este projeto de doutoramento é supervisionado por docentes do Centro de Psicologia da Universidade do Porto da FPCEUP, York St John University e Universidade da Maia. O desenvolvimento da eMOTE contou também com a colaboração de elementos da Faculdade de Engenharia da Universidade do Porto, da Faculdade de Belas Artes da Universidade do Porto e da Stanford University School of Medicine.
+                    A eMOTE é uma aplicação de autoajuda
+                    para mulheres que apresentem episódios de ingestão alimentar compulsiva. 
+                    A aplicação foi desenvolvida no âmbito de um projeto de doutoramento da 
+                    Faculdade de Psicologia e de Ciências da Educação da Universidade do Porto
+                    (FPCEUP), financiado pela Fundação para a Ciência e a Tecnologia com a
+                    referência 2021.08470.BD. Este projeto de doutoramento é supervisionado
+                    por docentes do Centro de Psicologia da Universidade do Porto da FPCEUP, 
+                    York St John University e Universidade da Maia. O desenvolvimento da eMOTE 
+                    contou também com a colaboração de elementos da Faculdade de Engenharia da 
+                    Universidade do Porto, da Faculdade de Belas Artes da Universidade do Porto 
+                    e da Stanford University School of Medicine. 
                 </li>
                 <li style={ 
                     {
@@ -102,12 +113,13 @@ function TermsOfService(props) {
                     }
                 
                 }>
-                8.	A equipa da eMOTE reconhece a importância da sua privacidade e compromete-se a 
-                ativamente proteger a integridade da sua informação pessoal e a mantê-la segura,
-                 tendo adotado diversas medidas neste sentido.  Enquanto utilizadora da eMOTE é a 
-                 responsável por manter a segurança da sua conta.<b> Não partilhe as suas credenciais 
-                (código e password) com outras pessoas e notifique-nos se suspeitar de algum acesso não autorizado à sua conta.</b>
-
+                	A equipa responsável por esta aplicação reconhece a importância da sua privacidade
+                 e compromete-se a ativamente proteger a integridade da sua informação pessoal e 
+                 a mantê-la segura, tendo adotado diversas medidas neste sentido. Enquanto 
+                 utilizadora da eMOTE é também responsável por manter a segurança da sua conta.
+                  <b>Não partilhe as suas credenciais de acesso (código e palavra-passe) com outras 
+                  pessoas e notifique-nos se suspeitar de algum acesso não autorizado à
+                   sua conta.</b>
                 </li>
 
                 <li style={ 
@@ -120,21 +132,25 @@ function TermsOfService(props) {
 
                   <ul>
                     <li>
-                    Para os efeitos da presente política de privacidade, a equipa da eMOTE tratará informações 
-                    relativas ao número de logins, tempo disponibilizado em cada módulo e submódulo, exercícios favoritos, 
-                    informação inserida no diário das refeições e das emoções, a utilidade e a satisfação de cada módulo.
-                     <b>Não será inserida na aplicação qualquer tipo de informação que a possa identificar, apenas 
-                     será introduzido um código.</b> Ao utilizar a eMOTE está a autorizar a recolha e uso destes dados 
-                     por parte da equipa de investigação.<b> Estes dados serão utilizados apenas para efeitos de 
-                     investigação científica e de forma totalmente anónima.</b>
+                    Ao utilizar esta aplicação, serão recolhidos dados relativos ao
+                    número de logins, tempo disponibilizado em cada módulo e submódulo,
+                    exercícios favoritos, informação inserida no diário das refeições 
+                    e das emoções, bem como a utilidade e a satisfação relativa a cada
+                    módulo, identificados apenas pelo seu código de participante no
+                    estudo. Estes dados codificados serão inicialmente recolhidos em 
+                    servidores da fly.io, empresa responsável pelo alojamento e
+                    manutenção da eMOTE, sendo posteriormente descarregados para 
+                    os computadores da equipa de investigação, que os associará à
+                    informação recolhida através dos questionários online e os
+                    utilizará exclusivamente para fins de investigação científica.
+                    Ao utilizar a eMOTE está a autorizar a recolha e uso destes
+                        dados por parte da equipa de investigação.
                     </li>
-
                     <li>
-                    <b>Os dados recolhidos pela eMOTE e pelos questionários online serão utilizados 
-                    apenas para fins de investigação científica. Os dados serão confidenciais e 
-                    anonimizados de acordo com os regulamentos e leis aplicáveis.</b> Estes dados serão 
-                    armazenados somente durante o tempo necessário para os objetivos de investigação e
-                     apenas membros da equipa de investigação terão acesso aos seus dados.
+                    Toda a informação será mantida de forma codificada e conservada somente durante o tempo 
+                    necessário para atingir os objetivos do estudo, sendo apenas acedida pelos membros da
+                    equipa de investigação.
+
                     </li>
                   </ul>
                 </li>
@@ -145,14 +161,17 @@ function TermsOfService(props) {
                     }
                 
                 }>
-                 Direitos enquanto titular de dados pessoais:
+                 Direitos que pode exercer enquanto titular de dados
 
                  <ul>
                     <li>
-                    <span style={{textDecoration: 'underline'}}>Acesso:</span> Sempre que solicitar, 
-                    pode obter confirmação de que os seus dados pessoais são tratados pela
-                     equipa de investigação da eMOTE e, se for esse o caso, o direito a
-                      aceder-lhes e a saber a finalidade dos tratamentos a que os mesmos são sujeitos.
+                    <span style={{textDecoration: 'underline'}}>Acesso:</span> 
+
+                    Sempre que pretender, pode obter confirmação de que os seus dados pessoais
+                     são tratados pela equipa responsável pela aplicação e, se for esse o caso, 
+                     tem o direito a aceder-lhes e a receber um conjunto de informação sobre a
+                      forma como são tratados, incluindo a finalidade dos 
+                    tratamentos a que são sujeitos e o prazo previsto para a sua conservação. 
                     </li>
                     <li>
                         
@@ -163,38 +182,48 @@ function TermsOfService(props) {
                     </li>
 
                     <li>
-                    <span style={{textDecoration: 'underline'}} >Portabilidade:</span> O titular tem o
-                     direito a solicitar os dados pessoais que são tratados pela equipa 
-                     de investigação da eMOTE, num formato estruturado, de uso corrente e
-                      de leitura automática. O titular dos dados tem também o direito de 
-                      transmitir esses dados a outro responsável pelo tratamento sem que o
-                       responsável a quem os dados pessoais foram fornecidos o possa impedir.
+                    <span style={{textDecoration: 'underline'}} >Limitação do tratamento:</span> 
+                    Em determinadas situações, pode solicitar que o tratamento dos seus dados
+                     pessoais 
+                    seja limitado, impondo dessa forma uma restrição à respetiva utilização.
                     </li>
-                    <li>
-                    <span style={{textDecoration: 'underline'}} >Revogação da autorização para 
-                    tratamento:</span> Caso deseje deixar de aceder à eMOTE, pode opor-se
-                     ao tratamento dos seus dados pessoais a qualquer momento, através do 
-                     email abaixo indicado, sem comprometer a licitude do tratamento efetuado 
-                     com base no consentimento previamente dado.
-                    </li>
-                    <li>
-                    <span style={{textDecoration: 'underline'}} >Direito a apagar os dados:</span> 
-                    Pode solicitar que os seus dados pessoais sejam apagados a qualquer momento, 
-                    usando o email abaixo indicado. Nesse caso, deixará de poder aceder à eMOTE.
-                    </li>
-                    <li>
-                    <span style={{textDecoration: 'underline'}} >Notificação:</span> O titular dos
-                     dados pessoais tem o direito a ser notificado caso ocorra uma violação dos 
-                     dados suscetível de implicar um elevado risco para os seus direitos e
-                      liberdades, conforme estipulado no artigo 34º do RGPD.
-                    </li>
-                 </ul>
 
-                 No entanto, <b>apenas poderá exercer o seu direito de aceder, alterar,
-                     apagar, opor e limitar o tratamento dos seus dados pessoais ou revogar
-                      o seu consentimento até que seja realizada a anonimização dos dados.</b> 
-                       Para o efeito, deverá contactar a equipa de investigação através do email
-                        <b>emote.projeto@gmail.com.</b>
+                    <li>
+                    <span style={{textDecoration: 'underline'}} >Portabilidade:</span> 
+                    Tem o direito de solicitar os dados pessoais que são tratados pela equipa de
+                     investigação da eMOTE, num formato estruturado, de uso corrente e de leitura 
+                     automática, assim como o direito de transmitir esses dados a outro responsável
+                      pelo tratamento sem que o
+                     responsável a quem os dados pessoais foram fornecidos o possa impedir. 
+                    </li>
+                    <li>
+                    <span style={{textDecoration: 'underline'}} >Revogação do consentimento:</span> 
+                    Caso deseje que os seus dados deixem de ser recolhidos e tratados para utilização
+                    neste estudo, pode retirar o seu consentimento a qualquer momento, através do email
+                    abaixo indicado, sem que isso comprometa 
+                    a licitude do tratamento efetuado com base no consentimento previamente dado. 
+                    </li>
+                    <li>
+                    <span style={{textDecoration: 'underline'}} >Apagamento:</span> 
+                    Pode solicitar que os seus dados pessoais sejam apagados a qualquer momento, 
+                    usando o email abaixo indicado. Nesse caso, deixará de poder aceder à eMOTE. 
+                    </li>
+                    
+                 </ul>
+                <p> 
+                Para solicitar o exercício destes direitos, deverá contactar a equipa
+                de investigação através do email emote@fpce.up.pt. No entanto, 
+                sublinhamos que o exercício dos mesmos poderá ser limitado, se já não 
+                for possível identificar os dados que lhe dizem respeito ou se se
+                entender que comprometerá a realização do estudo.
+                </p>
+                <p>
+                Para esclarecer quaisquer dúvidas sobre esta matéria pode contactar a Encarregada da 
+                Proteção de Dados da U.Porto, para dpo@reit.up.pt. Caso considere que os seus dados não
+                estão a ser objeto de tratamento legítimo, tem também o direito de apresentar uma
+                reclamação junto da Comissão Nacional de Proteção de Dados (https://www.cnpd.pt/).  
+                </p>
+                
                 </li>
 
                 <li style={ 
@@ -221,9 +250,9 @@ function TermsOfService(props) {
                 </li>
 
                 <li>
-                A equipa de investigação da eMOTE reserva-se ao direito de suspender,
-                 remover ou alterar qualquer conteúdo da aplicação, a qualquer momento,
-                  por qualquer razão, sem aviso prévio.
+                A equipa de investigação da eMOTE reserva-se ao direito de suspender, 
+                remover ou alterar qualquer
+                 conteúdo da aplicação, a qualquer momento, por qualquer razão, sem aviso prévio. 
                 </li>
                 </ol>
                
