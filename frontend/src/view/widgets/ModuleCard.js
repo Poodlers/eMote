@@ -44,7 +44,7 @@ export default function ModuleCard(props) {
           {props.name}
         </Typography>
         <Grid container sx={{ p: 0.5 }} direction="row" justifyContent="center" alignItems="flex-end">
-            {props.blocked ? <Lock htmlColor='#fff'/> : <LockOpen htmlColor='#fff'/>}
+            {props.blocked ? <Lock htmlColor='#fff'/> : null}
         </Grid>
       </CardContent>
       <CardActions>

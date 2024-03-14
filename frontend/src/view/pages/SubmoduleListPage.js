@@ -91,20 +91,17 @@ function SubmoduleListPage() {
                         <Button onClick={() => onSubModuleClick(obj.isBlocked, index + 1)} 
                             sx ={{ width:'100%'}} >
                             <Grid direction='row' container>
-                                <Grid item xs={1}>
-                                    {obj.isBlocked ? <Lock htmlColor={
+                                {obj.isBlocked ?
+                                    <Grid item xs={1}>
+                                        <Lock htmlColor={
                                         module.theme === 'blue' || module.theme === 'green' ?
                                         index%2===0 ?
                                         module.color1 :
                                         "white" :
                                         "white"}
-                                        /> : <Check htmlColor={
-                                            module.theme === 'blue' || module.theme === 'green' ?
-                                            index%2===0 ?
-                                            module.color1 :
-                                            "white" :
-                                            "white"}/>}
-                                </Grid>
+                                        /> 
+                                    </Grid>
+                                        : null}
                                 <Grid item xs={11}>
                                     <Typography sx={{ fontSize: 18, textAlign:'start', textTransform:'none', pl: 0.5, fontWeight:500}} variant='body1' color={
                                         module.theme === 'blue' || module.theme === 'green' ?

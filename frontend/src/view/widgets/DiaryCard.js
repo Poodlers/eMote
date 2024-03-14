@@ -20,9 +20,7 @@ export default function DiaryCard(props) {
         <Typography sx={{ pt:1, textAlign: 'center', fontSize: 13, fontWeight: 'bold' }} variant='body1' color={colorCards[props.index]}>
             Diário das {props.name}
         </Typography>
-        <Grid container sx={{ p: 0.5 }} direction="row" justifyContent="center">
-            {props.blocked ? <Lock htmlColor = {colorCards[props.index]}/> : <LockOpen htmlColor = {colorCards[props.index]}/>}
-        </Grid>
+
     </Box>
   );
 }
