@@ -18,7 +18,7 @@ function ContactPage() {
             Entre em contacto
           </Typography>
           <Typography sx={{p:2, fontSize: 16, textAlign:'center', textDecoration: 'none'}} color="text.secondary" >
-            Caso deseje entrar em contacto connosco, envie uma mensagem para o email <b>emote.projeto@gmail.com</b>.
+            Caso deseje entrar em contacto connosco, envie uma mensagem para o email <b>emote@fpce.up.pt</b>.
           </Typography>
         </Box>
         <NavBar/>

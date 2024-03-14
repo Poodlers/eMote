@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Grid, Box, Link } from '@mui/material'
 import Typography from '@mui/material/Typography';
-import Lock from '@mui/icons-material/Lock';
-import LockOpen from '@mui/icons-material/LockOpen';
 import Emocoes from '../../assets/images/diario_icon.png';
 import Refeicoes from '../../assets/images/refeicoes_icon.png';
 
