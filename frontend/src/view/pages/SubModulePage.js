@@ -340,13 +340,13 @@ class SubModulePage extends React.Component {
                 this.state.pageContent.subModulePage.videoFile) &&
                 !this.state.pageContent.isLastPage ?
                     <Button onClick={this.handleEndOfPage} 
-                    sx={{ bottom:"5%", left:"70%", backgroundColor: this.state.module.color1, 
+                    sx={{ bottom:"5%", left:"60%", backgroundColor: this.state.module.color1, 
                     "&:hover": {backgroundColor: this.state.module.color3} }} variant="contained" endIcon={< ArrowForwardIosIcon/>}>
                     Próximo
                     </Button>
                 : this.state.pageContent.isLastPage ?
                     <Button onClick={this.handleEndOfPage} 
-                    sx={{ bottom:"5%", left:"70%", backgroundColor: this.state.module.color1, 
+                    sx={{ bottom:"5%", left:"60%", backgroundColor: this.state.module.color1, 
                     "&:hover": {backgroundColor: this.state.module.color3} }} variant="contained" endIcon={< DoneIcon/>}>
                     Concluir
                     </Button>
