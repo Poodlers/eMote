@@ -117,22 +117,28 @@ public class EmotionDiaryEntryController : ControllerBase
             return StatusCode(401, "Invalid hora");
         }
         //get all exercises with the same fileNames present in the dto.Exercicios list
+        List<Exercicio> exercicios = new List<Exercicio>();
 
-        var exercicios = _dbExercicioSet.ToList().Where(e =>
-         dto.Exercicios.Find(exercicioDTO => exercicioDTO.ExercicioModuloNumberOrder == e.ModuloNumberOrder
-         &&
-         exercicioDTO.ExercicioSubModuleNumberOrder == e.SubModuleNumberOrder
-         &&
-         exercicioDTO.ExercicioPageNumber == e.PageNumber
-         )
-            != null
-         ).ToList();
+        if (dto.Exercicios != null)
+        {
+
+            exercicios = _dbExercicioSet.ToList().Where(e =>
+                dto.Exercicios.Find(exercicioDTO => exercicioDTO.ExercicioModuloNumberOrder == e.ModuloNumberOrder
+                &&
+                exercicioDTO.ExercicioSubModuleNumberOrder == e.SubModuleNumberOrder
+                &&
+                exercicioDTO.ExercicioPageNumber == e.PageNumber
+                )
+                    != null
+                ).ToList();
+        }
+
 
         var newEntry = new EmotionDiaryEntry
         {
             Date = data,
             Hour = hora,
-            Sentimentos = dto.Sentimentos,
+            Sentimentos = dto.Sentimentos ?? new List<string>(),
             Exercicios = exercicios,
             ReflexaoEmotion = dto.ReflexaoEmotion
         };

@@ -19,8 +19,14 @@ function EmotionDiaryPage() {
   const [exercisesSelected, setExercisesSelected] = React.useState([]);
   const [exercisesContent, setExercisesContent] = React.useState({});
   const [dayReflection, setDayReflection] = React.useState('');
+  const [isError, setIsError] = React.useState(false);
 
   const handleSubmit = () => {
+    setIsError(false);
+    if(emotionsSelected.length === 0 && exercisesSelected.length === 0 && dayReflection === ''){
+      setIsError(true);
+      return;
+    }
     repository.saveEmotionDiary(emotionsSelected, exercisesSelected, dayReflection).then((response) => {
       console.log(response);
       navigate('/home');
@@ -85,6 +91,14 @@ function EmotionDiaryPage() {
                     Confirmar
                 </Typography>
               </Button>
+              {
+                isError &&
+                <Typography gutterBottom sx={{ pt:1, textAlign: 'center', fontSize: 20, fontWeight: 500, color: "red" }} variant='body1'>
+                    Por favor, preencha um dos campos.
+                </Typography>
+              }
+         
+
               </Box>
                 
               

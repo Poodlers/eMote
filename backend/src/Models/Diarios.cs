@@ -66,10 +66,10 @@ public class EmotionDiaryEntryDTO
     public String? ReflexaoEmotion { get; set; }
 
     [Required]
-    public ICollection<String> Sentimentos { get; set; } = new List<String>();
+    public ICollection<String>? Sentimentos { get; set; } = new List<String>();
 
     [Required]
-    public List<ExercicioDTO> Exercicios { get; set; } = new List<ExercicioDTO>();
+    public List<ExercicioDTO>? Exercicios { get; set; } = new List<ExercicioDTO>();
 
 }
 
