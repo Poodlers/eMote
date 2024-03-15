@@ -119,7 +119,7 @@ function FeedbackPage(props) {
            
             <Box sx={{ p:5 }}/>
                
-                <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5,
+                <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, px:2.5,
                      pt:2.5, fontSize: 20, textAlign:'center' }} variant='body1'>
                     Considera que este Módulo foi útil para si?
                 </Typography>
@@ -140,7 +140,7 @@ function FeedbackPage(props) {
                         
                     />
                     {usefelnessScore !== null && (
-                       <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5,
+                       <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, px:2.5,
                         pt:2.5, fontSize: 17, textAlign:'center' }} variant='body2'>
                             <Box sx={{ ml: 2 }}>{marks[hoverUsefulness !== -1 ? hoverUsefulness : usefelnessScore]}</Box>
                         </Typography>
@@ -169,7 +169,7 @@ function FeedbackPage(props) {
                     {usefelnessScore !== null && (
                        <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5,
                         pt:2.5, fontSize: 17, textAlign:'center' }} variant='body2'>
-                            <Box sx={{ ml: 2 }}>{marks[hoverSatisfaction !== -1 ? hoverSatisfaction : satisfactionScore]}</Box>
+                            <Box sx={{ ml: 0 }}>{marks[hoverSatisfaction !== -1 ? hoverSatisfaction : satisfactionScore]}</Box>
                         </Typography>
                     )}
 
