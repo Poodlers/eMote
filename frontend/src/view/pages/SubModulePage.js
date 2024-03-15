@@ -282,8 +282,9 @@ class SubModulePage extends React.Component {
                                 <Grid item m={2} alignSelf={'center'} >
                                 
                                 <MuiAudioPlayer
-                               
-                                containerSx = {{textAlign:'center', backgroundColor: this.state.module.color1, borderRadius: 10, p:1}}
+                                containerSx = {{textAlign:'center', backgroundColor: this.state.module.color1, borderRadius: 10, p:1, 
+                                '& .MuiSlider-root': {color: '#fff'},
+                                '& .MuiIconButton-root': {color: '#fff'}}}
                                 id="inline-timeline" display="timeline" inline paperize size='medium'
                                 src={require(`../../assets/audios/${data.exercicioFile}`)} 
                                 />
@@ -292,13 +293,16 @@ class SubModulePage extends React.Component {
                               </>
                             }
                              <Grid item m={2} alignSelf={'center'} >
-                            <IconButton sx={{p:4}} size='large' onClick={()=>{this.setFavorite()}} >
+                            <IconButton sx={{pt:4, pb:0}} size='large' onClick={()=>{this.setFavorite()}} >
                                 
                                 {this.state.exerciseIsFavorite ? 
                                 <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1} />
                                 :
                                 <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1 } /> }
                             </IconButton>
+                            <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 18, fontWeight: 500  }} variant='body1' color={this.state.module.color1}>
+                                    Favoritos
+                            </Typography>
                             
                             </Grid>
                            </Grid>
@@ -318,13 +322,13 @@ class SubModulePage extends React.Component {
                 this.state.pageContent.subModulePage.videoFile) &&
                 !this.state.pageContent.isLastPage ?
                     <Button onClick={this.handleEndOfPage} 
-                    sx={{ bottom:"5%", left:"70%", backgroundColor: this.state.module.color1, 
+                    sx={{ bottom:"5%", left:"60%", backgroundColor: this.state.module.color1, 
                     "&:hover": {backgroundColor: this.state.module.color3} }} variant="contained" endIcon={< ArrowForwardIosIcon/>}>
                     Próximo
                     </Button>
                 : this.state.pageContent.isLastPage ?
                     <Button onClick={this.handleEndOfPage} 
-                    sx={{ bottom:"5%", left:"70%", backgroundColor: this.state.module.color1, 
+                    sx={{ bottom:"5%", left:"60%", backgroundColor: this.state.module.color1, 
                     "&:hover": {backgroundColor: this.state.module.color3} }} variant="contained" endIcon={< DoneIcon/>}>
                     Concluir
                     </Button>

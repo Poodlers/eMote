@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Grid, Box, Link } from '@mui/material'
 import Typography from '@mui/material/Typography';
-import Lock from '@mui/icons-material/Lock';
-import LockOpen from '@mui/icons-material/LockOpen';
 import Emocoes from '../../assets/images/diario_icon.png';
 import Refeicoes from '../../assets/images/refeicoes_icon.png';
 
@@ -20,9 +18,7 @@ export default function DiaryCard(props) {
         <Typography sx={{ pt:1, textAlign: 'center', fontSize: 13, fontWeight: 'bold' }} variant='body1' color={colorCards[props.index]}>
             Diário das {props.name}
         </Typography>
-        <Grid container sx={{ p: 0.5 }} direction="row" justifyContent="center">
-            {props.blocked ? <Lock htmlColor = {colorCards[props.index]}/> : <LockOpen htmlColor = {colorCards[props.index]}/>}
-        </Grid>
+
     </Box>
   );
 }

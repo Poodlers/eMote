@@ -20,10 +20,10 @@ function SocialMediaPage() {
           </Typography>
           <Grid container sx={{ p: 0.5 }} direction="row" align="center">
             <Grid item xs={6} sx={{ p: 2 }}>
-              <a style= {{ textDecoration: 'none'}} href="https://facebook.com/">
+              <a style= {{ textDecoration: 'none'}} href="https://www.facebook.com/profile.php?id=100094438599267 /">
                 <img alt='fb' src='https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Facebook_f_logo_%282021%29.svg/512px-Facebook_f_logo_%282021%29.svg.png?20210818083032' width='35%'/>
                 <Typography color="text.secondary" >
-                  @
+                Projeto.EMOTE
                 </Typography>
               </a>
             </Grid>
