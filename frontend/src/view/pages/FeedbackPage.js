@@ -182,7 +182,7 @@ function FeedbackPage(props) {
                     <Button onClick={triggerAnimations}
                     disabled={isConfettiAnimating || isBalloonsAnimating}
                     sx={{ bottom: "5%",
-                        left: "70%",
+                        left: "60%",
                         position: "absolute", backgroundColor: module.color1, 
                     "&:hover": {backgroundColor: module.color3} }} variant="contained" endIcon={< DoneIcon/>}>
                         Concluir
