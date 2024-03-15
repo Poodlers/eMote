@@ -280,7 +280,7 @@ public class ModuloController : ControllerBase
         return Ok(modulo);
     }
 
-    [HttpPost("{module_id}/{submodule_id}", Name = "ChangeSubModule")]
+    [HttpPost("submodule_change/{module_id}/{submodule_id}", Name = "ChangeSubModule")]
     public ActionResult<SubModule> ChangeSubModuleName(int module_id, int submodule_id, [FromBody] SubModule subModule)
     {
         var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules)
