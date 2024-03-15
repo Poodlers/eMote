@@ -15,6 +15,7 @@ import imgOrgulhosa from '../../../assets/images/orgulhosa.png';
 import imgSozinha from '../../../assets/images/sozinha.png';
 import imgTranquila from '../../../assets/images/tranquila.png';
 import imgTriste from '../../../assets/images/triste.png';
+import imgOutro from '../../../assets/images/outro_.png';
 
 function EpisodesEmotions(props) {
     
@@ -54,7 +55,11 @@ function EpisodesEmotions(props) {
                 {emotionsData.map(function(data,index) {
                     return (
                         <ImageListItem key={index} sx={{ pl:1}} >
-                            <img alt={data.sentimento} src={feelingsImg[data.sentimento] ?? null }/>
+                            <img alt={data.sentimento} src={feelingsImg[data.sentimento] ?? imgOutro }/>
+                            {feelingsImg[data.sentimento] == undefined ? 
+                            <ImageListItemBar sx={{ color: '#ed6fa6', textAlign:'center'}} position='below' title={data.sentimento}/> 
+                            : <ImageListItemBar sx={{ color: '#ed6fa6', textAlign:'center'}} position='below' title={''}/> 
+                            }
                             <ImageListItemBar sx={{ color: '#ed6fa6', textAlign:'center'}} position='below' title={data.count}/>
                         </ImageListItem>
                     )

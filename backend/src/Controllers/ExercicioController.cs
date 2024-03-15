@@ -75,7 +75,10 @@ public class ExercicioController : ControllerBase
         var exerciciosToDelete = new List<Exercicio>();
         foreach (var exercicio in exercicios)
         {
-            var duplicatedExercicios = _dbExercicioSet.Where(u => u.ExercicioFile == exercicio.ExercicioFile && u.Id != exercicio.Id).ToList();
+            var duplicatedExercicios = _dbExercicioSet.Where(u => u.ModuloNumberOrder == exercicio.ModuloNumberOrder
+            && u.SubModuleNumberOrder == exercicio.SubModuleNumberOrder
+            && u.PageNumber == exercicio.PageNumber
+             && u.Id != exercicio.Id).ToList();
             if (duplicatedExercicios.Count > 0)
             {
                 if (exercicio.ExercicioName!.Length > duplicatedExercicios[0].ExercicioName!.Length)

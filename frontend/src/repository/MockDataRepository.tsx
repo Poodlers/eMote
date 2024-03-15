@@ -33,7 +33,9 @@ export class MockDataRepository implements IDataRepository {
     fetchModuloList(): Promise<ModuloBlockInfo[]> {
         throw new Error("Method not implemented.");
     }
-    manageFavoriteExercises(exercicioFiles: string[], exercicioToFavorite: boolean[]): Promise<void> {
+    manageFavoriteExercises( moduloNumberOrder : number,
+        subModuleNumberOrder : number,
+        pageNumber : number, exercicioToFavorite: boolean): Promise<void> {
         throw new Error("Method not implemented.");
     }
     

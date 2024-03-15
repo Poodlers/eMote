@@ -119,7 +119,12 @@ public class EmotionDiaryEntryController : ControllerBase
         //get all exercises with the same fileNames present in the dto.Exercicios list
 
         var exercicios = _dbExercicioSet.ToList().Where(e =>
-         dto.Exercicios.Find(exercicioDTO => exercicioDTO.ExercicioFile == e.ExercicioFile)
+         dto.Exercicios.Find(exercicioDTO => exercicioDTO.ExercicioModuloNumberOrder == e.ModuloNumberOrder
+         &&
+         exercicioDTO.ExercicioSubModuleNumberOrder == e.SubModuleNumberOrder
+         &&
+         exercicioDTO.ExercicioPageNumber == e.PageNumber
+         )
             != null
          ).ToList();
 

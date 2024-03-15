@@ -12,8 +12,7 @@ public class ModuloSeeder
         {
             ModuleNumberOrder = 1,
             Title = "Psicoeducação",
-            IntroText = @"Neste módulo 
-                            iremos explicar a ingestão alimentar compulsiva, os mecanismos que a mantêm e o papel da regulação emocional para que possa entender melhor as suas dificuldades e sintomas.",
+            IntroText = @"Neste módulo iremos explicar a ingestão alimentar compulsiva, os mecanismos que a mantêm e o papel da regulação emocional para que possa entender melhor as suas dificuldades e sintomas.",
             SubModules = new List<SubModule>
             {
 
@@ -162,9 +161,7 @@ public class ModuloSeeder
         {
             ModuleNumberOrder = 2,
             Title = "Mindfulness",
-            IntroText = @"Mindfulness, 
-                            ou atenção plena, 
-                            é a capacidade de estar no momento presente sem julgamento. Esta capacidade permite-nos estar menos reativas ao que acontece a cada momento, seja essa experiência positiva, negativa ou neutra, diminuindo o sofrimento e aumentando a sensação de bem-estar.",
+            IntroText = @"Mindfulness, ou atenção plena, é a capacidade de estar no momento presente sem julgamento. Esta capacidade permite-nos estar menos reativas ao que acontece a cada momento, seja essa experiência positiva, negativa ou neutra, diminuindo o sofrimento e aumentando a sensação de bem-estar.",
             SubModules = new List<SubModule>
             {
                 new SubModule
@@ -176,9 +173,7 @@ public class ModuloSeeder
                         new SubModulePage
                         {
                             PageNumber = 1,
-                            Text = @"Quando 
-                            praticamos mindfulness somos capazes de nos 
-                            aceitarmos tal como somos e de aceitarmos a situação em que nos encontramos. Esta é a base para gerirmos as nossas emoções sem recorrermos à comida."
+                            Text = @"Quando praticamos mindfulness somos capazes de nos aceitarmos tal como somos e de aceitarmos a situação em que nos encontramos. Esta é a base para gerirmos as nossas emoções sem recorrermos à comida."
                         },
                         new SubModulePage
                         {
@@ -210,17 +205,19 @@ public class ModuloSeeder
                         new SubModulePage
                          {
                             PageNumber = 1,
-                            Text = @"Existem três estados mentais 
-                            que influenciam o nosso comportamento: a mente racional, 
-                            a mente emocional e a mente sábia.\r\nMente Racional \r\nNa nossa mente racional,
-                             os nossos comportamentos são controlados pela razão e pela lógica. Esta mente poderá 
-                             ser muito benéfica, mas poderá também levar-nos a ignorar a influência das nossas emoções.
-                             \r\nMente Emocional\r\nAs emoções são essenciais para vivermos uma vida rica e valorizada e 
-                             para nos sentirmos motivadas. No entanto, quando os nossos comportamentos são decididos apenas 
-                             pelo que estamos a sentir, podemos não os conseguir controlar.\r\nMente Sábia\r\nA mente sábia 
-                             integra a mente racional e a mente emocional. Quando usamos a nossa mente sábia,
-                              é o nosso melhor eu que assume o controlo. Aqui encontramo-nos conscientes das nossas emoções
-                               e do nosso pensamento, mas não nos deixamos controlar por nenhum deles."
+                            Text = @"Existem três estados mentais que influenciam o nosso comportamento: a mente racional, a mente emocional e a mente sábia.
+                            
+                            <b>Mente Racional </b>
+                            
+                             Na nossa mente racional, os nossos comportamentos são controlados pela razão e pela lógica. Esta mente poderá ser muito benéfica, mas poderá também levar-nos a ignorar a influência das nossas emoções.
+                             
+                             <b>Mente Emocional</b>
+                             
+                             As emoções são essenciais para vivermos uma vida rica e valorizada e para nos sentirmos motivadas. No entanto, quando os nossos comportamentos são decididos apenas pelo que estamos a sentir, podemos não os conseguir controlar.
+                             
+                            <b>Mente Sábia </b>
+                             
+                             A mente sábia integra a mente racional e a mente emocional. Quando usamos a nossa mente sábia, é o nosso melhor eu que assume o controlo. Aqui encontramo-nos conscientes das nossas emoções e do nosso pensamento, mas não nos deixamos controlar por nenhum deles."
                          },
                          new SubModulePage{
                             PageNumber = 2,
@@ -303,7 +300,7 @@ public class ModuloSeeder
                     PageNumber = 1,
                     Text = @"Mindful eating consiste em focarmos a nossa atenção no que estamos a comer. Este exercício permite-nos ouvir melhor o nosso corpo e perceber quando temos fome ou quando estamos saciadas. Aqui comemos com consciência a cada momento, a cada sabor, a cada textura. 
 
-Para este exercício, convidamo-la a usar uma passa de uva."
+      <b>Para a realização deste exercício, convidamo-la a utilizar uma passa de uva, uma bolacha pequena, um pedacinho de chocolate, frutos secos ou outro alimento que seja pequeno. </b>"
                 },
                 new SubModulePage
                 {
@@ -331,8 +328,7 @@ Para este exercício, convidamo-la a usar uma passa de uva."
                 new SubModulePage
                 {
                     PageNumber = 1,
-                    Text = @"Aqui vamos explicar-lhe como praticar o não julgamento. Sugerimos que ouça atentamente a nossa explicação.",
-                    VideoFile = "mod_2_submod6.mp4"
+                    Text = @"Aqui vamos explicar-lhe como praticar o não julgamento. Sugerimos que veja atentamente a nossa explicação.",
                 },
                 new SubModulePage
                 {
@@ -345,7 +341,7 @@ Para este exercício, convidamo-la a usar uma passa de uva."
                             SubModuleNumberOrder = 6,
                             PageNumber = 2,
                             ExercicioName = "Não julgar",
-                            ExercicioFile = "submod2.6_ativ1.mp3"
+                            ExercicioFile = "mod_2_submod6.mp4"
                         }
                     }
                 }
@@ -359,8 +355,7 @@ Para este exercício, convidamo-la a usar uma passa de uva."
                 new SubModulePage
                 {
                     PageNumber = 1,
-                    Text = @"Com este exercício 
-                    aprendemos a controlar a nossa atenção, permitindo que a mente esteja concentrada num momento de cada vez, quer seja a comer, a conduzir ou a pensar num problema."
+                    Text = @"Com este exercício aprendemos a controlar a nossa atenção, permitindo que a mente esteja concentrada num momento de cada vez, quer seja a comer, a conduzir ou a pensar num problema."
                 },
                 new SubModulePage
                 {
@@ -387,9 +382,7 @@ Para este exercício, convidamo-la a usar uma passa de uva."
                 new SubModulePage
                 {
                     PageNumber = 1,
-                    Text = @"Este exercício dá-nos a possibilidade de
-                     praticar mindful eating em imaginação com uma 
-                     comida “gatilho” associada aos episódios de ingestão compulsiva."
+                    Text = @"Este exercício dá-nos a possibilidade de praticar mindful eating em imaginação com uma comida “gatilho” associada aos episódios de ingestão compulsiva."
                 },
                 new SubModulePage
                 {
@@ -416,8 +409,7 @@ Para este exercício, convidamo-la a usar uma passa de uva."
                 new SubModulePage
                 {
                     PageNumber = 1,
-                    Text = @"Surfar o impulso implica visualizarmos os nossos impulsos para comer compulsivamente como se fossem uma onda no oceano e aprendermos a “surfá-los”. Quando observamos os impulsos como se fossem uma onda não os intensificamos e percebemos que diminuem com o tempo.
-Para fazer o exercício, sugerimos que use um alimento que considera tentador."
+                    Text = @"Surfar o impulso implica visualizarmos os nossos impulsos para comer compulsivamente como se fossem uma onda no oceano e aprendermos a “surfá-los”. Quando observamos os impulsos como se fossem uma onda não os intensificamos e percebemos que diminuem com o tempo. <b>Para fazer o exercício, sugerimos que use um alimento que considera tentador.</b>"
                 },
                 new SubModulePage
                 {
@@ -486,8 +478,7 @@ Para fazer o exercício, sugerimos que use um alimento que considera tentador."
                         new SubModulePage
                         {
                             PageNumber = 1,
-                            Text =@"A aceitação radical da emoção envolve aceitar profundamente todas as nossas emoções,
-                            incluindo aquelas que são dolorosas, desconfortáveis e/ou desagradáveis."
+                            Text =@"A aceitação radical da emoção envolve aceitar profundamente todas as nossas emoções, incluindo aquelas que são dolorosas, desconfortáveis e/ou desagradáveis."
                         },
                         new SubModulePage{
                             PageNumber = 2,
@@ -512,9 +503,8 @@ Para fazer o exercício, sugerimos que use um alimento que considera tentador."
                 {
                     new SubModulePage{
                         PageNumber = 1,
-                        Text = @"É mais provável que a ingestão alimentar compulsiva ocorra quando as nossas emoções estão desreguladas. Assim, aprendermos a identificar e a alterar o que nos deixa mais vulnerável é fundamental. 
-Sugerimos que ouça com atenção as nossas estratégias.",
-                        VideoFile = "mod3_submod3.mp4"
+                        Text = @"É mais provável que a ingestão alimentar compulsiva ocorra quando as nossas emoções estão desreguladas ou em períodos de restrição alimentar. Assim, aprendermos a identificar e a alterar o que nos deixa mais vulnerável é fundamental.",
+
                     },
 
                     new SubModulePage{
@@ -527,7 +517,7 @@ Sugerimos que ouça com atenção as nossas estratégias.",
                                 SubModuleNumberOrder = 3,
                                 PageNumber = 2,
                                 ExercicioName = "Como reduzir a vulnerabilidade?",
-                                ExercicioFile = "submod3.3_ativ1.mp3"
+                                ExercicioFile = "mod3_submod3.mp4"
                             }
                         }
                     }
@@ -543,8 +533,7 @@ Sugerimos que ouça com atenção as nossas estratégias.",
                 {
                     new SubModulePage{
                         PageNumber = 1,
-                        Text = @"Este exercício ajuda-nos
-                         a permanecer mais tempo com as emoções positivas. Quando sentimos dificuldades em controlar a alimentação, tendemos a dedicar pouco tempo a eventos positivos e a anularmos as emoções positivas com preocupações, culpa e autopunições."
+                        Text = @"Este exercício ajuda-nos a permanecer mais tempo com as emoções positivas. Quando sentimos dificuldades em controlar a alimentação, tendemos a dedicar pouco tempo a eventos positivos e a anularmos as emoções positivas com preocupações, culpa e autopunições."
                     },
                     new SubModulePage {
                         PageNumber = 2,
@@ -569,9 +558,8 @@ Sugerimos que ouça com atenção as nossas estratégias.",
                 {
                     new SubModulePage{
                         PageNumber = 1,
-                        Text = @"Este exercício possibilita mudar ou gerir melhor as nossas emoções, agindo de forma oposta ao que estamos a sentir. 
-Convidamo-la a ouvir os nossos exemplos.",
-                        VideoFile = "mod3_submod5.mp4"
+                        Text = @"Este exercício possibilita mudar ou gerir melhor as nossas emoções, agindo de forma oposta ao que estamos a sentir.",
+
                     },
                     new SubModulePage{
                         PageNumber = 2,
@@ -583,7 +571,7 @@ Convidamo-la a ouvir os nossos exemplos.",
                                 SubModuleNumberOrder = 5,
                                 PageNumber = 2,
                                 ExercicioName = "Agir de forma oposta à emoção presente",
-                                ExercicioFile = "submod3.5_ativ1.mp3"
+                                ExercicioFile = "mod3_submod5.mp4"
                             }
                         }
                     }
@@ -632,8 +620,7 @@ Convidamo-la a ouvir os nossos exemplos.",
                     {
                         new SubModulePage{
                             PageNumber = 1,
-                            Text = @"Este exercício ajuda-nos a desenvolver
-                             uma atitude de aceitação interna. Quando os músculos faciais estão tensos é muito difícil aceitarmos algo, mas quando assumimos um sorriso calmo, aumentamos a nossa disponibilidade para aceitar o que sentimos. "
+                            Text = @"Este exercício ajuda-nos a desenvolver uma atitude de aceitação interna. Quando os músculos faciais estão tensos é muito difícil aceitarmos algo, mas quando assumimos um sorriso calmo, aumentamos a nossa disponibilidade para aceitar o que sentimos. "
                         },
                         new SubModulePage{
                             PageNumber = 2,
@@ -659,8 +646,7 @@ Convidamo-la a ouvir os nossos exemplos.",
                     {
                         new SubModulePage{
                             PageNumber = 1,
-                            Text = @"Quando aceitamos radicalmente, 
-                            aceitamos as coisas tal como elas são. Existem circunstâncias que nos causam dor e que, não podendo modificá-las, podemos tentar aceitá-las, em vez de lutarmos contra esses sentimentos dolorosos."
+                            Text = @"Quando aceitamos radicalmente, aceitamos as coisas tal como elas são. Existem circunstâncias que nos causam dor e que, não podendo modificá-las, podemos tentar aceitá-las, em vez de lutarmos contra esses sentimentos dolorosos."
                         },
                         new SubModulePage{
                             PageNumber = 2,
@@ -714,8 +700,7 @@ Convidamo-la a ouvir os nossos exemplos.",
                     {
                         new SubModulePage{
                             PageNumber = 1,
-                            Text = @"Estas atividades podem ser muito úteis em momentos dolorosos sobre os quais nada podemos fazer ou nada podemos fazer naquele momento.
-Sugerimos que ouça com atenção as atividades que propomos."
+                            Text = @"Estas atividades podem ser muito úteis em momentos dolorosos sobre os quais nada podemos fazer ou nada podemos fazer naquele momento. Sugerimos que ouça com atenção as atividades que propomos."
                          },
 
                         new SubModulePage{
@@ -728,23 +713,67 @@ Sugerimos que ouça com atenção as atividades que propomos."
                                     SubModuleNumberOrder = 5,
                                     PageNumber = 2,
                                     ExercicioName = "Sobrevivência às crises - Parte 1",
-                                    ExercicioFile = "submod4.5_ativ1.mp3"
+                                    ExercicioTexto = @"<b>Para sobrevivermos a uma crise ou a uma situação muito angustiante, podemos recorrer a atividades que nos ajudem a distrair, tais como:</b>
+                                        
+                                        •	Praticar exercício físico
+                                        •	Ter um hobby
+                                        •	Limpar a casa 
+                                        •	Assistir a filmes de comédias
+                                        •	Ouvir música relaxante
+                                        •	Ler um livro divertido
+                                        •	Tomar banho muito quente
+                                        •	Mergulhar o rosto em água fria
+                                        •	Segurar cubos de gelo nas mãos 
+                                        •	Ouvir música muito alta
+                                        •	Retirar-nos da situação que nos está a criar angustia e fazer uma pausa temporária dessa mesma situação ou pessoa"
                                 },
+                            },
+                        },
+                        new SubModulePage{
+                            PageNumber = 3,
+                            Exercicios = new List<Exercicio>
+                            {
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 4,
                                     SubModuleNumberOrder = 5,
-                                    PageNumber = 2,
+                                    PageNumber = 3,
                                     ExercicioName = "Sobrevivência às crises - Parte 2",
-                                    ExercicioFile = "submod4.5_ativ2.mp3"
+                                    ExercicioTexto = @"
+                                       <b>Quando nos sentimos emocionalmente sobrecarregadas, devemos tentar ser gentis connosco. Para nos auto-tranquilizarmos podemos:</b>
+                                
+                                •	Acender uma vela perfumada
+                                •	Olhar para a natureza, 
+                                •	Ouvir música tranquila
+                                •	Prestar atenção aos sons da natureza
+                                •	Beber uma chávena do nosso chá preferido
+                                •	Tomar um banho de espuma
+                                •	Fazer uma massagem 
+                                •	Acariciar animais de estimação
+                                "
                                 },
+                            },
+                        },
+                        new SubModulePage{
+                            PageNumber = 4,
+                            Exercicios = new List<Exercicio>
+                            {
                                 new Exercicio
                                 {
                                     ModuloNumberOrder = 4,
                                     SubModuleNumberOrder = 5,
-                                    PageNumber = 2,
+                                    PageNumber = 4,
                                     ExercicioName = "Sobrevivência às crises - Parte 3",
-                                    ExercicioFile = "submod4.5_ativ3.mp3"
+                                    ExercicioTexto = @"
+                                    <b>As atividades para melhorar o momento permitem-nos permanecer no momento presente, tornando-o mais agradável do que seria de outra forma. Assim, para melhorar o momento presente sugerimos:</b>
+              
+                •	Visualizar cenas ou imagens relaxantes
+                •	Concentrar a sua atenção no que está a fazer no momento,
+                •	Ir ao parque dar um passeio, 
+                •	Tentar encontrar um propósito ou significado no sofrimento
+                •	Incentivar-se a si mesma, dizendo 'eu consigo suportar isto', 'isto não vai durar para sempre', 'eu vou conseguir', 'estou a fazer o melhor que consigo'.
+                                    
+                                    "
                                 }
 
                             }
@@ -759,8 +788,6 @@ Sugerimos que ouça com atenção as atividades que propomos."
                 {
                     new SubModulePage{
                         PageNumber = 1,
-                        Text = @"Parabéns por terminar esta viagem que certamente não foi fácil nem simples, mas ainda assim persistiu na sua recuperação. Agora que já conhece e praticou os exercícios de mindfulness, 
-regulação emocional e de tolerância a estados emocionais negativos, o objetivo é que tente continuar a realizá-los com frequência e sempre que sentir que são necessários, integrando-os na sua vida.",
                         VideoFile = "mod4_submod6.mp4"
                 }
                 }

@@ -19,6 +19,7 @@ import { RepositorySingleton } from '../../repository/RepositoryInjector';
 import { NavBar } from '../widgets/NavBar';
 import SubmoduleContentPage from './SubmoduleContentPage';
 import withRouter from '../widgets/withRouter';
+import ReactPlayer from 'react-player';
 
 
 
@@ -31,38 +32,14 @@ class SubModulePage extends React.Component {
             componentState: ComponentState.LOADING,
             module: {},
             pageContent: {},
-            exercisesObj: {},
-            audioRefs: [],
+            exerciseIsFavorite: false,
+            type :'' ,
+            videoIsLoading: true,
             moduleNumber: this.props.router.params.moduleNumber,
             submoduleNumber: this.props.router.params.submoduleNumber,
             pageNumber: this.props.router.params.pageNumber,
         }
 
-    }
-    togglePlay = (audioFile) => {
-
-        let audioRefsCopy = this.state.audioRefs;
-        
-        for(let i = 0; i < audioRefsCopy.length; i++){
-          
-            if(audioRefsCopy[i].audioFile == audioFile){
-                audioRefsCopy[i].isPlaying = !audioRefsCopy[i].isPlaying;
-                if(audioRefsCopy[i].isPlaying){ 
-                    // pause the other audios
-                    for(let j = 0; j < audioRefsCopy.length; j++){
-                        if(audioRefsCopy[j].audioFile !== audioFile){
-                            audioRefsCopy[j].isPlaying = false;
-                            
-                        }
-                    } 
-                      
-                }
-                break;
-            }
-        }    
-        this.setState({audioRefs : [...audioRefsCopy]});
-      
-    
     }
 
     componentDidMount() {
@@ -83,19 +60,18 @@ class SubModulePage extends React.Component {
           this.setState(
                 {pageContent: response});
           
-          let exercises = {};
-          let audioRefs = [];
+         let exerciseIsFavorite = false;
+         let type = ''
+          console.log(response.exerciciosFavoritos);
           for(let i = 0; i < response.exerciciosFavoritos.length; i++){
-                audioRefs.push({    
-                     mp3: require(`../../assets/audios/${response.exerciciosFavoritos[i].exercicioFile}`),
-                     isPlaying : false,
-                     audioFile: response.exerciciosFavoritos[i].exercicioFile
-                    });
-                exercises[response.exerciciosFavoritos[i].exercicioFile] = response.exerciciosFavoritos[i].exercicioIsFavorite;
-            }
+            exerciseIsFavorite = response.exerciciosFavoritos[i].exercicioIsFavorite;
+            type = response.exerciciosFavoritos[0].exercicioFile == undefined ? 'text' :
+            response.exerciciosFavoritos[0].exercicioFile.split('.')[1] === 'mp4' ? 'video' : 'audio'
+         }
           this.setState(
-                {audioRefs: [...audioRefs],
-                exercisesObj: exercises,
+                {
+                 type: type,
+                exerciseIsFavorite: exerciseIsFavorite,
                 componentState: ComponentState.LOADED
                 }
             );
@@ -136,21 +112,21 @@ class SubModulePage extends React.Component {
                   }
                 
                   
-                  let exercises = {};
-                  let audioRefs = [];
+                  let exerciseIsFavorite = false;
+                 
+                  let type = ''
                   for(let i = 0; i < response.exerciciosFavoritos.length; i++){
-                        audioRefs.push({    
-                             mp3: require(`../../assets/audios/${response.exerciciosFavoritos[i].exercicioFile}`),
-                             isPlaying : false,
-                             audioFile: response.exerciciosFavoritos[i].exercicioFile
-                            } );
-                        exercises[response.exerciciosFavoritos[i].exercicioFile] = response.exerciciosFavoritos[i].exercicioIsFavorite;
-                    }
+                    exerciseIsFavorite = response.exerciciosFavoritos[i].exercicioIsFavorite;
+                    type = response.exerciciosFavoritos[0].exercicioFile == undefined ? 'text' :
+                    response.exerciciosFavoritos[0].exercicioFile.split('.')[1] === 'mp4' ? 'video' : 'audio'
+                 }
+           
                     
                   this.setState(
-                        {audioRefs: [...audioRefs],
+                        { 
+                        type: type,
                         objModule: objModule,
-                        exercisesObj: exercises,
+                        exerciseIsFavorite: exerciseIsFavorite,
                         pageContent: response,
                         componentState: ComponentState.LOADED
                         }
@@ -165,37 +141,24 @@ class SubModulePage extends React.Component {
             
            
         }
-        if(prevState.exercisesObj != this.state.exercisesObj){
-            let exerciseFiles = [];
-            let exercisesToFavorite = [];
-            for (const key in this.state.exercisesObj) {
-                if (this.state.exercisesObj.hasOwnProperty(key)) {
-                    exerciseFiles.push(key);
-                    exercisesToFavorite.push(this.state.exercisesObj[key]);
-                }
-            }
-        
-            if(exerciseFiles.length == 0) return;
-
-            repository.manageFavoriteExercises(exerciseFiles, exercisesToFavorite
+        if(prevState.exerciseIsFavorite != this.state.exerciseIsFavorite){   
+            console.log('favoriting: ', this.state.moduleNumber, this.state.submoduleNumber, this.state.pageNumber, 
+            this.state.exerciseIsFavorite);
+            repository.manageFavoriteExercises(this.state.moduleNumber, this.state.submoduleNumber, 
+                this.state.pageNumber, this.state.exerciseIsFavorite, 
             ).then((response) => {
                 
             }
             ).catch((error) => {
                 console.log(error);
             });
-        }
-
-        
+        }   
         
     }
 
 
-    setFavorite = (exerciseFile) => {
-        let exercises = this.state.exercisesObj;
-        exercises[exerciseFile] = !exercises[exerciseFile];
-        this.setState({exercisesObj :
-              {...exercises}});
+    setFavorite = () => {
+        this.setState({exerciseIsFavorite : !this.state.exerciseIsFavorite});
     }
 
    
@@ -268,7 +231,7 @@ class SubModulePage extends React.Component {
                 module={this.state.module} pageNumber={this.state.pageNumber} subModuleNumber={this.state.submoduleNumber} 
                 submodulesContent={this.state.pageContent.subModulePage}/>
                 {this.state.pageContent.subModulePage.exercicios.map((data, index) => {
-                
+                    
                     return (
                     <div key={index}>
                         <Box sx= {{pt:1}}> 
@@ -278,7 +241,38 @@ class SubModulePage extends React.Component {
                             </Typography>
                         </Box>
                         <Box sx= {{p:3}}>
+                            {
+                                this.state.type === 'video' && this.state.videoIsLoading ?
+                                <Typography color={this.state.module.theme === "blue" ? this.state.module.color1 : "black" }
+                                sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
+                                    Carregando o vídeo...
+                                </Typography>
+                                : null
+                            }
                             <Grid container direction='column'>
+                            {
+                                this.state.type === 'text' ?
+                                <Typography color={this.state.module.theme === "blue" ? this.state.module.color1 : "black" }
+                                sx={{whiteSpace: 'pre-line', p:1, px:5, pt:2.5, fontSize: 20, textAlign: 'justify' }} variant='body1'>
+                                    <div dangerouslySetInnerHTML={{__html: data.exercicioTexto}} />
+                                </Typography>
+
+                                : this.state.type === 'video' ?
+                                
+                                <ReactPlayer
+                                    onReady={() => this.setState({videoIsLoading: false})}
+                                    style={{margin: '0 auto', display: this.state.videoIsLoading ? 'none' : 'block'}}
+                                    url={'/videos/'+ data.exercicioFile}
+                                    width={'auto'}
+                                    height={'400px'}
+                                    controls={true}
+                                    playing={false}
+                                    muted={false}
+                                    onEnded={() => {  this.handleEndOfPage()  }}
+
+                              />
+                                : 
+                                <>
                                 <Grid item alignSelf={'center'}>
                                     <img alt='phones' src={
                                         this.state.module.theme === 'green'? phonesGreen 
@@ -287,22 +281,27 @@ class SubModulePage extends React.Component {
                                 </Grid>
                                 <Grid item m={2} alignSelf={'center'} >
                                 
-                                <MuiAudioPlayer 
+                                <MuiAudioPlayer
+                               
                                 containerSx = {{textAlign:'center', backgroundColor: this.state.module.color1, borderRadius: 10, p:1}}
                                 id="inline-timeline" display="timeline" inline paperize size='medium'
-                                src={this.state.audioRefs.find(audioRef => audioRef.audioFile == data.exercicioFile).mp3} 
+                                src={require(`../../assets/audios/${data.exercicioFile}`)} 
                                 />
-
-                                <IconButton sx={{p:4}} size='large' onClick={()=>{this.setFavorite(data.exercicioFile)}} >
-                                
-                                    {this.state.exercisesObj[data.exercicioFile] ? 
-                                    <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1} />
-                                    :
-                                    <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1 } /> }
-                                </IconButton>
-                        
+                            
                                 </Grid>
+                              </>
+                            }
+                             <Grid item m={2} alignSelf={'center'} >
+                            <IconButton sx={{p:4}} size='large' onClick={()=>{this.setFavorite()}} >
+                                
+                                {this.state.exerciseIsFavorite ? 
+                                <FavoriteIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1} />
+                                :
+                                <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1 } /> }
+                            </IconButton>
+                            
                             </Grid>
+                           </Grid>
 
                             
                         </Box>
@@ -315,6 +314,7 @@ class SubModulePage extends React.Component {
             {
                 (this.state.pageContent.subModulePage.imageFile || 
                 this.state.pageContent.subModulePage.otherFile || 
+                this.state.pageContent.subModulePage.exercicios.length > 0 ||
                 this.state.pageContent.subModulePage.videoFile) &&
                 !this.state.pageContent.isLastPage ?
                     <Button onClick={this.handleEndOfPage} 

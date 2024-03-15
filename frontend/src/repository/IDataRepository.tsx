@@ -24,7 +24,10 @@ export interface IDataRepository {
 
     fetchModuloList(): Promise<Array<ModuloBlockInfo>>;
 
-    manageFavoriteExercises(exercicioFiles: string[], exercicioToFavorite: boolean[]): Promise<void>;
+    manageFavoriteExercises(
+      moduloNumberOrder : number,
+      subModuleNumberOrder : number,
+      pageNumber : number, exercicioToFavorite: boolean): Promise<void>;
 
     sendFeedback(moduloId: Number, usefulnessScore: Number, satisfactionScore: Number): Promise<void>;
 
