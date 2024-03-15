@@ -28,10 +28,10 @@ function SocialMediaPage() {
               </a>
             </Grid>
             <Grid item xs={6} sx={{ p: 2 }}>
-              <a style= {{ textDecoration: 'none'}} href="https://instagram.com/emote.binge.eating">
+              <a style= {{ textDecoration: 'none'}} href="https://instagram.com/projeto.emote">
                 <img alt='insta' src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/132px-Instagram_logo_2016.svg.png?20210403190622' width='35%'/>
                 <Typography color="text.secondary" >
-                  @emote.binge.eating
+                  @projeto.emote
                 </Typography>
               </a>
             </Grid>
