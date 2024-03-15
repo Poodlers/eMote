@@ -124,6 +124,51 @@ public class ModuloController : ControllerBase
         return Ok(modulo);
     }
 
+    //delete a page from a submodule
+    [HttpDelete("{modulo_id}/{submodule_id}/{page_number}", Name = "DeleteSubModulePage")]
+    public ActionResult<SubModule> DeleteSubModulePage(int modulo_id, int submodule_id, int page_number)
+    {
+        var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules)
+        .ThenInclude(submodulo => submodulo.SubModulePages)
+        .ThenInclude(submodulopage => submodulopage.Exercicios)
+        .Where(u => u.ModuleNumberOrder == modulo_id)
+        .FirstOrDefault();
+        if (modulo == null)
+        {
+            return StatusCode(
+                404,
+                "Modulo not found"
+
+            );
+        }
+        var subModule = modulo.SubModules.Where(s => s.SubModuleNumberOrder == submodule_id).FirstOrDefault();
+        if (subModule == null)
+        {
+            return StatusCode(
+                404,
+                "SubModule not found"
+            );
+        }
+        var subModulePage = subModule.SubModulePages.Where(s => s.PageNumber == page_number).FirstOrDefault();
+        if (subModulePage == null)
+        {
+            return StatusCode(
+                404,
+                "SubModulePage not found"
+            );
+        }
+        subModule.SubModulePages.Remove(subModulePage);
+        foreach (var page in subModule.SubModulePages)
+        {
+            if (page.PageNumber >= page_number)
+            {
+                page.PageNumber = page.PageNumber - 1;
+            }
+        }
+        _context.SaveChanges();
+        return Ok(subModule);
+    }
+
     [HttpPost("{modulo_id}/{submodule_id}", Name = "AddPageToSubModule")]
     public ActionResult<SubModule> AddPageToSubModule(int modulo_id, int submodule_id, [FromBody] SubModulePage subModulePage)
     {
@@ -281,7 +326,7 @@ public class ModuloController : ControllerBase
     }
 
     [HttpPost("submodule_change/{module_id}/{submodule_id}", Name = "ChangeSubModule")]
-    public ActionResult<SubModule> ChangeSubModuleName(int module_id, int submodule_id, [FromBody] SubModule subModule)
+    public async Task<ActionResult<SubModule>> ChangeSubModuleName(int module_id, int submodule_id, [FromBody] SubModule subModule)
     {
         var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules)
         .ThenInclude(submodulo => submodulo.SubModulePages)
@@ -304,13 +349,12 @@ public class ModuloController : ControllerBase
                 "SubModule not found"
             );
         }
-        if (subModule.Title != null)
-        {
-            subModuleToChange.Title = subModule.Title;
-        }
+
+        subModuleToChange.Title = subModule.Title;
 
 
-        _context.SaveChanges();
+
+        await _context.SaveChangesAsync();
         return Ok(subModuleToChange);
     }
 
