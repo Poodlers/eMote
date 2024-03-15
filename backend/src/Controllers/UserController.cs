@@ -393,39 +393,49 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("{user_code}/favorites", Name = "AddUserFavorite")]
-    public async Task<ActionResult> AddUserFavorite(String user_code, [FromBody] List<ExercicioDTO> exercicioDTO)
+    public async Task<ActionResult> AddUserFavorite(String user_code, [FromBody] ExercicioDTO exercicioDTO)
     {
         var user = _dbUserSet.Where(user => user.Code == user_code)
         .Include(user => user.FavoriteExercises)
         .FirstOrDefault();
 
-        foreach (var exercicioObj in exercicioDTO)
-        {
-            var exercicio = _dbExercicioSet.Where(exercicio => exercicio.ExercicioFile == exercicioObj.ExercicioFile).FirstOrDefault();
-            if (exercicio == null || user == null)
-            {
-                return StatusCode(
-                    404,
-                    "User or Exercicio not found"
-                );
-            }
-            if (exercicioObj.ExercicioIsFavorite)
-            {
-                if (!user.FavoriteExercises.Where(exercicio => exercicio.ExercicioFile == exercicioObj.ExercicioFile).Any())
-                {
-                    user.FavoriteExercises.Add(exercicio!);
-                }
-            }
-            else
-            {
-                if (user.FavoriteExercises.Where(exercicio => exercicio.ExercicioFile == exercicioObj.ExercicioFile).Any())
-                {
-                    user.FavoriteExercises.Remove(exercicio!);
-                }
 
+        var exercicio = _dbExercicioSet.Where(exercicio => exercicio.ModuloNumberOrder == exercicioDTO.ExercicioModuloNumberOrder
+        &&
+        exercicio.SubModuleNumberOrder == exercicioDTO.ExercicioSubModuleNumberOrder
+        && exercicio.PageNumber == exercicioDTO.ExercicioPageNumber).FirstOrDefault();
+
+        if (exercicio == null || user == null)
+        {
+            return StatusCode(
+                404,
+                "User or Exercicio not found"
+            );
+        }
+        if (exercicioDTO.ExercicioIsFavorite)
+        {
+            if (!user.FavoriteExercises.Where(exercicio => exercicio.ModuloNumberOrder == exercicioDTO.ExercicioModuloNumberOrder
+            &&
+            exercicio.SubModuleNumberOrder == exercicioDTO.ExercicioSubModuleNumberOrder
+            && exercicio.PageNumber == exercicioDTO.ExercicioPageNumber).Any())
+            {
+                user.FavoriteExercises.Add(exercicio!);
             }
+        }
+        else
+        {
+            if (user.FavoriteExercises.Where(exercicio => exercicio.ModuloNumberOrder == exercicioDTO.ExercicioModuloNumberOrder
+            &&
+            exercicio.SubModuleNumberOrder == exercicioDTO.ExercicioSubModuleNumberOrder
+            && exercicio.PageNumber == exercicioDTO.ExercicioPageNumber).Any())
+            {
+                user.FavoriteExercises.Remove(exercicio!);
+            }
+
 
         }
+
+
 
         await _context.SaveChangesAsync();
 

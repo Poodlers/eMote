@@ -149,18 +149,18 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
   }
 
 
-  async manageFavoriteExercises(exercicioFiles: string[], exercicioToFavorite: boolean[]): Promise<void> {
+  async manageFavoriteExercises( moduloNumberOrder : number,
+    subModuleNumberOrder : number,
+    pageNumber : number, exercicioToFavorite: boolean): Promise<void> {
     const instance = this.createInstance();
-    let exerciseObj: any[] = [];
+ 
 
-    for(let i = 0; i < exercicioFiles.length; i++){
-        exerciseObj.push(
-          {
-            exercicioFile : exercicioFiles[i],
-            exercicioIsFavorite : exercicioToFavorite[i],
-          }
-        );
-    }
+    const exerciseObj = {
+      exercicioModuloNumberOrder: moduloNumberOrder,
+      exercicioSubModuleNumberOrder: subModuleNumberOrder,
+      exercicioPageNumber: pageNumber,
+      exercicioIsFavorite: exercicioToFavorite,
+    };
 
   
     try{

@@ -362,6 +362,9 @@ public class ModuloController : ControllerBase
             {
                 exerciciosFavoritos.Add(new ExercicioDTO
                 {
+                    ExercicioModuloNumberOrder = exercicioFavorito.ModuloNumberOrder,
+                    ExercicioSubModuleNumberOrder = exercicioFavorito.SubModuleNumberOrder,
+                    ExercicioPageNumber = exercicioFavorito.PageNumber,
                     ExercicioFile = exercicioFavorito.ExercicioFile,
                     ExercicioIsFavorite = true,
                 });
@@ -370,7 +373,10 @@ public class ModuloController : ControllerBase
             {
                 exerciciosFavoritos.Add(new ExercicioDTO
                 {
-                    ExercicioFile = exercicioInPage!.ExercicioFile,
+                    ExercicioModuloNumberOrder = exercicioInPage.ModuloNumberOrder,
+                    ExercicioSubModuleNumberOrder = exercicioInPage.SubModuleNumberOrder,
+                    ExercicioPageNumber = exercicioInPage.PageNumber,
+                    ExercicioFile = exercicioInPage.ExercicioFile,
                     ExercicioIsFavorite = false,
                 });
             }

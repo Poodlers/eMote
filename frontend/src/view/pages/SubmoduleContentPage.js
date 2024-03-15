@@ -63,7 +63,7 @@ function SubmoduleContentPage(props) {
                 <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{
                   whiteSpace: 'pre-line',
                   p:1, pl:2.5, pt:2.5, fontSize: 20, textAlign: 'start' }} variant='body1'>
-                      {submodulesContent.text}
+                      <div dangerouslySetInnerHTML={{__html: submodulesContent.text}} />
                 </Typography>
                 
                    
