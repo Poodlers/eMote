@@ -287,8 +287,10 @@ class SubModulePage extends React.Component {
                                 </Grid>
                                 <Grid item m={2} alignSelf={'center'} >
                                 
-                                <MuiAudioPlayer 
-                                containerSx = {{textAlign:'center', backgroundColor: this.state.module.color1, borderRadius: 10, p:1}}
+                                <MuiAudioPlayer
+                                containerSx = {{textAlign:'center', backgroundColor: this.state.module.color1, borderRadius: 10, p:1, 
+                                '& .MuiSlider-root': {color: '#fff'},
+                                '& .MuiIconButton-root': {color: '#fff'}}}
                                 id="inline-timeline" display="timeline" inline paperize size='medium'
                                 src={this.state.audioRefs.find(audioRef => audioRef.audioFile == data.exercicioFile).mp3} 
                                 />
@@ -300,7 +302,7 @@ class SubModulePage extends React.Component {
                                     :
                                     <FavoriteBorderIcon sx={{ fontSize: 60 }} htmlColor={this.state.module.color1 } /> }
                                 </IconButton>
-                                <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 18 }} variant='body1' color={"white"}>
+                                <Typography align= 'center' sx={{ alignSelf:'center', fontSize: 18, fontWeight: 500  }} variant='body1' color={this.state.module.color1}>
                                     Favoritos
                                 </Typography>
                         
