@@ -280,6 +280,41 @@ public class ModuloController : ControllerBase
         return Ok(modulo);
     }
 
+    [HttpPost("{module_id}/{submodule_id}", Name = "ChangeSubModule")]
+    public ActionResult<SubModule> ChangeSubModuleName(int module_id, int submodule_id, [FromBody] SubModule subModule)
+    {
+        var modulo = _dbModuloContentSet.Include(modulo => modulo.SubModules)
+        .ThenInclude(submodulo => submodulo.SubModulePages)
+        .ThenInclude(submodulopage => submodulopage.Exercicios)
+        .Where(u => u.ModuleNumberOrder == module_id)
+        .FirstOrDefault();
+        if (modulo == null)
+        {
+            return StatusCode(
+                404,
+                "Modulo not found"
+
+            );
+        }
+        var subModuleToChange = modulo.SubModules.Where(s => s.SubModuleNumberOrder == submodule_id).FirstOrDefault();
+        if (subModuleToChange == null)
+        {
+            return StatusCode(
+                404,
+                "SubModule not found"
+            );
+        }
+        if (subModule.Title != null)
+        {
+            subModuleToChange.Title = subModule.Title;
+        }
+
+
+        _context.SaveChanges();
+        return Ok(subModuleToChange);
+    }
+
+
     [HttpGet("{user_code}/{id}/{submodule_id}/{submodule_page_number}", Name = "GetSubModulePage")]
     public ActionResult<SubModulePageUserInfo> Get(string user_code, int id, int submodule_id, int submodule_page_number)
     {

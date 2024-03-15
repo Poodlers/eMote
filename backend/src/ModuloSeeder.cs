@@ -33,7 +33,7 @@ public class ModuloSeeder
             new SubModule
             {
                 SubModuleNumberOrder = 2,
-                Title = "O que são comportamentos compensatórios inapropriados?",
+                Title = "O que são comportamentos compensatórios?",
                 SubModulePages =
                     new List<SubModulePage>
                     {

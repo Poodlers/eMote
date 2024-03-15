@@ -432,7 +432,6 @@ public class UserController : ControllerBase
                 user.FavoriteExercises.Remove(exercicio!);
             }
 
-
         }
 
 
