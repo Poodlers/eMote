@@ -113,7 +113,7 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
           hour: hour,
           sentimentos: feelings,
           exercicios: exercicios,
-          reflexaoEmotion: reflection || "User não escreveu uma refleção",
+          reflexaoEmotion: reflection || 'Sem reflexão.',
         }
       ).then(transform);
       return result.data;

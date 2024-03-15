@@ -90,10 +90,10 @@ public class EmotionDiaryEntry
     public String? ReflexaoEmotion { get; set; }
 
     [Required]
-    public ICollection<String> Sentimentos { get; set; } = new List<String>();
+    public ICollection<String>? Sentimentos { get; set; } = new List<String>();
 
     [Required]
-    public List<Exercicio> Exercicios { get; set; } = new List<Exercicio>();
+    public List<Exercicio>? Exercicios { get; set; } = new List<Exercicio>();
 
 }
 

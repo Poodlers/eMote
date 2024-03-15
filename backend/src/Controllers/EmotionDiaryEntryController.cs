@@ -132,13 +132,18 @@ public class EmotionDiaryEntryController : ControllerBase
                     != null
                 ).ToList();
         }
+        ICollection<string> sentimentos = new List<string>() { "Nenhum" };
 
+        if (dto.Sentimentos != null && dto.Sentimentos.Count > 0)
+        {
+            sentimentos = dto.Sentimentos;
+        }
 
         var newEntry = new EmotionDiaryEntry
         {
             Date = data,
             Hour = hora,
-            Sentimentos = dto.Sentimentos ?? new List<string>(),
+            Sentimentos = sentimentos,
             Exercicios = exercicios,
             ReflexaoEmotion = dto.ReflexaoEmotion
         };
