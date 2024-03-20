@@ -9,8 +9,6 @@ import LogoBlue from '../../assets/images/icon_azul2.png';
 import LogoOrange from '../../assets/images/icon_laranja.png';
 import LogoGreen from '../../assets/images/icon_verde.png';
 import LogoPurple from '../../assets/images/icon_rosa.png';
-import { Link } from 'react-router-dom';
-
 import { IconButton, Link as MUILink } from '@mui/material';
 import LogoutButton from './LogoutButton';
 
@@ -58,9 +56,9 @@ export function LogoAppBar(props) {
       <AppBar sx ={{boxShadow: 'none', top:0, height: 60, backgroundColor: modified? "#ffffff" : null }} >
         <Toolbar>
           {props.goBack? 
-            <IconButton component={Link} to={theme.link} aria-label="back" size="large">
+            <MUILink href={theme.link}>
               <ArrowBackIosIcon htmlColor={theme.color} fontSize="inherit" />
-            </IconButton>
+            </MUILink>
             : null
           }
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}/>

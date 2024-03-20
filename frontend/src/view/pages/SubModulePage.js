@@ -44,7 +44,8 @@ class SubModulePage extends React.Component {
 
     componentDidMount() {
         const repository = RepositorySingleton.getInstance().injectRepository();
-        repository.getPageContent(this.props.router.params.moduleNumber, this.props.router.params.submoduleNumber,this.props.router.params.pageNumber).then((response) => {
+        repository.getPageContent(this.props.router.params.moduleNumber, this.props.router.params.submoduleNumber
+            ,this.props.router.params.pageNumber).then((response) => {
             if(response.isBlocked){
                 this.setState(
                     {componentState: ComponentState.NOT_ALLOWED});
@@ -62,7 +63,7 @@ class SubModulePage extends React.Component {
           
          let exerciseIsFavorite = false;
          let type = ''
-          console.log(response.exerciciosFavoritos);
+          
           for(let i = 0; i < response.exerciciosFavoritos.length; i++){
             exerciseIsFavorite = response.exerciciosFavoritos[i].exercicioIsFavorite;
             type = response.exerciciosFavoritos[0].exercicioFile == undefined ? 'text' :
@@ -282,6 +283,7 @@ class SubModulePage extends React.Component {
                                 <Grid item m={2} alignSelf={'center'} >
                                 
                                 <MuiAudioPlayer
+                                
                                 containerSx = {{textAlign:'center', backgroundColor: this.state.module.color1, borderRadius: 10, p:1, 
                                 '& .MuiSlider-root': {color: '#fff'},
                                 '& .MuiIconButton-root': {color: '#fff'}}}
