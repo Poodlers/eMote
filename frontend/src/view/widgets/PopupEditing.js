@@ -298,7 +298,6 @@ export default () => {
   }
 
   useEffect(() => {
-      console.log("Fetching users");
       fetchInfo();
       // eslint-disable-next-line
     }, []); 
@@ -361,14 +360,24 @@ export default () => {
       
     }
     if (deleted) {
-      const deletedSet = new Set(deleted);
-      for(let i = 0; i < deleted.length; i++){
-        const code = rows.filter(row => row.id === deleted[i])[0].code;
-        deleteUser(code);
-      }
-      changedRows = rows.filter(row => !deletedSet.has(row.id));
+        if (deleted.filter(id => rows.filter(row => row.id === id)[0].role == 3).length > 0) {
+          alert("Não é possível apagar um administrador!");
+          
+        }else{
+            const deletedSet = new Set(deleted);
+        
+            for(let i = 0; i < deleted.length; i++){
+              const code = rows.filter(row => row.id === deleted[i])[0].code;
+              deleteUser(code);
+            }
+            changedRows = rows.filter(row => !deletedSet.has(row.id));
+        }
+     
     }
-    setRows(changedRows);
+    if(changedRows){
+      setRows(changedRows);
+    }
+    
   };
   
   const headerRowComponent = ({ tableRow, ...restProps }) => {
@@ -397,7 +406,7 @@ export default () => {
             </Typography>
 
             :
-            rows.length !== 0 ?
+            rows ?
             <Box textAlign='center' sx = {{width:'100%'}}>
             <Paper>
               <Grid

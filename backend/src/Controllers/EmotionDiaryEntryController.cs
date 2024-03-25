@@ -121,16 +121,19 @@ public class EmotionDiaryEntryController : ControllerBase
 
         if (dto.Exercicios != null)
         {
+            foreach (var exercicio in dto.Exercicios)
+            {
+                var exercicio_db = _dbExercicioSet.Where(
+                    e => e.ModuloNumberOrder == exercicio.ModuloNumberOrder
+                && e.SubModuleNumberOrder == exercicio.SubModuleNumberOrder
+                && e.PageNumber == exercicio.PageNumber
+                ).FirstOrDefault();
+                if (exercicio_db != null)
+                {
+                    exercicios.Add(exercicio_db);
+                }
+            }
 
-            exercicios = _dbExercicioSet.ToList().Where(e =>
-                dto.Exercicios.Find(exercicioDTO => exercicioDTO.ExercicioModuloNumberOrder == e.ModuloNumberOrder
-                &&
-                exercicioDTO.ExercicioSubModuleNumberOrder == e.SubModuleNumberOrder
-                &&
-                exercicioDTO.ExercicioPageNumber == e.PageNumber
-                )
-                    != null
-                ).ToList();
         }
         ICollection<string> sentimentos = new List<string>() { "Nenhum" };
 

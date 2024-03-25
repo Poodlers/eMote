@@ -205,11 +205,20 @@ public class UserController : ControllerBase
         .ThenInclude(submoduloProgress => submoduloProgress.SubModuleUserProgresses)
         .FirstOrDefault();
 
+
         if (user == null)
         {
             return StatusCode(
                 404,
                 "User not found"
+            );
+        }
+
+        if (user.Role == 3)
+        {
+            return StatusCode(
+                401,
+                "Cannot delete admin user"
             );
         }
 
@@ -400,10 +409,10 @@ public class UserController : ControllerBase
         .FirstOrDefault();
 
 
-        var exercicio = _dbExercicioSet.Where(exercicio => exercicio.ModuloNumberOrder == exercicioDTO.ExercicioModuloNumberOrder
+        var exercicio = _dbExercicioSet.Where(exercicio => exercicio.ModuloNumberOrder == exercicioDTO.ModuloNumberOrder
         &&
-        exercicio.SubModuleNumberOrder == exercicioDTO.ExercicioSubModuleNumberOrder
-        && exercicio.PageNumber == exercicioDTO.ExercicioPageNumber).FirstOrDefault();
+        exercicio.SubModuleNumberOrder == exercicioDTO.SubModuleNumberOrder
+        && exercicio.PageNumber == exercicioDTO.PageNumber).FirstOrDefault();
 
         if (exercicio == null || user == null)
         {
@@ -414,20 +423,20 @@ public class UserController : ControllerBase
         }
         if (exercicioDTO.ExercicioIsFavorite)
         {
-            if (!user.FavoriteExercises.Where(exercicio => exercicio.ModuloNumberOrder == exercicioDTO.ExercicioModuloNumberOrder
+            if (!user.FavoriteExercises.Where(exercicio => exercicio.ModuloNumberOrder == exercicioDTO.ModuloNumberOrder
             &&
-            exercicio.SubModuleNumberOrder == exercicioDTO.ExercicioSubModuleNumberOrder
-            && exercicio.PageNumber == exercicioDTO.ExercicioPageNumber).Any())
+            exercicio.SubModuleNumberOrder == exercicioDTO.SubModuleNumberOrder
+            && exercicio.PageNumber == exercicioDTO.PageNumber).Any())
             {
                 user.FavoriteExercises.Add(exercicio!);
             }
         }
         else
         {
-            if (user.FavoriteExercises.Where(exercicio => exercicio.ModuloNumberOrder == exercicioDTO.ExercicioModuloNumberOrder
+            if (user.FavoriteExercises.Where(exercicio => exercicio.ModuloNumberOrder == exercicioDTO.ModuloNumberOrder
             &&
-            exercicio.SubModuleNumberOrder == exercicioDTO.ExercicioSubModuleNumberOrder
-            && exercicio.PageNumber == exercicioDTO.ExercicioPageNumber).Any())
+            exercicio.SubModuleNumberOrder == exercicioDTO.SubModuleNumberOrder
+            && exercicio.PageNumber == exercicioDTO.PageNumber).Any())
             {
                 user.FavoriteExercises.Remove(exercicio!);
             }

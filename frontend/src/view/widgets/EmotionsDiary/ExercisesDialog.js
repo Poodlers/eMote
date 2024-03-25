@@ -154,7 +154,8 @@ export default function ExercisesDialog(props) {
                   
                         let newExercisesSelected = exercisesSelected
                         newExercisesSelected = newExercisesSelected.filter((ex) => {
-                          if(exercises.find((localOptions) => ex.exercicioName == localOptions.exercicioName) != undefined){ //exercise is in these options
+                          if(exercises.find(
+                            (localOptions) => ex.exercicioName == localOptions.exercicioName) != undefined){ //exercise is in these options
                               return value.find((exercise) => exercise == ex.exercicioName) != undefined //exercise is not in the value
                           }
                           return true
