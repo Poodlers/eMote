@@ -1,6 +1,6 @@
 import { Button, TextField, Grid, Box, Typography} from '@mui/material';
 import { RepositorySingleton } from '../../repository/RepositoryInjector';
-import Logo from '../../assets/images/eMOTE_logo.png';
+import Logo from '../../assets/images/emote_logo.png';
 import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field} from 'formik';
