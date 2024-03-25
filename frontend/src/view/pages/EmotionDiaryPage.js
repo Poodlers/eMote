@@ -28,6 +28,8 @@ function EmotionDiaryPage() {
       return;
     }
     repository.saveEmotionDiary(emotionsSelected, exercisesSelected, dayReflection).then((response) => {
+      
+      console.log(exercisesSelected)
       console.log(response);
       navigate('/home');
     }).catch((error) => {

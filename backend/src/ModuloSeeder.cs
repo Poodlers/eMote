@@ -161,7 +161,17 @@ public class ModuloSeeder
         {
             ModuleNumberOrder = 2,
             Title = "Mindfulness",
-            IntroText = @"Mindfulness, ou atenção plena, é a capacidade de estar no momento presente sem julgamento. Esta capacidade permite-nos estar menos reativas ao que acontece a cada momento, seja essa experiência positiva, negativa ou neutra, diminuindo o sofrimento e aumentando a sensação de bem-estar.",
+            IntroText = @"Mindfulness, ou atenção plena, é a capacidade de estar no momento presente sem julgamento. Esta capacidade permite-nos estar menos reativas ao que acontece a cada momento, seja essa experiência positiva, negativa ou neutra, diminuindo o sofrimento e aumentando a sensação de bem-estar.
+                
+            
+            <b>Instruções</b>
+
+    Sugerimos que encontre um lugar tranquilo e sem distrações onde possa praticar os exercícios;
+
+    No início poderá sentir que os exercícios são difíceis, contudo, não existe uma forma certa ou errada de praticar, o importante é que os faça diariamente. Mesmo quando parecerem difíceis, a sua realização trará benefícios psicólogicos. Realçamos que, quanto mais praticar, mais fáceis serão os exercícios;
+
+    Poderá também notar que a sua mente se dispersa e começa a pensar noutras coisas durante as práticas, o que é normal. Quando tomar consciência que a sua mente está a vaguear, sugerimos que adopte uma postura gentil para consigo e direcione a sua atenção novamente para o exercício.
+            ",
             SubModules = new List<SubModule>
             {
                 new SubModule
@@ -700,7 +710,7 @@ public class ModuloSeeder
                     {
                         new SubModulePage{
                             PageNumber = 1,
-                            Text = @"Estas atividades podem ser muito úteis em momentos dolorosos sobre os quais nada podemos fazer ou nada podemos fazer naquele momento. Sugerimos que ouça com atenção as atividades que propomos."
+                            Text = @"Estas atividades podem ser muito úteis em momentos dolorosos sobre os quais nada podemos fazer ou nada podemos fazer naquele momento. Sugerimos que leia com atenção as atividades que propomos."
                          },
 
                         new SubModulePage{

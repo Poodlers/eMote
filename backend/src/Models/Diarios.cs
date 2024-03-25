@@ -174,17 +174,15 @@ public class MealDiaryEntry
 public class ExercicioDTO
 {
     [Required]
-    public int ExercicioModuloNumberOrder { get; set; }
+    public int ModuloNumberOrder { get; set; }
 
     [Required]
-    public int ExercicioSubModuleNumberOrder { get; set; }
+    public int SubModuleNumberOrder { get; set; }
 
     [Required]
-    public int ExercicioPageNumber { get; set; }
+    public int PageNumber { get; set; }
 
     public String? ExercicioFile { get; set; }
-
-
 
     public bool ExercicioIsFavorite { get; set; }
 }

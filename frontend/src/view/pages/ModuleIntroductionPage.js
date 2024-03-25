@@ -93,8 +93,11 @@ function ModuleIntroductionPage(props) {
                 <Box sx ={{ p:5 }} />
                     
                 <Box sx={{pt:5, width: '80%', alignContent: 'center', m: '0 auto'}}>
-                  <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20 }} variant='body1'>
-                        {moduloIntroText}
+                  <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20,
+                    whiteSpace: 'pre-line', textAlign: 'justify'
+                  }} variant='body1' 
+                  >
+                        <div dangerouslySetInnerHTML={{__html: moduloIntroText}} />
                     </Typography>
                 </Box>
                 <Box sx ={{ p:3}} textAlign='center'>

@@ -92,7 +92,7 @@ public class ExcelExportController : ControllerBase
             new DataColumn("perg7", typeof(bool)),
             new DataColumn("perg8", typeof(bool)),
             new DataColumn("perg9", typeof(bool)),
-            new DataColumn("perg10", typeof(bool)),
+            new DataColumn("perg10", typeof(string)),
             new DataColumn("perg10_opcoes", typeof(string)),
             new DataColumn("perg11", typeof(string)),
 
@@ -241,9 +241,10 @@ public class ExcelExportController : ControllerBase
                 var exerciciosString = "";
                 foreach (var exercicio in emotionDiary.Exercicios)
                 {
+
                     exerciciosString = exerciciosString + exercicio.ExercicioName! + ", \n "; ;
                 }
-
+                _logger.LogInformation($"Adding exercicios {exerciciosString} to excel file");
                 dataTableEmotionDiary.Rows.Add(
                     user.Code, emotionDiary.Date,
                     emotionDiary.Hour, sentimentosString, exerciciosString, emotionDiary.ReflexaoEmotion);
@@ -339,8 +340,8 @@ public class ExcelExportController : ControllerBase
                     mealDiary.PlainAttention,
                     mealDiary.RestrainedConsumption,
                     mealDiary.HadAnEpisode,
-                    mealDiary.HadCompensatoryBehaviour,
-                    compensatoryBehaviorsString,
+                    user.Role == 2 ? mealDiary.HadCompensatoryBehaviour.ToString() : "User does not have access to this question",
+                    user.Role == 2 ? compensatoryBehaviorsString : "User does not have access to this question",
                     mealDiary.Reflexao);
 
             }

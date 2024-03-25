@@ -105,7 +105,6 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
     const data = dateObj[0].replace('/','-').replace('/','-');
     const hour = dateObj[1].trim();
     const instance = this.createInstance();
-    console.log("reflection: ", reflection )
     try{
       const result = await instance.post(`${BASE_URL}/emotion-diary/${this.user.code}`,
         {
