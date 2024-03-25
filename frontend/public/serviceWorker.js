@@ -61,7 +61,7 @@ self.addEventListener('push', function (event) {
   console.log('Notification Received:');
   console.log(data);
 
-  var title = "eMote";
+  var title = "eMOTE";
   var message = data;
   var icon = "icon_azul.jpg";
   

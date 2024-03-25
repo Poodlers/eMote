@@ -50,14 +50,14 @@ class UserNotificationService
         _logger.LogInformation(
             "Running UserNotificationService");
         string vapidPublicKey = _configuration.GetSection("VapidKeys")["PublicKey"]!;
-        var payload = "Já usou a eMote hoje? Registe " + refeicaoNames[nextMeal] + "!";
+        var payload = "Já usou a eMOTE hoje? Registe " + refeicaoNames[nextMeal] + "!";
         if (nextMeal == Refeicao.Jantar)
         {
             payload = "Já tirou um pouco de tempo cuidar de si hoje? Não se esqueça de praticar os nossos exercícios!";
         }
         else if (nextMeal == Refeicao.Ceia)
         {
-            payload = "Já usou a eMote hoje? Registe o seu jantar!";
+            payload = "Já usou a eMOTE hoje? Registe o seu jantar!";
         }
         string vapidPrivateKey = _configuration.GetSection("VapidKeys")["PrivateKey"]!;
         var vapidDetails = new VapidDetails("mailto:example@example.com", vapidPublicKey, vapidPrivateKey);

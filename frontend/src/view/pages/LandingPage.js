@@ -52,7 +52,7 @@ function LandingPage() {
         <Box sx={{mt:'60px', mb:'70px', backgroundColor: '#fffefe' }}>
      
           <Typography sx={{ fontWeight: 'bold', fontSize: 28, p:2.5, mt:'70px' }} 
-          variant="h4" align='center' color="primary">Bem-vinda à eMote!</Typography>
+          variant="h4" align='center' color="primary">Bem-vinda à eMOTE!</Typography>
           <Box sx={{p:2}}>
             <Modules modulesList = {modulesList}/>
             <Diaries isBlocked={false} /* isBlocked = {areDiariesBlocked} */ /> 

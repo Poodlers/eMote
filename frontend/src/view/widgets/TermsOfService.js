@@ -9,7 +9,7 @@ function TermsOfService(props) {
             <Paper sx={{backgroundColor: 'white', width: '80vw' }}>
                 
             <Typography variant="h2" align="center" color="primary" sx={{marginTop: '20px'}}>
-                Termos de Utilização da eMote
+                Termos de Utilização da eMOTE
             </Typography>
             <List sx= {{overflow: 'auto',
                 maxHeight: '70vh'}}>
