@@ -283,7 +283,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{user_code}/personal-page", Name = "GetUserEpisodes")]
-    public ActionResult<PersonalPageInfo> GetUserEpisodes(String user_code)
+    public ActionResult<PersonalPageInfo> GetUserEpisodes(string user_code)
     {
         var user = _dbUserSet.Where(user => user.Code == user_code)
         .Include(user => user.FoodDiaryEntries)
@@ -338,6 +338,10 @@ public class UserController : ControllerBase
                 foreach (var food_diary in group)
                 {
                     var food_diary_feelings = food_diary.FeelingsAroundMeal;
+                    if (food_diary_feelings == null)
+                    {
+                        continue;
+                    }
                     foreach (var feeling in food_diary_feelings)
                     {
                         var feeling_info = feelings.Where(feeling_info => feeling_info.Sentimento == feeling).FirstOrDefault();

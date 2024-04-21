@@ -162,7 +162,6 @@ public class ModuloSeeder
             ModuleNumberOrder = 2,
             Title = "Mindfulness",
             IntroText = @"Mindfulness, ou atenção plena, é a capacidade de estar no momento presente sem julgamento. Esta capacidade permite-nos estar menos reativas ao que acontece a cada momento, seja essa experiência positiva, negativa ou neutra, diminuindo o sofrimento e aumentando a sensação de bem-estar.
-                
             
             <b>Instruções</b>
 

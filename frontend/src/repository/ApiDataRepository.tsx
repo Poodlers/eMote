@@ -156,9 +156,9 @@ export class ApiDataRepository extends HttpClient implements IDataRepository  {
  
 
     const exerciseObj = {
-      exercicioModuloNumberOrder: moduloNumberOrder,
-      exercicioSubModuleNumberOrder: subModuleNumberOrder,
-      exercicioPageNumber: pageNumber,
+      moduloNumberOrder: moduloNumberOrder,
+      subModuleNumberOrder: subModuleNumberOrder,
+      pageNumber: pageNumber,
       exercicioIsFavorite: exercicioToFavorite,
     };
 

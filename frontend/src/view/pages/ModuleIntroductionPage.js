@@ -80,35 +80,37 @@ function ModuleIntroductionPage(props) {
             <>
             <LogoAppBar color={module.theme}/>
 
-              <Box sx={{mt:'60px', backgroundColor: module.color2, height: '95vh'}}>
+              <Box sx={{ backgroundColor: module.color2, minHeight: '100vh'}}>
               
-                <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: module.color1, height:'100px' }} >
-                    <Box sx ={{ alignContent: 'center', m: 'auto',}}>
-                      <Typography align= 'center' sx={{ fontSize: 30, fontWeight: 500 }} variant='body1' color={"white"}>
-                          {moduloName}
+                  <AppBar sx ={{boxShadow: 'none', top: '60px', backgroundColor: module.color1, height:'100px' }} >
+                      <Box sx ={{ alignContent: 'center', m: 'auto',}}>
+                        <Typography align= 'center' sx={{ fontSize: 30, fontWeight: 500 }} variant='body1' color={"white"}>
+                            {moduloName}
+                        </Typography>
+                    </Box>
+                  </AppBar>
+                  
+                  <Box sx ={{ p:5 }} />
+                      
+                  <Box sx={{m:'0 auto', mt:'80px', pt:5, width: '80%', alignContent: 'center',}}>
+                    <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20,
+                      whiteSpace: 'pre-line', textAlign: 'justify'
+                    }} variant='body1' 
+                    >
+                          <div dangerouslySetInnerHTML={{__html: moduloIntroText}} />
                       </Typography>
                   </Box>
-                </AppBar>
-
-                <Box sx ={{ p:5 }} />
-                    
-                <Box sx={{pt:5, width: '80%', alignContent: 'center', m: '0 auto'}}>
-                  <Typography color={module.theme === "blue" ? module.color1 : "white" } sx={{p:1, pl:2.5, pt:2.5, fontSize: 20,
-                    whiteSpace: 'pre-line', textAlign: 'justify'
-                  }} variant='body1' 
-                  >
-                        <div dangerouslySetInnerHTML={{__html: moduloIntroText}} />
-                    </Typography>
-                </Box>
-                <Box sx ={{ p:3}} textAlign='center'>
-                  <Button onClick={onSubmit} sx ={{ p:1, bgcolor: module.color1 }}>
-                      <Typography gutterBottom color={"white"} sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' >
-                          Vamos começar?
-                      </Typography>
-                  </Button>
-                </Box>
+                  <Box sx ={{ p:3, pb:10}} textAlign='center'>
+                    <Button onClick={onSubmit} sx ={{ p:1, bgcolor: module.color1}}>
+                        <Typography gutterBottom color={"white"} sx={{ pt:1, textAlign: 'center', fontSize: 18, fontWeight: 500 }} variant='body1' >
+                            Vamos começar?
+                        </Typography>
+                    </Button>
+                  </Box>
+                
+                  <NavBar color={module.theme}/>
               </Box>
-            <NavBar color={module.theme}/>
+            
           </>
         }
 
